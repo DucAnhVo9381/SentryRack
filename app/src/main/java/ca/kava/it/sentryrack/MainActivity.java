@@ -28,20 +28,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void handleOnBackPressed(){
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
-                alertBuilder.setTitle("Closing App");
-                alertBuilder.setMessage("Are you sure you want to SentryRack?");
+                alertBuilder.setTitle(R.string.closing_app);
+                alertBuilder.setMessage(R.string.are_you_sure_you_want_to_sentryrack);
                 //--Todo CHANGE ALERT DIALOG ICON
                 alertBuilder.setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                        .setPositiveButton(R.string.yes, (dialog, which) ->{
                                 finish();
-                            }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
+                        }).setNegativeButton(R.string.no, (dialog, which) ->{
+                                dialog.dismiss();
                         });
                 alertBuilder.show();
             }

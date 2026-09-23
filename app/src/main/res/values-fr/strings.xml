@@ -1,4 +1,8 @@
 <!-- Andres Zambrano N01495324 ONC //TODO add name + Student # + Section code -->
 <resources>
     <string name="app_name">SentryRack</string>
+    <string name="closing_app">Fermeture de l\'application</string>
+    <string name="are_you_sure_you_want_to_sentryrack">Êtes-vous sûr de vouloir SentryRack ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">No</string>
 </resources>
