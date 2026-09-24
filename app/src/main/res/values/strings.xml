@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">SentryRack</string>
     <string name="closing_app">Closing App</string>
-    <string name="are_you_sure_you_want_to_sentryrack">Are you sure you want to SentryRack?</string>
+    <string name="are_you_sure_you_want_to_close_sentryrack">Are you sure you want to exit SentryRack?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
 </resources>
