@@ -73,10 +73,9 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        /*  Deliverable1 pt41
-        *   Intercepting user back press and displaying alert dialog
-        *   Note: Can change the way this look and interacts in the future for a more user friendll/aesthetic UI
-        *   -AZ
+        /** Setup Dialogbox on backpress intercept
+         * @Author: Andres
+         * @Date: 2028-09-26
          */
         getOnBackPressedDispatcher().addCallback(this, new androidx.activity.OnBackPressedCallback(true){
             @Override
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
                 alertBuilder.setTitle(R.string.closing_app);
                 alertBuilder.setMessage(R.string.are_you_sure_you_want_to_close_sentryrack);
-                //--Todo CHANGE ALERT DIALOG ICON
+                alertBuilder.setIcon(R.drawable.animated_logo);
                 alertBuilder.setCancelable(false)
                         .setPositiveButton(R.string.yes, (dialog, which) ->{
                                 finish();
