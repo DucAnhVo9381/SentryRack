@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         // True keep the splash screen indefinitely
         splashScreen.setKeepOnScreenCondition(() -> keepSplash);
         // keepSplash becomes false after 5 seconds and Android removes the splash screen
-        findViewById(android.R.id.content).postDelayed(() -> keepSplash = false, 10000);
+        findViewById(android.R.id.content).postDelayed(() -> keepSplash = false, 5000);
 
         setContentView(R.layout.activity_main);
 
