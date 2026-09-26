@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/splash_icon">
+    <target
+        android:name="orbitGroup"
+        android:animation="@animator/orbit_animator"/>
+    <target
+        android:name="pulseGroup"
+        android:animation="@animator/pulse_animator"/>
+    <target
+        android:name="server1Group"
+        android:animation="@animator/server1_pulse"/>
+    <target
+        android:name="server2Group"
+        android:animation="@animator/server2_pulse"/>
+    <target
+        android:name="server3Group"
+        android:animation="@animator/server3_pulse"/>
+</animated-vector>
