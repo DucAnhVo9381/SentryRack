@@ -5,5 +5,13 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <!-- Main app theme after splash screen finished -->
     <style name="Theme.SentryRack" parent="Base.Theme.SentryRack" />
+
+    <!-- Splash theme shown when app launch -->
+    <style name="Theme.SentryRack.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#FF4E8EEA</item>
+        <item name="postSplashScreenTheme">@style/Theme.SentryRack</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/animated_logo</item>
+    </style>
 </resources>
