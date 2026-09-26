@@ -7,4 +7,13 @@
     <target
         android:name="pulseGroup"
         android:animation="@animator/pulse_animator"/>
+    <target
+        android:name="server1Group"
+        android:animation="@animator/server1_pulse"/>
+    <target
+        android:name="server2Group"
+        android:animation="@animator/server2_pulse"/>
+    <target
+        android:name="server3Group"
+        android:animation="@animator/server3_pulse"/>
 </animated-vector>
