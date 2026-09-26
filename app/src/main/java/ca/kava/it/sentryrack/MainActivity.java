@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
         /*  Deliverable1 pt41
         *   Intercepting user back press and displaying alert dialog
         *   Note: Can change the way this look and interacts in the future for a more user friendll/aesthetic UI

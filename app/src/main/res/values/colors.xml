@@ -8,5 +8,5 @@
     <color name="colorTertiary">#FFFFD873</color>
 
     <!-- Splash screen colors -->
-    <color name="splash_light">#FF4E8EEA</color>
+    <color name="splash_background">#FF4E8EEA</color>
 </resources>
