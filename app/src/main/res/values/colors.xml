@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- App color theme -->
+    <color name="colorPrimary">#FF2454D6</color>
+    <color name="colorSecondary">#FF8ED0F8</color>
+    <color name="colorTertiary">#FFFFD873</color>
+
+    <!-- Splash screen colors -->
+    <color name="splash_light">#FF4E8EEA</color>
 </resources>
