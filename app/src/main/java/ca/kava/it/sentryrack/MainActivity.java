@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             public void handleOnBackPressed(){
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
                 alertBuilder.setTitle(R.string.closing_app);
-                alertBuilder.setMessage(R.string.are_you_sure_you_want_to_sentryrack);
+                alertBuilder.setMessage(R.string.are_you_sure_you_want_to_close_sentryrack);
                 //--Todo CHANGE ALERT DIALOG ICON
                 alertBuilder.setCancelable(false)
                         .setPositiveButton(R.string.yes, (dialog, which) ->{
