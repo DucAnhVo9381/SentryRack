@@ -11,6 +11,8 @@
         android:id="@+id/drawerHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/home"
         android:textSize="18sp"
         android:padding="16dp" />
@@ -20,6 +22,8 @@
         android:id="@+id/drawerSettings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/settings"
         android:textSize="18sp"
         android:padding="16dp" />
@@ -28,6 +32,8 @@
         android:id="@+id/drawerAbout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/about"
         android:textSize="18sp"
         android:padding="16dp" />

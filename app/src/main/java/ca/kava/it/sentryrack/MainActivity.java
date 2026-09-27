@@ -21,6 +21,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import android.widget.TextView;
+
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -93,6 +96,36 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
         }
+        TextView drawerHome = findViewById(R.id.drawerHome);
+        TextView drawerSettings = findViewById(R.id.drawerSettings);
+        TextView drawerAbout = findViewById(R.id.drawerAbout);
+
+        drawerHome.setOnClickListener(v -> {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.mainContent, new HomeFragment())
+                    .commit();
+
+            drawerLayout.closeDrawer(GravityCompat.START);
+        });
+
+        drawerSettings.setOnClickListener(v -> {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.mainContent, new SettingsFragment())
+                    .commit();
+
+            drawerLayout.closeDrawer(GravityCompat.START);
+        });
+
+        drawerAbout.setOnClickListener(v -> {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.mainContent, new AboutFragment())
+                    .commit();
+
+            drawerLayout.closeDrawer(GravityCompat.START);
+        });
 
         /** Setup Dialogbox on backpress intercept
          * @Author: Andres
@@ -128,4 +161,5 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
 }
