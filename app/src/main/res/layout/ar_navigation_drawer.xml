@@ -15,13 +15,6 @@
         android:textSize="18sp"
         android:padding="16dp" />
 
-    <TextView
-        android:id="@+id/drawerData"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/data"
-        android:textSize="18sp"
-        android:padding="16dp" />
 
     <TextView
         android:id="@+id/drawerSettings"
