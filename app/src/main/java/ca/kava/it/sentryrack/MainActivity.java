@@ -18,6 +18,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+
 
 public class MainActivity extends AppCompatActivity {
     // variable determines splash remains visible or disappears
@@ -72,6 +76,23 @@ public class MainActivity extends AppCompatActivity {
         findViewById(android.R.id.content).postDelayed(() -> keepSplash = false, 5000);
 
         setContentView(R.layout.activity_main);
+        // Setup navigation drawer
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                R.string.open_drawer,
+                R.string.close_drawer
+        );
+
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+        }
 
         /** Setup Dialogbox on backpress intercept
          * @Author: Andres
@@ -93,5 +114,18 @@ public class MainActivity extends AppCompatActivity {
                 alertBuilder.show();
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+
+        if (drawerLayout.isDrawerOpen(androidx.core.view.GravityCompat.START)) {
+            drawerLayout.closeDrawer(androidx.core.view.GravityCompat.START);
+        } else {
+            drawerLayout.openDrawer(androidx.core.view.GravityCompat.START);
+        }
+
+        return true;
     }
 }
