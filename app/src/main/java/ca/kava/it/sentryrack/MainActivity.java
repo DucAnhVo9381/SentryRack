@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         /** Setup splashscreen
          * @author Volk
-         * @since 2026-09-25
+         * @date 2026-09-25
          */
         // Activates the splash screen API - Android creates splash screen
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
