@@ -20,8 +20,8 @@
 
 ## Description
 <p>
-    <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light">
-    <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark">
+    <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light" width="100">
+    <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="100">
 </p>
 SentryRack is an Android IoT monitoring app for real-time environmental and security monitoring of data center server racks.
 
