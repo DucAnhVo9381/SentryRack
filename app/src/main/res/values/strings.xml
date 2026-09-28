@@ -1,10 +1,20 @@
 <!-- TODO add name + Student # + Section code -->
 <!-- Andres Zambrano N01495324 ONC -->
 <!-- Duc Anh Vo N01729381 0NC -->
+<!-- Anvesh Rachakonda N01661293 ONC -->
+<!-- Krushna Patel N01713093 ONC -->
 <resources>
     <string name="app_name">SentryRack</string>
     <string name="closing_app">Closing App</string>
     <string name="are_you_sure_you_want_to_close_sentryrack">Are you sure you want to exit SentryRack?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="open_drawer">Open navigation drawer</string>
+    <string name="close_drawer">Close navigation drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
