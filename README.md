@@ -9,7 +9,6 @@
 | Anvesh Rachakonda | N01661293 |
 
 ## Project Image
-###
 <table>
   <tr>
     <td><img src="" alt=""></td>
@@ -17,6 +16,9 @@
     <td><img src="" alt=""></td>
   </tr>
 </table>
+
+## Project Link
+https://github.com/DucAnhVo9381/SentryRack
 
 ## Description
 <p>
@@ -31,9 +33,6 @@ SentryRack is an Android IoT monitoring app for real-time environmental and secu
 •⁠  ⁠Logs historical data for trend analysis and preemptive maintenance
 •⁠  ⁠Helps reduce downtime, prevent equipment damage, and improve physical security
 •⁠  ⁠Designed for IT staff and facility managers in data centers and server rooms
-
-## Project Link
-https://github.com/DucAnhVo9381/SentryRack
 
 ## Built With
 
