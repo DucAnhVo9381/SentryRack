@@ -11,9 +11,9 @@
 ## Project Image
 <table>
   <tr>
-    <td><img src="" alt=""></td>
-    <td><img src="" alt=""></td>
-    <td><img src="" alt=""></td>
+    <td><img src="docs/deliverable1/splash_screen.png" alt="splash screen"></td>
+    <td><img src="docs/deliverable1/home_bottom_nav.png" alt="bottom navigation"></td>
+    <td><img src="docs/deliverable1/nav_drawer.png" alt="navigation drawer"></td>
   </tr>
 </table>
 
@@ -35,7 +35,6 @@ SentryRack is an Android IoT monitoring app for real-time environmental and secu
 •⁠  ⁠Designed for IT staff and facility managers in data centers and server rooms
 
 ## Built With
-
 •⁠  ⁠Android Studio
 •⁠  ⁠Java
 •⁠  ⁠Raspberry Pi + IoT Sensors
