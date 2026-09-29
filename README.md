@@ -1,10 +1,30 @@
-# SentryRack
+# Sentry Rack
 
-Duc Anh Vo – N01729381 | Andres Zambrano – N01495324 | Krushna Patel – N01713093 | Anvesh Rachakonda – N01661293
+## Team
+| Name | Student ID |
+|------|------------|
+| Duc Anh Vo | N01729381 |
+| Andres Zambrano | N01495324 |
+| Krushna Patel | N01713093 |
+| Anvesh Rachakonda | N01661293 |
 
+## Project Image
+<table>
+  <tr>
+    <td><img src="docs/deliverable1/splash_screen.png" alt="splash screen"></td>
+    <td><img src="docs/deliverable1/home_bottom_nav.png" alt="bottom navigation"></td>
+    <td><img src="docs/deliverable1/nav_drawer.png" alt="navigation drawer"></td>
+  </tr>
+</table>
+
+## Project Link
+https://github.com/DucAnhVo9381/SentryRack
 
 ## Description
-
+<p>
+    <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light" width="100">
+    <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="100">
+</p>
 SentryRack is an Android IoT monitoring app for real-time environmental and security monitoring of data center server racks.
 
 •⁠  ⁠Connects to a multi-sensor network installed on or around a server rack
@@ -14,23 +34,7 @@ SentryRack is an Android IoT monitoring app for real-time environmental and secu
 •⁠  ⁠Helps reduce downtime, prevent equipment damage, and improve physical security
 •⁠  ⁠Designed for IT staff and facility managers in data centers and server rooms
 
-## Team
-
-| Name | Student ID |
-|------|------------|
-| Duc Anh Vo | N01729381 |
-| Andres Zambrano | N01495324 |
-| Krushna Patel | N01713093 |
-| Anvesh Rachakonda | N01661293 |
-
-## Project Link
-https://github.com/DucAnhVo9381/SentryRack
-
-## Project Image
-
-
 ## Built With
-
 •⁠  ⁠Android Studio
 •⁠  ⁠Java
 •⁠  ⁠Raspberry Pi + IoT Sensors

@@ -1,19 +1,21 @@
-<!-- TODO add name + Student # + Section code -->
 <!-- Andres Zambrano N01495324 ONC
      Duc Anh Vo N01729381 0NC
      Anvesh Rachakonda N01661293 ONC
-     Krushna Patel N01713093 ONC
--->
+     Krushna Patel N01713093 ONC -->
 <resources>
     <string name="app_name">SentryRack</string>
     <string name="closing_app">Fermeture de l\'application</string>
     <string name="are_you_sure_you_want_to_close_sentryrack">Êtes-vous sûr de vouloir quitter SentryRack?</string>
     <string name="yes">Oui</string>
-    <string name="no">No</string>
+    <string name="no">Non</string>
 
-    <string name="home">Maison</string>
+    <string name="home">Accueil</string>
     <string name="settings">Paramètres</string>
     <string name="about">À propos</string>
     <string name="open_drawer">Ouvrir le menu de navigation</string>
     <string name="close_drawer">Fermer le menu de navigation</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_racks">Baies</string>
+    <string name="nav_alerts">Alertes</string>
 </resources>
