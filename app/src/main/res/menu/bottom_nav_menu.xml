@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Andres Zambrano N01495324 ONC
+     Duc Anh Vo N01729381 0NC
+     Anvesh Rachakonda N01661293 ONC
+     Krushna Patel N01713093 ONC -->
+
+<!-- Bottom navigation tabs
+     @author Krushna
+     @date 2026-09-28 -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_nav_home"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/nav_racks"
+        android:icon="@drawable/ic_nav_racks"
+        android:title="@string/nav_racks" />
+    <item
+        android:id="@+id/nav_alerts"
+        android:icon="@drawable/ic_nav_alerts"
+        android:title="@string/nav_alerts" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_nav_settings"
+        android:title="@string/settings" />
+</menu>
