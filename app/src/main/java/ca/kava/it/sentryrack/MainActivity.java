@@ -25,10 +25,19 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.color.MaterialColors;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
-    // variable determines splash remains visible or disappears
-    private volatile boolean keepSplash = true;
+
 
     // Drawer and bottom bar are fields so every method can use them
     private DrawerLayout drawerLayout;
@@ -38,49 +47,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /** Setup splashscreen
-         * @author Volk
-         * @date 2026-09-25
-         */
-        // Activates the splash screen API - Android creates splash screen
-        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
-
-        // Custom exit animation
-        splashScreen.setOnExitAnimationListener(screen -> {
-            ObjectAnimator zoomX = ObjectAnimator.ofFloat(
-                    screen.getIconView(),
-                    View.SCALE_X,
-                    0.8f,
-                    0.0f
-            );
-            zoomX.setInterpolator(new OvershootInterpolator());
-            zoomX.setDuration(500);
-
-            ObjectAnimator zoomY = ObjectAnimator.ofFloat(
-                    screen.getIconView(),
-                    View.SCALE_Y,
-                    0.8f,
-                    0.0f
-            );
-            zoomY.setInterpolator(new OvershootInterpolator());
-            zoomY.setDuration(500);
-
-            zoomY.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    screen.remove();
-                }
-            });
-
-            zoomX.start();
-            zoomY.start();
-        });
-
-        // Code controls when to remove it
-        // True keep the splash screen indefinitely
-        splashScreen.setKeepOnScreenCondition(() -> keepSplash);
-        // keepSplash becomes false after 5 seconds and Android removes the splash screen
-        findViewById(android.R.id.content).postDelayed(() -> keepSplash = false, 5000);
+        // Splash screen (Volk) moved to LoginActivity.setupSplashScreen() so it shows
+        // before the Login screen (Deliverable 2 step 11) - Anvesh, 2026-10-01
 
         setContentView(R.layout.activity_main);
 
@@ -224,5 +192,109 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.openDrawer(GravityCompat.START);
         }
         return true;
+    }
+
+    // Toolbar (action bar) menu
+    // @author Anvesh
+
+    /** Loads the toolbar menu (Refresh, Alerts, Help, Settings, Log out)
+     * @author Anvesh
+     * @date 2026-10-01
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+
+        // Step 18: Refresh must show its image AND its text, so it gets a custom button
+        MenuItem refreshItem = menu.findItem(R.id.action_refresh);
+        refreshItem.setActionView(createRefreshButton(refreshItem));
+        return true;
+    }
+
+    // Builds the Refresh toolbar button with icon + text (colors follow light/dark theme)
+
+    private MaterialButton createRefreshButton(MenuItem refreshItem) {
+        MaterialButton button = new MaterialButton(this, null,
+                androidx.appcompat.R.attr.borderlessButtonStyle);
+        int color = MaterialColors.getColor(button, com.google.android.material.R.attr.colorOnSurface);
+
+        button.setText(R.string.menu_refresh);
+        button.setTextColor(color);
+        button.setIconResource(R.drawable.ic_menu_refresh);
+        button.setIconTint(ColorStateList.valueOf(color));
+        button.setOnClickListener(v -> onOptionsItemSelected(refreshItem));
+        return button;
+    }
+
+    /** Runs the action for the toolbar option that was tapped
+     * (if/else instead of switch because resource IDs are not final in newer Gradle versions)
+     * @author Anvesh
+     * @date 2026-10-01
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_refresh) {
+            showRefreshMessage();
+            return true;
+        } else if (id == R.id.action_alerts) {
+            bottomNav.setSelectedItemId(R.id.nav_alerts);
+            return true;
+        } else if (id == R.id.action_help) {
+            showHelpDialog();
+            return true;
+        } else if (id == R.id.action_settings) {
+            bottomNav.setSelectedItemId(R.id.nav_settings);
+            return true;
+        } else if (id == R.id.action_logout) {
+            confirmLogout();
+            return true;
+        }
+        // Anything else (e.g. the hamburger icon) is handled by Android as before
+        return super.onOptionsItemSelected(item);
+    }
+
+    /** Refresh: shows a message above the bottom navigation
+     * @author Anvesh
+     * @date 2026-10-01
+     */
+    private void showRefreshMessage() {
+        Snackbar.make(findViewById(R.id.mainContent), R.string.menu_refreshed_msg, Snackbar.LENGTH_SHORT)
+                .setAnchorView(bottomNav)
+                .show();
+    }
+    private void showHelpDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.menu_help_title)
+                .setMessage(R.string.menu_help_msg)
+                .setPositiveButton(R.string.menu_ok, (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    /** Log out: asks first, so the user does not log out by accident
+     * @author Anvesh
+     * @date 2026-10-01
+     */
+    private void confirmLogout() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.menu_logout_title)
+                .setMessage(R.string.menu_logout_msg)
+                .setPositiveButton(R.string.menu_logout, (dialog, which) -> logout())
+                .setNegativeButton(R.string.menu_cancel, (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    /** Goes back to the Login screen and clears the back stack,
+     * so pressing Back on Login does not return to the main screen
+     * @author Anvesh
+     * @date 2026-10-01
+     */
+    private void logout() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra(LoginActivity.EXTRA_FROM_LOGOUT, true);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }
