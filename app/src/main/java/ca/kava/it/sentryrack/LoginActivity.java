@@ -31,10 +31,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-/** Login screen (Deliverable 2 step 11): Splash (3 s) -> Login -> Main.
- * This is the app's launcher screen, so the splash screen is installed here.
- * For this deliverable any email and password are accepted,
- * but both fields must be filled in. Real accounts come in a later deliverable.
+/** Login screen : Splash (3 s) -> Login -> Main.
  * @author Anvesh
  * @date 2026-10-01
  */
@@ -45,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String KEY_REMEMBERED_EMAIL = "remembered_email";
     //Set by MainActivity on Log out, so the 3-second splash is not shown again
     public static final String EXTRA_FROM_LOGOUT = "ca.kava.it.sentryrack.FROM_LOGOUT";
-    /** Deliverable 2 step 8b: splash screen stays for 3 seconds */
     private static final long SPLASH_DURATION_MS = 3000;
     private static final long SPLASH_EXIT_DURATION_MS = 500;
     private static final long ANIMATION_DURATION_MS = 600;
@@ -75,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         setupSplashScreen(freshLaunch);
 
         super.onCreate(savedInstanceState);
+        // Settings > "Lock screen to portrait" - apply the saved choice (Anvesh, 2026-10-01)
+        SettingsFragment.applySavedOrientation(this);
         setContentView(R.layout.activity_login);
 
         bindViews();
@@ -90,9 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /** Setup splashscreen (moved here from MainActivity so the splash appears before Login)
      * Original splash code and zoom-out exit animation by Volk (2026-09-25).
-     * Changed: 5 s -> 3 s (Deliverable 2 step 8b) and only held on a fresh launch.
      * @author Anvesh
-     * @date 2026-10-01
      */
     private void setupSplashScreen(boolean holdSplash) {
         // Activates the splash screen API - Android creates splash screen
@@ -141,9 +137,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /** The app draws behind the status bar and navigation bar (edge-to-edge).
      * This pads the screen so nothing is hidden behind them,
-     * and pushes the form up when the keyboard opens.
      * @author Anvesh
-     * @date 2026-10-01
      */
     private void handleSystemBarsAndKeyboard() {
         ViewCompat.setOnApplyWindowInsetsListener(loginRoot, (view, insets) -> {

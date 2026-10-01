@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Settings > "Lock screen to portrait" - apply the saved choice (Anvesh, 2026-10-01)
+        SettingsFragment.applySavedOrientation(this);
+
         // Splash screen (Volk) moved to LoginActivity.setupSplashScreen() so it shows
         // before the Login screen (Deliverable 2 step 11) - Anvesh, 2026-10-01
 

@@ -1,15 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Settings screen
+     Implemented (step 7): "Lock screen to portrait" (switchLockPortrait).
+     @author Anvesh -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/settings"
-        android:textSize="28sp"
-        android:textStyle="bold" />
+        android:orientation="vertical"
+        android:padding="@dimen/settings_padding">
 
-</FrameLayout>
+        <!-- Screen title  -->
+        <TextView
+            style="@style/Widget.SentryRack.Settings.ScreenTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings" />
+
+        <TextView
+            style="@style/Widget.SentryRack.Settings.RowSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/settings_space_small"
+            android:text="@string/settings_subtitle" />
+
+        <!--   DISPLAY   -->
+        <TextView
+            style="@style/Widget.SentryRack.Settings.SectionHeader"
+            android:text="@string/settings_group_display" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.SentryRack.Settings.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Lock screen to portrait  -->
+                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_lock_portrait" />
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowSummary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_lock_portrait_summary" />
+                    </LinearLayout>
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchLockPortrait"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/setting_lock_portrait" />
+                </LinearLayout>
+
+                <View style="@style/Widget.SentryRack.Settings.Divider" />
+
+                <!-- Dark theme (design only) -->
+                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_dark_mode" />
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowSummary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_dark_mode_summary" />
+                    </LinearLayout>
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchDarkMode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/setting_dark_mode" />
+                </LinearLayout>
+
+                <View style="@style/Widget.SentryRack.Settings.Divider" />
+
+                <!-- Language (design only) -->
+                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_language" />
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowSummary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_language_summary" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/Widget.SentryRack.Settings.RowValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/setting_language_value" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!--  NOTIFICATIONS   -->
+        <TextView
+            style="@style/Widget.SentryRack.Settings.SectionHeader"
+            android:text="@string/settings_group_notifications" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.SentryRack.Settings.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Push notifications (design only) -->
+                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_push" />
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowSummary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_push_summary" />
+                    </LinearLayout>
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchPush"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:contentDescription="@string/setting_push" />
+                </LinearLayout>
+
+                <View style="@style/Widget.SentryRack.Settings.Divider" />
+
+                <!-- Critical alert sound (design only) -->
+                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_sound" />
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowSummary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_sound_summary" />
+                    </LinearLayout>
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchSound"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:contentDescription="@string/setting_sound" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!--   MONITORING   -->
+        <TextView
+            style="@style/Widget.SentryRack.Settings.SectionHeader"
+            android:text="@string/settings_group_monitoring" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.SentryRack.Settings.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Refresh interval (design only) -->
+                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_refresh" />
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowSummary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_refresh_summary" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/Widget.SentryRack.Settings.RowValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/setting_refresh_value" />
+                </LinearLayout>
+
+                <View style="@style/Widget.SentryRack.Settings.Divider" />
+
+                <!-- Temperature unit (design only) -->
+                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_temp_unit" />
+
+                        <TextView
+                            style="@style/Widget.SentryRack.Settings.RowSummary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/setting_temp_unit_summary" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/Widget.SentryRack.Settings.RowValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/setting_temp_unit_value" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
