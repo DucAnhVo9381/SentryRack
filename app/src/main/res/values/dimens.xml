@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Andres Zambrano N01495324 ONC
+     Duc Anh Vo N01729381 0NC
+     Anvesh Rachakonda N01661293 ONC
+     Krushna Patel N01713093 ONC -->
+<resources>
+
+    <!-- Login screen sizes
+         @author Anvesh
+         @date 2026-10-01 -->
+    <dimen name="login_padding">24dp</dimen>
+    <dimen name="login_space_small">8dp</dimen>
+    <dimen name="login_space_medium">16dp</dimen>
+    <dimen name="login_space_large">32dp</dimen>
+    <dimen name="login_logo_size">170dp</dimen>
+    <dimen name="login_card_elevation">8dp</dimen>
+    <dimen name="login_card_corner">16dp</dimen>
+    <dimen name="login_button_height">52dp</dimen>
+    <dimen name="login_title_text">28sp</dimen>
+    <dimen name="login_subtitle_text">14sp</dimen>
+
+    <!-- Login screen - background glow, glass card, fields, buttons
+     @author Anvesh
+     @date 2026-10-01 -->
+    <dimen name="login_glass_corner">28dp</dimen>
+    <dimen name="login_field_corner">14dp</dimen>
+    <dimen name="login_pill_corner">26dp</dimen>
+    <dimen name="login_stroke_width">1dp</dimen>
+    <dimen name="login_field_stroke_width">1.5dp</dimen>
+    <dimen name="login_glow_large">320dp</dimen>
+    <dimen name="login_glow_small">260dp</dimen>
+    <dimen name="login_divider_height">1dp</dimen>
+    <dimen name="login_caption_text">12sp</dimen>
+    <dimen name="login_body_text">15sp</dimen>
+
+</resources>
