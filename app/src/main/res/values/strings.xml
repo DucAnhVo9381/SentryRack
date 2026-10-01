@@ -39,6 +39,6 @@
     <string name="error_password_empty">Please enter your password</string>
     <string name="error_password_short">Password must be at least %1$d characters</string>
     <string name="cd_app_logo">SentryRack logo</string>
-    <!-- END - Anvesh -->
+    <!-- END - AnveshR -->
 
 </resources>
