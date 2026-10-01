@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Andres Zambrano N01495324 ONC
+     Duc Anh Vo N01729381 0NC
+     Anvesh Rachakonda N01661293 ONC
+     Krushna Patel N01713093 ONC -->
+
+<!-- Login screen styles - reused by the portrait and landscape login layouts
+     so no colors or sizes are hard-coded in the layout files.
+     @author Anvesh
+     @date 2026-10-01 -->
+<resources>
+
+    <!-- Color rules for the whole login screen (set on the root view).
+         Makes field borders, hints, cursor and icons white on the dark background. -->
+    <style name="ThemeOverlay.SentryRack.Login" parent="">
+        <item name="colorPrimary">@color/login_on_bg</item>
+        <item name="colorOnSurface">@color/login_on_bg</item>
+        <item name="colorOnSurfaceVariant">@color/login_on_bg_muted</item>
+        <item name="colorOutline">@color/login_field_stroke</item>
+        <item name="colorControlActivated">@color/login_on_bg</item>
+    </style>
+
+    <!-- ===== Text ===== -->
+    <style name="Widget.SentryRack.Login.AppName" parent="">
+        <item name="android:textColor">@color/login_on_bg</item>
+        <item name="android:textSize">@dimen/login_title_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.03</item>
+    </style>
+
+    <style name="Widget.SentryRack.Login.Title" parent="">
+        <item name="android:textColor">@color/login_on_bg</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadlineSmall</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.SentryRack.Login.Subtitle" parent="">
+        <item name="android:textColor">@color/login_on_bg_muted</item>
+        <item name="android:textSize">@dimen/login_subtitle_text</item>
+    </style>
+
+    <style name="Widget.SentryRack.Login.Caption" parent="">
+        <item name="android:textColor">@color/login_on_bg_muted</item>
+        <item name="android:textSize">@dimen/login_caption_text</item>
+    </style>
+
+    <!-- ===== Text fields (Email, Password) ===== -->
+    <style name="Widget.SentryRack.Login.TextField" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/login_field_fill</item>
+        <item name="boxStrokeColor">@color/login_on_bg</item>
+        <item name="boxStrokeWidth">@dimen/login_stroke_width</item>
+        <item name="boxStrokeWidthFocused">@dimen/login_field_stroke_width</item>
+        <item name="boxCornerRadiusTopStart">@dimen/login_field_corner</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/login_field_corner</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/login_field_corner</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/login_field_corner</item>
+        <item name="hintTextColor">@color/login_on_bg</item>
+        <item name="android:textColorHint">@color/login_on_bg_muted</item>
+        <item name="startIconTint">@color/login_on_bg</item>
+        <item name="endIconTint">@color/login_on_bg</item>
+    </style>
+
+    <style name="Widget.SentryRack.Login.EditText" parent="">
+        <item name="android:textColor">@color/login_on_bg</item>
+        <item name="android:textSize">@dimen/login_body_text</item>
+    </style>
+
+    <!-- ===== Buttons ===== -->
+    <!-- Log in: white pill, blue text (orange in dark mode) -->
+    <style name="Widget.SentryRack.Login.PrimaryButton" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/login_button_bg</item>
+        <item name="android:textColor">@color/login_button_text</item>
+        <item name="android:textSize">@dimen/login_subtitle_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">@dimen/login_pill_corner</item>
+        <item name="android:elevation">@dimen/login_card_elevation</item>
+    </style>
+
+    <!-- Continue with Google: see-through pill with white border -->
+    <style name="Widget.SentryRack.Login.OutlinedButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/login_field_stroke</item>
+        <item name="strokeWidth">@dimen/login_field_stroke_width</item>
+        <item name="android:textColor">@color/login_on_bg</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">@dimen/login_pill_corner</item>
+    </style>
+
+    <!-- Forgot password? / Sign up: accent-colored text links -->
+    <style name="Widget.SentryRack.Login.LinkButton" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/login_accent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:paddingStart">@dimen/login_space_small</item>
+        <item name="android:paddingEnd">@dimen/login_space_small</item>
+    </style>
+
+    <!-- Remember me checkbox: accent box, dark tick, white text -->
+    <style name="Widget.SentryRack.Login.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/login_accent</item>
+        <item name="buttonIconTint">@color/black</item>
+        <item name="android:textColor">@color/login_on_bg</item>
+    </style>
+</resources>
