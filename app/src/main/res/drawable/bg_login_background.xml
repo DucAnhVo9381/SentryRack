@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Login screen background - 3 layers in ONE file:
+     1) full-screen gradient (blue in light theme, black/orange in dark theme)
+     2) soft glow circle, top-right
+     3) soft glow circle, bottom-left
+     @author Anvesh
+     @date 2026-10-01 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Layer 1: gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="300"
+                android:centerColor="@color/login_bg_center"
+                android:endColor="@color/login_bg_end"
+                android:startColor="@color/login_bg_start"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- Layer 2: glow, top-right -->
+    <item
+        android:width="@dimen/login_glow_large"
+        android:height="@dimen/login_glow_large"
+        android:gravity="top|end">
+        <shape android:shape="oval">
+            <gradient
+                android:endColor="@android:color/transparent"
+                android:gradientRadius="50%"
+                android:startColor="@color/login_glow_primary"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Layer 3: glow, bottom-left -->
+    <item
+        android:width="@dimen/login_glow_small"
+        android:height="@dimen/login_glow_small"
+        android:gravity="bottom|start">
+        <shape android:shape="oval">
+            <gradient
+                android:endColor="@android:color/transparent"
+                android:gradientRadius="50%"
+                android:startColor="@color/login_glow_secondary"
+                android:type="radial" />
+        </shape>
+    </item>
+</layer-list>
