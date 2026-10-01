@@ -18,4 +18,23 @@
     <!-- Bottom navigation -->
     <string name="nav_racks">Baies</string>
     <string name="nav_alerts">Alertes</string>
+
+
+    <!-- Login screen strings
+     @author Anvesh
+     @date 2026-10-01 -->
+    <string name="login_tagline">Surveillance des baies pour centres de données</string>
+    <string name="login_welcome">Bon retour</string>
+    <string name="login_subtitle">Connectez-vous pour surveiller vos baies</string>
+    <string name="login_email_hint">Courriel</string>
+    <string name="login_password_hint">Mot de passe</string>
+    <string name="login_button">Se connecter</string>
+    <string name="login_forgot_password">Mot de passe oublié?</string>
+    <string name="login_forgot_password_msg">Veuillez contacter votre administrateur SentryRack pour réinitialiser votre mot de passe.</string>
+    <string name="error_email_empty">Veuillez entrer votre courriel</string>
+    <string name="error_email_invalid">Veuillez entrer un courriel valide</string>
+    <string name="error_password_empty">Veuillez entrer votre mot de passe</string>
+    <string name="error_password_short">Le mot de passe doit contenir au moins %1$d caractères</string>
+    <string name="cd_app_logo">Logo de SentryRack</string>
+    <!-- End - Anvesh -->
 </resources>
