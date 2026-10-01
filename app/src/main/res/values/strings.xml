@@ -68,4 +68,31 @@
     <string name="menu_ok">OK</string>
     <string name="menu_cancel">Cancel</string>
 
+    <!-- Settings screen - Deliverable 2 steps 6 and 7
+     @author Anvesh
+     @date 2026-10-01 -->
+    <string name="settings_subtitle">Choose how SentryRack works for you</string>
+    <string name="settings_group_display">Display</string>
+    <string name="settings_group_notifications">Notifications</string>
+    <string name="settings_group_monitoring">Monitoring</string>
+    <string name="setting_lock_portrait">Lock screen to portrait</string>
+    <string name="setting_lock_portrait_summary">Keep the app upright when the phone rotates</string>
+    <string name="setting_dark_mode">Dark theme</string>
+    <string name="setting_dark_mode_summary">Easier on the eyes in server rooms</string>
+    <string name="setting_language">Language</string>
+    <string name="setting_language_summary">Follows your phone language</string>
+    <string name="setting_language_value">English</string>
+    <string name="setting_push">Push notifications</string>
+    <string name="setting_push_summary">Get alerts even when the app is closed</string>
+    <string name="setting_sound">Critical alert sound</string>
+    <string name="setting_sound_summary">Play a sound for fire, leak and door alerts</string>
+    <string name="setting_refresh">Refresh interval</string>
+    <string name="setting_refresh_summary">How often live data updates</string>
+    <string name="setting_refresh_value">5 s</string>
+    <string name="setting_temp_unit">Temperature unit</string>
+    <string name="setting_temp_unit_summary">Used on all screens</string>
+    <string name="setting_temp_unit_value">°C</string>
+    <string name="setting_portrait_locked_msg">Screen locked to portrait</string>
+    <string name="setting_portrait_unlocked_msg">Screen rotation unlocked</string>
+
 </resources>

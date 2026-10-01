@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Settings screen styles: each setting row looks the same without repeating
+     attributes in the layout. Colors come from the app theme,so they work in light and dark mode automatically.
+     @author Anvesh -->
+<resources>
+
+    <!-- Screen title ("Settings") -->
+    <style name="Widget.SentryRack.Settings.ScreenTitle" parent="">
+        <item name="android:textSize">@dimen/settings_title_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- Group header ("Display", "Notifications", "Monitoring") -->
+    <style name="Widget.SentryRack.Settings.SectionHeader" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/settings_section_margin</item>
+        <item name="android:layout_marginBottom">@dimen/settings_row_padding</item>
+        <item name="android:textSize">@dimen/settings_header_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <!-- Card that holds one group of settings (2dp elevation) -->
+    <style name="Widget.SentryRack.Settings.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">@dimen/settings_card_corner</item>
+        <item name="cardElevation">@dimen/settings_card_elevation</item>
+        <item name="contentPaddingLeft">@dimen/settings_padding</item>
+        <item name="contentPaddingRight">@dimen/settings_padding</item>
+    </style>
+
+    <!-- One setting row: text on the left, switch/value on the right -->
+    <style name="Widget.SentryRack.Settings.Row" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/settings_row_min_height</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingTop">@dimen/settings_row_padding</item>
+        <item name="android:paddingBottom">@dimen/settings_row_padding</item>
+    </style>
+
+    <!-- Setting name -->
+    <style name="Widget.SentryRack.Settings.RowTitle" parent="">
+        <item name="android:textAppearance">?attr/textAppearanceBodyLarge</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- Small grey description under the setting name -->
+    <style name="Widget.SentryRack.Settings.RowSummary" parent="">
+        <item name="android:textAppearance">?attr/textAppearanceBodySmall</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <!-- Current value on the right ("English", "5 s", "°C") -->
+    <style name="Widget.SentryRack.Settings.RowValue" parent="">
+        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Thin line between rows -->
+    <style name="Widget.SentryRack.Settings.Divider" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/settings_divider_height</item>
+        <item name="android:background">?attr/colorOutlineVariant</item>
+    </style>
+</resources>

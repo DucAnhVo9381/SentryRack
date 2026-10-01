@@ -33,4 +33,18 @@
     <dimen name="login_caption_text">12sp</dimen>
     <dimen name="login_body_text">15sp</dimen>
 
+    <!-- Settings screen sizes
+     @author Anvesh
+     @date 2026-10-01 -->
+    <dimen name="settings_padding">16dp</dimen>
+    <dimen name="settings_space_small">4dp</dimen>
+    <dimen name="settings_section_margin">24dp</dimen>
+    <dimen name="settings_row_min_height">64dp</dimen>
+    <dimen name="settings_row_padding">8dp</dimen>
+    <dimen name="settings_card_corner">16dp</dimen>
+    <dimen name="settings_card_elevation">2dp</dimen>
+    <dimen name="settings_divider_height">1dp</dimen>
+    <dimen name="settings_title_text">22sp</dimen>
+    <dimen name="settings_header_text">14sp</dimen>
+
 </resources>
