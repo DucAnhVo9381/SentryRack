@@ -39,6 +39,33 @@
     <string name="error_password_empty">Please enter your password</string>
     <string name="error_password_short">Password must be at least %1$d characters</string>
     <string name="cd_app_logo">SentryRack logo</string>
-    <!-- END - AnveshR -->
+
+    <!-- Login screen - extra options (Remember me, OR, Google, Sign up)
+     @author Anvesh
+     @date 2026-10-01 -->
+    <string name="login_remember_me">Remember me</string>
+    <string name="login_or">OR</string>
+    <string name="login_google">Continue with Google</string>
+    <string name="login_no_account">Don\'t have an account?</string>
+    <string name="login_sign_up">Sign up</string>
+    <string name="login_secured">Secured with Firebase Authentication</string>
+    <string name="login_google_soon">Google sign-in will be available soon.</string>
+    <string name="login_sign_up_soon">Sign up will be available soon. Please contact your administrator.</string>
+
+    <!-- Toolbar (action bar) menu
+     @author Anvesh
+     @date 2026-10-01 -->
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_alerts">Alerts</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_logout">Log out</string>
+    <string name="menu_refreshed_msg">Rack data refreshed</string>
+    <string name="menu_help_title">How to use SentryRack</string>
+    <string name="menu_help_msg">Home shows the live status of your racks. Racks lists every monitored rack, and Alerts shows warnings and critical events. Open the side menu for more screens.</string>
+    <string name="menu_logout_title">Log out?</string>
+    <string name="menu_logout_msg">You will return to the login screen.</string>
+    <string name="menu_ok">OK</string>
+    <string name="menu_cancel">Cancel</string>
 
 </resources>

@@ -36,5 +36,32 @@
     <string name="error_password_empty">Veuillez entrer votre mot de passe</string>
     <string name="error_password_short">Le mot de passe doit contenir au moins %1$d caractères</string>
     <string name="cd_app_logo">Logo de SentryRack</string>
-    <!-- End - AnveshR -->
+
+    <!-- Login screen - extra options (Remember me, OR, Google, Sign up)
+     @author Anvesh
+     @date 2026-10-01 -->
+    <string name="login_remember_me">Se souvenir de moi</string>
+    <string name="login_or">OU</string>
+    <string name="login_google">Continuer avec Google</string>
+    <string name="login_no_account">Vous n\'avez pas de compte?</string>
+    <string name="login_sign_up">S\'inscrire</string>
+    <string name="login_secured">Sécurisé par Firebase Authentication</string>
+    <string name="login_google_soon">La connexion avec Google sera bientôt disponible.</string>
+    <string name="login_sign_up_soon">L\'inscription sera bientôt disponible. Veuillez contacter votre administrateur.</string>
+
+    <!-- Toolbar (action bar) menu
+     @author Anvesh
+     @date 2026-10-01 -->
+    <string name="menu_refresh">Actualiser</string>
+    <string name="menu_alerts">Alertes</string>
+    <string name="menu_help">Aide</string>
+    <string name="menu_settings">Paramètres</string>
+    <string name="menu_logout">Se déconnecter</string>
+    <string name="menu_refreshed_msg">Données des baies actualisées</string>
+    <string name="menu_help_title">Comment utiliser SentryRack</string>
+    <string name="menu_help_msg">L\'accueil affiche l\'état en direct de vos baies. Baies liste toutes les baies surveillées, et Alertes affiche les avertissements et les événements critiques. Ouvrez le menu latéral pour plus d\'écrans.</string>
+    <string name="menu_logout_title">Se déconnecter?</string>
+    <string name="menu_logout_msg">Vous reviendrez à l\'écran de connexion.</string>
+    <string name="menu_ok">OK</string>
+    <string name="menu_cancel">Annuler</string>
 </resources>
