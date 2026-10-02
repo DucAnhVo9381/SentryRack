@@ -1,3 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Andres Zambrano N01495324 ONC
+     Duc Anh Vo N01729381 0NC
+     Anvesh Rachakonda N01661293 ONC
+     Krushna Patel N01713093 ONC -->
+
+<!-- Login screen colors - LIGHT theme (blue, matches the blue logo)
+     @author Anvesh
+     @date 2026-10-01 -->
 <resources>
+    <!-- Background gradient (top to bottom) -->
+    <color name="login_bg_start">#FF0A1F5C</color>
+    <color name="login_bg_center">#FF1B4DD8</color>
+    <color name="login_bg_end">#FF3FA2F7</color>
+
+    <!-- Soft glow circles in the corners -->
+    <color name="login_glow_primary">#734FC3F7</color>
+    <color name="login_glow_secondary">#4DFFD873</color>
+
+    <!-- Accent: Forgot password, checkbox, Sign up -->
+    <color name="login_accent">#FFFFD873</color>
+    <color name="login_button_text">#FF1B4DD8</color>
+
+    <!-- Same in both themes (white text + glass effect) -->
+    <color name="login_on_bg">#FFFFFFFF</color>
+    <color name="login_on_bg_muted">#BFFFFFFF</color>
+    <color name="login_glass">#1FFFFFFF</color>
+    <color name="login_glass_stroke">#47FFFFFF</color>
+    <color name="login_field_fill">#14FFFFFF</color>
+    <color name="login_field_stroke">#8CFFFFFF</color>
+    <color name="login_divider">#66FFFFFF</color>
+    <color name="login_button_bg">#FFFFFFFF</color>
+
+    <!-- End Anvesh -->
 </resources>
