@@ -11,8 +11,11 @@
         android:roundIcon="@mipmap/homescreen_icon_light_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SentryRack.Splash">
+
+        <!-- Login screen = app launcher. Splash (3 s) shows first, then Login.
+             @author Anvesh @date 2026-10-01 -->
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.SentryRack.Splash"
             android:windowSoftInputMode="adjustResize">
@@ -22,5 +25,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Main screen - opened from LoginActivity after login.
+             Launcher + splash moved to LoginActivity by Anvesh (2026-10-01) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SentryRack"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 </manifest>
