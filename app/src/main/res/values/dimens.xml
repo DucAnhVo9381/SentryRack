@@ -47,4 +47,7 @@
     <dimen name="settings_title_text">22sp</dimen>
     <dimen name="settings_header_text">14sp</dimen>
 
+    <!-- Settings row image size - @author Anvesh @date 2026-10-01 -->
+    <dimen name="settings_icon_size">40dp</dimen>
+
 </resources>

@@ -45,6 +45,8 @@
                 <!-- Lock screen to portrait  -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
 
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_portrait" />
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -75,6 +77,7 @@
 
                 <!-- Dark theme (design only) -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_dark" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -106,6 +109,7 @@
 
                 <!-- Language (design only) -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_language" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -152,6 +156,7 @@
 
                 <!-- Push notifications (design only) -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_notifications" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -184,6 +189,7 @@
 
                 <!-- Critical alert sound (design only) -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_sound" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -231,6 +237,7 @@
 
                 <!-- Refresh interval (design only) -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_refresh" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -262,6 +269,7 @@
 
                 <!-- Temperature unit (design only) -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_temperature" />
 
                     <LinearLayout
                         android:layout_width="0dp"

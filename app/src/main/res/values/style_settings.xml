@@ -67,4 +67,15 @@
         <item name="android:layout_height">@dimen/settings_divider_height</item>
         <item name="android:background">?attr/colorOutlineVariant</item>
     </style>
+
+    <!-- Image on the left of each setting row (step 12 images)
+     @author Anvesh
+     @date 2026-10-01 -->
+    <style name="Widget.SentryRack.Settings.RowIcon" parent="">
+        <item name="android:layout_width">@dimen/settings_icon_size</item>
+        <item name="android:layout_height">@dimen/settings_icon_size</item>
+        <item name="android:layout_marginEnd">@dimen/settings_padding</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
 </resources>
