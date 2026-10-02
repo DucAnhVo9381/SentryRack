@@ -47,7 +47,6 @@
     <!-- ===== Text fields (Email, Password) ===== -->
     <style name="Widget.SentryRack.Login.TextField" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="boxBackgroundColor">@color/login_field_fill</item>
-        <item name="boxStrokeColor">@color/login_on_bg</item>
         <item name="boxStrokeWidth">@dimen/login_stroke_width</item>
         <item name="boxStrokeWidthFocused">@dimen/login_field_stroke_width</item>
         <item name="boxCornerRadiusTopStart">@dimen/login_field_corner</item>
