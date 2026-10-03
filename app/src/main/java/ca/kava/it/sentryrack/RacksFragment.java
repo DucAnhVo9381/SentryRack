@@ -17,9 +17,19 @@ import androidx.fragment.app.Fragment;
  * @author Krushna
  * @date 2026-09-28
  */
+/** Racks screen design - Deliverable 2
+ * Lists every monitored rack as a card with its image, name, location,
+ * status (Online / Warning / Offline) and 4 sensor readings
+ * (temperature, power, coolant, door). Filter chips are design only.
+ * Design principle: this class only loads its layout (single responsibility);
+ * all styling lives in styles_dashboard.xml, colors.xml and dimens.xml.
+ * The sample racks will be replaced with racks from the cloud database later.
+ * @author Krushna
+ * @date 2026-10-03
+ */
 public class RacksFragment extends Fragment {
 
-    // Loads the layout for the Racks screen
+    // Loads the layout for the Racks screen (layout/fragment_racks.xml)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
