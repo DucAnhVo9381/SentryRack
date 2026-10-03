@@ -17,6 +17,18 @@ import android.view.ViewGroup;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+/** Home screen (dashboard) - opened from the bottom navigation and the drawer.
+ * Shows the data center summary, live sensor cards (temperature, coolant,
+ * power, air quality), rack access and recent activity.
+ * Deliverable 2: design only - all values come from strings.xml and will be
+ * replaced with live sensor data from the cloud database later.
+ * Design principle: this class only loads its layout (single responsibility);
+ * all styling lives in styles_dashboard.xml, colors.xml and dimens.xml.
+ * Portrait layout: layout/fragment_home.xml
+ * Landscape layout: layout-land/fragment_home.xml (Android picks it automatically)
+ * @author Krushna
+ * @date 2026-10-03
+ */
 public class HomeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -59,6 +71,11 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    /** Loads the Home dashboard layout.
+     * Android automatically uses the landscape version when the phone is rotated.
+     * @author Krushna
+     * @date 2026-10-03
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
