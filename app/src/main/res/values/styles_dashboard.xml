@@ -7,10 +7,30 @@
 <!-- Home and Racks screen styles (step 24 and 25)
      Every card, label and value is styled here instead of in the layouts,
      so both screens look the same and nothing is hardcoded.
-     Text colors come from the app theme, so they work in light and dark mode.
      @author Krushna
      @date 2026-10-03 -->
 <resources>
+
+    <!-- "Tech dashboard" theme overlay - follows light and dark mode.
+         Set on the root of the Home and Racks layouts with android:theme.
+         Every ?attr color inside those screens (text, cards, chips, dividers)
+         uses the dash_ colors, which have a light version (values/colors.xml)
+         and a dark version (values-night/colors_dashboard.xml).
+         @author Krushna
+         @date 2026-10-03 -->
+    <style name="ThemeOverlay.SentryRack.Dashboard" parent="ThemeOverlay.Material3">
+        <item name="colorPrimary">@color/dash_accent</item>
+        <item name="colorPrimaryContainer">@color/dash_hero_bg</item>
+        <item name="colorOnPrimaryContainer">@color/dash_on_hero</item>
+        <item name="colorSecondaryContainer">@color/dash_accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/dash_text_primary</item>
+        <item name="colorSurface">@color/dash_surface</item>
+        <item name="colorSurfaceContainerLow">@color/dash_card_bg</item>
+        <item name="colorOnSurface">@color/dash_text_primary</item>
+        <item name="colorOnSurfaceVariant">@color/dash_text_secondary</item>
+        <item name="colorOutline">@color/dash_card_stroke</item>
+        <item name="colorOutlineVariant">@color/dash_divider</item>
+    </style>
 
     <!-- Screen title ("Data center overview", "Racks") -->
     <style name="Widget.SentryRack.Dashboard.ScreenTitle" parent="">
@@ -36,14 +56,17 @@
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
-    <!-- Normal card (2dp elevation) -->
+    <!-- Normal card: glass card with a thin colored edge (2dp elevation) -->
     <style name="Widget.SentryRack.Dashboard.Card" parent="Widget.Material3.CardView.Elevated">
         <item name="cardCornerRadius">@dimen/dash_card_corner</item>
         <item name="cardElevation">@dimen/dash_card_elevation</item>
         <item name="contentPadding">@dimen/dash_card_padding</item>
+        <item name="cardBackgroundColor">?attr/colorSurfaceContainerLow</item>
+        <item name="strokeColor">?attr/colorOutline</item>
+        <item name="strokeWidth">@dimen/dash_card_stroke</item>
     </style>
 
-    <!-- Main summary card on Home - higher elevation and theme color so it stands out -->
+    <!-- Main summary card on Home - higher elevation and accent color so it stands out -->
     <style name="Widget.SentryRack.Dashboard.HeroCard" parent="Widget.SentryRack.Dashboard.Card">
         <item name="cardElevation">@dimen/dash_hero_elevation</item>
         <item name="cardBackgroundColor">?attr/colorPrimaryContainer</item>

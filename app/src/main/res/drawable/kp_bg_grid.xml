@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Andres Zambrano N01495324 ONC
+     Duc Anh Vo N01729381 0NC
+     Anvesh Rachakonda N01661293 ONC
+     Krushna Patel N01713093 ONC -->
+
+<!-- Faint "circuit board" grid drawn over the dashboard background:
+     thin grid lines every 24 units + a few cyan circuit traces with round nodes.
+     Used as a layer inside kp_bg_dashboard.xml.
+     @author Krushna
+     @date 2026-10-03 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="780dp"
+    android:viewportWidth="360"
+    android:viewportHeight="780">
+
+    <!-- Vertical grid lines -->
+    <path
+        android:pathData="M0,0V780 M24,0V780 M48,0V780 M72,0V780 M96,0V780 M120,0V780 M144,0V780 M168,0V780 M192,0V780 M216,0V780 M240,0V780 M264,0V780 M288,0V780 M312,0V780 M336,0V780 M360,0V780"
+        android:strokeWidth="0.6"
+        android:strokeColor="@color/dash_grid_line" />
+
+    <!-- Horizontal grid lines -->
+    <path
+        android:pathData="M0,0H360 M0,24H360 M0,48H360 M0,72H360 M0,96H360 M0,120H360 M0,144H360 M0,168H360 M0,192H360 M0,216H360 M0,240H360 M0,264H360 M0,288H360 M0,312H360 M0,336H360 M0,360H360 M0,384H360 M0,408H360 M0,432H360 M0,456H360 M0,480H360 M0,504H360 M0,528H360 M0,552H360 M0,576H360 M0,600H360 M0,624H360 M0,648H360 M0,672H360 M0,696H360 M0,720H360 M0,744H360 M0,768H360"
+        android:strokeWidth="0.6"
+        android:strokeColor="@color/dash_grid_line" />
+
+    <!-- Circuit traces -->
+    <path
+        android:pathData="M0,120H72V192H144 M360,264H288V336H216V384 M0,504H48V576H120V624 M360,672H264V744H192"
+        android:strokeWidth="1.2"
+        android:strokeColor="@color/dash_circuit_line"
+        android:strokeLineJoin="round" />
+
+    <!-- Circuit nodes (small dots at the end of each trace) -->
+    <path
+        android:fillColor="@color/dash_circuit_node"
+        android:pathData="M144,192m-3,0a3,3 0,1 0,6 0a3,3 0,1 0,-6 0 M216,384m-3,0a3,3 0,1 0,6 0a3,3 0,1 0,-6 0 M120,624m-3,0a3,3 0,1 0,6 0a3,3 0,1 0,-6 0 M192,744m-3,0a3,3 0,1 0,6 0a3,3 0,1 0,-6 0 M72,120m-2,0a2,2 0,1 0,4 0a2,2 0,1 0,-4 0 M288,264m-2,0a2,2 0,1 0,4 0a2,2 0,1 0,-4 0 M48,504m-2,0a2,2 0,1 0,4 0a2,2 0,1 0,-4 0 M264,672m-2,0a2,2 0,1 0,4 0a2,2 0,1 0,-4 0" />
+</vector>
