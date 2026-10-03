@@ -95,4 +95,80 @@
     <string name="setting_portrait_locked_msg">Screen locked to portrait</string>
     <string name="setting_portrait_unlocked_msg">Screen rotation unlocked</string>
 
+    <!-- Home screen (dashboard) - Deliverable 2 steps 4, 5 and 9
+     Sample values for the design; live sensor data will replace them later
+     @author Krushna
+     @date 2026-10-03 -->
+    <string name="home_title">Data center overview</string>
+    <string name="home_subtitle">Toronto DC-1 · Live monitoring</string>
+    <string name="home_status_chip">2 warnings</string>
+    <string name="home_racks_count">12</string>
+    <string name="home_racks_label">Racks monitored</string>
+    <string name="home_racks_breakdown">10 online · 1 warning · 1 offline</string>
+    <string name="home_section_sensors">Live sensors</string>
+    <string name="home_sensor_temperature">Temperature</string>
+    <string name="home_sensor_temperature_value">24.5 °C</string>
+    <string name="home_sensor_coolant">Coolant level</string>
+    <string name="home_sensor_coolant_value">82%</string>
+    <string name="home_sensor_power">Power draw</string>
+    <string name="home_sensor_power_value">4.2 kW</string>
+    <string name="home_sensor_air">Air quality (VOC)</string>
+    <string name="home_sensor_air_value">0.3 ppm</string>
+    <string name="home_state_normal">Normal</string>
+    <string name="home_state_high">High</string>
+    <string name="home_state_good">Good</string>
+    <string name="home_section_access">Rack access</string>
+    <string name="home_access_title">All rack doors locked</string>
+    <string name="home_access_last">Last access: Rack A-03 at 14:22</string>
+    <string name="home_access_badge">Secure</string>
+    <string name="home_section_activity">Recent activity</string>
+    <string name="home_activity_1">Rack B-01 temperature above 30 °C</string>
+    <string name="home_activity_1_time">2 min ago</string>
+    <string name="home_activity_2">Rack B-02 went offline</string>
+    <string name="home_activity_2_time">15 min ago</string>
+    <string name="home_activity_3">Rack A-03 door opened by J. Smith</string>
+    <string name="home_activity_3_time">1 h ago</string>
+    <string name="cd_rack_image">Server rack</string>
+
+    <!-- Racks screen - Deliverable 2 steps 4, 5 and 9
+     Sample racks for the design; real racks will come from the database later
+     @author Krushna
+     @date 2026-10-03 -->
+    <string name="racks_title">Racks</string>
+    <string name="racks_subtitle">12 racks in Toronto DC-1</string>
+    <string name="racks_filter_all">All</string>
+    <string name="rack_status_online">Online</string>
+    <string name="rack_status_warning">Warning</string>
+    <string name="rack_status_offline">Offline</string>
+    <string name="rack_metric_temp">Temp</string>
+    <string name="rack_metric_power">Power</string>
+    <string name="rack_metric_coolant">Coolant</string>
+    <string name="rack_metric_door">Door</string>
+    <string name="rack_door_locked">Locked</string>
+    <string name="rack_door_open">Open</string>
+    <string name="rack_no_data">--</string>
+    <string name="rack_updated_now">Updated 1 min ago</string>
+    <string name="rack_last_seen">Last seen 15 min ago</string>
+
+    <string name="rack_a01_name">Rack A-01</string>
+    <string name="rack_a01_location">Row A · Position 1</string>
+    <string name="rack_a01_temp">23.8 °C</string>
+    <string name="rack_a01_power">3.1 kW</string>
+    <string name="rack_a01_coolant">85%</string>
+
+    <string name="rack_a02_name">Rack A-02</string>
+    <string name="rack_a02_location">Row A · Position 2</string>
+    <string name="rack_a02_temp">24.6 °C</string>
+    <string name="rack_a02_power">3.4 kW</string>
+    <string name="rack_a02_coolant">80%</string>
+
+    <string name="rack_b01_name">Rack B-01</string>
+    <string name="rack_b01_location">Row B · Position 1</string>
+    <string name="rack_b01_temp">31.2 °C</string>
+    <string name="rack_b01_power">4.8 kW</string>
+    <string name="rack_b01_coolant">64%</string>
+
+    <string name="rack_b02_name">Rack B-02</string>
+    <string name="rack_b02_location">Row B · Position 2</string>
+
 </resources>
