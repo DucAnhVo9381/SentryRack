@@ -14,7 +14,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:background="@drawable/kp_bg_dashboard"
+    android:fillViewport="true"
+    android:theme="@style/ThemeOverlay.SentryRack.Dashboard">
 
     <LinearLayout
         android:layout_width="match_parent"

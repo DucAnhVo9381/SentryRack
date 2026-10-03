@@ -83,4 +83,19 @@
     <dimen name="dash_caption_text">12sp</dimen>
     <dimen name="dash_chip_text">12sp</dimen>
 
+    <!-- Home and Racks glow background - size and position of the colored lights
+         (negative offset pushes each glow partly off-screen for a soft corner light)
+         @author Krushna
+         @date 2026-10-03 -->
+    <dimen name="dash_glow_large">420dp</dimen>
+    <dimen name="dash_glow_large_radius">210dp</dimen>
+    <dimen name="dash_glow_small">320dp</dimen>
+    <dimen name="dash_glow_small_radius">160dp</dimen>
+    <dimen name="dash_glow_offset">-140dp</dimen>
+    <dimen name="dash_glow_offset_small">-120dp</dimen>
+    <dimen name="dash_glow_middle_top">260dp</dimen>
+
+    <!-- Glowing edge around the dark glass cards - @author Krushna @date 2026-10-03 -->
+    <dimen name="dash_card_stroke">1dp</dimen>
+
 </resources>
