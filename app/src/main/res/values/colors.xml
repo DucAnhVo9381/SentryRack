@@ -9,4 +9,17 @@
 
     <!-- Splash screen colors -->
     <color name="splash_background">#FF4E8EEA</color>
+
+    <!-- Home and Racks screens - status colors (text + light background for chips)
+         The "_bg" colors are see-through, so they look right in light and dark mode
+         @author Krushna
+         @date 2026-10-03 -->
+    <color name="status_ok">#FF2E9E5B</color>
+    <color name="status_ok_bg">#262E9E5B</color>
+    <color name="status_warning">#FFE08A00</color>
+    <color name="status_warning_bg">#26E08A00</color>
+    <color name="status_critical">#FFD64545</color>
+    <color name="status_critical_bg">#26D64545</color>
+    <color name="status_offline">#FF8A8F98</color>
+    <color name="status_offline_bg">#268A8F98</color>
 </resources>

@@ -50,4 +50,37 @@
     <!-- Settings row image size - @author Anvesh @date 2026-10-01 -->
     <dimen name="settings_icon_size">40dp</dimen>
 
+    <!-- Home and Racks screens (dashboard) sizes
+         Cards use 2dp elevation, the main summary card uses 4dp so it stands out (step 23)
+         @author Krushna
+         @date 2026-10-03 -->
+    <dimen name="dash_padding">16dp</dimen>
+    <dimen name="dash_space_xsmall">4dp</dimen>
+    <dimen name="dash_space_small">8dp</dimen>
+    <dimen name="dash_space_medium">12dp</dimen>
+    <dimen name="dash_space_large">16dp</dimen>
+    <dimen name="dash_section_margin">24dp</dimen>
+    <dimen name="dash_card_corner">16dp</dimen>
+    <dimen name="dash_card_padding">16dp</dimen>
+    <dimen name="dash_card_elevation">2dp</dimen>
+    <dimen name="dash_hero_elevation">4dp</dimen>
+    <dimen name="dash_hero_image_size">88dp</dimen>
+    <dimen name="dash_stat_icon_size">40dp</dimen>
+    <dimen name="dash_rack_image_size">56dp</dimen>
+    <dimen name="dash_metric_icon_size">20dp</dimen>
+    <dimen name="dash_dot_size">10dp</dimen>
+    <dimen name="dash_chip_corner">12dp</dimen>
+    <dimen name="dash_chip_padding_horizontal">10dp</dimen>
+    <dimen name="dash_chip_padding_vertical">4dp</dimen>
+    <dimen name="dash_divider_height">1dp</dimen>
+    <dimen name="dash_title_text">22sp</dimen>
+    <dimen name="dash_subtitle_text">14sp</dimen>
+    <dimen name="dash_header_text">14sp</dimen>
+    <dimen name="dash_hero_value_text">34sp</dimen>
+    <dimen name="dash_value_text">22sp</dimen>
+    <dimen name="dash_metric_text">15sp</dimen>
+    <dimen name="dash_label_text">13sp</dimen>
+    <dimen name="dash_caption_text">12sp</dimen>
+    <dimen name="dash_chip_text">12sp</dimen>
+
 </resources>

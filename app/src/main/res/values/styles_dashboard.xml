@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Andres Zambrano N01495324 ONC
+     Duc Anh Vo N01729381 0NC
+     Anvesh Rachakonda N01661293 ONC
+     Krushna Patel N01713093 ONC -->
+
+<!-- Home and Racks screen styles (step 24 and 25)
+     Every card, label and value is styled here instead of in the layouts,
+     so both screens look the same and nothing is hardcoded.
+     Text colors come from the app theme, so they work in light and dark mode.
+     @author Krushna
+     @date 2026-10-03 -->
+<resources>
+
+    <!-- Screen title ("Data center overview", "Racks") -->
+    <style name="Widget.SentryRack.Dashboard.ScreenTitle" parent="">
+        <item name="android:textSize">@dimen/dash_title_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- Small line under the screen title -->
+    <style name="Widget.SentryRack.Dashboard.ScreenSubtitle" parent="">
+        <item name="android:textSize">@dimen/dash_subtitle_text</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <!-- Section header ("Live sensors", "Recent activity") -->
+    <style name="Widget.SentryRack.Dashboard.SectionHeader" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dash_section_margin</item>
+        <item name="android:layout_marginBottom">@dimen/dash_space_small</item>
+        <item name="android:textSize">@dimen/dash_header_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <!-- Normal card (2dp elevation) -->
+    <style name="Widget.SentryRack.Dashboard.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">@dimen/dash_card_corner</item>
+        <item name="cardElevation">@dimen/dash_card_elevation</item>
+        <item name="contentPadding">@dimen/dash_card_padding</item>
+    </style>
+
+    <!-- Main summary card on Home - higher elevation and theme color so it stands out -->
+    <style name="Widget.SentryRack.Dashboard.HeroCard" parent="Widget.SentryRack.Dashboard.Card">
+        <item name="cardElevation">@dimen/dash_hero_elevation</item>
+        <item name="cardBackgroundColor">?attr/colorPrimaryContainer</item>
+    </style>
+
+    <!-- Big number inside the summary card ("12") -->
+    <style name="Widget.SentryRack.Dashboard.HeroValue" parent="">
+        <item name="android:textSize">@dimen/dash_hero_value_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
+    </style>
+
+    <!-- Text inside the summary card -->
+    <style name="Widget.SentryRack.Dashboard.HeroLabel" parent="">
+        <item name="android:textSize">@dimen/dash_subtitle_text</item>
+        <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
+    </style>
+
+    <!-- Small grey label ("Temperature", "Power draw") -->
+    <style name="Widget.SentryRack.Dashboard.Label" parent="">
+        <item name="android:textSize">@dimen/dash_label_text</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <!-- Sensor value ("24.5 °C", "4.2 kW") -->
+    <style name="Widget.SentryRack.Dashboard.Value" parent="">
+        <item name="android:textSize">@dimen/dash_value_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- Smaller value used inside each rack card -->
+    <style name="Widget.SentryRack.Dashboard.MetricValue" parent="">
+        <item name="android:textSize">@dimen/dash_metric_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- Normal text (card titles, activity rows) -->
+    <style name="Widget.SentryRack.Dashboard.Body" parent="">
+        <item name="android:textAppearance">?attr/textAppearanceBodyLarge</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- Tiny grey text (times, locations) -->
+    <style name="Widget.SentryRack.Dashboard.Caption" parent="">
+        <item name="android:textSize">@dimen/dash_caption_text</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <!-- Image on the left of a sensor card -->
+    <style name="Widget.SentryRack.Dashboard.StatIcon" parent="">
+        <item name="android:layout_width">@dimen/dash_stat_icon_size</item>
+        <item name="android:layout_height">@dimen/dash_stat_icon_size</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <!-- Rack picture on each rack card -->
+    <style name="Widget.SentryRack.Dashboard.RackImage" parent="">
+        <item name="android:layout_width">@dimen/dash_rack_image_size</item>
+        <item name="android:layout_height">@dimen/dash_rack_image_size</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <!-- Small image next to each rack metric -->
+    <style name="Widget.SentryRack.Dashboard.MetricIcon" parent="">
+        <item name="android:layout_width">@dimen/dash_metric_icon_size</item>
+        <item name="android:layout_height">@dimen/dash_metric_icon_size</item>
+        <item name="android:layout_marginEnd">@dimen/dash_space_xsmall</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <!-- Colored status pill ("Online", "Warning") - base style -->
+    <style name="Widget.SentryRack.Dashboard.StatusChip" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/kp_bg_status_chip</item>
+        <item name="android:paddingStart">@dimen/dash_chip_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/dash_chip_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/dash_chip_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/dash_chip_padding_vertical</item>
+        <item name="android:textSize">@dimen/dash_chip_text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Status pill colors - each one only changes the color of the base style -->
+    <style name="Widget.SentryRack.Dashboard.StatusChip.Ok">
+        <item name="android:textColor">@color/status_ok</item>
+        <item name="android:backgroundTint">@color/status_ok_bg</item>
+    </style>
+
+    <style name="Widget.SentryRack.Dashboard.StatusChip.Warning">
+        <item name="android:textColor">@color/status_warning</item>
+        <item name="android:backgroundTint">@color/status_warning_bg</item>
+    </style>
+
+    <style name="Widget.SentryRack.Dashboard.StatusChip.Critical">
+        <item name="android:textColor">@color/status_critical</item>
+        <item name="android:backgroundTint">@color/status_critical_bg</item>
+    </style>
+
+    <style name="Widget.SentryRack.Dashboard.StatusChip.Offline">
+        <item name="android:textColor">@color/status_offline</item>
+        <item name="android:backgroundTint">@color/status_offline_bg</item>
+    </style>
+
+    <!-- Small colored dot in the recent activity list -->
+    <style name="Widget.SentryRack.Dashboard.Dot" parent="">
+        <item name="android:layout_width">@dimen/dash_dot_size</item>
+        <item name="android:layout_height">@dimen/dash_dot_size</item>
+        <item name="android:layout_marginEnd">@dimen/dash_space_medium</item>
+        <item name="android:background">@drawable/kp_bg_dot</item>
+    </style>
+
+    <!-- Thin line between rows -->
+    <style name="Widget.SentryRack.Dashboard.Divider" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dash_divider_height</item>
+        <item name="android:layout_marginTop">@dimen/dash_space_medium</item>
+        <item name="android:layout_marginBottom">@dimen/dash_space_medium</item>
+        <item name="android:background">?attr/colorOutlineVariant</item>
+    </style>
+
+</resources>
