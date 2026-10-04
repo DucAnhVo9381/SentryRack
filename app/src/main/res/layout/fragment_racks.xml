@@ -32,7 +32,9 @@
             android:layout_height="wrap_content"
             android:text="@string/racks_title" />
 
+        <!-- Subheader -->
         <TextView
+            android:id="@+id/RackFragmentSubHeaderID"
             style="@style/Widget.SentryRack.Dashboard.ScreenSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
