@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Andres Zambrano N01495324 ONC
+     Duc Anh Vo N01729381 0NC
+     Anvesh Rachakonda N01661293 ONC
+     Krushna Patel N01713093 ONC -->
+
+<!-- User (profile) screen - 3rd bottom navigation tab
+     Header: login gradient + user picture + name + email.
+     Rows: Edit profile, My alerts, Change password (WORKS), Activity history.
+     Log out button (WORKS).
+     @author Anvesh
+     @date 2026-10-07 -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ===== Header: same gradient as the Login screen ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="233dp"
+            android:background="@drawable/bg_login_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/user_header_padding">
+
+            <!-- User picture + green online dot -->
+            <FrameLayout
+                android:layout_width="@dimen/user_avatar_size"
+                android:layout_height="@dimen/user_avatar_size">
+
+                <ImageView
+                    android:id="@+id/userAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/cd_user_avatar"
+                    android:src="@drawable/ar_img_user_avatar" />
+
+                <View
+                    android:layout_width="@dimen/user_online_dot"
+                    android:layout_height="@dimen/user_online_dot"
+                    android:layout_gravity="bottom|end"
+                    android:background="@drawable/ar_bg_user_online"
+                    android:contentDescription="@string/cd_user_online" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/settings_padding"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/userName"
+                    style="@style/Widget.SentryRack.User.Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_name_default" />
+
+                <TextView
+                    android:id="@+id/userEmail"
+                    style="@style/Widget.SentryRack.User.Email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_email_default" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ===== Options + Log out ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/settings_padding">
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.SentryRack.Settings.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Edit profile (coming soon) -->
+                    <LinearLayout
+                        android:id="@+id/rowEditProfile"
+                        style="@style/Widget.SentryRack.User.Row">
+
+                        <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_user_edit" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                style="@style/Widget.SentryRack.Settings.RowTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_edit_profile" />
+                            <TextView
+                                style="@style/Widget.SentryRack.Settings.RowSummary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_edit_profile_summary" />
+                        </LinearLayout>
+
+                        <ImageView style="@style/Widget.SentryRack.User.Chevron" android:src="@drawable/ar_ic_chevron" />
+                    </LinearLayout>
+
+                    <View style="@style/Widget.SentryRack.Settings.Divider" />
+
+                    <!-- My alerts (coming soon) -->
+                    <LinearLayout
+                        android:id="@+id/rowMyAlerts"
+                        style="@style/Widget.SentryRack.User.Row">
+
+                        <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_user_alerts" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                style="@style/Widget.SentryRack.Settings.RowTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_my_alerts" />
+                            <TextView
+                                style="@style/Widget.SentryRack.Settings.RowSummary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_my_alerts_summary" />
+                        </LinearLayout>
+
+                        <ImageView style="@style/Widget.SentryRack.User.Chevron" android:src="@drawable/ar_ic_chevron" />
+                    </LinearLayout>
+
+                    <View style="@style/Widget.SentryRack.Settings.Divider" />
+
+                    <!-- Change password (WORKS) -->
+                    <LinearLayout
+                        android:id="@+id/rowChangePassword"
+                        style="@style/Widget.SentryRack.User.Row">
+
+                        <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_user_password" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                style="@style/Widget.SentryRack.Settings.RowTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_change_password" />
+                            <TextView
+                                style="@style/Widget.SentryRack.Settings.RowSummary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_change_password_summary" />
+                        </LinearLayout>
+
+                        <ImageView style="@style/Widget.SentryRack.User.Chevron" android:src="@drawable/ar_ic_chevron" />
+                    </LinearLayout>
+
+                    <View style="@style/Widget.SentryRack.Settings.Divider" />
+
+                    <!-- Activity history (coming soon) -->
+                    <LinearLayout
+                        android:id="@+id/rowHistory"
+                        style="@style/Widget.SentryRack.User.Row">
+
+                        <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_user_history" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                style="@style/Widget.SentryRack.Settings.RowTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_history" />
+                            <TextView
+                                style="@style/Widget.SentryRack.Settings.RowSummary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_history_summary" />
+                        </LinearLayout>
+
+                        <ImageView style="@style/Widget.SentryRack.User.Chevron" android:src="@drawable/ar_ic_chevron" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Log out (WORKS) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLogout"
+                style="@style/Widget.SentryRack.User.LogoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_button_height"
+                android:layout_marginTop="@dimen/settings_padding"
+                android:text="@string/user_logout" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
