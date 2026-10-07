@@ -171,4 +171,34 @@
     <string name="rack_b02_name">Rack B-02</string>
     <string name="rack_b02_location">Row B · Position 2</string>
 
+    <!-- User (profile) screen - bottom navigation tab
+     @author Anvesh
+     @date 2026-10-07 -->
+    <string name="nav_user">User</string>
+    <string name="user_title">My profile</string>
+    <string name="user_name_default">SentryRack Operator</string>
+    <string name="user_initials_default">SR</string>
+    <string name="user_email_default">operator@kava.ca</string>
+    <string name="user_role">Facility Technician</string>
+    <string name="user_section_details">Details</string>
+    <string name="user_site_label">Assigned site</string>
+    <string name="user_site_value">Toronto DC1 · Row A</string>
+    <string name="user_shift_label">Shift</string>
+    <string name="user_shift_value">Day · 7:00 to 15:00</string>
+    <string name="user_since_label">Member since</string>
+    <string name="user_since_value">September 2026</string>
+    <string name="user_section_activity">Activity</string>
+    <string name="user_stat_racks_value">4</string>
+    <string name="user_stat_racks">Racks assigned</string>
+    <string name="user_stat_alerts_value">12</string>
+    <string name="user_stat_alerts">Alerts handled</string>
+    <string name="user_stat_login_value">Today</string>
+    <string name="user_stat_login">Last login</string>
+    <string name="user_section_account">Account</string>
+    <string name="user_edit_profile">Edit profile</string>
+    <string name="user_change_password">Change password</string>
+    <string name="user_logout">Log out</string>
+    <string name="user_soon_msg">This option will be available soon.</string>
+    <string name="cd_user_avatar">Profile picture</string>
+
 </resources>
