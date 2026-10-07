@@ -16,12 +16,11 @@
         android:id="@+id/nav_racks"
         android:icon="@drawable/ic_nav_racks"
         android:title="@string/nav_racks" />
+    <!-- Proffesor told to remove settings from bottom , instead of that adding user
+     @author Anvesh
+     @date 2026-10-07 -->
     <item
-        android:id="@+id/nav_alerts"
-        android:icon="@drawable/ic_nav_alerts"
-        android:title="@string/nav_alerts" />
-    <item
-        android:id="@+id/nav_settings"
-        android:icon="@drawable/ic_nav_settings"
-        android:title="@string/settings" />
+        android:id="@+id/nav_user"
+        android:icon="@drawable/ar_ic_nav_user"
+        android:title="@string/nav_user" />
 </menu>

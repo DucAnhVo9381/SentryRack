@@ -106,10 +106,9 @@ public class MainActivity extends AppCompatActivity {
             // if/else is used instead of switch because resource IDs are not final in newer Gradle versions
             if (id == R.id.nav_racks) {
                 fragment = new RacksFragment();
-            } else if (id == R.id.nav_alerts) {
-                fragment = new AlertsFragment();
-            } else if (id == R.id.nav_settings) {
-                fragment = new SettingsFragment();
+            } else if (id == R.id.nav_user) {
+                // User tab replaces Alerts and Settings tabs - Anvesh, 2026-10-07
+                fragment = new UserFragment();
             } else {
                 fragment = new HomeFragment();
             }
@@ -144,7 +143,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         drawerSettings.setOnClickListener(v -> {
-            bottomNav.setSelectedItemId(R.id.nav_settings);
+            // Settings is no longer a bottom tab, so open it directly - Anvesh, 2026-10-07
+            showFragment(new SettingsFragment());
             drawerLayout.closeDrawer(GravityCompat.START);
         });
 
@@ -242,13 +242,15 @@ public class MainActivity extends AppCompatActivity {
             showRefreshMessage();
             return true;
         } else if (id == R.id.action_alerts) {
-            bottomNav.setSelectedItemId(R.id.nav_alerts);
+            // Alerts is no longer a bottom tab - the bell opens it directly
+            showFragment(new AlertsFragment());
             return true;
         } else if (id == R.id.action_help) {
             showHelpDialog();
             return true;
         } else if (id == R.id.action_settings) {
-            bottomNav.setSelectedItemId(R.id.nav_settings);
+            // Settings is no longer a bottom tab - open it directly
+            showFragment(new SettingsFragment());
             return true;
         } else if (id == R.id.action_logout) {
             confirmLogout();
@@ -279,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
      * @author Anvesh
      * @date 2026-10-01
      */
-    private void confirmLogout() {
+    public void confirmLogout() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.menu_logout_title)
                 .setMessage(R.string.menu_logout_msg)
