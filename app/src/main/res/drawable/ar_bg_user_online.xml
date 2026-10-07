@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Green "online" dot on the user picture, with a white ring
+     @author Anvesh
+     @date 2026-10-07 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#FF66BB6A" />
+    <stroke
+        android:width="@dimen/user_online_stroke"
+        android:color="@color/login_on_bg" />
+</shape>
