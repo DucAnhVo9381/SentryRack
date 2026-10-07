@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Andres Zambrano N01495324 ONC
+     Duc Anh Vo N01729381 0NC
+     Anvesh Rachakonda N01661293 ONC
+     Krushna Patel N01713093 ONC -->
+
+<!-- User (profile) screen styles. Rows reuse the Settings styles (style_settings.xml).
+     @author Anvesh
+     @date 2026-10-07 -->
+<resources>
+
+    <!-- Name in the header (white on the gradient) -->
+    <style name="Widget.SentryRack.User.Name" parent="">
+        <item name="android:textColor">@color/login_on_bg</item>
+        <item name="android:textSize">@dimen/user_name_text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Email in the header -->
+    <style name="Widget.SentryRack.User.Email" parent="">
+        <item name="android:textColor">@color/login_on_bg_muted</item>
+        <item name="android:textSize">@dimen/user_email_text</item>
+    </style>
+
+    <!-- One tappable row (ripple effect when pressed) -->
+    <style name="Widget.SentryRack.User.Row" parent="Widget.SentryRack.Settings.Row">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <!-- Arrow on the right of each row -->
+    <style name="Widget.SentryRack.User.Chevron" parent="">
+        <item name="android:layout_width">@dimen/user_chevron_size</item>
+        <item name="android:layout_height">@dimen/user_chevron_size</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <!-- Red outlined Log out button -->
+    <style name="Widget.SentryRack.User.LogoutButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textColor">?attr/colorError</item>
+        <item name="strokeColor">?attr/colorError</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Password fields in the Change password dialog (with show/hide eye) -->
+    <style name="Widget.SentryRack.User.PasswordField" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/user_field_spacing</item>
+        <item name="endIconMode">password_toggle</item>
+    </style>
+</resources>
