@@ -98,4 +98,14 @@
     <!-- Glowing edge around the dark glass cards - @author Krushna @date 2026-10-03 -->
     <dimen name="dash_card_stroke">1dp</dimen>
 
+    <!-- User (profile) screen sizes
+     @author Anvesh
+     @date 2026-10-07 -->
+    <dimen name="user_avatar_size">72dp</dimen>
+    <dimen name="user_avatar_text">26sp</dimen>
+    <dimen name="user_name_text">20sp</dimen>
+    <dimen name="user_stat_value_text">22sp</dimen>
+    <dimen name="user_button_height">52dp</dimen>
+    <dimen name="user_button_spacing">8dp</dimen>
+
 </resources>
