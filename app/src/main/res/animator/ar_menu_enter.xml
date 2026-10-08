@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Overflow menu OPEN animation
+     Grows from the top-right corner (where the 3-dot button is) and fades in
+     @author Anvesh
+     @date 2026-10-08 -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/decelerate_interpolator"
+    android:shareInterpolator="true">
+
+    <scale
+        android:duration="180"
+        android:fromXScale="0.85"
+        android:fromYScale="0.85"
+        android:toXScale="1.0"
+        android:toYScale="1.0"
+        android:pivotX="100%"
+        android:pivotY="0%" />
+
+    <alpha
+        android:duration="180"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0" />
+</set>

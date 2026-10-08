@@ -206,4 +206,48 @@
     <string name="user_pw_error_same">New password must be different</string>
     <string name="user_pw_error_current">Current password is incorrect</string>
 
+    <!-- Support & Feedback overflow menu - @author Anvesh @date 2026-10-08 -->
+    <string name="menu_help_center">Help center</string>
+    <string name="menu_contact">Contact support</string>
+    <string name="menu_feedback">Send feedback</string>
+
+    <!-- Help center screen - @author Anvesh @date 2026-10-08 -->
+    <string name="help_title">Help center</string>
+    <string name="help_search_hint">Search help</string>
+    <string name="help_faq_header">Frequently asked</string>
+    <string name="help_no_results">No matching questions</string>
+    <string name="help_q1">What do the rack colours mean?</string>
+    <string name="help_a1">Green means the rack is working normally, yellow is a warning, and red is a critical problem that needs attention right away.</string>
+    <string name="help_q2">How do I change my password?</string>
+    <string name="help_a2">Open the User tab at the bottom, tap Change password, then enter your current password and your new one twice.</string>
+    <string name="help_q3">Why is a rack offline?</string>
+    <string name="help_a3">The rack sensor has stopped sending data. Check its power and network cable, then tap Refresh.</string>
+    <string name="help_q4">How do I lock portrait mode?</string>
+    <string name="help_a4">Open Settings from the side menu and turn on Lock portrait.</string>
+    <string name="help_q5">What does the current sensor measure?</string>
+    <string name="help_a5">Each rack has an ACS723 current sensor that measures how much electrical current the rack is using, so overloads can be caught early.</string>
+
+    <!-- Contact support sheet - @author Anvesh @date 2026-10-08 -->
+    <string name="contact_title">Contact support</string>
+    <string name="contact_email">Email us</string>
+    <string name="contact_call">Call us</string>
+    <string name="contact_call_hours">Mon–Fri, 9am–5pm</string>
+    <string name="contact_web">Visit website</string>
+    <string name="contact_web_sub">Guides and system status</string>
+    <string name="contact_no_app">No app found to open this</string>
+    <string name="contact_email_address" translatable="false">support@kava.ca</string>
+    <string name="contact_phone_number" translatable="false">+14165550123</string>
+    <string name="contact_web_url" translatable="false">https://humber.ca</string>
+
+    <!-- Send feedback dialog - @author Anvesh @date 2026-10-08 -->
+    <string name="feedback_title">Send feedback</string>
+    <string name="feedback_bug">Bug</string>
+    <string name="feedback_idea">Idea</string>
+    <string name="feedback_other">Other</string>
+    <string name="feedback_hint">Describe the problem…</string>
+    <string name="feedback_device_info">App version %1$s · Android %2$s added automatically</string>
+    <string name="feedback_send">Send</string>
+    <string name="feedback_empty_error">Please write a few words</string>
+    <string name="feedback_subject">SentryRack feedback: %1$s</string>
+
 </resources>

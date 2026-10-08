@@ -50,4 +50,11 @@
     <color name="dash_text_primary">#FF0F1A33</color>
     <color name="dash_text_secondary">#FF5A6785</color>
     <color name="dash_divider">#1A0F1A33</color>
+
+    <!-- Overflow (3-dot) menu colours - LIGHT mode
+     @author Anvesh
+     @date 2026-10-08 -->
+    <color name="menu_background">#FFFFFFFF</color>
+    <color name="menu_highlight">#FFECECEF</color>
+    <color name="menu_ripple">#1F000000</color>
 </resources>
