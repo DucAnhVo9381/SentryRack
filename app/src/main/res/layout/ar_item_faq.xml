@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One FAQ card for the Help center
+     Tap the question row -> answer opens / closes, arrow turns
+     @author Anvesh
+     @date 2026-10-08 -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.SentryRack.Settings.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/help_card_gap">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Question row (tap to open) -->
+        <LinearLayout
+            android:id="@+id/faqHeader"
+            style="@style/Widget.SentryRack.Settings.Row"
+            android:background="?attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/faqQuestion"
+                style="@style/Widget.SentryRack.Settings.RowTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <!-- Arrow: points down when closed, up when open -->
+            <ImageView
+                android:id="@+id/faqArrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:importantForAccessibility="no"
+                android:rotation="90"
+                android:src="@drawable/ar_ic_chevron" />
+        </LinearLayout>
+
+        <!-- Answer (hidden until tapped) -->
+        <TextView
+            android:id="@+id/faqAnswer"
+            style="@style/Widget.SentryRack.Settings.RowSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/help_answer_padding"
+            android:paddingEnd="@dimen/help_answer_padding"
+            android:paddingBottom="@dimen/help_answer_padding"
+            android:visibility="gone" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
