@@ -112,4 +112,9 @@
     <dimen name="user_dialog_padding">24dp</dimen>
     <dimen name="user_field_spacing">8dp</dimen>
 
+    <!-- Help center screen - @author Anvesh @date 2026-10-08 -->
+    <dimen name="help_search_radius">24dp</dimen>
+    <dimen name="help_card_gap">10dp</dimen>
+    <dimen name="help_answer_padding">16dp</dimen>
+
 </resources>

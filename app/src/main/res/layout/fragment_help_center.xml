@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Help center screen (opened from the 3-dot menu)
+     Search bar + FAQ cards that expand when tapped.
+     FAQ cards are added from Java using ar_item_faq.xml
+     @author Anvesh
+     @date 2026-10-08 -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/settings_padding">
+
+        <!-- Title -->
+        <TextView
+            style="@style/Widget.SentryRack.Settings.ScreenTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/help_title" />
+
+        <!-- Search bar (rounded, with search icon and clear X) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/helpSearchLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/settings_space_small"
+            android:hint="@string/help_search_hint"
+            app:startIconDrawable="@android:drawable/ic_menu_search"
+            app:endIconMode="clear_text"
+            app:boxCornerRadiusTopStart="@dimen/help_search_radius"
+            app:boxCornerRadiusTopEnd="@dimen/help_search_radius"
+            app:boxCornerRadiusBottomStart="@dimen/help_search_radius"
+            app:boxCornerRadiusBottomEnd="@dimen/help_search_radius">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/helpSearchInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- "FREQUENTLY ASKED" -->
+        <TextView
+            style="@style/Widget.SentryRack.Settings.SectionHeader"
+            android:text="@string/help_faq_header" />
+
+        <!-- FAQ cards go here (added from Java) -->
+        <LinearLayout
+            android:id="@+id/helpFaqContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical" />
+
+        <!-- Shown when the search finds nothing -->
+        <TextView
+            android:id="@+id/helpNoResults"
+            style="@style/Widget.SentryRack.Settings.RowSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/help_answer_padding"
+            android:gravity="center"
+            android:text="@string/help_no_results"
+            android:visibility="gone" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
