@@ -117,4 +117,8 @@
     <dimen name="help_card_gap">10dp</dimen>
     <dimen name="help_answer_padding">16dp</dimen>
 
+    <!-- Send feedback dialog - @author Anvesh @date 2026-10-08 -->
+    <dimen name="feedback_dialog_padding">24dp</dimen>
+    <dimen name="feedback_message_min_height">120dp</dimen>
+
 </resources>

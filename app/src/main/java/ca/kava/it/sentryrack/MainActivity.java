@@ -35,6 +35,16 @@ import androidx.annotation.NonNull;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
+import android.content.ActivityNotFoundException;
+import android.net.Uri;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.widget.EditText;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -202,7 +212,6 @@ public class MainActivity extends AppCompatActivity {
 
     /** Loads the toolbar menu (Refresh, Alerts, Help, Settings, Log out)
      * @author Anvesh
-     * @date 2026-10-01
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -229,11 +238,6 @@ public class MainActivity extends AppCompatActivity {
         return button;
     }
 
-    /** Runs the action for the toolbar option that was tapped
-     * (if/else instead of switch because resource IDs are not final in newer Gradle versions)
-     * @author Anvesh
-     * @date 2026-10-01
-     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -260,10 +264,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /** Refresh: shows a message above the bottom navigation
-     * @author Anvesh
-     * @date 2026-10-01
-     */
     private void showRefreshMessage() {
         Snackbar.make(findViewById(R.id.mainContent), R.string.menu_refreshed_msg, Snackbar.LENGTH_SHORT)
                 .setAnchorView(bottomNav)
@@ -276,11 +276,6 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.menu_ok, (dialog, which) -> dialog.dismiss())
                 .show();
     }
-
-    /** Log out: asks first, so the user does not log out by accident
-     * @author Anvesh
-     * @date 2026-10-01
-     */
     public void confirmLogout() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.menu_logout_title)
@@ -290,16 +285,128 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    /** Goes back to the Login screen and clears the back stack,
-     * so pressing Back on Login does not return to the main screen
-     * @author Anvesh
-     * @date 2026-10-01
-     */
     private void logout() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.putExtra(LoginActivity.EXTRA_FROM_LOGOUT, true);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
+    }
+
+    private void showContactSupportSheet() {
+        BottomSheetDialog sheet = new BottomSheetDialog(this);
+        View sheetView = getLayoutInflater().inflate(R.layout.ar_sheet_contact_support, null);
+        sheet.setContentView(sheetView);
+
+        sheetView.findViewById(R.id.contactEmailRow).setOnClickListener(v -> {
+            sheet.dismiss();
+            openSupportEmail();
+        });
+        sheetView.findViewById(R.id.contactCallRow).setOnClickListener(v -> {
+            sheet.dismiss();
+            openSupportDialer();
+        });
+        sheetView.findViewById(R.id.contactWebRow).setOnClickListener(v -> {
+            sheet.dismiss();
+            openSupportWebsite();
+        });
+
+        sheet.show();
+    }
+
+    private void openSupportEmail() {
+        Intent email = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.contact_email_address)});
+        email.putExtra(Intent.EXTRA_SUBJECT,
+                getString(R.string.app_name) + " - " + getString(R.string.contact_title));
+        startExternalApp(email);
+    }
+
+    private void openSupportDialer() {
+        Intent dial = new Intent(Intent.ACTION_DIAL,
+                Uri.parse("tel:" + getString(R.string.contact_phone_number)));
+        startExternalApp(dial);
+    }
+
+    private void openSupportWebsite() {
+        Intent web = new Intent(Intent.ACTION_VIEW,
+                Uri.parse(getString(R.string.contact_web_url)));
+        startExternalApp(web);
+    }
+    private void startExternalApp(Intent intent) {
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Snackbar.make(findViewById(R.id.mainContent), R.string.contact_no_app, Snackbar.LENGTH_SHORT)
+                    .setAnchorView(bottomNav)
+                    .show();
+        }
+    }
+
+    /** Opens the "Send feedback" dialog (from the 3-dot menu).
+     * The Send button checks the message first - the dialog only closes
+     */
+    private void showSendFeedbackDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.ar_dialog_send_feedback, null);
+        ChipGroup typeGroup = dialogView.findViewById(R.id.feedbackTypeGroup);
+        TextInputLayout messageLayout = dialogView.findViewById(R.id.feedbackMessageLayout);
+        EditText messageInput = dialogView.findViewById(R.id.feedbackMessageInput);
+        TextView deviceInfo = dialogView.findViewById(R.id.feedbackDeviceInfo);
+
+        // "App version 1.0 · Android 14 added automatically"
+        deviceInfo.setText(getString(R.string.feedback_device_info,
+                getAppVersion(), Build.VERSION.RELEASE));
+
+        AlertDialog dialog = new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.feedback_title)
+                .setView(dialogView)
+                .setNegativeButton(R.string.menu_cancel, null)
+                .setPositiveButton(R.string.feedback_send, null)   // real click set below
+                .create();
+
+        // Replace the Send click so an empty message does NOT close the dialog
+        dialog.setOnShowListener(d -> dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setOnClickListener(button -> {
+                    String message = messageInput.getText() == null
+                            ? "" : messageInput.getText().toString().trim();
+
+                    if (message.isEmpty()) {
+                        messageLayout.setError(getString(R.string.feedback_empty_error));
+                        return;
+                    }
+                    messageLayout.setError(null);
+                    dialog.dismiss();
+                    sendFeedbackEmail(getSelectedFeedbackType(typeGroup), message);
+                }));
+
+        dialog.show();
+    }
+
+    // Returns the text of the selected chip: "Bug", "Idea" or "Other"
+    private String getSelectedFeedbackType(ChipGroup typeGroup) {
+        Chip selected = typeGroup.findViewById(typeGroup.getCheckedChipId());
+        return selected != null ? selected.getText().toString() : getString(R.string.feedback_other);
+    }
+
+    /** Opens the email app with the feedback filled in:
+     * subject = "SentryRack feedback: Bug", body = message + device details.
+     */
+    private void sendFeedbackEmail(String type, String message) {
+        String deviceDetails = getString(R.string.app_name) + " " + getAppVersion()
+                + " · Android " + Build.VERSION.RELEASE
+                + " · " + Build.MANUFACTURER + " " + Build.MODEL;
+
+        Intent email = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.contact_email_address)});
+        email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_subject, type));
+        email.putExtra(Intent.EXTRA_TEXT, message + "\n\n---\n" + deviceDetails);
+        startExternalApp(email);
+    }
+    private String getAppVersion() {
+        try {
+            return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            return "1.0";
+        }
     }
 }
