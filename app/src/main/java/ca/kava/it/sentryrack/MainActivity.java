@@ -45,6 +45,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
+import androidx.core.view.MenuCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -216,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        // Divider line between overflow groups (like Chrome's menu)
+        MenuCompat.setGroupDividerEnabled(menu, true);
 
         // Step 18: Refresh must show its image AND its text, so it gets a custom button
         MenuItem refreshItem = menu.findItem(R.id.action_refresh);
@@ -246,34 +249,24 @@ public class MainActivity extends AppCompatActivity {
             showRefreshMessage();
             return true;
         } else if (id == R.id.action_alerts) {
-            // Alerts is no longer a bottom tab - the bell opens it directly
             showFragment(new AlertsFragment());
             return true;
-        } else if (id == R.id.action_help) {
-            showHelpDialog();
+        } else if (id == R.id.action_help_center) {
+            showFragment(new HelpCenterFragment());
             return true;
-        } else if (id == R.id.action_settings) {
-            // Settings is no longer a bottom tab - open it directly
-            showFragment(new SettingsFragment());
+        } else if (id == R.id.action_contact) {
+            showContactSupportSheet();
             return true;
-        } else if (id == R.id.action_logout) {
-            confirmLogout();
+        } else if (id == R.id.action_feedback) {
+            showSendFeedbackDialog();
             return true;
         }
-        // Anything else (e.g. the hamburger icon) is handled by Android as before
         return super.onOptionsItemSelected(item);
     }
 
     private void showRefreshMessage() {
         Snackbar.make(findViewById(R.id.mainContent), R.string.menu_refreshed_msg, Snackbar.LENGTH_SHORT)
                 .setAnchorView(bottomNav)
-                .show();
-    }
-    private void showHelpDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.menu_help_title)
-                .setMessage(R.string.menu_help_msg)
-                .setPositiveButton(R.string.menu_ok, (dialog, which) -> dialog.dismiss())
                 .show();
     }
     public void confirmLogout() {

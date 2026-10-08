@@ -54,12 +54,8 @@
      @date 2026-10-01 -->
     <string name="menu_refresh">Actualiser</string>
     <string name="menu_alerts">Alertes</string>
-    <string name="menu_help">Aide</string>
-    <string name="menu_settings">Paramètres</string>
     <string name="menu_logout">Se déconnecter</string>
     <string name="menu_refreshed_msg">Données des baies actualisées</string>
-    <string name="menu_help_title">Comment utiliser SentryRack</string>
-    <string name="menu_help_msg">L\'accueil affiche l\'état en direct de vos baies. Baies liste toutes les baies surveillées, et Alertes affiche les avertissements et les événements critiques. Ouvrez le menu latéral pour plus d\'écrans.</string>
     <string name="menu_logout_title">Se déconnecter?</string>
     <string name="menu_logout_msg">Vous reviendrez à l\'écran de connexion.</string>
     <string name="menu_ok">OK</string>
