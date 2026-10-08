@@ -27,7 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorSurface"
-            android:elevation="4dp" />
+            android:elevation="4dp"
+            app:popupTheme="@style/ThemeOverlay.SentryRack.OverflowMenu" />
 
         <!-- Each screen (fragment) is shown here -->
         <FrameLayout

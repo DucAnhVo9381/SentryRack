@@ -200,4 +200,45 @@
     <string name="user_pw_error_match">Les mots de passe ne correspondent pas</string>
     <string name="user_pw_error_same">Le nouveau mot de passe doit être différent</string>
     <string name="user_pw_error_current">Le mot de passe actuel est incorrect</string>
+
+    <!-- Support & Feedback overflow menu - @author Anvesh @date 2026-10-08 -->
+    <string name="menu_help_center">Centre d\'aide</string>
+    <string name="menu_contact">Contacter le support</string>
+    <string name="menu_feedback">Envoyer un commentaire</string>
+
+    <!-- Help center screen - @author Anvesh @date 2026-10-08 -->
+    <string name="help_title">Centre d\'aide</string>
+    <string name="help_search_hint">Rechercher dans l\'aide</string>
+    <string name="help_faq_header">Questions fréquentes</string>
+    <string name="help_no_results">Aucune question correspondante</string>
+    <string name="help_q1">Que signifient les couleurs des baies?</string>
+    <string name="help_a1">Le vert indique un fonctionnement normal, le jaune un avertissement et le rouge un problème critique qui demande une attention immédiate.</string>
+    <string name="help_q2">Comment changer mon mot de passe?</string>
+    <string name="help_a2">Ouvrez l\'onglet Utilisateur en bas, touchez Changer le mot de passe, puis entrez votre mot de passe actuel et le nouveau deux fois.</string>
+    <string name="help_q3">Pourquoi une baie est-elle hors ligne?</string>
+    <string name="help_a3">Le capteur de la baie n\'envoie plus de données. Vérifiez son alimentation et son câble réseau, puis touchez Actualiser.</string>
+    <string name="help_q4">Comment verrouiller le mode portrait?</string>
+    <string name="help_a4">Ouvrez Paramètres dans le menu latéral et activez Verrouiller en portrait.</string>
+    <string name="help_q5">Que mesure le capteur de courant?</string>
+    <string name="help_a5">Chaque baie possède un capteur de courant ACS723 qui mesure le courant électrique utilisé, afin de détecter rapidement les surcharges.</string>
+
+    <!-- Contact support sheet - @author Anvesh @date 2026-10-08 -->
+    <string name="contact_title">Contacter le support</string>
+    <string name="contact_email">Nous écrire</string>
+    <string name="contact_call">Nous appeler</string>
+    <string name="contact_call_hours">Lun–ven, 9 h à 17 h</string>
+    <string name="contact_web">Visiter le site Web</string>
+    <string name="contact_web_sub">Guides et état du système</string>
+    <string name="contact_no_app">Aucune application trouvée pour ouvrir ceci</string>
+
+    <!-- Send feedback dialog - @author Anvesh @date 2026-10-08 -->
+    <string name="feedback_title">Envoyer un commentaire</string>
+    <string name="feedback_bug">Bogue</string>
+    <string name="feedback_idea">Idée</string>
+    <string name="feedback_other">Autre</string>
+    <string name="feedback_hint">Décrivez le problème…</string>
+    <string name="feedback_device_info">Version %1$s · Android %2$s ajoutés automatiquement</string>
+    <string name="feedback_send">Envoyer</string>
+    <string name="feedback_empty_error">Veuillez écrire quelques mots</string>
+    <string name="feedback_subject">Commentaire SentryRack : %1$s</string>
 </resources>

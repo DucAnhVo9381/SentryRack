@@ -18,4 +18,38 @@
         <item name="postSplashScreenTheme">@style/Theme.SentryRack</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/animated_logo</item>
     </style>
+
+    <!-- ===== Overflow (3-dot) menu look - Chrome-style =====
+     Used by the toolbar through app:popupTheme (activity_main.xml)
+     @author Anvesh
+     @date 2026-10-08 -->
+
+    <!-- Theme for the menu popup only (does not change the rest of the app) -->
+    <style name="ThemeOverlay.SentryRack.OverflowMenu" parent="ThemeOverlay.Material3">
+        <item name="actionOverflowMenuStyle">@style/Widget.SentryRack.OverflowMenu</item>
+        <item name="dropDownListViewStyle">@style/Widget.SentryRack.OverflowMenu.List</item>
+        <item name="android:dropDownListViewStyle">@style/Widget.SentryRack.OverflowMenu.List</item>
+        <item name="colorControlHighlight">@color/menu_ripple</item>
+    </style>
+
+    <!-- The popup box: rounded background, shadow, opens BELOW the 3 dots, animation -->
+    <style name="Widget.SentryRack.OverflowMenu" parent="Widget.Material3.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/ar_bg_overflow_menu</item>
+        <item name="android:popupElevation">8dp</item>
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownVerticalOffset">4dp</item>
+        <item name="android:popupAnimationStyle">@style/Animation.SentryRack.OverflowMenu</item>
+    </style>
+
+    <!-- The list inside the box: grey rounded highlight on hover / press -->
+    <style name="Widget.SentryRack.OverflowMenu.List" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:listSelector">@drawable/ar_bg_overflow_item</item>
+        <item name="android:drawSelectorOnTop">false</item>
+    </style>
+
+    <!-- Open / close animation -->
+    <style name="Animation.SentryRack.OverflowMenu" parent="">
+        <item name="android:windowEnterAnimation">@anim/ar_menu_enter</item>
+        <item name="android:windowExitAnimation">@anim/ar_menu_exit</item>
+    </style>
 </resources>

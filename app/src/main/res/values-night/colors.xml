@@ -10,4 +10,11 @@
 
     <!-- Splash screen colors -->
     <color name="splash_background">#FF75757E</color>
+
+    <!-- Overflow (3-dot) menu colours - DARK mode
+     @author Anvesh
+     @date 2026-10-08 -->
+    <color name="menu_background">#FF2B2D31</color>
+    <color name="menu_highlight">#FF3C3F45</color>
+    <color name="menu_ripple">#29FFFFFF</color>
 </resources>
