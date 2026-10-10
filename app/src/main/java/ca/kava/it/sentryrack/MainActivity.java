@@ -4,17 +4,28 @@
 // Krushna Patel N01713093 ONC
 package ca.kava.it.sentryrack;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.GravityCompat;
@@ -45,6 +56,10 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
+import com.google.android.gms.tasks.CancellationTokenSource;
 import androidx.core.view.MenuCompat;
 
 public class MainActivity extends AppCompatActivity {
@@ -53,6 +68,37 @@ public class MainActivity extends AppCompatActivity {
     // Drawer and bottom bar are fields so every method can use them
     private DrawerLayout drawerLayout;
     private BottomNavigationView bottomNav;
+
+    private FusedLocationProviderClient fusedLocationClient;
+    private int locationPermissionDenied = 0;
+
+    private static final String CHANNEL_ID = "location_channel";
+    private static final int NOTIFICATION_ID = 1001;
+    private static final String FULL_NAME = "Kava";
+
+    //Redirect user to settings if location permisison denied > 2
+    // Redirect user to settings if location permission denied > 2
+    private final ActivityResultLauncher<String[]> locationPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+                boolean fineGranted = Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION));
+                boolean coarseGranted = Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION));
+
+                if (fineGranted || coarseGranted) {
+                    locationPermissionDenied = 0;
+                    fetchDeviceLocation();
+                } else {
+                    locationPermissionDenied++;
+                    if (locationPermissionDenied > 2) {
+                        showSnackbar(getString(R.string.permission_denied_opening_settings), getString(R.string.settings), v -> {
+                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.setData(Uri.fromParts("package", getPackageName(), null));
+                            startActivity(intent);
+                        });
+                    } else {
+                        showSnackbar(getString(R.string.location_permission_denied), getString(R.string.dismiss), null);
+                    }
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
         // before the Login screen (Deliverable 2 step 11) - Anvesh, 2026-10-01
 
         setContentView(R.layout.activity_main);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        createNotificationChannel();
 
         /** Setup toolbar as the app bar
          * @author Krushna
@@ -185,6 +234,10 @@ public class MainActivity extends AppCompatActivity {
                 alertBuilder.show();
             }
         });
+
+        if (savedInstanceState == null) {
+            requestLocation();
+        }
     }
 
     /** Replaces the screen shown in mainContent with the given fragment
@@ -402,4 +455,102 @@ public class MainActivity extends AppCompatActivity {
             return "1.0";
         }
     }
+    //Misc snackbar method REUSEABLE
+    private void showSnackbar(String message, String actionText, View.OnClickListener listener) {
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.mainContent), message, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction(actionText, v -> {
+            if (listener != null) {
+                listener.onClick(v);
+            }
+            snackbar.dismiss();
+        });
+        snackbar.show();
+    }
+
+    private boolean hasLocationPermission() {
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private boolean hasNotificationPermission() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    // Get perms
+    private void requestLocation() {
+        if (hasLocationPermission() && hasNotificationPermission()) {
+            fetchDeviceLocation();
+            return;
+        }
+        String[] permissions = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                ? new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.POST_NOTIFICATIONS}
+                : new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION};
+        locationPermissionLauncher.launch(permissions);
+    }
+
+    private void fetchDeviceLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        // getCurrentLocation
+        CancellationTokenSource cts = new CancellationTokenSource();
+        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, cts.getToken())
+                .addOnSuccessListener(this, location -> {
+                    if (location != null) {
+                        double latitude = location.getLatitude();
+                        double longitude = location.getLongitude();
+                        String locationText = getString(R.string.lat) + latitude + ", " + getString(R.string.lon) + longitude;
+
+                        showSnackbar(locationText, getString(R.string.dismiss), null);
+                        triggerNotification(latitude, longitude);
+                    } else {
+                        showSnackbar(getString(R.string.location_could_not_be_determined), getString(R.string.dismiss), null);
+                    }
+                })
+                .addOnFailureListener(this, e ->
+                        showSnackbar(getString(R.string.location_error) + e.getLocalizedMessage(), getString(R.string.dismiss), null));
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    getString(R.string.location_channel),
+                    NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription(getString(R.string.channel_for_location_notifications));
+            channel.enableVibration(true);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+    }
+
+    private void triggerNotification(double lat, double lng) {
+        if (!hasNotificationPermission()) {
+            return;
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(android.R.drawable.ic_menu_compass)
+                .setContentTitle(FULL_NAME + getString(R.string.location_determined))
+                .setContentText(getString(R.string.lat) + lat + ", " + getString(R.string.lon) + lng)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setAutoCancel(true);
+
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        if (notificationManager != null) {
+            notificationManager.notify(NOTIFICATION_ID, builder.build());
+        }
+    }
+
 }
