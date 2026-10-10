@@ -237,4 +237,16 @@
     <string name="feedback_send">Envoyer</string>
     <string name="feedback_empty_error">Veuillez écrire quelques mots</string>
     <string name="feedback_subject">Commentaire SentryRack : %1$s</string>
+
+    <!-- For location services -->
+    <string name="permission_denied_opening_settings">Permission denied, opening settings...</string>
+    <string name="location_permission_denied">Location permission denied</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="lat">LAT</string>
+    <string name="lon">long</string>
+    <string name="location_could_not_be_determined">Location could not be determined</string>
+    <string name="location_error">Location Error</string>
+    <string name="location_channel">Location Channel</string>
+    <string name="channel_for_location_notifications">Channel for location notifs</string>
+    <string name="location_determined">Location Determined</string>
 </resources>

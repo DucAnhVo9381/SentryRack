@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "188794669750",
+    "project_id": "sentryrack",
+    "storage_bucket": "sentryrack.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188794669750:android:ec24ed59f7ec2000173417",
+        "android_client_info": {
+          "package_name": "ca.kava.it.sentryrack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnOLmxIgrUmuN8kUZKJphj_Wz0_2Mh5Pk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
