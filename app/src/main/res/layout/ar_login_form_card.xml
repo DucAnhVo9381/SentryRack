@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Andres Zambrano N01495324 ONC
-     Duc Anh Vo N01729381 0NC
-     Anvesh Rachakonda N01661293 ONC
-     Krushna Patel N01713093 ONC -->
-
 <!-- Login form card (glass look). Shared by the portrait AND landscape login
      layouts using <include>, so the form is written only once (DRY principle).
      @author Anvesh
