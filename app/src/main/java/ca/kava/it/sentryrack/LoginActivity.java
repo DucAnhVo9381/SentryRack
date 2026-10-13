@@ -36,7 +36,6 @@ import com.google.android.material.textfield.TextInputLayout;
  * @date 2026-10-01
  */
 public class LoginActivity extends AppCompatActivity {
-
     // Remember me is saved in a small private settings file on the phone
     private static final String PREFS_NAME = "sentryrack_login";
     private static final String KEY_REMEMBERED_EMAIL = "remembered_email";
@@ -56,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText emailInput;
     private TextInputEditText passwordInput;
     private MaterialCheckBox rememberMeCheck;
+
+    // Hardcoded login credential (remove later)
+    private static final String EMAIL = "aaa@bbb.com";
+    private static final String PASSWORD = "Admin101!";
 
     /** Shows the splash (first launch only), then loads the login layout
      * @author Anvesh
@@ -186,9 +189,22 @@ public class LoginActivity extends AppCompatActivity {
         boolean emailFilled = isFieldFilled(emailInput, emailLayout, R.string.error_email_empty);
         boolean passwordFilled = isFieldFilled(passwordInput, passwordLayout, R.string.error_password_empty);
 
+//        if (emailFilled && passwordFilled) {
+//            saveRememberedEmail(textOf(emailInput).trim());
+//            openMainScreen();
+//        }
+
+        // Hardcoded credentials
         if (emailFilled && passwordFilled) {
-            saveRememberedEmail(textOf(emailInput).trim());
-            openMainScreen();
+            String email = textOf(emailInput).trim();
+            String password = textOf(passwordInput);
+
+            if (email.equals(EMAIL) && password.equals(PASSWORD)) {
+                saveRememberedEmail(email);
+                openMainScreen();
+            } else {
+                showMessage(R.string.error_email_invalid);
+            }
         }
     }
 
