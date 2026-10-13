@@ -107,35 +107,6 @@
 
                 <View style="@style/Widget.SentryRack.Settings.Divider" />
 
-                <!-- Language (design only) -->
-                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_language" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Settings.RowTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/setting_language" />
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Settings.RowSummary"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/setting_language_summary" />
-                    </LinearLayout>
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Settings.RowValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/setting_language_value" />
-                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
