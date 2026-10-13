@@ -4,19 +4,12 @@
 // Krushna Patel N01713093 ONC
 package ca.kava.it.sentryrack;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
 import android.Manifest;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -27,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.graphics.Insets;
-import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -63,12 +55,11 @@ import com.google.android.gms.tasks.CancellationTokenSource;
 import androidx.core.view.MenuCompat;
 
 public class MainActivity extends AppCompatActivity {
-
-
     // Drawer and bottom bar are fields so every method can use them
     private DrawerLayout drawerLayout;
     private BottomNavigationView bottomNav;
 
+    // Runtime permission variables
     private FusedLocationProviderClient fusedLocationClient;
     private int locationPermissionDenied = 0;
 
@@ -76,7 +67,10 @@ public class MainActivity extends AppCompatActivity {
     private static final int NOTIFICATION_ID = 1001;
     private static final String FULL_NAME = "Kava";
 
-    //Redirect user to settings if location permisison denied > 2
+    // Create fragments
+
+
+    // Redirect user to settings if location permisison denied > 2
     // Redirect user to settings if location permission denied > 2
     private final ActivityResultLauncher<String[]> locationPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
@@ -115,10 +109,7 @@ public class MainActivity extends AppCompatActivity {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         createNotificationChannel();
 
-        /** Setup toolbar as the app bar
-         * @author Krushna
-         * @date 2026-09-28
-         */
+        // Setup toolbar
         // The toolbar lives inside the layout (not the window), so the drawer can slide over it
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -163,17 +154,15 @@ public class MainActivity extends AppCompatActivity {
             int id = item.getItemId();
             Fragment fragment;
 
-            // if/else is used instead of switch because resource IDs are not final in newer Gradle versions
             if (id == R.id.nav_racks) {
                 fragment = new RacksFragment();
             } else if (id == R.id.nav_user) {
-                // User tab replaces Alerts and Settings tabs - Anvesh, 2026-10-07
                 fragment = new UserFragment();
             } else {
                 fragment = new HomeFragment();
             }
 
-            showFragment(fragment);
+            setCurrentFragment(fragment);
             return true;
         });
 
@@ -204,13 +193,13 @@ public class MainActivity extends AppCompatActivity {
 
         drawerSettings.setOnClickListener(v -> {
             // Settings is no longer a bottom tab, so open it directly - Anvesh, 2026-10-07
-            showFragment(new SettingsFragment());
+            setCurrentFragment(new SettingsFragment());
             drawerLayout.closeDrawer(GravityCompat.START);
         });
 
         // About is drawer-only, so it opens the screen directly
         drawerAbout.setOnClickListener(v -> {
-            showFragment(new AboutFragment());
+            setCurrentFragment(new AboutFragment());
             drawerLayout.closeDrawer(GravityCompat.START);
         });
 
@@ -244,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
      * @author Krushna
      * @date 2026-09-28
      */
-    private void showFragment(Fragment fragment) {
+    private void setCurrentFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.mainContent, fragment)
@@ -262,8 +251,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Toolbar (action bar) menu
-    // @author Anvesh
-
     /** Loads the toolbar menu (Refresh, Alerts, Help, Settings, Log out)
      * @author Anvesh
      */
@@ -302,10 +289,10 @@ public class MainActivity extends AppCompatActivity {
             showRefreshMessage();
             return true;
         } else if (id == R.id.action_alerts) {
-            showFragment(new AlertsFragment());
+            setCurrentFragment(new AlertsFragment());
             return true;
         } else if (id == R.id.action_help_center) {
-            showFragment(new HelpCenterFragment());
+            setCurrentFragment(new HelpCenterFragment());
             return true;
         } else if (id == R.id.action_contact) {
             showContactSupportSheet();
@@ -552,5 +539,4 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.notify(NOTIFICATION_ID, builder.build());
         }
     }
-
 }
