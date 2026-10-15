@@ -20,6 +20,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.snackbar.Snackbar;
+import android.content.res.Configuration;
+import androidx.appcompat.app.AppCompatDelegate;
 
 /** Settings screen (Deliverable 2 steps 6 and 7).
  * Shows 7 settings; ONE is implemented: "Lock screen to portrait".
@@ -32,6 +34,7 @@ public class SettingsFragment extends Fragment {
     // Settings are saved in a small private file on the phone
     private static final String PREFS_NAME = "sentryrack_settings";
     private static final String KEY_LOCK_PORTRAIT = "lock_portrait";
+    private static final String KEY_DARK_MODE = "dark_mode";
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -56,6 +59,7 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupPortraitLock(view);
+        setupDarkMode(view);   // Dark theme switch
     }
 
     /** Step 7: the working setting.
@@ -103,12 +107,54 @@ public class SettingsFragment extends Fragment {
     /** Applies the saved choice to any screen (used by Settings, MainActivity and LoginActivity)
      * Locked   -> always portrait
      * Unlocked -> follows the phone's rotation
-     * @author Anvesh
-     * @date 2026-10-01
      */
     public static void applySavedOrientation(Activity activity) {
         activity.setRequestedOrientation(isPortraitLocked(activity)
                 ? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                 : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+    }
+
+    //--- DARK THEME FUNCTIONALITY ---
+    private void setupDarkMode(View root) {
+        MaterialSwitch darkSwitch = root.findViewById(R.id.switchDarkMode);
+
+        // Show the current theme first (before adding the listener)
+        darkSwitch.setChecked(isDarkModeOn(requireContext()));
+        darkSwitch.setOnCheckedChangeListener((button, isChecked) -> {
+
+            // Save dark mode using shared preferences
+            SharedPreferences prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+            prefs.edit().putBoolean(KEY_DARK_MODE, isChecked).apply();
+
+            // Android redraws every open screen with the new colours
+            AppCompatDelegate.setDefaultNightMode(isChecked
+                    ? AppCompatDelegate.MODE_NIGHT_YES
+                    : AppCompatDelegate.MODE_NIGHT_NO);
+        });
+    }
+
+    public static boolean isDarkModeOn(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        if (prefs.contains(KEY_DARK_MODE)) {
+            return prefs.getBoolean(KEY_DARK_MODE, false);
+        }
+        int nightMask = context.getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK;
+        return nightMask == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    // Applies the saved theme when the app starts (called by LoginActivity and MainActivity).
+    // Never changed in Settings -> follows the phone (system default).
+    public static void applySavedTheme(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        int mode;
+        if (!prefs.contains(KEY_DARK_MODE)) {
+            mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+        } else if (prefs.getBoolean(KEY_DARK_MODE, false)) {
+            mode = AppCompatDelegate.MODE_NIGHT_YES;
+        } else {
+            mode = AppCompatDelegate.MODE_NIGHT_NO;
+        }
+        AppCompatDelegate.setDefaultNightMode(mode);
     }
 }
