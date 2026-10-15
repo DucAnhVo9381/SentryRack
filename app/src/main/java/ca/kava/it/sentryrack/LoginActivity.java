@@ -73,6 +73,9 @@ public class LoginActivity extends AppCompatActivity {
         // The splash screen must be installed BEFORE super.onCreate()
         setupSplashScreen(freshLaunch);
 
+        // Apply the saved light/dark theme before the screen is drawn - @author Anvesh @date 2026-10-15
+        SettingsFragment.applySavedTheme(this);
+
         super.onCreate(savedInstanceState);
         // Settings > "Lock screen to portrait" - apply the saved choice (Anvesh, 2026-10-01)
         SettingsFragment.applySavedOrientation(this);
