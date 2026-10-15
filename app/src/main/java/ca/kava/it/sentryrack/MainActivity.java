@@ -67,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int NOTIFICATION_ID = 1001;
     private static final String FULL_NAME = "Kava";
 
-    // Create fragments
-
-
     // Redirect user to settings if location permisison denied > 2
     // Redirect user to settings if location permission denied > 2
     private final ActivityResultLauncher<String[]> locationPermissionLauncher =
@@ -93,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,65 +141,13 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
         }
 
-        /** Setup bottom navigation
-         * @author Krushna
-         * @date 2026-09-28
-         */
-        bottomNav = findViewById(R.id.bottomNavigation);
-
-        // Opens the matching screen when a bottom tab is tapped
-        bottomNav.setOnItemSelectedListener(item -> {
-            int id = item.getItemId();
-            Fragment fragment;
-
-            if (id == R.id.nav_racks) {
-                fragment = new RacksFragment();
-            } else if (id == R.id.nav_user) {
-                fragment = new UserFragment();
-            } else {
-                fragment = new HomeFragment();
-            }
-
-            setCurrentFragment(fragment);
-            return true;
-        });
+        setupBottomNavigation();
+        setupDrawerMenu();
 
         // Show Home when the app first opens (not again after screen rotation)
         if (savedInstanceState == null) {
             bottomNav.setSelectedItemId(R.id.nav_home);
         }
-
-        /** Setup drawer items and keep them in sync with the bottom navigation
-         * @author Krushna
-         * @date 2026-09-28
-         */
-        TextView drawerHome = findViewById(R.id.drawerHome);
-        TextView drawerRacks = findViewById(R.id.drawerRacks);
-        TextView drawerSettings = findViewById(R.id.drawerSettings);
-        TextView drawerAbout = findViewById(R.id.drawerAbout);
-
-        // Home, Racks and Settings select the bottom tab, which also opens the screen
-        drawerHome.setOnClickListener(v -> {
-            bottomNav.setSelectedItemId(R.id.nav_home);
-            drawerLayout.closeDrawer(GravityCompat.START);
-        });
-
-        drawerRacks.setOnClickListener(v -> {
-            bottomNav.setSelectedItemId(R.id.nav_racks);
-            drawerLayout.closeDrawer(GravityCompat.START);
-        });
-
-        drawerSettings.setOnClickListener(v -> {
-            // Settings is no longer a bottom tab, so open it directly - Anvesh, 2026-10-07
-            setCurrentFragment(new SettingsFragment());
-            drawerLayout.closeDrawer(GravityCompat.START);
-        });
-
-        // About is drawer-only, so it opens the screen directly
-        drawerAbout.setOnClickListener(v -> {
-            setCurrentFragment(new AboutFragment());
-            drawerLayout.closeDrawer(GravityCompat.START);
-        });
 
         /** Setup Dialogbox on backpress intercept
          * @Author: Andres
@@ -240,6 +186,50 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+    // Helper method to close the navigation drawer
+    private void closeDrawer() {
+        drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    // Bottom nav setup method
+    private void setupBottomNavigation() {
+        bottomNav = findViewById(R.id.bottomNavigation);
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.nav_home) {
+                setCurrentFragment(new HomeFragment());
+            } else if (item.getItemId() == R.id.nav_racks) {
+                setCurrentFragment(new RacksFragment());
+            } else if (item.getItemId() == R.id.nav_user) {
+                setCurrentFragment(new UserFragment());
+            }
+            return true;
+        });
+    }
+
+    // Navigation drawer setup
+    private void setupDrawerMenu() {
+        findViewById(R.id.drawerHome).setOnClickListener(v -> {
+            bottomNav.setSelectedItemId(R.id.nav_home);
+            closeDrawer();
+        });
+
+        findViewById(R.id.drawerRacks).setOnClickListener(v -> {
+            bottomNav.setSelectedItemId(R.id.nav_racks);
+            closeDrawer();
+        });
+
+        findViewById(R.id.drawerSettings).setOnClickListener(v -> {
+            setCurrentFragment(new SettingsFragment());
+            closeDrawer();
+        });
+
+        findViewById(R.id.drawerAbout).setOnClickListener(v -> {
+            setCurrentFragment(new AboutFragment());
+            closeDrawer();
+        });
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -267,7 +257,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Builds the Refresh toolbar button with icon + text (colors follow light/dark theme)
-
     private MaterialButton createRefreshButton(MenuItem refreshItem) {
         MaterialButton button = new MaterialButton(this, null,
                 androidx.appcompat.R.attr.borderlessButtonStyle);
