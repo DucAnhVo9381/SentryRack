@@ -194,7 +194,7 @@ public class LoginActivity extends AppCompatActivity {
 //            openMainScreen();
 //        }
 
-        // Hardcoded credentials
+        // Hardcoded login credentials
         if (emailFilled && passwordFilled) {
             String email = textOf(emailInput).trim();
             String password = textOf(passwordInput);
