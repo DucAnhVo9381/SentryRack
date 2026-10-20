@@ -6,8 +6,8 @@
 - Krushna Patel - N01713093.
 - Anvesh Rachakonda - N01661293.
 
-GitHub repository: https://github.com/DucAnhVo9381/SentryRack - 
-[![GitHub repo](https://img.shields.io/badge/sentry_rack-repo-brightblue?logo=github)](https://github.com/DucAnhVo9381/SentryRack)
+GitHub Repository: https://github.com/DucAnhVo9381/SentryRack - 
+[![GitHub repo](https://img.shields.io/badge/sentry_rack-repo-blue?logo=github)](https://github.com/DucAnhVo9381/SentryRack)
 
 ### Project Image
 <p>
@@ -21,11 +21,15 @@ GitHub repository: https://github.com/DucAnhVo9381/SentryRack -
     <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light" width="200">
     <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="200">
 </p>
+
 **Sentry Rack** is a rack-level monitoring platform designed to help technicians monitor, manage, and maintain individual server racks.
 
->Rather than simply displaying raw sensor values, SentryRack transforms monitoring events into meaningful operational insights that improve visibility into rack health, activity, incidents, and lifecycle history. The platform helps users understand what is happening now, what has happened before, and what may require attention next.
+>Rather than simply displaying raw sensor values, SentryRack transforms monitoring events into meaningful 
+> operational insights that improve visibility into rack health, activity, incidents, and lifecycle 
+> history. The platform helps users understand what is happening now, what has happened before, and what 
+> may require attention next.
 
-#### Core Philosophy
+#### Core Philosophy:
 Traditional monitoring systems focus on displaying sensor readings:
 
 ```text
@@ -49,7 +53,7 @@ Sensor Reading
 ```
 This approach helps technicians focus on the condition of the rack rather than interpreting individual sensor values.
 
-#### Target Users
+#### Target Users:
 - Data Center Technicians
 - Server Room Operators
 - Infrastructure Support Teams
