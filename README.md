@@ -1,6 +1,10 @@
 ## Sentry Rack
+<p style="text-align: center;">
+    <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light" width="150">
+    <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="150">
+</p>
 
-### Group 4:
+### Group 4
 - Duc Anh Vo - N01729381.
 - Andres Zambrano - N01495324.
 - Krushna Patel - N01713093.
@@ -19,11 +23,6 @@ GitHub Repository: https://github.com/DucAnhVo9381/SentryRack -
 </table>
 
 ### Description
-<p>
-    <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light" width="150">
-    <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="150">
-</p>
-
 **Sentry Rack** is a rack-level monitoring platform designed to help technicians monitor, manage, and maintain individual server racks.
 
 > [!NOTE]
@@ -116,6 +115,6 @@ This approach helps technicians focus on the condition of the rack rather than i
 
 ---
 
-<p align="center">
+<p style="text-align: center;">
     <img src="docs/deliverable2/datacenter.gif" alt="Data center connection" width="200">
 </p>
