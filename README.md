@@ -9,12 +9,14 @@
 GitHub Repository: https://github.com/DucAnhVo9381/SentryRack - 
 [![GitHub repo](https://img.shields.io/badge/sentry_rack-repo-blue?logo=github)](https://github.com/DucAnhVo9381/SentryRack)
 
-### Project Image
-<p>
-    <img src="docs/deliverable1/splash_screen.png" alt="splash screen" width="400">
-    <img src="docs/deliverable1/home_bottom_nav.png" alt="bottom navigation" width="400">
-    <img src="docs/deliverable1/nav_drawer.png" alt="navigation drawer" width="400">
-</p>
+### App Screens
+<table>
+    <tr>
+        <td><img src="docs/deliverable1/splash_screen.png" alt="splash screen"></td>
+        <td><img src="docs/deliverable1/home_bottom_nav.png" alt="bottom navigation"></td>
+        <td><img src="docs/deliverable1/nav_drawer.png" alt="navigation drawer"></td>
+    </tr>
+</table>
 
 ### Description
 <p>
@@ -24,6 +26,7 @@ GitHub Repository: https://github.com/DucAnhVo9381/SentryRack -
 
 **Sentry Rack** is a rack-level monitoring platform designed to help technicians monitor, manage, and maintain individual server racks.
 
+> [!NOTE]
 >Rather than simply displaying raw sensor values, SentryRack transforms monitoring events into meaningful 
 > operational insights that improve visibility into rack health, activity, incidents, and lifecycle 
 > history. The platform helps users understand what is happening now, what has happened before, and what 
