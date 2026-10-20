@@ -1,5 +1,5 @@
 ## Sentry Rack
-<p style="text-align: center;">
+<p align="center">
     <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light" width="150">
     <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="150">
 </p>
@@ -115,6 +115,6 @@ This approach helps technicians focus on the condition of the rack rather than i
 
 ---
 
-<p style="text-align: center;">
+<p align="center">
     <img src="docs/deliverable2/datacenter.gif" alt="Data center connection" width="200">
 </p>
