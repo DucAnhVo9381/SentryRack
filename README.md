@@ -26,6 +26,7 @@ GitHub Repository: https://github.com/DucAnhVo9381/SentryRack -
 
 **Sentry Rack** is a rack-level monitoring platform designed to help technicians monitor, manage, and maintain individual server racks.
 
+> [!NOTE]
 >Rather than simply displaying raw sensor values, SentryRack transforms monitoring events into meaningful 
 > operational insights that improve visibility into rack health, activity, incidents, and lifecycle 
 > history. The platform helps users understand what is happening now, what has happened before, and what 
