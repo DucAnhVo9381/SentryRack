@@ -11,15 +11,15 @@ GitHub Repository: https://github.com/DucAnhVo9381/SentryRack -
 
 ### Project Image
 <p>
-    <img src="docs/deliverable1/splash_screen.png" alt="splash screen" width="200">
-    <img src="docs/deliverable1/home_bottom_nav.png" alt="bottom navigation" width="200">
-    <img src="docs/deliverable1/nav_drawer.png" alt="navigation drawer" width="200">
+    <img src="docs/deliverable1/splash_screen.png" alt="splash screen" width="400">
+    <img src="docs/deliverable1/home_bottom_nav.png" alt="bottom navigation" width="400">
+    <img src="docs/deliverable1/nav_drawer.png" alt="navigation drawer" width="400">
 </p>
 
 ### Description
 <p>
-    <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light" width="200">
-    <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="200">
+    <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light" width="150">
+    <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="150">
 </p>
 
 **Sentry Rack** is a rack-level monitoring platform designed to help technicians monitor, manage, and maintain individual server racks.
