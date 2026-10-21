@@ -16,9 +16,10 @@ GitHub Repository: https://github.com/DucAnhVo9381/SentryRack -
 ### App Screens
 <table>
     <tr>
-        <td><img src="docs/deliverable1/splash_screen.png" alt="splash screen"></td>
-        <td><img src="docs/deliverable1/home_bottom_nav.png" alt="bottom navigation"></td>
-        <td><img src="docs/deliverable1/nav_drawer.png" alt="navigation drawer"></td>
+        <td><img src="docs/deliverable2/splash_screen.gif" alt="splash screen"></td>
+        <td><img src="docs/deliverable2/login_screen.png" alt="login screen"></td>
+        <td><img src="docs/deliverable2/main_screen.png" alt="main screen"></td>
+        <td><img src="docs/deliverable2/nav_drawer.png" alt="navigation drawer"></td>
     </tr>
 </table>
 
