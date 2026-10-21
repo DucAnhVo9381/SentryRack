@@ -18,6 +18,8 @@ GitHub Repository: https://github.com/DucAnhVo9381/SentryRack -
     <tr>
         <td><img src="docs/deliverable2/splash_screen.gif" alt="splash screen"></td>
         <td><img src="docs/deliverable2/login_screen.png" alt="login screen"></td>
+    </tr>
+    <tr>
         <td><img src="docs/deliverable2/main_screen.png" alt="main screen"></td>
         <td><img src="docs/deliverable2/nav_drawer.png" alt="navigation drawer"></td>
     </tr>
