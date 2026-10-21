@@ -1,7 +1,7 @@
 ## Sentry Rack
 <p align="center">
-    <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light" width="150">
-    <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="150">
+    <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light" width="300">
+    <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="300">
 </p>
 
 ### Group 4
@@ -10,8 +10,7 @@
 - Krushna Patel - N01713093.
 - Anvesh Rachakonda - N01661293.
 
-GitHub Repository: https://github.com/DucAnhVo9381/SentryRack - 
-[![GitHub repo](https://img.shields.io/badge/sentry_rack-repo-blue?logo=github)](https://github.com/DucAnhVo9381/SentryRack)
+GitHub Repository: [![GitHub repo](https://img.shields.io/badge/sentry_rack-repo-blue?logo=github)](https://github.com/DucAnhVo9381/SentryRack)
 
 ### App Screens
 <table>
