@@ -64,8 +64,6 @@ This approach helps technicians focus on the condition of the rack rather than i
 - Facilities Personnel responsible for rack environments
 - Organizations seeking rack-level operational visibility
 
----
-
 ## Key Features
 ### Security Monitoring
 - Detect rack access events using a Hall Effect sensor
@@ -97,8 +95,6 @@ This approach helps technicians focus on the condition of the rack rather than i
 - Track environmental warnings and incidents
 - Record maintenance activities
 - Provide historical context for troubleshooting and decision-making
-
----
 
 ## Tools and Resources
 ### Software
