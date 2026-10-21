@@ -19,10 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
@@ -37,6 +34,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import android.content.ActivityNotFoundException;
 import android.net.Uri;
@@ -54,8 +52,8 @@ import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import androidx.core.view.MenuCompat;
 
-public class MainActivity extends AppCompatActivity {
-    // Drawer and bottom bar are fields so every method can use them
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    // Bottom nav and drawer fields
     private DrawerLayout drawerLayout;
     private BottomNavigationView bottomNav;
 
@@ -91,71 +89,62 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Apply the saved light/dark theme before the screen is drawn - @author Anvesh @date 2026-10-15
         SettingsFragment.applySavedTheme(this);
-
-        super.onCreate(savedInstanceState);
-
         // Settings > "Lock screen to portrait" - apply the saved choice (Anvesh, 2026-10-01)
         SettingsFragment.applySavedOrientation(this);
 
-        // Splash screen (Volk) moved to LoginActivity.setupSplashScreen() so it shows
-        // before the Login screen (Deliverable 2 step 11) - Anvesh, 2026-10-01
-
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize location services
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         createNotificationChannel();
 
-        // Setup toolbar
-        // The toolbar lives inside the layout (not the window), so the drawer can slide over it
+        // Setup toolbar - The toolbar lives inside the layout (not the window), so the drawer can slide over it
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Setup navigation drawer
         drawerLayout = findViewById(R.id.drawerLayout);
 
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                R.string.open_drawer,
-                R.string.close_drawer
-        );
+        NavigationView navigationView = findViewById(R.id.drawer_nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
-        drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
+        // Setup bottom nav
+        bottomNav = findViewById(R.id.bottomNavigation);
 
-        /** Fix drawer overlapping the status bar (edge-to-edge)
-         * @author Krushna
-         * @date 2026-09-28
-         */
-        // Adds padding equal to the status bar and gesture bar heights so drawer items are not hidden
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.navigationView), (v, insets) -> {
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(0, bars.top, 0, bars.bottom);
-            return WindowInsetsCompat.CONSUMED;
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.dashboard) {
+                setCurrentFragment(new HomeFragment());
+                return true;
+            } else if (id == R.id.racks) {
+                setCurrentFragment(new RacksFragment());
+                return true;
+            } else if (id == R.id.activity) {
+                setCurrentFragment(new ActivityFragment());
+                return true;
+            }
+            return false;
         });
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
-        }
-
-        setupBottomNavigation();
-        setupDrawerMenu();
-
-        // Show Home when the app first opens (not again after screen rotation)
+        // First-time startup actions
         if (savedInstanceState == null) {
-            bottomNav.setSelectedItemId(R.id.nav_home);
+            // Set the main screen as default screen
+            bottomNav.setSelectedItemId(R.id.dashboard);
+
+            // Request location when app first launch
+            requestLocation();
         }
 
-        /** Setup Dialogbox on backpress intercept
-         * @Author: Andres
-         * @Date: 2028-09-26
-         */
+        // Setup Dialogbox on backpress intercept
         getOnBackPressedDispatcher().addCallback(this, new androidx.activity.OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -172,118 +161,29 @@ public class MainActivity extends AppCompatActivity {
                 alertBuilder.show();
             }
         });
-
-        if (savedInstanceState == null) {
-            requestLocation();
-        }
     }
 
-    /** Replaces the screen shown in mainContent with the given fragment
-     * @author Krushna
-     * @date 2026-09-28
-     */
-    private void setCurrentFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.mainContent, fragment)
-                .commit();
-    }
-
-    // Helper method to close the navigation drawer
-    private void closeDrawer() {
-        drawerLayout.closeDrawer(GravityCompat.START);
-    }
-
-    // Bottom nav setup method
-    private void setupBottomNavigation() {
-        bottomNav = findViewById(R.id.bottomNavigation);
-
-        bottomNav.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.nav_home) {
-                setCurrentFragment(new HomeFragment());
-            } else if (item.getItemId() == R.id.nav_racks) {
-                setCurrentFragment(new RacksFragment());
-            } else if (item.getItemId() == R.id.nav_user) {
-                setCurrentFragment(new UserFragment());
-            }
-            return true;
-        });
-    }
-
-    // Navigation drawer setup
-    private void setupDrawerMenu() {
-        findViewById(R.id.drawerHome).setOnClickListener(v -> {
-            bottomNav.setSelectedItemId(R.id.nav_home);
-            closeDrawer();
-        });
-
-        findViewById(R.id.drawerRacks).setOnClickListener(v -> {
-            bottomNav.setSelectedItemId(R.id.nav_racks);
-            closeDrawer();
-        });
-
-        findViewById(R.id.drawerSettings).setOnClickListener(v -> {
-            setCurrentFragment(new SettingsFragment());
-            closeDrawer();
-        });
-
-        findViewById(R.id.drawerAbout).setOnClickListener(v -> {
-            setCurrentFragment(new AboutFragment());
-            closeDrawer();
-        });
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            drawerLayout.openDrawer(GravityCompat.START);
-        }
-        return true;
-    }
-
-    // Toolbar (action bar) menu
-    /** Loads the toolbar menu (Refresh, Alerts, Help, Settings, Log out)
-     * @author Anvesh
-     */
+    //---NAVIGATION HELPER METHODS---
+    // Enable the toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         // Divider line between overflow groups (like Chrome's menu)
-        MenuCompat.setGroupDividerEnabled(menu, true);
-
-        // Step 18: Refresh must show its image AND its text, so it gets a custom button
-        MenuItem refreshItem = menu.findItem(R.id.action_refresh);
-        refreshItem.setActionView(createRefreshButton(refreshItem));
+        MenuCompat.setGroupDividerEnabled(menu,true);
         return true;
     }
 
-    // Builds the Refresh toolbar button with icon + text (colors follow light/dark theme)
-    private MaterialButton createRefreshButton(MenuItem refreshItem) {
-        MaterialButton button = new MaterialButton(this, null,
-                androidx.appcompat.R.attr.borderlessButtonStyle);
-        int color = MaterialColors.getColor(button, com.google.android.material.R.attr.colorOnSurface);
-
-        button.setText(R.string.menu_refresh);
-        button.setTextColor(color);
-        button.setIconResource(R.drawable.ic_menu_refresh);
-        button.setIconTint(ColorStateList.valueOf(color));
-        button.setOnClickListener(v -> onOptionsItemSelected(refreshItem));
-        return button;
-    }
-
+    // Handle toolbar items clicks
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_refresh) {
-            showRefreshMessage();
-            return true;
-        } else if (id == R.id.action_alerts) {
+        if (id == R.id.toolbar_alerts) {
+            clearBottomNavigationSelection();
             setCurrentFragment(new AlertsFragment());
             return true;
         } else if (id == R.id.action_help_center) {
+            clearBottomNavigationSelection();
             setCurrentFragment(new HelpCenterFragment());
             return true;
         } else if (id == R.id.action_contact) {
@@ -296,11 +196,44 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void showRefreshMessage() {
-        Snackbar.make(findViewById(R.id.mainContent), R.string.menu_refreshed_msg, Snackbar.LENGTH_SHORT)
-                .setAnchorView(bottomNav)
-                .show();
+    // Handle drawer menu item clicks
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int itemId = menuItem.getItemId();
+        if (itemId == R.id.drawer_account) {
+            clearBottomNavigationSelection();
+            setCurrentFragment(new AccountFragment());
+        } else if (itemId == R.id.drawer_settings) {
+            clearBottomNavigationSelection();
+            setCurrentFragment(new SettingsFragment());
+        } else if (itemId == R.id.drawer_about) {
+            clearBottomNavigationSelection();
+            setCurrentFragment(new AboutFragment());
+        } else if (itemId == R.id.nav_logout) {
+
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
+
+    // Replaces the screen shown in fragment container with the given fragment
+    private void setCurrentFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+
+    // Remove bottom navigation highlight when showing screens in nav drawer
+    private void clearBottomNavigationSelection() {
+        Menu menu = bottomNav.getMenu();
+
+        for (int i = 0; i < menu.size(); i++) {
+            menu.getItem(i).setChecked(false);
+        }
+    }
+
+    //---MENU ITEM METHODS---
     public void confirmLogout() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.menu_logout_title)
@@ -362,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Snackbar.make(findViewById(R.id.mainContent), R.string.contact_no_app, Snackbar.LENGTH_SHORT)
+            Snackbar.make(findViewById(R.id.fragment_container), R.string.contact_no_app, Snackbar.LENGTH_SHORT)
                     .setAnchorView(bottomNav)
                     .show();
         }
@@ -434,18 +367,8 @@ public class MainActivity extends AppCompatActivity {
             return "1.0";
         }
     }
-    //Misc snackbar method REUSEABLE
-    private void showSnackbar(String message, String actionText, View.OnClickListener listener) {
-        Snackbar snackbar = Snackbar.make(findViewById(R.id.mainContent), message, Snackbar.LENGTH_INDEFINITE);
-        snackbar.setAction(actionText, v -> {
-            if (listener != null) {
-                listener.onClick(v);
-            }
-            snackbar.dismiss();
-        });
-        snackbar.show();
-    }
 
+    //---LOCATION & PERMISSIONS & NOTIFICATIONS---
     private boolean hasLocationPermission() {
         return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
@@ -530,5 +453,18 @@ public class MainActivity extends AppCompatActivity {
         if (notificationManager != null) {
             notificationManager.notify(NOTIFICATION_ID, builder.build());
         }
+    }
+
+    //---REUSABLE/UTILITY METHODS---
+    //Misc snack bar method REUSABLE
+    private void showSnackbar(String message, String actionText, View.OnClickListener listener) {
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.fragment_container), message, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction(actionText, v -> {
+            if (listener != null) {
+                listener.onClick(v);
+            }
+            snackbar.dismiss();
+        });
+        snackbar.show();
     }
 }

@@ -27,7 +27,7 @@
 
         <!-- Each screen (fragment) is shown here -->
         <FrameLayout
-            android:id="@+id/mainContent"
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
@@ -39,21 +39,17 @@
             android:layout_height="wrap_content"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_nav_menu" />
-
     </LinearLayout>
 
     <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigationView"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:id="@+id/drawer_nav_view"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true">
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer_nav_menu"
+        app:itemIconTint="@color/colorPrimary"
+        app:itemTextColor="@color/colorSecondary"/>
 
-        <include
-            layout="@layout/ar_navigation_drawer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
