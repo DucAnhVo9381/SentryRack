@@ -179,9 +179,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.toolbar_alerts) {
+            clearBottomNavigationSelection();
             setCurrentFragment(new AlertsFragment());
             return true;
         } else if (id == R.id.action_help_center) {
+            clearBottomNavigationSelection();
             setCurrentFragment(new HelpCenterFragment());
             return true;
         } else if (id == R.id.action_contact) {
@@ -199,10 +201,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int itemId = menuItem.getItemId();
         if (itemId == R.id.drawer_account) {
+            clearBottomNavigationSelection();
             setCurrentFragment(new AccountFragment());
         } else if (itemId == R.id.drawer_settings) {
+            clearBottomNavigationSelection();
             setCurrentFragment(new SettingsFragment());
         } else if (itemId == R.id.drawer_about) {
+            clearBottomNavigationSelection();
             setCurrentFragment(new AboutFragment());
         } else if (itemId == R.id.nav_logout) {
 
@@ -217,6 +222,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
+    }
+
+    // Remove bottom navigation highlight when showing screens in nav drawer
+    private void clearBottomNavigationSelection() {
+        Menu menu = bottomNav.getMenu();
+
+        for (int i = 0; i < menu.size(); i++) {
+            menu.getItem(i).setChecked(false);
+        }
     }
 
     //---MENU ITEM METHODS---
