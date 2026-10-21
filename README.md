@@ -1,7 +1,7 @@
 ## Sentry Rack
 <p align="center">
-    <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light" width="300">
-    <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="300">
+    <img src="docs/deliverable1/homescreen_icon_light.png" alt="home screen icon light" width="200">
+    <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="200">
 </p>
 
 ### Group 4
