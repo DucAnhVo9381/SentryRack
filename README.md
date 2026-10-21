@@ -4,7 +4,7 @@
     <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="200">
 </p>
 
-## Group 4
+## Group 4 👥
 - Duc Anh Vo - N01729381.
 - Andres Zambrano - N01495324.
 - Krushna Patel - N01713093.
@@ -12,7 +12,7 @@
 
 📂 GitHub Repository: [![GitHub repo](https://img.shields.io/badge/sentry_rack-repo-blue?logo=github)](https://github.com/DucAnhVo9381/SentryRack)
 
-## App Screens
+## App Screens 📱
 <table>
     <tr>
         <td><img src="docs/deliverable2/splash_screen.gif" alt="splash screen"></td>
@@ -24,7 +24,7 @@
     </tr>
 </table>
 
-## Description
+## Description 📝
 **Sentry Rack** is a rack-level monitoring platform designed to help technicians monitor, manage, and maintain individual server racks.
 
 > [!NOTE]
@@ -64,7 +64,7 @@ This approach helps technicians focus on the condition of the rack rather than i
 - Facilities Personnel responsible for rack environments
 - Organizations seeking rack-level operational visibility
 
-## Key Features
+## Key Features ✨
 ### Security Monitoring
 - Detect rack access events using a Hall Effect sensor
 - Track access history and activity records
@@ -96,7 +96,7 @@ This approach helps technicians focus on the condition of the rack rather than i
 - Record maintenance activities
 - Provide historical context for troubleshooting and decision-making
 
-## Tools and Resources
+## Tools and Resources 🛠️
 ### Software
 - Android Studio for Android development
 - Java
