@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Bottom navigation tabs -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_home"
-        android:icon="@drawable/ic_nav_home"
-        android:title="@string/home" />
+        android:id="@+id/dashboard"
+        android:icon="@drawable/bottom_dashboard_icon"
+        android:title="@string/bottom_dashboard" />
     <item
-        android:id="@+id/nav_racks"
-        android:icon="@drawable/ic_nav_racks"
-        android:title="@string/nav_racks" />
-    <!-- Proffesor told to remove settings from bottom , instead of that adding user
-     @author Anvesh
-     @date 2026-10-07 -->
+        android:id="@+id/racks"
+        android:icon="@drawable/bottom_racks_icon"
+        android:title="@string/bottom_racks" />
     <item
-        android:id="@+id/nav_user"
-        android:icon="@drawable/ar_ic_nav_user"
-        android:title="@string/nav_user" />
+        android:id="@+id/activity"
+        android:icon="@drawable/bottom_activity_icon"
+        android:title="@string/bottom_activity" />
 </menu>

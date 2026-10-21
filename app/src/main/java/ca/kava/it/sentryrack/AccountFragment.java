@@ -34,7 +34,7 @@ import java.security.NoSuchAlgorithmException;
  * @author Anvesh
  * @date 2026-10-07
  */
-public class UserFragment extends Fragment {
+public class AccountFragment extends Fragment {
 
     // Saved user data (only the password hash for now)
     private static final String PREFS_NAME = "sentryrack_user";
@@ -46,7 +46,7 @@ public class UserFragment extends Fragment {
 
     private static final int MIN_PASSWORD_LENGTH = 6;
 
-    public UserFragment() {
+    public AccountFragment() {
         // Required empty public constructor
     }
 

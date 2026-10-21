@@ -1,9 +1,9 @@
-<!-- Andres Zambrano N01495324 ONC -->
-<!-- Duc Anh Vo N01729381 0NC -->
-<!-- Anvesh Rachakonda N01661293 ONC -->
-<!-- Krushna Patel N01713093 ONC -->
+<!-- Andres Zambrano N01495324 ONC
+     Duc Anh Vo N01729381 0NC
+     Anvesh Rachakonda N01661293 ONC
+     Krushna Patel N01713093 ONC -->
 <resources>
-    <string name="app_name">SentryRack</string>
+    <string name="app_name">Sentry Rack</string>
     <string name="closing_app">Closing App</string>
     <string name="are_you_sure_you_want_to_close_sentryrack">Are you sure you want to exit SentryRack?</string>
     <string name="yes">Yes</string>
@@ -17,15 +17,11 @@
     <string name="close_drawer">Close navigation drawer</string>
 
     <!-- Bottom navigation -->
-    <string name="nav_racks">Racks</string>
-    <string name="nav_alerts">Alerts</string>
+    <string name="bottom_dashboard">Dashboard</string>
+    <string name="bottom_racks">Racks</string>
+    <string name="bottom_activity">Activity</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <!-- Login screen strings
-     @author Anvesh
-     @date 2026-10-01 -->
+    <!-- Login screen strings -->
     <string name="login_tagline">Rack monitoring for data centers</string>
     <string name="login_welcome">Welcome back</string>
     <string name="login_subtitle">Sign in to monitor your racks</string>
@@ -167,10 +163,7 @@
     <string name="rack_b02_name">Rack B-02</string>
     <string name="rack_b02_location">Row B · Position 2</string>
 
-    <!-- User (profile) screen - bottom navigation tab
-        @author Anvesh
-        @date 2026-10-07 -->
-    <string name="nav_user">User</string>
+    <!-- User (profile) screen - bottom navigation tab -->
     <string name="user_name_default">User</string>
     <string name="user_email_default">user@kava.ca</string>
     <string name="user_edit_profile">Edit profile</string>
@@ -257,4 +250,6 @@
     <string name="location_channel">Location Channel</string>
     <string name="channel_for_location_notifications">Channel for location notifs</string>
     <string name="location_determined">Location Determined</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

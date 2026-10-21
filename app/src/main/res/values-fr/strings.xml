@@ -3,7 +3,7 @@
      Anvesh Rachakonda N01661293 ONC
      Krushna Patel N01713093 ONC -->
 <resources>
-    <string name="app_name">SentryRack</string>
+    <string name="app_name">Sentry Rack</string>
     <string name="closing_app">Fermeture de l\'application</string>
     <string name="are_you_sure_you_want_to_close_sentryrack">Êtes-vous sûr de vouloir quitter SentryRack?</string>
     <string name="yes">Oui</string>
@@ -16,9 +16,9 @@
     <string name="close_drawer">Fermer le menu de navigation</string>
 
     <!-- Bottom navigation -->
-    <string name="nav_racks">Baies</string>
-    <string name="nav_alerts">Alertes</string>
-
+    <string name="bottom_dashboard">Dashboard</string>
+    <string name="bottom_racks">Baies</string>
+    <string name="bottom_activity">Activity</string>
 
     <!-- Login screen strings
      @author Anvesh
@@ -162,10 +162,7 @@
     <string name="rack_b02_name">Baie B-02</string>
     <string name="rack_b02_location">Rangée B · Position 2</string>
 
-    <!-- User (profile) screen - bottom navigation tab
-         @author Anvesh
-         @date 2026-10-07 -->
-    <string name="nav_user">Profil</string>
+    <!-- User (profile) screen - bottom navigation tab -->
     <string name="user_name_default">Utilisateur</string>
     <string name="user_email_default">user@kava.ca</string>
     <string name="user_edit_profile">Modifier le profil</string>
