@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_refresh"
-        android:icon="@drawable/ic_menu_refresh"
-        android:title="@string/menu_refresh"
-        app:showAsAction="always|withText" />
-
-    <item
-        android:id="@+id/action_alerts"
-        android:icon="@drawable/ic_nav_alerts"
+        android:id="@+id/toolbar_alerts"
+        android:icon="@drawable/toolbar_alerts_ic"
         android:title="@string/menu_alerts"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always|withText" />
 
     <!-- Overflow group 1: help -->
     <group android:id="@+id/group_support">
