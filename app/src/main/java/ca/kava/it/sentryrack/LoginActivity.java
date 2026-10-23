@@ -23,7 +23,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -60,10 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String EMAIL = "aaa@bbb.com";
     private static final String PASSWORD = "Admin101!";
 
-    /** Shows the splash (first launch only), then loads the login layout
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Shows the splash (first launch only), then loads the login layout
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Fresh app launch = not a screen rotation
@@ -75,14 +74,13 @@ public class LoginActivity extends AppCompatActivity {
 
         // Apply the saved light/dark theme before the screen is drawn - @author Anvesh @date 2026-10-15
         SettingsFragment.applySavedTheme(this);
-
-        super.onCreate(savedInstanceState);
         // Settings > "Lock screen to portrait" - apply the saved choice (Anvesh, 2026-10-01)
         SettingsFragment.applySavedOrientation(this);
+
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         bindViews();
-        handleSystemBarsAndKeyboard();
         loadRememberedEmail();
         setupClickListeners();
 
@@ -92,10 +90,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    /** Setup splashscreen (moved here from MainActivity so the splash appears before Login)
-     * Original splash code and zoom-out exit animation by Volk (2026-09-25).
-     * @author Anvesh
-     */
+    /* Setup splashscreen (moved here from MainActivity so the splash appears before Login)
+       Original splash code and zoom-out exit animation by Volk (2026-09-25) */
     private void setupSplashScreen(boolean holdSplash) {
         // Activates the splash screen API - Android creates splash screen
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
@@ -128,10 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    /** Connects the Java fields to the views in activity_login.xml / login_form_card.xml
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Connects the Java fields to the views in activity_login.xml / login_form_card.xml
     private void bindViews() {
         loginRoot = findViewById(R.id.loginRoot);
         emailLayout = findViewById(R.id.emailLayout);
@@ -141,24 +134,7 @@ public class LoginActivity extends AppCompatActivity {
         rememberMeCheck = findViewById(R.id.rememberMeCheck);
     }
 
-    /** The app draws behind the status bar and navigation bar (edge-to-edge).
-     * This pads the screen so nothing is hidden behind them,
-     * @author Anvesh
-     */
-    private void handleSystemBarsAndKeyboard() {
-        ViewCompat.setOnApplyWindowInsetsListener(loginRoot, (view, insets) -> {
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
-                    | WindowInsetsCompat.Type.displayCutout()
-                    | WindowInsetsCompat.Type.ime());
-            view.setPadding(bars.left, bars.top, bars.right, bars.bottom);
-            return WindowInsetsCompat.CONSUMED;
-        });
-    }
-
-    /** Wires up every button on the login screen
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Wires up every button on the login screen
     private void setupClickListeners() {
         MaterialButton loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(v -> attemptLogin());
@@ -183,10 +159,7 @@ public class LoginActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(v -> showMessage(R.string.login_sign_up_soon));
     }
 
-    /** Opens the main screen if BOTH fields have text (anything is accepted for now)
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Opens the main screen if BOTH fields have text (anything is accepted for now)
     private void attemptLogin() {
         // Check both so the user sees every error at once
         boolean emailFilled = isFieldFilled(emailInput, emailLayout, R.string.error_email_empty);
@@ -211,11 +184,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    /** Shows a red error under the field if it is empty, clears it otherwise
-     * @author Anvesh
-     * @date 2026-10-01
-     * @return true if the field has text
-     */
+    // Shows a red error under the field if it is empty, clears it otherwise
     private boolean isFieldFilled(TextInputEditText input, TextInputLayout layout, @StringRes int errorRes) {
         if (textOf(input).trim().isEmpty()) {
             layout.setError(getString(errorRes));
@@ -225,10 +194,7 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    /** Remember me: fills in the saved email when the screen opens
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Remember me: fills in the saved email when the screen opens
     private void loadRememberedEmail() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String savedEmail = prefs.getString(KEY_REMEMBERED_EMAIL, "");
@@ -238,10 +204,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    /** Remember me: saves the email if the box is ticked, otherwise forgets it
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Remember me: saves the email if the box is ticked, otherwise forgets it
     private void saveRememberedEmail(String email) {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit()
@@ -249,28 +212,20 @@ public class LoginActivity extends AppCompatActivity {
                 .apply();
     }
 
-    /** Opens MainActivity and closes Login, so Back does not return to the login screen
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Opens MainActivity and closes Login, so Back does not return to the login screen
     private void openMainScreen() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
-    /** Shows a short message at the bottom of the screen
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Shows a short message at the bottom of the screen
     private void showMessage(@StringRes int messageRes) {
         Snackbar.make(loginRoot, messageRes, Snackbar.LENGTH_LONG).show();
     }
 
-    /** Entrance animation: logo fades in from above, card slides up from below
-     * @author Anvesh
-     * @date 2026-10-01
+    /* Entrance animation: logo fades in from above, card slides up from below
      * @param startDelayMs wait this long first (so it plays after the splash screen)
-     */
+    */
     private void playEntranceAnimation(long startDelayMs) {
         View logo = findViewById(R.id.loginLogo);
         View card = findViewById(R.id.loginCard);
@@ -297,10 +252,7 @@ public class LoginActivity extends AppCompatActivity {
                 .start();
     }
 
-    /** Small helper: returns the text in a field, or "" if it is empty
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Small helper: returns the text in a field, or "" if it is empty
     private static String textOf(TextInputEditText input) {
         return input.getText() == null ? "" : input.getText().toString();
     }

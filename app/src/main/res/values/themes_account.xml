@@ -4,7 +4,7 @@
      Anvesh Rachakonda N01661293 ONC
      Krushna Patel N01713093 ONC -->
 
-<!-- User (profile) screen styles. Rows reuse the Settings styles (style_settings.xml).
+<!-- User (profile) screen styles. Rows reuse the Settings styles (themes_settings.xml).
      @author Anvesh
      @date 2026-10-07 -->
 <resources>
