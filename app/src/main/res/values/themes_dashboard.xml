@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Andres Zambrano N01495324 ONC
-     Duc Anh Vo N01729381 0NC
-     Anvesh Rachakonda N01661293 ONC
-     Krushna Patel N01713093 ONC -->
-
 <!-- Home and Racks screen styles (step 24 and 25)
      Every card, label and value is styled here instead of in the layouts,
      so both screens look the same and nothing is hardcoded.
-     @author Krushna
-     @date 2026-10-03 -->
+-->
 <resources>
 
     <!-- "Tech dashboard" theme overlay - follows light and dark mode.

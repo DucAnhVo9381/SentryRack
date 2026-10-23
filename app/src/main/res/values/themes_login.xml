@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Andres Zambrano N01495324 ONC
-     Duc Anh Vo N01729381 0NC
-     Anvesh Rachakonda N01661293 ONC
-     Krushna Patel N01713093 ONC -->
-
 <!-- Login screen styles - reused by the portrait and landscape login layouts
      so no colors or sizes are hard-coded in the layout files.
-     @author Anvesh
-     @date 2026-10-01 -->
+-->
 <resources>
-
     <!-- Color rules for the whole login screen (set on the root view).
          Makes field borders, hints, cursor and icons white on the dark background. -->
     <style name="ThemeOverlay.SentryRack.Login" parent="">

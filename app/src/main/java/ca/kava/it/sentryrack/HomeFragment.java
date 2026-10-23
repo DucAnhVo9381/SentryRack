@@ -23,7 +23,7 @@ import android.view.ViewGroup;
  * Deliverable 2: design only - all values come from strings.xml and will be
  * replaced with live sensor data from the cloud database later.
  * Design principle: this class only loads its layout (single responsibility);
- * all styling lives in styles_dashboard.xml, colors.xml and dimens.xml.
+ * all styling lives in themes_dashboard.xml, colors.xml and dimens.xml.
  * Portrait layout: layout/fragment_home.xml
  * Landscape layout: layout-land/fragment_home.xml (Android picks it automatically)
  * @author Krushna
