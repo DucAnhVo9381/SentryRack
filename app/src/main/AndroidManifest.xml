@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
+    <!-- RUNTIME PERMISSION -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- APPLICATION CONFIGURATION & GLOBAL SETTINGS -->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,8 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SentryRack.Splash">
 
-        <!-- Login screen = app launcher. Splash (3 s) shows first, then Login.
-             @author Anvesh @date 2026-10-01 -->
+        <!-- Login screen = app launcher. Splash (3s) shows first, then Login.-->
         <activity
             android:name=".LoginActivity"
             android:exported="true"
@@ -31,12 +34,11 @@
         </activity>
 
         <!-- Main screen - opened from LoginActivity after login.
-             Launcher + splash moved to LoginActivity by Anvesh (2026-10-01) -->
+             Launcher + splash moved to LoginActivity -->
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.SentryRack"
             android:windowSoftInputMode="adjustResize" />
-
     </application>
 </manifest>

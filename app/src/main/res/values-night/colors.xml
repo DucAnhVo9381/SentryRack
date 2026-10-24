@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Author: Volk -->
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
@@ -11,9 +10,60 @@
     <!-- Splash screen colors -->
     <color name="splash_background">#FF75757E</color>
 
-    <!-- Overflow (3-dot) menu colours - DARK mode
-     @author Anvesh
-     @date 2026-10-08 -->
+    <!-- LOGIN SCREEN COLOR -->
+    <!-- Login screen colors - DARK theme (black + orange, matches the dark logo)
+     Only colors that change in dark mode are here; the rest come from values/colors_login.xml -->
+    <color name="login_bg_start">#FF0E0E12</color>
+    <color name="login_bg_center">#FF1C1C22</color>
+    <color name="login_bg_end">#FF3A2416</color>
+
+    <color name="login_glow_primary">#59FF8A3D</color>
+    <color name="login_glow_secondary">#2EFF8A3D</color>
+
+    <color name="login_accent">#FFFF8A3D</color>
+    <color name="login_button_text">#FFE8641C</color>
+
+    <!-- HOME & RACKS SCREEN COLOR -->
+    <!-- Home and Racks screens - DARK mode colors.
+     Same names as in values/colors.xml, so Android switches them
+     automatically when the phone is in dark mode.
+     Deep navy background, cyan circuit grid, dark glass cards, bright status colors
+    -->
+    <!-- Status colors (bright so they stand out on dark) -->
+    <color name="status_ok">#FF34D27B</color>
+    <color name="status_ok_bg">#3334D27B</color>
+    <color name="status_warning">#FFFFB020</color>
+    <color name="status_warning_bg">#33FFB020</color>
+    <color name="status_critical">#FFFF6B6B</color>
+    <color name="status_critical_bg">#33FF6B6B</color>
+    <color name="status_offline">#FF9AA3B2</color>
+    <color name="status_offline_bg">#339AA3B2</color>
+
+    <!-- Background -->
+    <color name="dash_bg_top">#FF0D1735</color>
+    <color name="dash_bg_bottom">#FF060A18</color>
+    <color name="dash_glow_blue">#994E8EEA</color>
+    <color name="dash_glow_teal">#6606B6D4</color>
+    <color name="dash_glow_purple">#807C5CFF</color>
+    <color name="dash_glow_clear">#004E8EEA</color>
+    <color name="dash_grid_line">#12FFFFFF</color>
+    <color name="dash_circuit_line">#4022D3EE</color>
+    <color name="dash_circuit_node">#9922D3EE</color>
+
+    <!-- Cards and text -->
+    <color name="dash_surface">#FF0A1024</color>
+    <color name="dash_card_bg">#E6131C36</color>
+    <color name="dash_card_stroke">#2E7AA7FF</color>
+    <color name="dash_hero_bg">#FF1A3A8F</color>
+    <color name="dash_on_hero">#FFE3EBFF</color>
+    <color name="dash_accent">#FF7AA7FF</color>
+    <color name="dash_accent_container">#FF22356E</color>
+    <color name="dash_text_primary">#FFEAF0FF</color>
+    <color name="dash_text_secondary">#FF9AA8C7</color>
+    <color name="dash_divider">#1FFFFFFF</color>
+
+    <!-- TOOLBAR COLOR -->
+    <!-- Overflow (3-dot) menu colours - DARK mode -->
     <color name="menu_background">#FF2B2D31</color>
     <color name="menu_highlight">#FF3C3F45</color>
     <color name="menu_ripple">#29FFFFFF</color>
