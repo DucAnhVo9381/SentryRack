@@ -31,7 +31,6 @@
     <string name="login_forgot_password">Forgot password?</string>
     <string name="login_forgot_password_msg">Please contact your SentryRack administrator to reset your password.</string>
     <string name="error_email_empty">Please enter your email</string>
-    <string name="error_email_invalid">Please enter a valid email</string>
     <string name="error_password_empty">Please enter your password</string>
     <string name="error_password_short">Password must be at least %1$d characters</string>
 
