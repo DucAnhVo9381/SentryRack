@@ -32,10 +32,8 @@
     <string name="login_forgot_password">Mot de passe oublié?</string>
     <string name="login_forgot_password_msg">Veuillez contacter votre administrateur SentryRack pour réinitialiser votre mot de passe.</string>
     <string name="error_email_empty">Veuillez entrer votre courriel</string>
-    <string name="error_email_invalid">Veuillez entrer un courriel valide</string>
     <string name="error_password_empty">Veuillez entrer votre mot de passe</string>
     <string name="error_password_short">Le mot de passe doit contenir au moins %1$d caractères</string>
-    <string name="cd_app_logo">Logo de SentryRack</string>
 
     <!-- Login screen - extra options (Remember me, OR, Google, Sign up)
      @author Anvesh

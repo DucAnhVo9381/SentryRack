@@ -12,7 +12,6 @@
     <dimen name="login_space_small">8dp</dimen>
     <dimen name="login_space_medium">16dp</dimen>
     <dimen name="login_space_large">32dp</dimen>
-    <dimen name="login_logo_size">170dp</dimen>
     <dimen name="login_card_elevation">8dp</dimen>
     <dimen name="login_card_corner">16dp</dimen>
     <dimen name="login_button_height">52dp</dimen>

@@ -1,41 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Login form card (glass look). Shared by the portrait AND landscape login
      layouts using <include>, so the form is written only once (DRY principle).
-     @author Anvesh
-     @date 2026-10-01 -->
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/loginCard"
     style="@style/Widget.Material3.CardView.Outlined"
+    android:id="@+id/loginCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/login_glass"
     app:cardCornerRadius="@dimen/login_glass_corner"
     app:contentPadding="@dimen/login_padding"
+    app:strokeWidth="@dimen/login_stroke_width"
     app:strokeColor="@color/login_glass_stroke"
-    app:strokeWidth="@dimen/login_stroke_width">
+    app:cardBackgroundColor="@color/login_glass">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            style="@style/Widget.SentryRack.Login.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_welcome" />
-
-        <TextView
-            style="@style/Widget.SentryRack.Login.Subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_subtitle" />
-
         <!-- Email -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailLayout"
             style="@style/Widget.SentryRack.Login.TextField"
+            android:id="@+id/emailLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/login_space_medium"
@@ -43,8 +31,8 @@
             app:startIconDrawable="@drawable/ar_ic_login_email">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailInput"
                 style="@style/Widget.SentryRack.Login.EditText"
+                android:id="@+id/emailInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="emailAddress"
@@ -54,8 +42,8 @@
 
         <!-- Password (eye icon = built-in password_toggle) -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordLayout"
             style="@style/Widget.SentryRack.Login.TextField"
+            android:id="@+id/passwordLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/login_space_small"
@@ -64,8 +52,8 @@
             app:startIconDrawable="@drawable/ar_ic_login_lock">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordInput"
                 style="@style/Widget.SentryRack.Login.EditText"
+                android:id="@+id/passwordInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="password"
@@ -77,20 +65,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/rememberMeCheck"
                 style="@style/Widget.SentryRack.Login.CheckBox"
+                android:id="@+id/rememberMeCheck"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/login_remember_me" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/forgotPasswordButton"
                 style="@style/Widget.SentryRack.Login.LinkButton"
+                android:id="@+id/forgotPasswordButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login_forgot_password" />
@@ -98,12 +86,12 @@
 
         <!-- Log in -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/loginButton"
             style="@style/Widget.SentryRack.Login.PrimaryButton"
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_button_height"
             android:layout_marginTop="@dimen/login_space_small"
-            android:text="@string/login_button" />
+            android:text="Sign In" />
 
         <!-- ──── OR ──── -->
         <LinearLayout
@@ -111,8 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/login_space_medium"
             android:layout_marginBottom="@dimen/login_space_medium"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <View
                 android:layout_width="0dp"
@@ -137,8 +125,8 @@
 
         <!-- Continue with Google -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/googleButton"
             style="@style/Widget.SentryRack.Login.OutlinedButton"
+            android:id="@+id/googleButton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_button_height"
             android:text="@string/login_google" />

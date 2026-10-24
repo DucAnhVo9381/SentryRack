@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
  * status (Online / Warning / Offline) and 4 sensor readings
  * (temperature, power, coolant, door). Filter chips are design only.
  * Design principle: this class only loads its layout (single responsibility);
- * all styling lives in styles_dashboard.xml, colors.xml and dimens.xml.
+ * all styling lives in themes_dashboard.xml, colors.xml and dimens.xml.
  * The sample racks will be replaced with racks from the cloud database later.
  * @author Krushna
  * @date 2026-10-03

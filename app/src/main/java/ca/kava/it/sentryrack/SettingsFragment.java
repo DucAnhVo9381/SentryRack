@@ -26,8 +26,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 /** Settings screen (Deliverable 2 steps 6 and 7).
  * Shows 7 settings; ONE is implemented: "Lock screen to portrait".
  * The other settings are design only for this deliverable.
- * @author Anvesh
- * @date 2026-10-01
  */
 public class SettingsFragment extends Fragment {
 

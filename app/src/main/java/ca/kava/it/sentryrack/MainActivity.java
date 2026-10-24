@@ -26,14 +26,11 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.color.MaterialColors;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import android.content.ActivityNotFoundException;
@@ -245,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void logout() {
         Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra(LoginActivity.EXTRA_FROM_LOGOUT, true);
+        intent.putExtra(LoginActivity.FROM_LOGOUT, true);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
