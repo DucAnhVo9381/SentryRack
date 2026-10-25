@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Settings screen
-     Implemented (step 7): "Lock screen to portrait" (switchLockPortrait).
-     @author Anvesh -->
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -45,7 +43,7 @@
                 <!-- Lock screen to portrait  -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
 
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_portrait" />
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_set_portrait_icon" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -77,7 +75,7 @@
 
                 <!-- Dark theme (design only) -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_dark" />
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_set_theme_ic" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -125,42 +123,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Push notifications (design only) -->
-                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_notifications" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Settings.RowTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/setting_push" />
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Settings.RowSummary"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/setting_push_summary" />
-                    </LinearLayout>
-
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchPush"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:contentDescription="@string/setting_push" />
-                </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
                 <!-- Critical alert sound (design only) -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_sound" />
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_alert_sound_ic" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -191,7 +156,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!--   MONITORING   -->
+        <!-- MONITORING -->
         <TextView
             style="@style/Widget.SentryRack.Settings.SectionHeader"
             android:text="@string/settings_group_monitoring" />
@@ -206,41 +171,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Refresh interval (design only) -->
-                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_refresh" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Settings.RowTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/setting_refresh" />
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Settings.RowSummary"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/setting_refresh_summary" />
-                    </LinearLayout>
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Settings.RowValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/setting_refresh_value" />
-                </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
                 <!-- Temperature unit (design only) -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_set_temperature" />
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_set_temp_unit_icon" />
 
                     <LinearLayout
                         android:layout_width="0dp"

@@ -2,7 +2,6 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-
 package ca.kava.it.sentryrack;
 
 import android.app.Activity;
@@ -38,10 +37,7 @@ public class SettingsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /** Loads the settings layout
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Loads the settings layout
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -49,10 +45,7 @@ public class SettingsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
-    /** Connects the settings that work (only "Lock screen to portrait" for now)
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Connects the settings that work (only "Lock screen to portrait" for now)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -63,8 +56,6 @@ public class SettingsFragment extends Fragment {
     /** Step 7: the working setting.
      * Shows the saved value on the switch; when flipped, saves it, shows a message
      * and locks/unlocks the screen rotation immediately.
-     * @author Anvesh
-     * @date 2026-10-01
      */
     private void setupPortraitLock(View root) {
         MaterialSwitch lockSwitch = root.findViewById(R.id.switchLockPortrait);
@@ -84,19 +75,13 @@ public class SettingsFragment extends Fragment {
         });
     }
 
-    /** Reads the saved "lock to portrait" choice (false = rotation allowed)
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Reads the saved "lock to portrait" choice (false = rotation allowed)
     public static boolean isPortraitLocked(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean(KEY_LOCK_PORTRAIT, false);
     }
 
-    /** Saves the "lock to portrait" choice
-     * @author Anvesh
-     * @date 2026-10-01
-     */
+    // Saves the "lock to portrait" choice
     private static void savePortraitLocked(Context context, boolean locked) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit().putBoolean(KEY_LOCK_PORTRAIT, locked).apply();
