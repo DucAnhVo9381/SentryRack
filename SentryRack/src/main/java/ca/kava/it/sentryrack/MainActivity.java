@@ -52,6 +52,7 @@ import androidx.core.view.MenuCompat;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // Bottom nav and drawer fields
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     private BottomNavigationView bottomNav;
 
     // Runtime permission variables
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Setup navigation drawer
         drawerLayout = findViewById(R.id.drawerLayout);
 
-        NavigationView navigationView = findViewById(R.id.drawer_nav_view);
+        navigationView = findViewById(R.id.drawer_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(toggle);
@@ -117,8 +118,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bottomNav = findViewById(R.id.bottomNavigation);
 
         bottomNav.setOnItemSelectedListener(item -> {
-            int id = item.getItemId();
+            clearSelection(navigationView.getMenu());
 
+            int id = item.getItemId();
             if (id == R.id.dashboard) {
                 setCurrentFragment(new HomeFragment());
                 return true;
@@ -176,11 +178,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.toolbar_alerts) {
-            clearBottomNavigationSelection();
+            clearSelection(bottomNav.getMenu());
+            clearSelection(navigationView.getMenu());
             setCurrentFragment(new AlertsFragment());
             return true;
         } else if (id == R.id.action_help_center) {
-            clearBottomNavigationSelection();
+            clearSelection(bottomNav.getMenu());
+            clearSelection(navigationView.getMenu());
             setCurrentFragment(new HelpCenterFragment());
             return true;
         } else if (id == R.id.action_contact) {
@@ -196,15 +200,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Handle drawer menu item clicks
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        clearSelection(bottomNav.getMenu());
+
         int itemId = menuItem.getItemId();
         if (itemId == R.id.drawer_account) {
-            clearBottomNavigationSelection();
             setCurrentFragment(new AccountFragment());
         } else if (itemId == R.id.drawer_settings) {
-            clearBottomNavigationSelection();
             setCurrentFragment(new SettingsFragment());
         } else if (itemId == R.id.drawer_about) {
-            clearBottomNavigationSelection();
             setCurrentFragment(new AboutFragment());
         } else if (itemId == R.id.nav_logout) {
 
@@ -221,10 +224,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
 
-    // Remove bottom navigation highlight when showing screens in nav drawer
-    private void clearBottomNavigationSelection() {
-        Menu menu = bottomNav.getMenu();
-
+    // Clears the selected/highlighted state from all items in the given menu
+    private void clearSelection(Menu menu) {
         for (int i = 0; i < menu.size(); i++) {
             menu.getItem(i).setChecked(false);
         }

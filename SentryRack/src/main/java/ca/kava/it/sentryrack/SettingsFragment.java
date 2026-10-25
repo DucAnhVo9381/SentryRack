@@ -22,14 +22,10 @@ import com.google.android.material.snackbar.Snackbar;
 import android.content.res.Configuration;
 import androidx.appcompat.app.AppCompatDelegate;
 
-/** Settings screen (Deliverable 2 steps 6 and 7).
- * Shows 7 settings; ONE is implemented: "Lock screen to portrait".
- * The other settings are design only for this deliverable.
- */
 public class SettingsFragment extends Fragment {
 
     // Settings are saved in a small private file on the phone
-    private static final String PREFS_NAME = "sentryrack_settings";
+    private static final String PREFS_NAME = "settings_user_prefs";
     private static final String KEY_LOCK_PORTRAIT = "lock_portrait";
     private static final String KEY_DARK_MODE = "dark_mode";
 
@@ -38,21 +34,18 @@ public class SettingsFragment extends Fragment {
     }
 
     // Loads the settings layout
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_settings, container, false);
-    }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-    // Connects the settings that work (only "Lock screen to portrait" for now)
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         setupPortraitLock(view);
         setupDarkMode(view);   // Dark theme switch
+
+        return view;
     }
 
+    //--- LOCK SCREEN LAYOUT FUNCTIONALITY ---
     /** Step 7: the working setting.
      * Shows the saved value on the switch; when flipped, saves it, shows a message
      * and locks/unlocks the screen rotation immediately.
