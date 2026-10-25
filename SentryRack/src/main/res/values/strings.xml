@@ -49,7 +49,6 @@
     <!-- Toolbar (action bar) menu
      @author Anvesh
      @date 2026-10-01 -->
-    <string name="menu_refresh">Refresh</string>
     <string name="menu_alerts">Alerts</string>
     <string name="menu_logout">Log out</string>
     <string name="menu_refreshed_msg">Rack data refreshed</string>
@@ -69,16 +68,8 @@
     <string name="setting_lock_portrait_summary">Keep the app upright when the phone rotates</string>
     <string name="setting_dark_mode">Dark theme</string>
     <string name="setting_dark_mode_summary">Easier on the eyes in server rooms</string>
-    <string name="setting_language">Language</string>
-    <string name="setting_language_summary">Follows your phone language</string>
-    <string name="setting_language_value">English</string>
-    <string name="setting_push">Push notifications</string>
-    <string name="setting_push_summary">Get alerts even when the app is closed</string>
     <string name="setting_sound">Critical alert sound</string>
     <string name="setting_sound_summary">Play a sound for fire, leak and door alerts</string>
-    <string name="setting_refresh">Refresh interval</string>
-    <string name="setting_refresh_summary">How often live data updates</string>
-    <string name="setting_refresh_value">5 s</string>
     <string name="setting_temp_unit">Temperature unit</string>
     <string name="setting_temp_unit_summary">Used on all screens</string>
     <string name="setting_temp_unit_value">°C</string>
@@ -248,6 +239,4 @@
     <string name="location_channel">Location Channel</string>
     <string name="channel_for_location_notifications">Channel for location notifs</string>
     <string name="location_determined">Location Determined</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
