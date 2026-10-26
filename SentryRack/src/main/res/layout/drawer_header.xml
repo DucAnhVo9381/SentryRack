@@ -1,24 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="176dp"
-    android:gravity="bottom"
+    android:layout_height="220dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="start"
     android:padding="16dp"
-    android:background="@color/colorPrimary"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:background="@drawable/login_background">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/animated_logo"/>
+    <!-- Close Drawer Button -->
+    <ImageButton
+        android:id="@+id/btnCloseDrawer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Close drawer"
+        android:src="@android:drawable/ic_menu_close_clear_cancel" />
 
+    <!-- User Avatar -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="-30dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeColor="?attr/colorOutline"
+        app:strokeWidth="1dp">
+
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/homescreen_icon_background"
+            android:scaleType="fitCenter"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- User Name -->
     <TextView
+        android:id="@+id/txtUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="5dp"
+        android:text="Hieu Thu Hai"
+        android:textStyle="bold"
+        android:textColor="@color/header_text"
+        android:textSize="24sp"/>
+
+    <!-- User Role -->
+    <TextView
+        android:id="@+id/txtUserRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data center staff"
+        android:textColor="@color/header_text"
+        android:textSize="16sp" />
+
+    <!-- Email -->
+    <TextView
+        android:id="@+id/txtUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="nguoiimlanggapnguoihaynoi@sentryrack.com"
+        android:textColor="@color/header_text"
+        android:textSize="14sp" />
 </LinearLayout>
