@@ -7,18 +7,22 @@
     <color name="colorSecondary">#FF9C9CA6</color>
     <color name="colorTertiary">#FFEC7627</color>
 
+    <!-- Splash screen colors -->
+    <color name="splash_background">#FF75757E</color>
+
     <!-- TOOLBAR COLOR -->
     <!-- Overflow (3-dot) menu colours - DARK mode -->
     <color name="menu_background">#FF2B2D31</color>
     <color name="menu_highlight">#FF3C3F45</color>
     <color name="menu_ripple">#29FFFFFF</color>
 
+    <!-- BOTTOM & DRAWER NAV -->
     <!-- Navigation item selector colors -->
     <color name="selected">#FFEC7627</color>
     <color name="unselected">#FFFFFFFF</color>
 
-    <!-- Splash screen colors -->
-    <color name="splash_background">#FF75757E</color>
+    <!-- Drawer's text color -->
+    <color name="header_text">#FF9800</color>
 
     <!-- LOGIN SCREEN COLOR -->
     <!-- Login screen colors - DARK theme (black + orange, matches the dark logo)

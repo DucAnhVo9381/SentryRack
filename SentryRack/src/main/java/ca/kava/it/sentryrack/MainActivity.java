@@ -10,7 +10,7 @@ import android.app.NotificationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageButton;import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -109,6 +109,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawerLayout);
 
         navigationView = findViewById(R.id.drawer_nav_view);
+
+        View header = navigationView.getHeaderView(0);
+        ImageButton closeButton = header.findViewById(R.id.btnCloseDrawer);
+        closeButton.setOnClickListener(view -> drawerLayout.closeDrawer(GravityCompat.START));
+
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(toggle);
@@ -122,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             int id = item.getItemId();
             if (id == R.id.dashboard) {
-                setCurrentFragment(new HomeFragment());
+                setCurrentFragment(new DashboardFragment());
                 return true;
             } else if (id == R.id.racks) {
                 setCurrentFragment(new RacksFragment());
@@ -138,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (savedInstanceState == null) {
             // Set the main screen as default screen
             bottomNav.setSelectedItemId(R.id.dashboard);
-
             // Request location when app first launch
             requestLocation();
         }
