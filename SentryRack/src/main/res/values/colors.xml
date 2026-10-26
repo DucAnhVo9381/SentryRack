@@ -10,6 +10,20 @@
     <!-- Splash screen colors -->
     <color name="splash_background">#FF4E8EEA</color>
 
+    <!-- TOOLBAR COLOR -->
+    <!-- Overflow (3-dot) menu colours - LIGHT mode -->
+    <color name="menu_background">#FFFFFFFF</color>
+    <color name="menu_highlight">#FFECECEF</color>
+    <color name="menu_ripple">#1F000000</color>
+
+    <!-- BOTTOM & DRAWER NAV -->
+    <!-- Navigation item selector colors -->
+    <color name="selected">#FF3FA2F7</color>
+    <color name="unselected">#FF000000</color>
+
+    <!-- Drawer's text color -->
+    <color name="header_text">#FFFFFFFF</color>
+
     <!-- LOGIN SCREEN COLOR -->
     <!-- Background gradient (top to bottom) -->
     <color name="login_bg_start">#FF0A1F5C</color>
@@ -69,10 +83,4 @@
     <color name="dash_text_primary">#FF0F1A33</color>
     <color name="dash_text_secondary">#FF5A6785</color>
     <color name="dash_divider">#1A0F1A33</color>
-
-    <!-- TOOLBAR COLOR -->
-    <!-- Overflow (3-dot) menu colours - LIGHT mode -->
-    <color name="menu_background">#FFFFFFFF</color>
-    <color name="menu_highlight">#FFECECEF</color>
-    <color name="menu_ripple">#1F000000</color>
 </resources>

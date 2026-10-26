@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Andres Zambrano N01495324 ONC
-     Duc Anh Vo N01729381 0NC
-     Anvesh Rachakonda N01661293 ONC
-     Krushna Patel N01713093 ONC -->
-
 <!-- User (profile) screen - 3rd bottom navigation tab
      Header: login gradient + user picture + name + email.
      Rows: Edit profile, My alerts, Change password (WORKS), Activity history.
