@@ -13,18 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
-import com.google.android.material.snackbar.Snackbar;
-import android.content.res.Configuration;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatDelegate;
 
 public class SettingsFragment extends Fragment {
 
-    // Settings are saved in a small private file on the phone
+    // Settings are saved in Shared Preference (a small private file on the phone)
     private static final String PREFS_NAME = "settings_user_prefs";
     private static final String KEY_LOCK_PORTRAIT = "lock_portrait";
     private static final String KEY_DARK_MODE = "dark_mode";
@@ -59,9 +57,7 @@ public class SettingsFragment extends Fragment {
         lockSwitch.setOnCheckedChangeListener((button, isChecked) -> {
             savePortraitLocked(requireContext(), isChecked);
 
-            Snackbar.make(root,
-                    isChecked ? R.string.setting_portrait_locked_msg : R.string.setting_portrait_unlocked_msg,
-                    Snackbar.LENGTH_SHORT).show();
+            showToast(isChecked ? R.string.setting_portrait_locked_msg : R.string.setting_portrait_unlocked_msg);
 
             // Applied last: the screen may rotate (and redraw) right after this
             applySavedOrientation(requireActivity());
@@ -70,14 +66,12 @@ public class SettingsFragment extends Fragment {
 
     // Reads the saved "lock to portrait" choice (false = rotation allowed)
     public static boolean isPortraitLocked(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getBoolean(KEY_LOCK_PORTRAIT, false);
+        return getPrefs(context).getBoolean(KEY_LOCK_PORTRAIT, false);
     }
 
     // Saves the "lock to portrait" choice
     private static void savePortraitLocked(Context context, boolean locked) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        prefs.edit().putBoolean(KEY_LOCK_PORTRAIT, locked).apply();
+        getPrefs(context).edit().putBoolean(KEY_LOCK_PORTRAIT, locked).apply();
     }
 
     /** Applies the saved choice to any screen (used by Settings, MainActivity and LoginActivity)
@@ -95,42 +89,40 @@ public class SettingsFragment extends Fragment {
         MaterialSwitch darkSwitch = root.findViewById(R.id.switchDarkMode);
 
         // Show the current theme first (before adding the listener)
-        darkSwitch.setChecked(isDarkModeOn(requireContext()));
+        darkSwitch.setChecked(
+                // Is dark mode on
+                getPrefs(requireContext()).getBoolean(KEY_DARK_MODE,false)
+        );
         darkSwitch.setOnCheckedChangeListener((button, isChecked) -> {
-
             // Save dark mode using shared preferences
-            SharedPreferences prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-            prefs.edit().putBoolean(KEY_DARK_MODE, isChecked).apply();
+            getPrefs(requireContext()).edit().putBoolean(KEY_DARK_MODE, isChecked).apply();
 
             // Android redraws every open screen with the new colours
             AppCompatDelegate.setDefaultNightMode(isChecked
                     ? AppCompatDelegate.MODE_NIGHT_YES
-                    : AppCompatDelegate.MODE_NIGHT_NO);
+                    : AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         });
-    }
-
-    public static boolean isDarkModeOn(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        if (prefs.contains(KEY_DARK_MODE)) {
-            return prefs.getBoolean(KEY_DARK_MODE, false);
-        }
-        int nightMask = context.getResources().getConfiguration().uiMode
-                & Configuration.UI_MODE_NIGHT_MASK;
-        return nightMask == Configuration.UI_MODE_NIGHT_YES;
     }
 
     // Applies the saved theme when the app starts (called by LoginActivity and MainActivity).
     // Never changed in Settings -> follows the phone (system default).
     public static void applySavedTheme(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        int mode;
-        if (!prefs.contains(KEY_DARK_MODE)) {
-            mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
-        } else if (prefs.getBoolean(KEY_DARK_MODE, false)) {
-            mode = AppCompatDelegate.MODE_NIGHT_YES;
-        } else {
-            mode = AppCompatDelegate.MODE_NIGHT_NO;
-        }
-        AppCompatDelegate.setDefaultNightMode(mode);
+        boolean forceDark = getPrefs(context).getBoolean(KEY_DARK_MODE,false);
+
+        AppCompatDelegate.setDefaultNightMode(
+                forceDark
+                        ? AppCompatDelegate.MODE_NIGHT_YES
+                        : AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        );
+    }
+
+    //--- UTILITY/REUSABLE METHODS ---
+    private void showToast(int messageId) {
+        Toast.makeText(requireContext(),messageId,Toast.LENGTH_LONG).show();
+    }
+
+    // Returns the app's SharedPreferences file used to store user settings
+    private static SharedPreferences getPrefs(Context context) {
+        return context.getSharedPreferences(PREFS_NAME,Context.MODE_PRIVATE);
     }
 }
