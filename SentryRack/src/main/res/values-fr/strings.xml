@@ -50,7 +50,6 @@
     <!-- Toolbar (action bar) menu
      @author Anvesh
      @date 2026-10-01 -->
-    <string name="menu_refresh">Actualiser</string>
     <string name="menu_alerts">Alertes</string>
     <string name="menu_logout">Se déconnecter</string>
     <string name="menu_refreshed_msg">Données des baies actualisées</string>
@@ -70,16 +69,8 @@
     <string name="setting_lock_portrait_summary">Garder l\'application droite quand le téléphone pivote</string>
     <string name="setting_dark_mode">Thème sombre</string>
     <string name="setting_dark_mode_summary">Plus doux pour les yeux dans les salles de serveurs</string>
-    <string name="setting_language">Langue</string>
-    <string name="setting_language_summary">Suit la langue de votre téléphone</string>
-    <string name="setting_language_value">Français</string>
-    <string name="setting_push">Notifications push</string>
-    <string name="setting_push_summary">Recevoir les alertes même quand l\'application est fermée</string>
     <string name="setting_sound">Son des alertes critiques</string>
     <string name="setting_sound_summary">Jouer un son pour les alertes d\'incendie, de fuite et de porte</string>
-    <string name="setting_refresh">Intervalle d\'actualisation</string>
-    <string name="setting_refresh_summary">Fréquence de mise à jour des données en direct</string>
-    <string name="setting_refresh_value">5 s</string>
     <string name="setting_temp_unit">Unité de température</string>
     <string name="setting_temp_unit_summary">Utilisée sur tous les écrans</string>
     <string name="setting_temp_unit_value">°C</string>
