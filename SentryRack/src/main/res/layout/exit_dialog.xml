@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="12dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Background Image pinned exactly to the height of the content container -->
+        <ImageView
+            android:id="@+id/exitDialogBackground"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignTop="@id/exitDialogContentContainer"
+            android:layout_alignBottom="@id/exitDialogContentContainer"
+            android:scaleType="centerCrop"
+            android:src="@drawable/exit_dialog_background"
+            android:contentDescription="Dialog Background"/>
+
+        <!-- Semi-Transparent Dark Overlay (also pinned to content bounds) -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignTop="@id/exitDialogContentContainer"
+            android:layout_alignBottom="@id/exitDialogContentContainer"
+            android:background="@color/exit_dialog_bg"/>
+
+        <!-- Content Container (This drives the actual height of the dialog) -->
+        <LinearLayout
+            android:id="@+id/exitDialogContentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
+
+            <!-- Title Layout with Icon Next to Text -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/exit_dialog_icon"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="Exit Icon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exit_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/exit_dialog_title"
+                    android:letterSpacing="0.05"/>
+            </LinearLayout>
+
+            <!-- Body Message -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/exit_message"
+                android:textSize="13sp"
+                android:textColor="@color/exit_dialog_message"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_marginBottom="15dp"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- Action Buttons (NO first, then YES) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/exitDialogBtnNo"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:text="@string/exit_action_no"
+                    android:textColor="@color/exit_action_no"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/exit_action_no_bg"
+                    app:cornerRadius="21dp"/>
+
+                <Button
+                    android:id="@+id/exitDialogBtnYes"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/exit_action_yes"
+                    android:textColor="@color/exit_action_yes"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/exit_action_yes_bg"
+                    app:cornerRadius="21dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

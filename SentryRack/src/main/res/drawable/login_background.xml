@@ -3,8 +3,7 @@
      1) full-screen gradient (blue in light theme, black/orange in dark theme)
      2) soft glow circle, top-right
      3) soft glow circle, bottom-left
-     @author Anvesh
-     @date 2026-10-01 -->
+-->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Layer 1: gradient -->
