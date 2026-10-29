@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Andres Zambrano N01495324 ONC
-     Duc Anh Vo N01729381 0NC
-     Anvesh Rachakonda N01661293 ONC
-     Krushna Patel N01713093 ONC -->
-
 <!-- Dark "tech dashboard" background for the Home and Racks screens.
      Layer 1: deep navy top-to-bottom gradient.
      Layer 2: faint circuit grid (kp_bg_grid.xml).

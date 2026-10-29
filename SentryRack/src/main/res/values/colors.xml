@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
     <!-- App color theme -->
     <color name="colorPrimary">#FF2454D6</color>
     <color name="colorSecondary">#FF8ED0F8</color>
     <color name="colorTertiary">#FFFFD873</color>
 
-    <!-- Splash screen colors -->
+    <!-- SPLASH -->
     <color name="splash_background">#FF4E8EEA</color>
 
-    <!-- TOOLBAR COLOR -->
+    <!-- TOOLBAR -->
     <!-- Overflow (3-dot) menu colours - LIGHT mode -->
     <color name="menu_background">#FFFFFFFF</color>
     <color name="menu_highlight">#FFECECEF</color>
@@ -24,7 +22,17 @@
     <!-- Drawer's text color -->
     <color name="header_text">#FFFFFFFF</color>
 
-    <!-- LOGIN SCREEN COLOR -->
+    <!-- EXIT DIALOG -->
+    <color name="exit_dialog_bg">#660F172A</color>
+    <color name="exit_dialog_title">#FFFFFF</color>
+    <color name="exit_dialog_message">#E0E6ED</color>
+    <color name="exit_action_no">#FFFFFF</color>
+    <color name="exit_action_no_bg">#3B82F6</color>
+    <color name="exit_action_yes">#FFFFFF</color>
+    <color name="exit_action_yes_bg">#3B82F6</color>
+
+    <!-- LOGIN SCREEN -->
+    <color name="black">#FF000000</color>
     <!-- Background gradient (top to bottom) -->
     <color name="login_bg_start">#FF0A1F5C</color>
     <color name="login_bg_center">#FF1B4DD8</color>
@@ -48,7 +56,7 @@
     <color name="login_divider">#66FFFFFF</color>
     <color name="login_button_bg">#FFFFFFFF</color>
 
-    <!-- HOME AND RACKS SCREENS COLOR -->
+    <!-- HOME AND RACKS SCREENS -->
     <!-- Home and Racks screens - status colors (text + see-through background for chips)
          LIGHT mode. Dark mode versions: values-night/colors_dashboard.xml -->
     <color name="status_ok">#FF1E9E57</color>
