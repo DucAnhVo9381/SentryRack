@@ -48,7 +48,7 @@
 
     <!-- Open / close animation -->
     <style name="Animation.SentryRack.OverflowMenu" parent="">
-        <item name="android:windowEnterAnimation">@anim/ar_menu_enter</item>
-        <item name="android:windowExitAnimation">@anim/ar_menu_exit</item>
+        <item name="android:windowEnterAnimation">@anim/overflow_menu_open</item>
+        <item name="android:windowExitAnimation">@anim/overflow_menu_exit</item>
     </style>
 </resources>
