@@ -10,8 +10,10 @@ import android.app.NotificationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -107,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Setup navigation drawer
         drawerLayout = findViewById(R.id.drawerLayout);
-
         navigationView = findViewById(R.id.drawer_nav_view);
 
         View header = navigationView.getHeaderView(0);
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        // Setup bottom nav
+        // Setup bottom navigation
         bottomNav = findViewById(R.id.bottomNavigation);
 
         bottomNav.setOnItemSelectedListener(item -> {
@@ -147,21 +148,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             requestLocation();
         }
 
-        // Setup Dialogbox on backpress intercept
-        getOnBackPressedDispatcher().addCallback(this, new androidx.activity.OnBackPressedCallback(true) {
+        // Android back press handler
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
-                alertBuilder.setTitle(R.string.closing_app);
-                alertBuilder.setMessage(R.string.are_you_sure_you_want_to_close_sentryrack);
-                alertBuilder.setIcon(R.drawable.animated_logo);
-                alertBuilder.setCancelable(false)
-                        .setPositiveButton(R.string.yes, (dialog, which) -> {
-                            finish();
-                        }).setNegativeButton(R.string.no, (dialog, which) -> {
-                            dialog.dismiss();
-                        });
-                alertBuilder.show();
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    // Close drawer if open
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                }
+                else if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container) instanceof DashboardFragment)) {
+                    // If the currently visible screen is not the main screen, jump back to dashboard
+                    bottomNav.getMenu().findItem(R.id.dashboard).setChecked(true);  // Forces highlight
+                    bottomNav.setSelectedItemId(R.id.dashboard);
+                }
+                else {
+                    // Only show exit dialog if user strictly on dashboard screen with no where else to go
+                    showConfirmExitDialog();
+                }
             }
         });
     }
@@ -235,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    //---MENU ITEM METHODS---
+    //---MENU ITEMS FUNCTIONALITY METHODS---
     public void confirmLogout() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.menu_logout_title)
@@ -455,6 +458,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (notificationManager != null) {
             notificationManager.notify(NOTIFICATION_ID, builder.build());
         }
+    }
+
+    //--- EXIT DIALOG HELPER METHODS ---
+    // Inflate the custom exit dialog and its buttons behavior when Android back button is pressed
+    private void showConfirmExitDialog() {
+        // Inflate the custom dialog layout
+        View dialogView = getLayoutInflater().inflate(R.layout.exit_dialog, null);
+
+        // Build the AlertDialog with a transparent background to respect CardView rounded corners
+        AlertDialog dialog = new MaterialAlertDialogBuilder(this)
+                .setView(dialogView)
+                .create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        // Set click handlers for NO and YES buttons
+        Button btnNo = dialogView.findViewById(R.id.exitDialogBtnNo);
+        Button btnYes = dialogView.findViewById(R.id.exitDialogBtnYes);
+
+        btnNo.setOnClickListener(v -> dialog.dismiss());
+
+        btnYes.setOnClickListener(v -> {
+            dialog.dismiss();
+            // Moves app to background safely instead of killing state/session
+            moveTaskToBack(true);
+        });
+
+        dialog.show();
     }
 
     //---REUSABLE/UTILITY METHODS---

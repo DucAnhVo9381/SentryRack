@@ -4,12 +4,8 @@
      Krushna Patel N01713093 ONC -->
 <resources>
     <string name="app_name">Sentry Rack</string>
-    <string name="closing_app">Fermeture de l\'application</string>
-    <string name="are_you_sure_you_want_to_close_sentryrack">Êtes-vous sûr de vouloir quitter SentryRack?</string>
-    <string name="yes">Oui</string>
-    <string name="no">Non</string>
 
-    <string name="home">Accueil</string>
+    <!-- Navigation Drawer -->
     <string name="settings">Paramètres</string>
     <string name="about">À propos</string>
     <string name="open_drawer">Ouvrir le menu de navigation</string>
@@ -20,9 +16,13 @@
     <string name="bottom_racks">Baies</string>
     <string name="bottom_activity">Activity</string>
 
-    <!-- Login screen strings
-     @author Anvesh
-     @date 2026-10-01 -->
+    <!-- Exit dialog -->
+    <string name="exit_title">CONFIRM EXIT</string>
+    <string name="exit_message">Are you sure you want to exit Sentry Rack? Active monitoring sessions will run in the background</string>
+    <string name="exit_action_no">NO</string>
+    <string name="exit_action_yes">YES</string>
+
+    <!-- Login screen strings -->
     <string name="login_tagline">Surveillance des baies pour centres de données</string>
     <string name="login_welcome">Bon retour</string>
     <string name="login_subtitle">Connectez-vous pour surveiller vos baies</string>
@@ -35,9 +35,7 @@
     <string name="error_password_empty">Veuillez entrer votre mot de passe</string>
     <string name="error_password_short">Le mot de passe doit contenir au moins %1$d caractères</string>
 
-    <!-- Login screen - extra options (Remember me, OR, Google, Sign up)
-     @author Anvesh
-     @date 2026-10-01 -->
+    <!-- Login screen - extra options (Remember me, OR, Google, Sign up) -->
     <string name="login_remember_me">Se souvenir de moi</string>
     <string name="login_or">OU</string>
     <string name="login_google">Continuer avec Google</string>
@@ -47,9 +45,7 @@
     <string name="login_google_soon">La connexion avec Google sera bientôt disponible.</string>
     <string name="login_sign_up_soon">L\'inscription sera bientôt disponible. Veuillez contacter votre administrateur.</string>
 
-    <!-- Toolbar (action bar) menu
-     @author Anvesh
-     @date 2026-10-01 -->
+    <!-- Toolbar (action bar) menu -->
     <string name="menu_alerts">Alertes</string>
     <string name="menu_logout">Se déconnecter</string>
     <string name="menu_refreshed_msg">Données des baies actualisées</string>
@@ -58,9 +54,7 @@
     <string name="menu_ok">OK</string>
     <string name="menu_cancel">Annuler</string>
 
-    <!-- Settings screen - Deliverable 2 steps 6 and 7
-     @author Anvesh
-     @date 2026-10-01 -->
+    <!-- Settings screen -->
     <string name="settings_subtitle">Choisissez comment SentryRack fonctionne pour vous</string>
     <string name="settings_group_display">Affichage</string>
     <string name="settings_group_notifications">Notifications</string>
@@ -77,9 +71,7 @@
     <string name="setting_portrait_locked_msg">Écran verrouillé en mode portrait</string>
     <string name="setting_portrait_unlocked_msg">Rotation de l\'écran déverrouillée</string>
 
-    <!-- Home screen (dashboard) - Deliverable 2 steps 4, 5 and 9
-     @author Krushna
-     @date 2026-10-03 -->
+    <!-- Home screen (dashboard) - Deliverable 2 steps 4, 5 and 9 -->
     <string name="home_title">Vue d\'ensemble du centre de données</string>
     <string name="home_subtitle">Toronto DC-1 · Surveillance en direct</string>
     <string name="home_status_chip">2 avertissements</string>
