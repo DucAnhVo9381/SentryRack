@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Andres Zambrano N01495324 ONC
-     Duc Anh Vo N01729381 0NC
-     Anvesh Rachakonda N01661293 ONC
-     Krushna Patel N01713093 ONC -->
-
 <!-- Racks screen - list of every monitored rack
      Deliverable 2 steps 4, 5, 23, 24, 25: full design without functionality.
      Each card shows the rack image, name, location, status and its 4 sensor readings.
