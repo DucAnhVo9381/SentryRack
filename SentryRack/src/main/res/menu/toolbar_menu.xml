@@ -13,12 +13,12 @@
     <group android:id="@+id/group_support">
         <item
             android:id="@+id/action_help_center"
-            android:title="@string/menu_help_center"
+            android:title="@string/overflow_help_center"
             app:showAsAction="never" />
 
         <item
             android:id="@+id/action_contact"
-            android:title="@string/menu_contact"
+            android:title="@string/overflow_contact"
             app:showAsAction="never" />
     </group>
 
@@ -26,7 +26,7 @@
     <group android:id="@+id/group_feedback">
         <item
             android:id="@+id/action_feedback"
-            android:title="@string/menu_feedback"
+            android:title="@string/overflow_feedback"
             app:showAsAction="never" />
     </group>
 </menu>

@@ -15,7 +15,7 @@
     <style name="Theme.SentryRack.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/splash_background</item>
         <item name="postSplashScreenTheme">@style/Theme.SentryRack</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/animated_logo</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_animated_logo</item>
     </style>
 
     <!-- ===== Overflow (3-dot) menu look - Chrome-style =====
