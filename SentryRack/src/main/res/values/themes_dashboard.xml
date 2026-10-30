@@ -140,7 +140,7 @@
     <style name="Widget.SentryRack.Dashboard.StatusChip" parent="">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/kp_bg_status_chip</item>
+        <item name="android:background">@drawable/app_bg_status_chip</item>
         <item name="android:paddingStart">@dimen/dash_chip_padding_horizontal</item>
         <item name="android:paddingEnd">@dimen/dash_chip_padding_horizontal</item>
         <item name="android:paddingTop">@dimen/dash_chip_padding_vertical</item>
@@ -175,7 +175,7 @@
         <item name="android:layout_width">@dimen/dash_dot_size</item>
         <item name="android:layout_height">@dimen/dash_dot_size</item>
         <item name="android:layout_marginEnd">@dimen/dash_space_medium</item>
-        <item name="android:background">@drawable/kp_bg_dot</item>
+        <item name="android:background">@drawable/app_bg_dot</item>
     </style>
 
     <!-- Thin line between rows -->

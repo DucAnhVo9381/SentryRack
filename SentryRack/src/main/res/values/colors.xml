@@ -19,17 +19,15 @@
     <color name="selected">#FF3FA2F7</color>
     <color name="unselected">#FF000000</color>
 
-    <!-- Drawer's text color -->
+    <!-- Drawer navigation -->
     <color name="header_text">#FFFFFFFF</color>
 
-    <!-- EXIT DIALOG -->
-    <color name="exit_dialog_bg">#660F172A</color>
-    <color name="exit_dialog_title">#FFFFFF</color>
-    <color name="exit_dialog_message">#E0E6ED</color>
-    <color name="exit_action_no">#FFFFFF</color>
-    <color name="exit_action_no_bg">#3B82F6</color>
-    <color name="exit_action_yes">#FFFFFF</color>
-    <color name="exit_action_yes_bg">#3B82F6</color>
+    <!-- CONFIRM DIALOG -->
+    <color name="dialog_bg">#660F172A</color>
+    <color name="dialog_title">#FFFFFF</color>
+    <color name="dialog_message">#E0E6ED</color>
+    <color name="dialog_button">#FFFFFF</color>
+    <color name="dialog_button_background">#3B82F6</color>
 
     <!-- LOGIN SCREEN -->
     <color name="black">#FF000000</color>
@@ -72,9 +70,7 @@
          Icy blue gradient + faint blue circuit grid + soft colored lights -->
     <color name="dash_bg_top">#FFDCE7FF</color>
     <color name="dash_bg_bottom">#FFF4F7FF</color>
-    <color name="dash_glow_blue">#734E8EEA</color>
-    <color name="dash_glow_teal">#5906B6D4</color>
-    <color name="dash_glow_purple">#4D7C5CFF</color>
+    <color name="dash_glow">#734E8EEA</color>
     <color name="dash_glow_clear">#004E8EEA</color>
     <color name="dash_grid_line">#1A2454D6</color>
     <color name="dash_circuit_line">#4D2454D6</color>

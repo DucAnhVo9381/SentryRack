@@ -8,24 +8,26 @@
         <item
             android:id="@+id/drawer_account"
             android:icon="@drawable/drawer_account_icon"
-            android:title="Account"/>
+            android:title="@string/drawer_account"/>
 
         <item
             android:id="@+id/drawer_settings"
             android:icon="@drawable/drawer_settings_ic"
-            android:title="Settings"/>
+            android:title="@string/drawer_settings"/>
 
         <item
             android:id="@+id/drawer_about"
-            android:title="About"/>
+            android:icon="@drawable/drawer_about_icon"
+            android:title="@string/drawer_about"/>
     </group>
 
     <item
         android:title="">
         <menu>
             <item
-                android:id="@+id/nav_logout"
-                android:title="Logout"/>
+                android:id="@+id/drawer_logout"
+                android:icon="@drawable/drawer_logout_icon"
+                android:title="@string/drawer_logout"/>
         </menu>
     </item>
 </menu>
