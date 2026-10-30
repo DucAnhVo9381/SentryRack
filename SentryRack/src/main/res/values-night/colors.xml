@@ -23,13 +23,11 @@
     <color name="header_text">#FF9800</color>
 
     <!-- EXIT DIALOG -->
-    <color name="exit_dialog_bg">#660F172A</color>
-    <color name="exit_dialog_title">#FFFFFF</color>
-    <color name="exit_dialog_message">#E0E6ED</color>
-    <color name="exit_action_no">#FFFFFF</color>
-    <color name="exit_action_no_bg">#FFEC7627</color>
-    <color name="exit_action_yes">#FFFFFF</color>
-    <color name="exit_action_yes_bg">#FFEC7627</color>
+    <color name="dialog_bg">#660F172A</color>
+    <color name="dialog_title">#FFFFFF</color>
+    <color name="dialog_message">#E0E6ED</color>
+    <color name="dialog_button">#FFFFFF</color>
+    <color name="dialog_button_background">#FFEC7627</color>
 
     <!-- LOGIN SCREEN COLOR -->
     <!-- Login screen colors - DARK theme (black + orange, matches the dark logo)
@@ -63,10 +61,7 @@
     <!-- Background -->
     <color name="dash_bg_top">#FF0D1735</color>
     <color name="dash_bg_bottom">#FF060A18</color>
-    <color name="dash_glow_blue">#994E8EEA</color>
-    <color name="dash_glow_teal">#6606B6D4</color>
-    <color name="dash_glow_purple">#807C5CFF</color>
-    <color name="dash_glow_clear">#004E8EEA</color>
+    <color name="dash_glow">#00FFC107</color>
     <color name="dash_grid_line">#12FFFFFF</color>
     <color name="dash_circuit_line">#4022D3EE</color>
     <color name="dash_circuit_node">#9922D3EE</color>

@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     locationPermissionDenied++;
                     if (locationPermissionDenied > 2) {
-                        showSnackbar(getString(R.string.permission_denied_opening_settings), getString(R.string.settings), v -> {
+                        showSnackbar(getString(R.string.permission_denied_opening_settings), getString(R.string.drawer_settings), v -> {
                             Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                             intent.setData(Uri.fromParts("package", getPackageName(), null));
                             startActivity(intent);
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 else {
                     // Only show exit dialog if user strictly on dashboard screen with no where else to go
-                    showConfirmExitDialog();
+                    showCustomConfirmationDialog(null, null, v -> moveTaskToBack(true));
                 }
             }
         });
@@ -216,8 +216,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setCurrentFragment(new SettingsFragment());
         } else if (itemId == R.id.drawer_about) {
             setCurrentFragment(new AboutFragment());
-        } else if (itemId == R.id.nav_logout) {
-
+        } else if (itemId == R.id.drawer_logout) {
+            confirmLogout();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -240,12 +240,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //---MENU ITEMS FUNCTIONALITY METHODS---
     public void confirmLogout() {
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.menu_logout_title)
-                .setMessage(R.string.menu_logout_msg)
-                .setPositiveButton(R.string.menu_logout, (dialog, which) -> logout())
-                .setNegativeButton(R.string.menu_cancel, (dialog, which) -> dialog.dismiss())
-                .show();
+        showCustomConfirmationDialog(
+                getString(R.string.logout_dialog_title),
+                getString(R.string.logout_dialog_msg),
+                v -> logout() // Action executed when user clicks YES
+        );
     }
 
     private void logout() {
@@ -323,7 +322,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         AlertDialog dialog = new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.feedback_title)
                 .setView(dialogView)
-                .setNegativeButton(R.string.menu_cancel, null)
+                .setNegativeButton(R.string.feedback_cancel, null)
                 .setPositiveButton(R.string.feedback_send, null)   // real click set below
                 .create();
 
@@ -460,36 +459,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    //--- EXIT DIALOG HELPER METHODS ---
-    // Inflate the custom exit dialog and its buttons behavior when Android back button is pressed
-    private void showConfirmExitDialog() {
-        // Inflate the custom dialog layout
-        View dialogView = getLayoutInflater().inflate(R.layout.exit_dialog, null);
-
-        // Build the AlertDialog with a transparent background to respect CardView rounded corners
-        AlertDialog dialog = new MaterialAlertDialogBuilder(this)
-                .setView(dialogView)
-                .create();
-
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        }
-
-        // Set click handlers for NO and YES buttons
-        Button btnNo = dialogView.findViewById(R.id.exitDialogBtnNo);
-        Button btnYes = dialogView.findViewById(R.id.exitDialogBtnYes);
-
-        btnNo.setOnClickListener(v -> dialog.dismiss());
-
-        btnYes.setOnClickListener(v -> {
-            dialog.dismiss();
-            // Moves app to background safely instead of killing state/session
-            moveTaskToBack(true);
-        });
-
-        dialog.show();
-    }
-
     //---REUSABLE/UTILITY METHODS---
     //Misc snack bar method REUSABLE
     private void showSnackbar(String message, String actionText, View.OnClickListener listener) {
@@ -501,5 +470,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             snackbar.dismiss();
         });
         snackbar.show();
+    }
+
+    // Inflate the custom confirm dialog and determine the behavior of the "yes" button
+    private void showCustomConfirmationDialog(String title, String message, View.OnClickListener onYesClick) {
+        View dialogView = getLayoutInflater().inflate(R.layout.confirm_dialog, null);
+
+        // Optional: Update title/message text if your exit_dialog.xml contains TextViews for them
+        TextView txtTitle = dialogView.findViewById(R.id.confirmDialogTitle);
+        TextView txtMessage = dialogView.findViewById(R.id.confirmDialogMessage);
+
+        if (txtTitle != null && title != null) {
+            txtTitle.setText(title);
+        }
+        if (txtMessage != null && message != null) {
+            txtMessage.setText(message);
+        }
+
+        AlertDialog dialog = new MaterialAlertDialogBuilder(this)
+                .setView(dialogView)
+                .create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        Button btnNo = dialogView.findViewById(R.id.confirmDialogBtnNo);
+        Button btnYes = dialogView.findViewById(R.id.confirmDialogBtnYes);
+
+        btnNo.setOnClickListener(v -> dialog.dismiss());
+
+        btnYes.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (onYesClick != null) {
+                onYesClick.onClick(v);
+            }
+        });
+
+        dialog.show();
     }
 }

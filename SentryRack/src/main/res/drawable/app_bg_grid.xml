@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Faint "circuit board" grid drawn over the dashboard background:
      thin grid lines every 24 units + a few cyan circuit traces with round nodes.
-     Used as a layer inside kp_bg_dashboard.xml.
+     Used as a layer inside app_background.xml
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="360dp"
