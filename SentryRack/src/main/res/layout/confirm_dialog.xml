@@ -14,26 +14,26 @@
 
         <!-- Background Image pinned exactly to the height of the content container -->
         <ImageView
-            android:id="@+id/exitDialogBackground"
+            android:id="@+id/confirmDialogBackground"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_alignTop="@id/exitDialogContentContainer"
-            android:layout_alignBottom="@id/exitDialogContentContainer"
+            android:layout_alignTop="@id/confirmDialogContentContainer"
+            android:layout_alignBottom="@id/confirmDialogContentContainer"
             android:scaleType="centerCrop"
-            android:src="@drawable/exit_dialog_background"
+            android:src="@drawable/confirm_dialog_background"
             android:contentDescription="Dialog Background"/>
 
         <!-- Semi-Transparent Dark Overlay (also pinned to content bounds) -->
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_alignTop="@id/exitDialogContentContainer"
-            android:layout_alignBottom="@id/exitDialogContentContainer"
-            android:background="@color/exit_dialog_bg"/>
+            android:layout_alignTop="@id/confirmDialogContentContainer"
+            android:layout_alignBottom="@id/confirmDialogContentContainer"
+            android:background="@color/dialog_bg"/>
 
         <!-- Content Container (This drives the actual height of the dialog) -->
         <LinearLayout
-            android:id="@+id/exitDialogContentContainer"
+            android:id="@+id/confirmDialogContentContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -51,27 +51,29 @@
                 <ImageView
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:src="@drawable/exit_dialog_icon"
+                    android:src="@drawable/confirm_dialog_icon"
                     android:layout_marginEnd="8dp"
-                    android:contentDescription="Exit Icon"/>
+                    android:contentDescription="Confirm dialog icon"/>
 
                 <TextView
+                    android:id="@+id/confirmDialogTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/exit_title"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@color/exit_dialog_title"
+                    android:textColor="@color/dialog_title"
                     android:letterSpacing="0.05"/>
             </LinearLayout>
 
             <!-- Body Message -->
             <TextView
+                android:id="@+id/confirmDialogMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/exit_message"
                 android:textSize="13sp"
-                android:textColor="@color/exit_dialog_message"
+                android:textColor="@color/dialog_message"
                 android:textAlignment="center"
                 android:gravity="center"
                 android:layout_marginBottom="15dp"
@@ -85,27 +87,27 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/exitDialogBtnNo"
+                    android:id="@+id/confirmDialogBtnNo"
                     android:layout_width="0dp"
                     android:layout_height="42dp"
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
                     android:text="@string/exit_action_no"
-                    android:textColor="@color/exit_action_no"
+                    android:textColor="@color/dialog_button"
                     android:textStyle="bold"
-                    android:backgroundTint="@color/exit_action_no_bg"
+                    android:backgroundTint="@color/dialog_button_background"
                     app:cornerRadius="21dp"/>
 
                 <Button
-                    android:id="@+id/exitDialogBtnYes"
+                    android:id="@+id/confirmDialogBtnYes"
                     android:layout_width="0dp"
                     android:layout_height="42dp"
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
                     android:text="@string/exit_action_yes"
-                    android:textColor="@color/exit_action_yes"
+                    android:textColor="@color/dialog_button"
                     android:textStyle="bold"
-                    android:backgroundTint="@color/exit_action_yes_bg"
+                    android:backgroundTint="@color/dialog_button_background"
                     app:cornerRadius="21dp"/>
             </LinearLayout>
         </LinearLayout>

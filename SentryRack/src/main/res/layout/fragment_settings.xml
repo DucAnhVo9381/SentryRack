@@ -16,7 +16,7 @@
             style="@style/Widget.SentryRack.Settings.ScreenTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/settings" />
+            android:text="@string/drawer_settings" />
 
         <TextView
             style="@style/Widget.SentryRack.Settings.RowSummary"
