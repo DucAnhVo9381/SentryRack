@@ -11,32 +11,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-/** Home screen (dashboard) - opened from the bottom navigation and the drawer.
- * Shows the data center summary, live sensor cards (temperature, coolant,
- * power, air quality), rack access and recent activity.
- * Deliverable 2: design only - all values come from strings.xml and will be
- * replaced with live sensor data from the cloud database later.
- * Design principle: this class only loads its layout (single responsibility);
- * all styling lives in themes_dashboard.xml, colors.xml and dimens.xml.
- * Portrait layout: layout/fragment_home.xml
- * Landscape layout: layout-land/fragment_home.xml (Android picks it automatically)
- * @author Krushna
- * @date 2026-10-03
- */
+import java.util.Calendar;
+
 public class DashboardFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
+    //--- FRAGMENT DEFAULT FIELDS & METHODS ---
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -44,15 +28,6 @@ public class DashboardFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static DashboardFragment newInstance(String param1, String param2) {
         DashboardFragment fragment = new DashboardFragment();
         Bundle args = new Bundle();
@@ -71,15 +46,35 @@ public class DashboardFragment extends Fragment {
         }
     }
 
-    /** Loads the Home dashboard layout.
-     * Android automatically uses the landscape version when the phone is rotated.
-     * @author Krushna
-     * @date 2026-10-03
-     */
+    //--- MAIN LIFECYCLE METHOD ---
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+        TextView dashboardGreeting = view.findViewById(R.id.dashboardGreeting);
+        dashboardGreeting.setText(getGreetingMessage(getString(R.string.drawer_header_username)));
+
+        return view;
+    }
+
+    // Greeting logic method
+    private String getGreetingMessage(String userName) {
+        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        String greeting;
+
+        if (hour < 12) {
+            greeting = "Good Morning";
+            // greeting = getString(R.string.good_morning);
+        }
+        else if (hour < 17) {
+            greeting = "Good Afternoon";
+        }
+        else {
+            greeting = "Good Evening";
+        }
+
+        return greeting + ", " + userName;
     }
 }

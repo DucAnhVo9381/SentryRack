@@ -110,7 +110,7 @@ public class AccountFragment extends Fragment {
      */
     private void showChangePasswordDialog() {
         View dialogView = LayoutInflater.from(requireContext())
-                .inflate(R.layout.ar_dialog_change_password, null);
+                .inflate(R.layout.account_dialog_change_password, null);
 
         AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.user_pw_title)

@@ -124,9 +124,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bottomNav = findViewById(R.id.bottomNavigation);
 
         bottomNav.setOnItemSelectedListener(item -> {
-            clearSelection(navigationView.getMenu());
-
             int id = item.getItemId();
+
             if (id == R.id.dashboard) {
                 setCurrentFragment(new DashboardFragment());
                 return true;
@@ -185,13 +184,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.toolbar_alerts) {
-            clearSelection(bottomNav.getMenu());
-            clearSelection(navigationView.getMenu());
             setCurrentFragment(new AlertsFragment());
             return true;
         } else if (id == R.id.action_help_center) {
-            clearSelection(bottomNav.getMenu());
-            clearSelection(navigationView.getMenu());
             setCurrentFragment(new HelpCenterFragment());
             return true;
         } else if (id == R.id.action_contact) {
@@ -207,9 +202,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Handle drawer menu item clicks
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        clearSelection(bottomNav.getMenu());
-
         int itemId = menuItem.getItemId();
+
         if (itemId == R.id.drawer_account) {
             setCurrentFragment(new AccountFragment());
         } else if (itemId == R.id.drawer_settings) {
@@ -231,13 +225,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
 
-    // Clears the selected/highlighted state from all items in the given menu
-    private void clearSelection(Menu menu) {
-        for (int i = 0; i < menu.size(); i++) {
-            menu.getItem(i).setChecked(false);
-        }
-    }
-
     //---MENU ITEMS FUNCTIONALITY METHODS---
     public void confirmLogout() {
         showCustomConfirmationDialog(
@@ -257,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showContactSupportSheet() {
         BottomSheetDialog sheet = new BottomSheetDialog(this);
-        View sheetView = getLayoutInflater().inflate(R.layout.ar_sheet_contact_support, null);
+        View sheetView = getLayoutInflater().inflate(R.layout.overflow_sheet_contact_support, null);
         sheet.setContentView(sheetView);
 
         sheetView.findViewById(R.id.contactEmailRow).setOnClickListener(v -> {
@@ -309,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * The Send button checks the message first - the dialog only closes
      */
     private void showSendFeedbackDialog() {
-        View dialogView = getLayoutInflater().inflate(R.layout.ar_dialog_send_feedback, null);
+        View dialogView = getLayoutInflater().inflate(R.layout.overflow_dialog_send_feedback, null);
         ChipGroup typeGroup = dialogView.findViewById(R.id.feedbackTypeGroup);
         TextInputLayout messageLayout = dialogView.findViewById(R.id.feedbackMessageLayout);
         EditText messageInput = dialogView.findViewById(R.id.feedbackMessageInput);

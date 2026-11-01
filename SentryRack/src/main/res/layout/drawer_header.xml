@@ -36,7 +36,6 @@
             android:layout_height="match_parent"
             android:src="@drawable/homescreen_icon_background"
             android:scaleType="fitCenter"/>
-
     </com.google.android.material.card.MaterialCardView>
 
     <!-- User Name -->
@@ -45,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Hieu Thu Hai"
+        android:text="@string/drawer_header_username"
         android:textStyle="bold"
         android:textColor="@color/header_text"
         android:textSize="24sp"/>
@@ -55,7 +54,7 @@
         android:id="@+id/txtUserRole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Data center staff"
+        android:text="@string/drawer_header_user_role"
         android:textColor="@color/header_text"
         android:textSize="16sp" />
 
@@ -65,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="nguoiimlanggapnguoihaynoi@sentryrack.com"
+        android:text="@string/drawer_header_email"
         android:textColor="@color/header_text"
         android:textSize="14sp" />
 </LinearLayout>
