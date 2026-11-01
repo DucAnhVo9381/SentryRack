@@ -13,8 +13,8 @@
         <shape android:shape="rectangle">
             <gradient
                 android:angle="270"
-                android:endColor="@color/dash_bg_bottom"
-                android:startColor="@color/dash_bg_top"
+                android:endColor="@color/app_bg_bottom"
+                android:startColor="@color/app_bg_top"
                 android:type="linear" />
         </shape>
     </item>
@@ -31,9 +31,9 @@
         android:top="@dimen/dash_glow_offset">
         <shape android:shape="oval">
             <gradient
-                android:endColor="@color/dash_glow_clear"
+                android:endColor="@color/app_bg_glow_clear"
                 android:gradientRadius="@dimen/dash_glow_large_radius"
-                android:startColor="@color/dash_glow"
+                android:startColor="@color/app_bg_glow"
                 android:type="radial" />
         </shape>
     </item>
@@ -47,9 +47,9 @@
         android:top="@dimen/dash_glow_middle_top">
         <shape android:shape="oval">
             <gradient
-                android:endColor="@color/dash_glow_clear"
+                android:endColor="@color/app_bg_glow_clear"
                 android:gradientRadius="@dimen/dash_glow_small_radius"
-                android:startColor="@color/dash_glow"
+                android:startColor="@color/app_bg_glow"
                 android:type="radial" />
         </shape>
     </item>
@@ -63,9 +63,9 @@
         android:left="@dimen/dash_glow_offset">
         <shape android:shape="oval">
             <gradient
-                android:endColor="@color/dash_glow_clear"
+                android:endColor="@color/app_bg_glow_clear"
                 android:gradientRadius="@dimen/dash_glow_large_radius"
-                android:startColor="@color/dash_glow"
+                android:startColor="@color/app_bg_glow"
                 android:type="radial" />
         </shape>
     </item>

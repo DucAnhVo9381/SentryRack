@@ -54,37 +54,12 @@
     <color name="login_divider">#66FFFFFF</color>
     <color name="login_button_bg">#FFFFFFFF</color>
 
-    <!-- HOME AND RACKS SCREENS -->
-    <!-- Home and Racks screens - status colors (text + see-through background for chips)
-         LIGHT mode. Dark mode versions: values-night/colors_dashboard.xml -->
-    <color name="status_ok">#FF1E9E57</color>
-    <color name="status_ok_bg">#261E9E57</color>
-    <color name="status_warning">#FFD98200</color>
-    <color name="status_warning_bg">#26D98200</color>
-    <color name="status_critical">#FFD64545</color>
-    <color name="status_critical_bg">#26D64545</color>
-    <color name="status_offline">#FF7A8291</color>
-    <color name="status_offline_bg">#267A8291</color>
-
-    <!-- Home and Racks screens - "tech dashboard" background, LIGHT mode
-         Icy blue gradient + faint blue circuit grid + soft colored lights -->
-    <color name="dash_bg_top">#FFDCE7FF</color>
-    <color name="dash_bg_bottom">#FFF4F7FF</color>
-    <color name="dash_glow">#734E8EEA</color>
-    <color name="dash_glow_clear">#004E8EEA</color>
-    <color name="dash_grid_line">#1A2454D6</color>
-    <color name="dash_circuit_line">#4D2454D6</color>
-    <color name="dash_circuit_node">#992454D6</color>
-
-    <!-- Home and Racks screens - cards and text, LIGHT mode (used by the theme overlay) -->
-    <color name="dash_surface">#FFF4F7FF</color>
-    <color name="dash_card_bg">#E6FFFFFF</color>
-    <color name="dash_card_stroke">#402454D6</color>
-    <color name="dash_hero_bg">#FF2454D6</color>
-    <color name="dash_on_hero">#FFFFFFFF</color>
-    <color name="dash_accent">#FF2454D6</color>
-    <color name="dash_accent_container">#FFD6E2FF</color>
-    <color name="dash_text_primary">#FF0F1A33</color>
-    <color name="dash_text_secondary">#FF5A6785</color>
-    <color name="dash_divider">#1A0F1A33</color>
+    <!-- APP BACKGROUND -->
+    <color name="app_bg_top">#FFDCE7FF</color>
+    <color name="app_bg_bottom">#FFF4F7FF</color>
+    <color name="app_bg_glow">#734E8EEA</color>
+    <color name="app_bg_glow_clear">#004E8EEA</color>
+    <color name="app_bg_grid_line">#1A2454D6</color>
+    <color name="app_bg_circuit_line">#4D2454D6</color>
+    <color name="app_bg_circuit_node">#992454D6</color>
 </resources>

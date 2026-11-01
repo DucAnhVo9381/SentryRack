@@ -1,433 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Home screen (dashboard) - portrait layout
-     Deliverable 2 steps 4, 5, 12, 23, 24, 25: full design without functionality,
-     6 images, card elevation, and only styles / dimens / colors / strings (nothing hardcoded).
-     Values shown are sample data; live sensor data will replace them in a later deliverable.
-     @author Krushna
-     @date 2026-10-03 -->
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dashboardScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_background"
-    android:fillViewport="true"
-    android:theme="@style/ThemeOverlay.SentryRack.Dashboard">
+    android:fillViewport="true">
 
     <LinearLayout
+        android:id="@+id/dashboardContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/dash_padding">
+        android:padding="16dp">
 
-        <!-- Header: title, location and overall status pill -->
+        <!-- SCREEN TITLE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dashboard"
+            android:textSize="28sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/dashboardGreeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Good Morning, User"
+            android:textColor="#666666"
+            android:textSize="16sp"/>
+
+        <!-- HEALTH CARDS SECTION -->
         <LinearLayout
+            android:id="@+id/dashboardSummaryHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/dashboardSummaryTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/Widget.SentryRack.Dashboard.ScreenTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/home_title" />
-
-                <TextView
-                    style="@style/Widget.SentryRack.Dashboard.ScreenSubtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dash_space_xsmall"
-                    android:text="@string/home_subtitle" />
-            </LinearLayout>
+                android:text="Overview of Monitored Racks"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
 
             <TextView
-                style="@style/Widget.SentryRack.Dashboard.StatusChip.Warning"
-                android:layout_marginStart="@dimen/dash_space_small"
-                android:text="@string/home_status_chip" />
+                android:id="@+id/dashboardTotalRackCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 Racks"
+                android:textStyle="bold"/>
         </LinearLayout>
 
-        <!-- Main summary card (4dp elevation so it stands out) -->
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.SentryRack.Dashboard.HeroCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dash_space_large">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/dash_hero_image_size"
-                    android:layout_height="@dimen/dash_hero_image_size"
-                    android:contentDescription="@string/cd_rack_image"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/kp_img_rack" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dash_space_large"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Dashboard.HeroValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_racks_count" />
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Dashboard.HeroLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_racks_label"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Dashboard.HeroLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dash_space_xsmall"
-                        android:text="@string/home_racks_breakdown" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Live sensors: 2 x 2 grid of cards -->
-        <TextView
-            style="@style/Widget.SentryRack.Dashboard.SectionHeader"
-            android:text="@string/home_section_sensors" />
-
-        <!-- Row 1: temperature + coolant -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
 
+            <!-- HEALTHY -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.SentryRack.Dashboard.Card"
+                android:id="@+id/dashboardHealthyCard"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/dash_space_xsmall"
-                android:layout_weight="1">
+                android:layout_height="110dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                app:cardBackgroundColor="#4CAF50"
+                app:cardCornerRadius="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
-                        style="@style/Widget.SentryRack.Dashboard.StatIcon"
-                        android:src="@drawable/kp_img_temperature" />
-
                     <TextView
-                        style="@style/Widget.SentryRack.Dashboard.Label"
+                        android:id="@+id/dashboardHealthyCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dash_space_small"
-                        android:text="@string/home_sensor_temperature" />
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:textSize="28sp"
+                        android:textStyle="bold"/>
 
                     <TextView
-                        style="@style/Widget.SentryRack.Dashboard.Value"
+                        android:id="@+id/dashboardHealthyLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/home_sensor_temperature_value" />
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Dashboard.StatusChip.Ok"
-                        android:layout_marginTop="@dimen/dash_space_small"
-                        android:text="@string/home_state_normal" />
+                        android:text="Healthy"
+                        android:textColor="@android:color/white"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- WARNING -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.SentryRack.Dashboard.Card"
+                android:id="@+id/dashboardWarningCard"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dash_space_xsmall"
-                android:layout_weight="1">
+                android:layout_height="110dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
+                app:cardBackgroundColor="#FFC107"
+                app:cardCornerRadius="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
-                        style="@style/Widget.SentryRack.Dashboard.StatIcon"
-                        android:src="@drawable/kp_img_coolant" />
-
                     <TextView
-                        style="@style/Widget.SentryRack.Dashboard.Label"
+                        android:id="@+id/dashboardWarningCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dash_space_small"
-                        android:text="@string/home_sensor_coolant" />
+                        android:text="0"
+                        android:textColor="@android:color/black"
+                        android:textSize="28sp"
+                        android:textStyle="bold"/>
 
                     <TextView
-                        style="@style/Widget.SentryRack.Dashboard.Value"
+                        android:id="@+id/dashboardWarningLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/home_sensor_coolant_value" />
+                        android:text="Warning"
+                        android:textColor="@android:color/black"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- CRITICAL -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dashboardCriticalCard"
+                android:layout_width="0dp"
+                android:layout_height="110dp"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                app:cardBackgroundColor="#F44336"
+                app:cardCornerRadius="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
-                        style="@style/Widget.SentryRack.Dashboard.StatusChip.Ok"
-                        android:layout_marginTop="@dimen/dash_space_small"
-                        android:text="@string/home_state_normal" />
+                        android:id="@+id/dashboardCriticalCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:textSize="28sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/dashboardCriticalLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Critical"
+                        android:textColor="@android:color/white"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-        <!-- Row 2: power + air quality -->
+        <!-- ATTENTION SECTION -->
         <LinearLayout
+            android:id="@+id/dashboardAttentionHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dash_space_small"
-            android:baselineAligned="false"
+            android:layout_marginTop="24dp"
             android:orientation="horizontal">
 
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.SentryRack.Dashboard.Card"
+            <TextView
+                android:id="@+id/dashboardAttentionTitle"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/dash_space_xsmall"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Racks Requiring Attention"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        style="@style/Widget.SentryRack.Dashboard.StatIcon"
-                        android:src="@drawable/kp_img_power" />
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Dashboard.Label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dash_space_small"
-                        android:text="@string/home_sensor_power" />
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Dashboard.Value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_sensor_power_value" />
-
-                    <!-- Power is high on Rack B-01, so this one shows a warning -->
-                    <TextView
-                        style="@style/Widget.SentryRack.Dashboard.StatusChip.Warning"
-                        android:layout_marginTop="@dimen/dash_space_small"
-                        android:text="@string/home_state_high" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.SentryRack.Dashboard.Card"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dash_space_xsmall"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        style="@style/Widget.SentryRack.Dashboard.StatIcon"
-                        android:src="@drawable/kp_img_air" />
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Dashboard.Label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dash_space_small"
-                        android:text="@string/home_sensor_air" />
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Dashboard.Value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_sensor_air_value" />
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Dashboard.StatusChip.Ok"
-                        android:layout_marginTop="@dimen/dash_space_small"
-                        android:text="@string/home_state_good" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/dashboardViewAllAttention"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View All"
+                android:textColor="#1565C0"
+                android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Rack access (door lock sensor) -->
-        <TextView
-            style="@style/Widget.SentryRack.Dashboard.SectionHeader"
-            android:text="@string/home_section_access" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dashboardRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginTop="8dp"/>
+
+        <!-- LOCATION SECTION -->
+        <LinearLayout
+            android:id="@+id/dashboardLocationHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/dashboardLocationTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rack Locations"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/dashboardLocationDropdown"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.SentryRack.Dashboard.Card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    style="@style/Widget.SentryRack.Dashboard.StatIcon"
-                    android:src="@drawable/kp_img_door" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dash_space_medium"
-                    android:layout_marginEnd="@dimen/dash_space_small"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Dashboard.Body"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_access_title" />
-
-                    <TextView
-                        style="@style/Widget.SentryRack.Dashboard.Caption"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dash_space_xsmall"
-                        android:text="@string/home_access_last" />
-                </LinearLayout>
-
-                <TextView
-                    style="@style/Widget.SentryRack.Dashboard.StatusChip.Ok"
-                    android:text="@string/home_access_badge" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Recent activity: latest events with a colored dot for the severity -->
-        <TextView
-            style="@style/Widget.SentryRack.Dashboard.SectionHeader"
-            android:text="@string/home_section_activity" />
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.SentryRack.Dashboard.Card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <!-- Event 1: warning (orange dot) -->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@android:drawable/ic_menu_mapmode"/>
+
+                <TextView
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_width="wrap_content"
+                    android:text="Floor 1"/>
 
-                    <View
-                        style="@style/Widget.SentryRack.Dashboard.Dot"
-                        android:backgroundTint="@color/status_warning" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Dashboard.Body"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/home_activity_1" />
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Dashboard.Caption"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/home_activity_1_time" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Dashboard.Divider" />
-
-                <!-- Event 2: critical (red dot) -->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <View
-                        style="@style/Widget.SentryRack.Dashboard.Dot"
-                        android:backgroundTint="@color/status_critical" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Dashboard.Body"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/home_activity_2" />
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Dashboard.Caption"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/home_activity_2_time" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Dashboard.Divider" />
-
-                <!-- Event 3: normal (green dot) -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <View
-                        style="@style/Widget.SentryRack.Dashboard.Dot"
-                        android:backgroundTint="@color/status_ok" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Dashboard.Body"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/home_activity_3" />
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Dashboard.Caption"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/home_activity_3_time" />
-                    </LinearLayout>
-                </LinearLayout>
+                    android:layout_width="wrap_content"
+                    android:text="18 Racks"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
