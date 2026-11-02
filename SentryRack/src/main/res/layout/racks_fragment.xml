@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/racksScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/racksContentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- SCREEN TITLE -->
+        <TextView
+            android:id="@+id/racksTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Racks"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/racksSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manage and investigate server racks"
+            android:textSize="16sp" />
+
+        <!-- SEARCH -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/racksSearchLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:startIconDrawable="@android:drawable/ic_menu_search">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/racksSearchInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search racks..." />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- FILTER CHIPS -->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/racksFilterChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/racksChipAll"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All"
+                android:checked="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/racksChipHealthy"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Healthy" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/racksChipWarning"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Warning" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/racksChipCritical"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Critical" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- REGISTER BUTTON -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/racksRegisterButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Register Rack"
+            android:textAllCaps="false"
+            app:cornerRadius="16dp" />
+
+        <!-- LIST HEADER -->
+        <LinearLayout
+            android:id="@+id/racksHeaderRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/racksHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monitored Racks"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/racksHeaderDot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:text="•" />
+
+            <TextView
+                android:id="@+id/racksTotalCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 Racks" />
+        </LinearLayout>
+
+        <!-- RECYCLER VIEW -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/racksRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:nestedScrollingEnabled="false" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

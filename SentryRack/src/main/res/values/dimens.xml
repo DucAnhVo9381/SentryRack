@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Login screen sizes
-         @author Anvesh
-         @date 2026-10-01 -->
+    <!-- LOGIN SCREEN -->
+    <!-- Login screen sizes -->
     <dimen name="login_padding">24dp</dimen>
     <dimen name="login_space_small">8dp</dimen>
     <dimen name="login_space_medium">16dp</dimen>
@@ -14,9 +12,7 @@
     <dimen name="login_title_text">28sp</dimen>
     <dimen name="login_subtitle_text">14sp</dimen>
 
-    <!-- Login screen - background glow, glass card, fields, buttons
-     @author Anvesh
-     @date 2026-10-01 -->
+    <!-- Login screen - background glow, glass card, fields, buttons -->
     <dimen name="login_glass_corner">28dp</dimen>
     <dimen name="login_field_corner">14dp</dimen>
     <dimen name="login_pill_corner">26dp</dimen>
@@ -28,9 +24,8 @@
     <dimen name="login_caption_text">12sp</dimen>
     <dimen name="login_body_text">15sp</dimen>
 
-    <!-- Settings screen sizes
-     @author Anvesh
-     @date 2026-10-01 -->
+    <!-- SETTINGS SCREEN -->
+    <!-- Settings screen sizes -->
     <dimen name="settings_padding">16dp</dimen>
     <dimen name="settings_space_small">4dp</dimen>
     <dimen name="settings_section_margin">24dp</dimen>
@@ -42,60 +37,10 @@
     <dimen name="settings_title_text">22sp</dimen>
     <dimen name="settings_header_text">14sp</dimen>
 
-    <!-- Settings row image size - @author Anvesh @date 2026-10-01 -->
+    <!-- Settings row image size -->
     <dimen name="settings_icon_size">40dp</dimen>
 
-    <!-- Home and Racks screens (dashboard) sizes
-         Cards use 2dp elevation, the main summary card uses 4dp so it stands out (step 23)
-         @author Krushna
-         @date 2026-10-03 -->
-    <dimen name="dash_padding">16dp</dimen>
-    <dimen name="dash_space_xsmall">4dp</dimen>
-    <dimen name="dash_space_small">8dp</dimen>
-    <dimen name="dash_space_medium">12dp</dimen>
-    <dimen name="dash_space_large">16dp</dimen>
-    <dimen name="dash_section_margin">24dp</dimen>
-    <dimen name="dash_card_corner">16dp</dimen>
-    <dimen name="dash_card_padding">16dp</dimen>
-    <dimen name="dash_card_elevation">2dp</dimen>
-    <dimen name="dash_hero_elevation">4dp</dimen>
-    <dimen name="dash_hero_image_size">88dp</dimen>
-    <dimen name="dash_stat_icon_size">40dp</dimen>
-    <dimen name="dash_rack_image_size">56dp</dimen>
-    <dimen name="dash_metric_icon_size">20dp</dimen>
-    <dimen name="dash_dot_size">10dp</dimen>
-    <dimen name="dash_chip_corner">12dp</dimen>
-    <dimen name="dash_chip_padding_horizontal">10dp</dimen>
-    <dimen name="dash_chip_padding_vertical">4dp</dimen>
-    <dimen name="dash_divider_height">1dp</dimen>
-    <dimen name="dash_title_text">22sp</dimen>
-    <dimen name="dash_subtitle_text">14sp</dimen>
-    <dimen name="dash_header_text">14sp</dimen>
-    <dimen name="dash_hero_value_text">34sp</dimen>
-    <dimen name="dash_value_text">22sp</dimen>
-    <dimen name="dash_metric_text">15sp</dimen>
-    <dimen name="dash_label_text">13sp</dimen>
-    <dimen name="dash_caption_text">12sp</dimen>
-    <dimen name="dash_chip_text">12sp</dimen>
-
-    <!-- Home and Racks glow background - size and position of the colored lights
-         (negative offset pushes each glow partly off-screen for a soft corner light)
-         @author Krushna
-         @date 2026-10-03 -->
-    <dimen name="dash_glow_large">420dp</dimen>
-    <dimen name="dash_glow_large_radius">210dp</dimen>
-    <dimen name="dash_glow_small">320dp</dimen>
-    <dimen name="dash_glow_small_radius">160dp</dimen>
-    <dimen name="dash_glow_offset">-140dp</dimen>
-    <dimen name="dash_glow_offset_small">-120dp</dimen>
-    <dimen name="dash_glow_middle_top">260dp</dimen>
-
-    <!-- Glowing edge around the dark glass cards - @author Krushna @date 2026-10-03 -->
-    <dimen name="dash_card_stroke">1dp</dimen>
-
-    <!-- User (profile) screen sizes
-         @author Anvesh
-         @date 2026-10-07 -->
+    <!-- User (profile) screen sizes -->
     <dimen name="user_header_padding">24dp</dimen>
     <dimen name="user_avatar_size">88dp</dimen>
     <dimen name="user_online_dot">20dp</dimen>
@@ -107,13 +52,12 @@
     <dimen name="user_dialog_padding">24dp</dimen>
     <dimen name="user_field_spacing">8dp</dimen>
 
-    <!-- Help center screen - @author Anvesh @date 2026-10-08 -->
+    <!-- Help center screen -->
     <dimen name="help_search_radius">24dp</dimen>
     <dimen name="help_card_gap">10dp</dimen>
     <dimen name="help_answer_padding">16dp</dimen>
 
-    <!-- Send feedback dialog - @author Anvesh @date 2026-10-08 -->
+    <!-- Send feedback dialog -->
     <dimen name="feedback_dialog_padding">24dp</dimen>
     <dimen name="feedback_message_min_height">120dp</dimen>
-
 </resources>

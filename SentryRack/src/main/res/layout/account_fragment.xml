@@ -33,13 +33,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/cd_user_avatar"
-                    android:src="@drawable/ar_img_user_avatar" />
+                    android:src="@drawable/account_img_user_avatar" />
 
                 <View
                     android:layout_width="@dimen/user_online_dot"
                     android:layout_height="@dimen/user_online_dot"
                     android:layout_gravity="bottom|end"
-                    android:background="@drawable/ar_bg_user_online"
+                    android:background="@drawable/account_user_online_icon"
                     android:contentDescription="@string/cd_user_online" />
             </FrameLayout>
 
@@ -88,7 +88,7 @@
                         android:id="@+id/rowEditProfile"
                         style="@style/Widget.SentryRack.User.Row">
 
-                        <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_user_edit" />
+                        <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/account_img_user_edit" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -107,7 +107,7 @@
                                 android:text="@string/user_edit_profile_summary" />
                         </LinearLayout>
 
-                        <ImageView style="@style/Widget.SentryRack.User.Chevron" android:src="@drawable/ar_ic_chevron" />
+                        <ImageView style="@style/Widget.SentryRack.User.Chevron" android:src="@drawable/account_overflow_chevron_icon" />
                     </LinearLayout>
 
                     <View style="@style/Widget.SentryRack.Settings.Divider" />
@@ -117,7 +117,7 @@
                         android:id="@+id/rowMyAlerts"
                         style="@style/Widget.SentryRack.User.Row">
 
-                        <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_user_alerts" />
+                        <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/account_img_user_alerts" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -136,7 +136,7 @@
                                 android:text="@string/user_my_alerts_summary" />
                         </LinearLayout>
 
-                        <ImageView style="@style/Widget.SentryRack.User.Chevron" android:src="@drawable/ar_ic_chevron" />
+                        <ImageView style="@style/Widget.SentryRack.User.Chevron" android:src="@drawable/account_overflow_chevron_icon" />
                     </LinearLayout>
 
                     <View style="@style/Widget.SentryRack.Settings.Divider" />
@@ -146,7 +146,7 @@
                         android:id="@+id/rowChangePassword"
                         style="@style/Widget.SentryRack.User.Row">
 
-                        <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_user_password" />
+                        <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/account_img_user_password" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -165,7 +165,7 @@
                                 android:text="@string/user_change_password_summary" />
                         </LinearLayout>
 
-                        <ImageView style="@style/Widget.SentryRack.User.Chevron" android:src="@drawable/ar_ic_chevron" />
+                        <ImageView style="@style/Widget.SentryRack.User.Chevron" android:src="@drawable/account_overflow_chevron_icon" />
                     </LinearLayout>
 
                     <View style="@style/Widget.SentryRack.Settings.Divider" />
@@ -175,7 +175,7 @@
                         android:id="@+id/rowHistory"
                         style="@style/Widget.SentryRack.User.Row">
 
-                        <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/ar_img_user_history" />
+                        <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/account_img_user_history" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -194,7 +194,7 @@
                                 android:text="@string/user_history_summary" />
                         </LinearLayout>
 
-                        <ImageView style="@style/Widget.SentryRack.User.Chevron" android:src="@drawable/ar_ic_chevron" />
+                        <ImageView style="@style/Widget.SentryRack.User.Chevron" android:src="@drawable/account_overflow_chevron_icon" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

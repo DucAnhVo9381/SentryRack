@@ -58,7 +58,7 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        return inflater.inflate(R.layout.account_fragment, container, false);
     }
 
     /** Fills in the header and connects the rows and buttons
@@ -110,7 +110,7 @@ public class AccountFragment extends Fragment {
      */
     private void showChangePasswordDialog() {
         View dialogView = LayoutInflater.from(requireContext())
-                .inflate(R.layout.ar_dialog_change_password, null);
+                .inflate(R.layout.account_dialog_change_password, null);
 
         AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.user_pw_title)

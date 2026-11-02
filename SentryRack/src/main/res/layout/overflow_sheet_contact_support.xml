@@ -32,7 +32,7 @@
 
         <ImageView
             style="@style/Widget.SentryRack.Settings.RowIcon"
-            android:src="@drawable/ar_ic_contact_email" />
+            android:src="@drawable/overflow_contact_email_icon" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -64,7 +64,7 @@
 
         <ImageView
             style="@style/Widget.SentryRack.Settings.RowIcon"
-            android:src="@drawable/ar_ic_contact_call" />
+            android:src="@drawable/overflow_contact_call_icon" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -96,7 +96,7 @@
 
         <ImageView
             style="@style/Widget.SentryRack.Settings.RowIcon"
-            android:src="@drawable/ar_ic_contact_web" />
+            android:src="@drawable/overflow_contact_web_icon" />
 
         <LinearLayout
             android:layout_width="0dp"

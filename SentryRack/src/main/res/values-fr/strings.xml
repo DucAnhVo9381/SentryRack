@@ -13,6 +13,10 @@
     <string name="open_drawer">Ouvrir le menu de navigation</string>
     <string name="close_drawer">Fermer le menu de navigation</string>
 
+    <string name="drawer_header_username">Guts and Grit</string>
+    <string name="drawer_header_user_role">Data center staff</string>
+    <string name="drawer_header_email">volkdoesntsocialize@fu.ca</string>
+
     <!-- Bottom navigation -->
     <string name="bottom_dashboard">Dashboard</string>
     <string name="bottom_racks">Baies</string>
@@ -69,77 +73,11 @@
     <string name="setting_portrait_locked_msg">Écran verrouillé en mode portrait</string>
     <string name="setting_portrait_unlocked_msg">Rotation de l\'écran déverrouillée</string>
 
-    <!-- Home screen (dashboard) - Deliverable 2 steps 4, 5 and 9 -->
-    <string name="home_title">Vue d\'ensemble du centre de données</string>
-    <string name="home_subtitle">Toronto DC-1 · Surveillance en direct</string>
-    <string name="home_status_chip">2 avertissements</string>
-    <string name="home_racks_count">12</string>
-    <string name="home_racks_label">Baies surveillées</string>
-    <string name="home_racks_breakdown">10 en ligne · 1 avertissement · 1 hors ligne</string>
-    <string name="home_section_sensors">Capteurs en direct</string>
-    <string name="home_sensor_temperature">Température</string>
-    <string name="home_sensor_temperature_value">24,5 °C</string>
-    <string name="home_sensor_coolant">Liquide de refroidissement</string>
-    <string name="home_sensor_coolant_value">82 %</string>
-    <string name="home_sensor_power">Consommation</string>
-    <string name="home_sensor_power_value">4,2 kW</string>
-    <string name="home_sensor_air">Qualité de l\'air (COV)</string>
-    <string name="home_sensor_air_value">0,3 ppm</string>
-    <string name="home_state_normal">Normal</string>
-    <string name="home_state_high">Élevée</string>
-    <string name="home_state_good">Bonne</string>
-    <string name="home_section_access">Accès aux baies</string>
-    <string name="home_access_title">Toutes les portes sont verrouillées</string>
-    <string name="home_access_last">Dernier accès : baie A-03 à 14 h 22</string>
-    <string name="home_access_badge">Sécurisé</string>
-    <string name="home_section_activity">Activité récente</string>
-    <string name="home_activity_1">Température de la baie B-01 au-dessus de 30 °C</string>
-    <string name="home_activity_1_time">il y a 2 min</string>
-    <string name="home_activity_2">La baie B-02 est hors ligne</string>
-    <string name="home_activity_2_time">il y a 15 min</string>
-    <string name="home_activity_3">Porte de la baie A-03 ouverte par J. Smith</string>
-    <string name="home_activity_3_time">il y a 1 h</string>
-    <string name="cd_rack_image">Baie de serveurs</string>
+    <!-- Home screen (dashboard) -->
 
-    <!-- Racks screen - Deliverable 2 steps 4, 5 and 9
-     @author Krushna
-     @date 2026-10-03 -->
-    <string name="racks_title">Baies</string>
-    <string name="racks_subtitle">12 baies à Toronto DC-1</string>
-    <string name="racks_filter_all">Toutes</string>
-    <string name="rack_status_online">En ligne</string>
-    <string name="rack_status_warning">Avertissement</string>
-    <string name="rack_status_offline">Hors ligne</string>
-    <string name="rack_metric_temp">Temp.</string>
-    <string name="rack_metric_power">Puissance</string>
-    <string name="rack_metric_coolant">Refroid.</string>
-    <string name="rack_metric_door">Porte</string>
-    <string name="rack_door_locked">Verrouillée</string>
-    <string name="rack_door_open">Ouverte</string>
-    <string name="rack_no_data">--</string>
-    <string name="rack_updated_now">Mis à jour il y a 1 min</string>
-    <string name="rack_last_seen">Vu il y a 15 min</string>
 
-    <string name="rack_a01_name">Baie A-01</string>
-    <string name="rack_a01_location">Rangée A · Position 1</string>
-    <string name="rack_a01_temp">23,8 °C</string>
-    <string name="rack_a01_power">3,1 kW</string>
-    <string name="rack_a01_coolant">85 %</string>
+    <!-- Racks screen -->
 
-    <string name="rack_a02_name">Baie A-02</string>
-    <string name="rack_a02_location">Rangée A · Position 2</string>
-    <string name="rack_a02_temp">24,6 °C</string>
-    <string name="rack_a02_power">3,4 kW</string>
-    <string name="rack_a02_coolant">80 %</string>
-
-    <string name="rack_b01_name">Baie B-01</string>
-    <string name="rack_b01_location">Rangée B · Position 1</string>
-    <string name="rack_b01_temp">31,2 °C</string>
-    <string name="rack_b01_power">4,8 kW</string>
-    <string name="rack_b01_coolant">64 %</string>
-
-    <string name="rack_b02_name">Baie B-02</string>
-    <string name="rack_b02_location">Rangée B · Position 2</string>
 
     <!-- User (profile) screen - bottom navigation tab -->
     <string name="user_name_default">Utilisateur</string>
@@ -157,9 +95,7 @@
     <string name="cd_user_avatar">Photo de profil</string>
     <string name="cd_user_online">En ligne</string>
 
-    <!-- User screen - Change password dialog (working feature)
-         @author Anvesh
-         @date 2026-10-07 -->
+    <!-- User screen - Change password dialog (working feature) -->
     <string name="user_pw_title">Changer le mot de passe</string>
     <string name="user_pw_current">Mot de passe actuel</string>
     <string name="user_pw_new">Nouveau mot de passe</string>
