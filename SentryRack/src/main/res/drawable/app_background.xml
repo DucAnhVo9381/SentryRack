@@ -24,15 +24,15 @@
 
     <!-- 3. Blue glow - top right corner -->
     <item
-        android:width="@dimen/dash_glow_large"
-        android:height="@dimen/dash_glow_large"
+        android:width="@dimen/app_bg_glow_large"
+        android:height="@dimen/app_bg_glow_large"
         android:gravity="top|end"
-        android:right="@dimen/dash_glow_offset"
-        android:top="@dimen/dash_glow_offset">
+        android:right="@dimen/app_bg_glow_offset"
+        android:top="@dimen/app_bg_glow_offset">
         <shape android:shape="oval">
             <gradient
                 android:endColor="@color/app_bg_glow_clear"
-                android:gradientRadius="@dimen/dash_glow_large_radius"
+                android:gradientRadius="@dimen/app_bg_glow_large_radius"
                 android:startColor="@color/app_bg_glow"
                 android:type="radial" />
         </shape>
@@ -40,15 +40,15 @@
 
     <!-- 4. Purple glow - middle left -->
     <item
-        android:width="@dimen/dash_glow_small"
-        android:height="@dimen/dash_glow_small"
+        android:width="@dimen/app_bg_glow_small"
+        android:height="@dimen/app_bg_glow_small"
         android:gravity="top|start"
-        android:left="@dimen/dash_glow_offset_small"
-        android:top="@dimen/dash_glow_middle_top">
+        android:left="@dimen/app_bg_glow_offset_small"
+        android:top="@dimen/app_bg_glow_middle_top">
         <shape android:shape="oval">
             <gradient
                 android:endColor="@color/app_bg_glow_clear"
-                android:gradientRadius="@dimen/dash_glow_small_radius"
+                android:gradientRadius="@dimen/app_bg_glow_small_radius"
                 android:startColor="@color/app_bg_glow"
                 android:type="radial" />
         </shape>
@@ -56,15 +56,15 @@
 
     <!-- 5. Teal glow - bottom left corner -->
     <item
-        android:width="@dimen/dash_glow_large"
-        android:height="@dimen/dash_glow_large"
-        android:bottom="@dimen/dash_glow_offset"
+        android:width="@dimen/app_bg_glow_large"
+        android:height="@dimen/app_bg_glow_large"
+        android:bottom="@dimen/app_bg_glow_offset"
         android:gravity="bottom|start"
-        android:left="@dimen/dash_glow_offset">
+        android:left="@dimen/app_bg_glow_offset">
         <shape android:shape="oval">
             <gradient
                 android:endColor="@color/app_bg_glow_clear"
-                android:gradientRadius="@dimen/dash_glow_large_radius"
+                android:gradientRadius="@dimen/app_bg_glow_large_radius"
                 android:startColor="@color/app_bg_glow"
                 android:type="radial" />
         </shape>

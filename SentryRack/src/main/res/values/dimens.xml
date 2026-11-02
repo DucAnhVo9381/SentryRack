@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App background -->
+    <!-- Home and Racks glow background - size and position of the colored lights
+         (negative offset pushes each glow partly off-screen for a soft corner light) -->
+    <dimen name="app_bg_glow_large">420dp</dimen>
+    <dimen name="app_bg_glow_large_radius">210dp</dimen>
+    <dimen name="app_bg_glow_small">320dp</dimen>
+    <dimen name="app_bg_glow_small_radius">160dp</dimen>
+    <dimen name="app_bg_glow_offset">-140dp</dimen>
+    <dimen name="app_bg_glow_offset_small">-120dp</dimen>
+    <dimen name="app_bg_glow_middle_top">260dp</dimen>
+
     <!-- LOGIN SCREEN -->
     <!-- Login screen sizes -->
     <dimen name="login_padding">24dp</dimen>
