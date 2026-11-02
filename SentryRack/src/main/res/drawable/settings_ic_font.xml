@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings icon: Font style - colourful gradient square + white symbol
+     @author Anvesh
+     @date 2026-11-02 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Rounded square with a diagonal gradient -->
+    <path android:pathData="M12,0L36,0A12,12 0,0 1,48 12L48,36A12,12 0,0 1,36 48L12,48A12,12 0,0 1,0 36L0,12A12,12 0,0 1,12 0Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0" android:startY="0"
+                android:endX="48" android:endY="48"
+                android:startColor="#FFA78BFA"
+                android:endColor="#FF6D28D9" />
+        </aapt:attr>
+    </path>
+
+    <!-- Soft shine on the top half -->
+    <path android:pathData="M12,0L36,0A12,12 0,0 1,48 12L48,24L0,24L0,12A12,12 0,0 1,12 0Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="24" android:startY="0"
+                android:endX="24" android:endY="24"
+                android:startColor="#47FFFFFF"
+                android:endColor="#00FFFFFF" />
+        </aapt:attr>
+    </path>
+
+    <!-- White symbol, centred -->
+    <group android:translateX="12" android:translateY="12">
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M5 17v2h14v-2H5zm4.5-4.2h5l.9 2.2h2.1L12.75 4h-1.5L6.5 15h2.1l.9-2.2zM12 5.98L13.87 11h-3.74L12 5.98z" />
+    </group>
+</vector>
