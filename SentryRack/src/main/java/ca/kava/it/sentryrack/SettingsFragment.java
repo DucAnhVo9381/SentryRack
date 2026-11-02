@@ -20,12 +20,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.view.WindowManager;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 public class SettingsFragment extends Fragment {
 
     // Settings are saved in Shared Preference (a small private file on the phone)
     private static final String PREFS_NAME = "settings_user_prefs";
     private static final String KEY_LOCK_PORTRAIT = "lock_portrait";
     private static final String KEY_DARK_MODE = "dark_mode";
+    private static final String KEY_KEEP_SCREEN_ON = "keep_screen_on";   // @author Anvesh @date 2026-11-02
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -38,6 +45,7 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         setupPortraitLock(view);
+        setupKeepScreenOn(view);   // Keep screen on - @author Anvesh @date 2026-11-02
 
         return view;
     }
@@ -95,7 +103,77 @@ public class SettingsFragment extends Fragment {
                         : AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         );
     }
+    //--- REUSABLE SETTING HELPERS (DRY principle + Observer pattern) ---
 
+    interface SwitchListener {
+        void onChanged(boolean isOn);
+    }
+
+    interface ChoiceListener {
+        void onChosen(int index);
+    }
+    private void bindSwitch(View root, int switchId, String key, boolean defaultValue,
+                            @NonNull SwitchListener listener) {
+        MaterialSwitch settingSwitch = root.findViewById(switchId);
+
+        // Show the saved value first (before adding the listener)
+        settingSwitch.setChecked(getPrefs(requireContext()).getBoolean(key, defaultValue));
+
+        settingSwitch.setOnCheckedChangeListener((button, isChecked) -> {
+            getPrefs(requireContext()).edit().putBoolean(key, isChecked).apply();
+            listener.onChanged(isChecked);
+        });
+    }
+    private void showChoiceDialog(View root, @StringRes int titleRes, @StringRes int messageRes,
+                                  @StringRes int[] options, String key, int valueTextId,
+                                  ChoiceListener previewListener, @NonNull ChoiceListener listener) {
+        String[] labels = new String[options.length];
+        for (int i = 0; i < options.length; i++) {
+            labels[i] = getString(options[i]);
+        }
+        final int[] selected = {getSavedIndex(requireContext(), key)};
+
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(titleRes)
+                .setSingleChoiceItems(labels, selected[0], (dialog, which) -> {
+                    selected[0] = which;
+                    if (previewListener != null) {
+                        previewListener.onChosen(which);
+                    }
+                })
+                .setNegativeButton(R.string.setting_cancel, null)
+                .setPositiveButton(R.string.setting_ok, (dialog, which) -> {
+                    getPrefs(requireContext()).edit().putInt(key, selected[0]).apply();
+                    showValue(root, valueTextId, options, selected[0]);
+                    listener.onChosen(selected[0]);
+                });
+
+        // Small explanation under the title (0 = no message)
+        if (messageRes != 0) {
+            builder.setMessage(messageRes);
+        }
+        builder.show();
+    }
+    static int getSavedIndex(Context context, String key) {
+        return getPrefs(context).getInt(key, 0);
+    }
+
+    private void showValue(View root, int valueTextId, @StringRes int[] options, int index) {
+        TextView valueText = root.findViewById(valueTextId);
+        valueText.setText(options[index]);
+    }
+
+    private void setupKeepScreenOn(View root) {
+        bindSwitch(root, R.id.switchKeepScreenOn, KEY_KEEP_SCREEN_ON, false,
+                isOn -> applyKeepScreenOn(requireActivity()));
+    }
+    public static void applyKeepScreenOn(Activity activity) {
+        if (getPrefs(activity).getBoolean(KEY_KEEP_SCREEN_ON, false)) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+    }
     //--- UTILITY/REUSABLE METHODS ---
     private void showToast(int messageId) {
         Toast.makeText(requireContext(),messageId,Toast.LENGTH_LONG).show();

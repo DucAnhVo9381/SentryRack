@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        SettingsFragment.applyKeepScreenOn(this);
 
         // Initialize location services
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
