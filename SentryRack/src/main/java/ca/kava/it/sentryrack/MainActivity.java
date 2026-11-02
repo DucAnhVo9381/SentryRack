@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SettingsFragment.applySavedOrientation(this);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
         // Initialize location services
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,14 +9,13 @@
     android:fillViewport="true">
 
     <LinearLayout
-        android:id="@+id/racksContainer"
+        android:id="@+id/racksContentContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
         <!-- SCREEN TITLE -->
-
         <TextView
             android:id="@+id/racksTitle"
             android:layout_width="wrap_content"
@@ -31,11 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Manage and investigate server racks"
-            android:textColor="#666666"
             android:textSize="16sp" />
 
         <!-- SEARCH -->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/racksSearchLayout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -49,11 +45,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Search racks..." />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- FILTER CHIPS -->
-
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/racksFilterChipGroup"
             android:layout_width="match_parent"
@@ -89,11 +83,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Critical" />
-
         </com.google.android.material.chip.ChipGroup>
 
         <!-- REGISTER BUTTON -->
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/racksRegisterButton"
             android:layout_width="match_parent"
@@ -101,12 +93,9 @@
             android:layout_marginTop="16dp"
             android:text="Register Rack"
             android:textAllCaps="false"
-            app:icon="@android:drawable/ic_input_add"
-            app:iconGravity="start"
             app:cornerRadius="16dp" />
 
         <!-- LIST HEADER -->
-
         <LinearLayout
             android:id="@+id/racksHeaderRow"
             android:layout_width="match_parent"
@@ -119,7 +108,7 @@
                 android:id="@+id/racksHeaderTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Registered Racks"
+                android:text="Monitored Racks"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -128,20 +117,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
-                android:text="•"
-                android:textColor="#666666" />
+                android:text="•" />
 
             <TextView
                 android:id="@+id/racksTotalCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0 Racks"
-                android:textColor="#666666" />
-
+                android:text="0 Racks" />
         </LinearLayout>
 
         <!-- RECYCLER VIEW -->
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/racksRecyclerView"
             android:layout_width="match_parent"
@@ -150,5 +135,4 @@
             android:nestedScrollingEnabled="false" />
 
     </LinearLayout>
-
 </androidx.core.widget.NestedScrollView>

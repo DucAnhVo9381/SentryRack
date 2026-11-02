@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         SettingsFragment.applySavedOrientation(this);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login_activity);
 
         // Bind views: Connects the Java fields to the views in activity_login.xml / login_form_card.xml
         emailLayout = findViewById(R.id.emailLayout);
