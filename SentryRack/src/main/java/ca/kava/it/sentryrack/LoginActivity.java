@@ -24,6 +24,8 @@ import androidx.core.splashscreen.SplashScreen;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import android.content.res.Configuration;
+import android.content.Context;
 
 // Login screen : Splash (3s) -> Login -> Main
 public class LoginActivity extends AppCompatActivity {
@@ -49,7 +51,14 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText passwordInput;
     private View loginLogo;
     private View loginCard;
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Configuration override = new Configuration();
+        override.fontScale = newBase.getResources().getConfiguration().fontScale
+                * SettingsFragment.getTextScale(newBase);
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
     // Shows the splash (first launch only), then loads the login layout
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -32,7 +32,12 @@ public class SettingsFragment extends Fragment {
     private static final String PREFS_NAME = "settings_user_prefs";
     private static final String KEY_LOCK_PORTRAIT = "lock_portrait";
     private static final String KEY_DARK_MODE = "dark_mode";
-    private static final String KEY_KEEP_SCREEN_ON = "keep_screen_on";   // @author Anvesh @date 2026-11-02
+    private static final String KEY_KEEP_SCREEN_ON = "keep_screen_on";
+    private static final String KEY_THEME = "theme_mode";
+    private static final String KEY_TEXT_SIZE = "text_size";
+    private static final int[] THEME_OPTIONS = {R.string.theme_system, R.string.theme_light, R.string.theme_dark};
+    private static final int[] TEXT_SIZE_OPTIONS = {R.string.text_small, R.string.text_normal, R.string.text_large};
+    private static final float[] TEXT_SCALES = {0.85f, 1.0f, 1.15f};
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -45,7 +50,9 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         setupPortraitLock(view);
-        setupKeepScreenOn(view);   // Keep screen on - @author Anvesh @date 2026-11-02
+        setupKeepScreenOn(view);
+        setupTheme(view);
+        setupTextSize(view);
 
         return view;
     }
@@ -80,11 +87,6 @@ public class SettingsFragment extends Fragment {
     private static void savePortraitLocked(Context context, boolean locked) {
         getPrefs(context).edit().putBoolean(KEY_LOCK_PORTRAIT, locked).apply();
     }
-
-    /** Applies the saved choice to any screen (used by Settings, MainActivity and LoginActivity)
-     * Locked   -> always portrait
-     * Unlocked -> follows the phone's rotation
-     */
     public static void applySavedOrientation(Activity activity) {
         activity.setRequestedOrientation(isPortraitLocked(activity)
                 ? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -95,13 +97,11 @@ public class SettingsFragment extends Fragment {
     // Applies the saved theme when the app starts (called by LoginActivity and MainActivity).
     // Never changed in Settings -> follows the phone (system default).
     public static void applySavedTheme(Context context) {
-        boolean forceDark = getPrefs(context).getBoolean(KEY_DARK_MODE,false);
-
-        AppCompatDelegate.setDefaultNightMode(
-                forceDark
-                        ? AppCompatDelegate.MODE_NIGHT_YES
-                        : AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-        );
+        SharedPreferences prefs = getPrefs(context);
+        int index = prefs.contains(KEY_THEME)
+                ? prefs.getInt(KEY_THEME, 0)
+                : (prefs.getBoolean(KEY_DARK_MODE, false) ? 2 : 0);
+        AppCompatDelegate.setDefaultNightMode(nightModeFor(index));
     }
     //--- REUSABLE SETTING HELPERS (DRY principle + Observer pattern) ---
 
@@ -155,7 +155,7 @@ public class SettingsFragment extends Fragment {
         builder.show();
     }
     static int getSavedIndex(Context context, String key) {
-        return getPrefs(context).getInt(key, 0);
+        return getPrefs(context).getInt(key, KEY_TEXT_SIZE.equals(key) ? 1 : 0);
     }
 
     private void showValue(View root, int valueTextId, @StringRes int[] options, int index) {
@@ -173,6 +173,35 @@ public class SettingsFragment extends Fragment {
         } else {
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
+    }
+    private void setupTheme(View root) {
+        showValue(root, R.id.valueTheme, THEME_OPTIONS, getSavedIndex(requireContext(), KEY_THEME));
+
+        root.findViewById(R.id.rowTheme).setOnClickListener(v ->
+                showChoiceDialog(root, R.string.setting_theme, R.string.setting_theme_msg,
+                        THEME_OPTIONS, KEY_THEME, R.id.valueTheme, null,
+                        index -> AppCompatDelegate.setDefaultNightMode(nightModeFor(index))));
+    }
+
+    private static int nightModeFor(int index) {
+        if (index == 1) {
+            return AppCompatDelegate.MODE_NIGHT_NO;
+        } else if (index == 2) {
+            return AppCompatDelegate.MODE_NIGHT_YES;
+        }
+        return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+    }
+
+    private void setupTextSize(View root) {
+        showValue(root, R.id.valueTextSize, TEXT_SIZE_OPTIONS, getSavedIndex(requireContext(), KEY_TEXT_SIZE));
+
+        root.findViewById(R.id.rowTextSize).setOnClickListener(v ->
+                showChoiceDialog(root, R.string.setting_text_size, 0,
+                        TEXT_SIZE_OPTIONS, KEY_TEXT_SIZE, R.id.valueTextSize, null,
+                        index -> requireActivity().recreate()));
+    }
+    public static float getTextScale(Context context) {
+        return TEXT_SCALES[getSavedIndex(context, KEY_TEXT_SIZE)];
     }
     //--- UTILITY/REUSABLE METHODS ---
     private void showToast(int messageId) {

@@ -50,6 +50,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import androidx.core.view.MenuCompat;
+import android.content.res.Configuration;
+import android.content.Context;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // Bottom nav and drawer fields
@@ -89,6 +91,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Configuration override = new Configuration();
+        override.fontScale = newBase.getResources().getConfiguration().fontScale
+                * SettingsFragment.getTextScale(newBase);
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Apply the saved light/dark theme before the screen is drawn - @author Anvesh @date 2026-10-15
