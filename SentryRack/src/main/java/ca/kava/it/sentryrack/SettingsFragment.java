@@ -38,7 +38,6 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         setupPortraitLock(view);
-        setupDarkMode(view);   // Dark theme switch
 
         return view;
     }
@@ -84,25 +83,6 @@ public class SettingsFragment extends Fragment {
                 : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
-    //--- DARK THEME FUNCTIONALITY ---
-    private void setupDarkMode(View root) {
-        MaterialSwitch darkSwitch = root.findViewById(R.id.switchDarkMode);
-
-        // Show the current theme first (before adding the listener)
-        darkSwitch.setChecked(
-                // Is dark mode on
-                getPrefs(requireContext()).getBoolean(KEY_DARK_MODE,false)
-        );
-        darkSwitch.setOnCheckedChangeListener((button, isChecked) -> {
-            // Save dark mode using shared preferences
-            getPrefs(requireContext()).edit().putBoolean(KEY_DARK_MODE, isChecked).apply();
-
-            // Android redraws every open screen with the new colours
-            AppCompatDelegate.setDefaultNightMode(isChecked
-                    ? AppCompatDelegate.MODE_NIGHT_YES
-                    : AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        });
-    }
 
     // Applies the saved theme when the app starts (called by LoginActivity and MainActivity).
     // Never changed in Settings -> follows the phone (system default).
