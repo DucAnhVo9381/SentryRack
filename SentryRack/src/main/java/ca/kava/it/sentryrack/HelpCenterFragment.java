@@ -86,7 +86,7 @@ public class HelpCenterFragment extends Fragment {
         LayoutInflater inflater = getLayoutInflater();
 
         for (int i = 0; i < QUESTIONS.length; i++) {
-            View card = inflater.inflate(R.layout.ar_item_faq, faqContainer, false);
+            View card = inflater.inflate(R.layout.overflow_item_faq, faqContainer, false);
 
             TextView question = card.findViewById(R.id.faqQuestion);
             TextView answer = card.findViewById(R.id.faqAnswer);

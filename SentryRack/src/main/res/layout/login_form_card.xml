@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/login_space_medium"
             android:hint="@string/login_email_hint"
-            app:startIconDrawable="@drawable/ar_ic_login_email">
+            app:startIconDrawable="@drawable/login_email_icon">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/Widget.SentryRack.Login.EditText"
@@ -49,7 +49,7 @@
             android:layout_marginTop="@dimen/login_space_small"
             android:hint="@string/login_password_hint"
             app:endIconMode="password_toggle"
-            app:startIconDrawable="@drawable/ar_ic_login_lock">
+            app:startIconDrawable="@drawable/login_password_icon">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/Widget.SentryRack.Login.EditText"

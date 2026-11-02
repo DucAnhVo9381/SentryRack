@@ -34,7 +34,7 @@
                 android:layout_height="24dp"
                 android:importantForAccessibility="no"
                 android:rotation="90"
-                android:src="@drawable/ar_ic_chevron" />
+                android:src="@drawable/account_overflow_chevron_icon" />
         </LinearLayout>
 
         <!-- Answer (hidden until tapped) -->

@@ -22,7 +22,7 @@
     <!-- Drawer's text color -->
     <color name="header_text">#FF9800</color>
 
-    <!-- EXIT DIALOG -->
+    <!-- CONFIRM DIALOG -->
     <color name="dialog_bg">#660F172A</color>
     <color name="dialog_title">#FFFFFF</color>
     <color name="dialog_message">#E0E6ED</color>
@@ -42,39 +42,11 @@
     <color name="login_accent">#FFFF8A3D</color>
     <color name="login_button_text">#FFE8641C</color>
 
-    <!-- HOME & RACKS SCREEN COLOR -->
-    <!-- Home and Racks screens - DARK mode colors.
-     Same names as in values/colors.xml, so Android switches them
-     automatically when the phone is in dark mode.
-     Deep navy background, cyan circuit grid, dark glass cards, bright status colors
-    -->
-    <!-- Status colors (bright so they stand out on dark) -->
-    <color name="status_ok">#FF34D27B</color>
-    <color name="status_ok_bg">#3334D27B</color>
-    <color name="status_warning">#FFFFB020</color>
-    <color name="status_warning_bg">#33FFB020</color>
-    <color name="status_critical">#FFFF6B6B</color>
-    <color name="status_critical_bg">#33FF6B6B</color>
-    <color name="status_offline">#FF9AA3B2</color>
-    <color name="status_offline_bg">#339AA3B2</color>
-
-    <!-- Background -->
-    <color name="dash_bg_top">#FF0D1735</color>
-    <color name="dash_bg_bottom">#FF060A18</color>
-    <color name="dash_glow">#00FFC107</color>
-    <color name="dash_grid_line">#12FFFFFF</color>
-    <color name="dash_circuit_line">#4022D3EE</color>
-    <color name="dash_circuit_node">#9922D3EE</color>
-
-    <!-- Cards and text -->
-    <color name="dash_surface">#FF0A1024</color>
-    <color name="dash_card_bg">#E6131C36</color>
-    <color name="dash_card_stroke">#2E7AA7FF</color>
-    <color name="dash_hero_bg">#FF1A3A8F</color>
-    <color name="dash_on_hero">#FFE3EBFF</color>
-    <color name="dash_accent">#FF7AA7FF</color>
-    <color name="dash_accent_container">#FF22356E</color>
-    <color name="dash_text_primary">#FFEAF0FF</color>
-    <color name="dash_text_secondary">#FF9AA8C7</color>
-    <color name="dash_divider">#1FFFFFFF</color>
+    <!-- App Background -->
+    <color name="app_bg_top">#FF0D1735</color>
+    <color name="app_bg_bottom">#FF060A18</color>
+    <color name="app_bg_glow">#00FFC107</color>
+    <color name="app_bg_grid_line">#12FFFFFF</color>
+    <color name="app_bg_circuit_line">#4022D3EE</color>
+    <color name="app_bg_circuit_node">#9922D3EE</color>
 </resources>
