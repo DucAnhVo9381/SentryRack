@@ -162,4 +162,79 @@
     <string name="location_channel">Location Channel</string>
     <string name="channel_for_location_notifications">Channel for location notifs</string>
     <string name="location_determined">Location Determined</string>
+
+
+    <!-- ===== Settings v2 - @author Anvesh @date 2026-11-02 ===== -->
+    <string name="settings_group_personalise">Personnalisation</string>
+    <string name="settings_group_appearance">Apparence</string>
+    <string name="settings_group_privacy">Confidentialité et sécurité</string>
+    <string name="settings_group_about">À propos et assistance</string>
+
+    <string name="setting_profile_hint">Profil, mot de passe et compte</string>
+
+    <string name="setting_app_icon">Icône de l\'application</string>
+    <string name="setting_app_icon_summary">Change l\'icône sur votre écran d\'accueil</string>
+    <string name="setting_app_icon_msg">Choisissez l\'icône de votre écran d\'accueil</string>
+    <string name="setting_app_icon_note">La nouvelle icône apparaît sur l\'écran d\'accueil dans quelques secondes.</string>
+    <string name="setting_app_icon_current">Actuelle</string>
+    <string name="setting_app_icon_changed">Icône changée : %1$s</string>
+    <string name="icon_blue">Bleu</string>
+    <string name="icon_dark">Sombre</string>
+    <string name="icon_gold">Or</string>
+
+    <string name="setting_avatar">Avatar du profil</string>
+    <string name="setting_avatar_summary">Votre image dans Compte et Paramètres</string>
+    <string name="setting_avatar_msg">Choisissez une couleur pour votre image</string>
+    <string name="avatar_blue">Bleu</string>
+    <string name="avatar_pink">Rose</string>
+    <string name="avatar_green">Vert</string>
+    <string name="avatar_orange">Orange</string>
+    <string name="avatar_purple">Violet</string>
+    <string name="avatar_teal">Sarcelle</string>
+
+    <string name="setting_font">Style de police</string>
+    <string name="font_default">Par défaut</string>
+    <string name="font_rounded">Arrondie</string>
+    <string name="font_serif">Serif</string>
+    <string name="setting_font_sample">La baie Atlas demande votre attention</string>
+
+    <string name="setting_theme">Thème</string>
+    <string name="setting_theme_msg">Système suit le réglage de votre téléphone</string>
+    <string name="theme_system">Par défaut du système</string>
+    <string name="theme_light">Clair</string>
+    <string name="theme_dark">Sombre</string>
+    <string name="setting_text_size">Taille du texte</string>
+    <string name="text_small">Petite</string>
+    <string name="text_normal">Normale</string>
+    <string name="text_large">Grande</string>
+    <string name="setting_keep_screen_on">Garder l\'écran allumé</string>
+    <string name="setting_keep_screen_on_summary">L\'écran reste allumé dans l\'application</string>
+
+    <string name="setting_notif_sound">Son des notifications</string>
+    <string name="setting_notif_sound_summary">Touchez pour choisir · aperçu du son</string>
+    <string name="sound_default">Par défaut</string>
+    <string name="sound_chime">Carillon</string>
+    <string name="sound_alarm">Alarme</string>
+    <string name="sound_silent">Silencieux</string>
+    <string name="setting_vibration">Vibration</string>
+    <string name="setting_vibration_summary">Vibrer avec les alertes</string>
+
+    <string name="setting_app_lock">Verrouillage de l\'application</string>
+    <string name="setting_app_lock_summary">Demander un NIP à 4 chiffres à l\'ouverture</string>
+    <string name="setting_remember_me">Se souvenir de moi</string>
+    <string name="setting_remember_me_summary">Rester connecté sur ce téléphone</string>
+
+    <string name="setting_app_version">Version de l\'application</string>
+    <string name="setting_privacy">Politique de confidentialité et conditions</string>
+    <string name="setting_rate">Évaluer SentryRack</string>
+    <string name="setting_rate_summary">Dites-nous ce que vous en pensez</string>
+    <string name="setting_reset">Réinitialiser tous les paramètres</string>
+    <string name="setting_reset_summary">Revenir aux valeurs par défaut</string>
+    <string name="setting_reset_title">Réinitialiser tous les paramètres?</string>
+    <string name="setting_reset_msg">Le thème, la taille du texte, l\'icône, l\'avatar, les sons et le verrouillage reviennent par défaut. Vous restez connecté.</string>
+    <string name="setting_reset_done">Paramètres réinitialisés</string>
+
+    <string name="setting_ok">OK</string>
+    <string name="setting_cancel">Annuler</string>
+    <string name="setting_save">Enregistrer</string>
 </resources>

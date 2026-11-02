@@ -165,4 +165,87 @@
     <string name="location_channel">Location Channel</string>
     <string name="channel_for_location_notifications">Channel for location notifs</string>
     <string name="location_determined">Location Determined</string>
+
+
+    <!-- ===== Settings v2 - @author Anvesh @date 2026-11-02 ===== -->
+    <!-- Groups -->
+    <string name="settings_group_personalise">Personalise</string>
+    <string name="settings_group_appearance">Appearance</string>
+    <string name="settings_group_privacy">Privacy &amp; security</string>
+    <string name="settings_group_about">About &amp; support</string>
+
+    <!-- Profile card -->
+    <string name="setting_profile_hint">Profile, password &amp; account</string>
+
+    <!-- Personalise -->
+    <string name="setting_app_icon">App icon</string>
+    <string name="setting_app_icon_summary">Changes the icon on your home screen</string>
+    <string name="setting_app_icon_msg">Choose the icon on your home screen</string>
+    <string name="setting_app_icon_note">The new icon appears on your home screen in a few seconds.</string>
+    <string name="setting_app_icon_current">Current</string>
+    <string name="setting_app_icon_changed">App icon changed to %1$s</string>
+    <string name="icon_blue">Blue</string>
+    <string name="icon_dark">Dark</string>
+    <string name="icon_gold">Gold</string>
+
+    <string name="setting_avatar">Profile avatar</string>
+    <string name="setting_avatar_summary">Your picture on Account and Settings</string>
+    <string name="setting_avatar_msg">Pick a colour for your picture</string>
+    <string name="avatar_blue">Blue</string>
+    <string name="avatar_pink">Pink</string>
+    <string name="avatar_green">Green</string>
+    <string name="avatar_orange">Orange</string>
+    <string name="avatar_purple">Purple</string>
+    <string name="avatar_teal">Teal</string>
+
+    <string name="setting_font">Font style</string>
+    <string name="font_default">Default</string>
+    <string name="font_rounded">Rounded</string>
+    <string name="font_serif">Serif</string>
+    <string name="setting_font_sample">Rack Atlas needs attention</string>
+
+    <!-- Appearance -->
+    <string name="setting_theme">Theme</string>
+    <string name="setting_theme_msg">System follows your phone\'s setting</string>
+    <string name="theme_system">System default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="setting_text_size">Text size</string>
+    <string name="text_small">Small</string>
+    <string name="text_normal">Normal</string>
+    <string name="text_large">Large</string>
+    <string name="setting_keep_screen_on">Keep screen on</string>
+    <string name="setting_keep_screen_on_summary">Screen stays awake on this app</string>
+
+    <!-- Notifications -->
+    <string name="setting_notif_sound">Notification sound</string>
+    <string name="setting_notif_sound_summary">Tap to choose · plays a preview</string>
+    <string name="sound_default">Default</string>
+    <string name="sound_chime">Chime</string>
+    <string name="sound_alarm">Alarm</string>
+    <string name="sound_silent">Silent</string>
+    <string name="setting_vibration">Vibration</string>
+    <string name="setting_vibration_summary">Vibrate with alerts</string>
+
+    <!-- Privacy & security -->
+    <string name="setting_app_lock">App lock</string>
+    <string name="setting_app_lock_summary">Ask for a 4-digit PIN when the app opens</string>
+    <string name="setting_remember_me">Remember me</string>
+    <string name="setting_remember_me_summary">Stay signed in on this phone</string>
+
+    <!-- About & support -->
+    <string name="setting_app_version">App version</string>
+    <string name="setting_privacy">Privacy policy &amp; terms</string>
+    <string name="setting_rate">Rate SentryRack</string>
+    <string name="setting_rate_summary">Tell us what you think</string>
+    <string name="setting_reset">Reset all settings</string>
+    <string name="setting_reset_summary">Back to default</string>
+    <string name="setting_reset_title">Reset all settings?</string>
+    <string name="setting_reset_msg">Theme, text size, icon, avatar, sounds and App lock go back to default. You stay signed in.</string>
+    <string name="setting_reset_done">Settings reset to default</string>
+
+    <!-- Dialog buttons -->
+    <string name="setting_ok">OK</string>
+    <string name="setting_cancel">Cancel</string>
+    <string name="setting_save">Save</string>
 </resources>
