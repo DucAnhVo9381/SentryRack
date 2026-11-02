@@ -71,4 +71,10 @@
     <!-- Send feedback dialog -->
     <dimen name="feedback_dialog_padding">24dp</dimen>
     <dimen name="feedback_message_min_height">120dp</dimen>
+
+    <!-- Settings v2 - @author Anvesh @date 2026-11-02 -->
+    <dimen name="settings_profile_avatar">56dp</dimen>
+    <dimen name="settings_profile_padding">16dp</dimen>
+    <dimen name="settings_preview_size">28dp</dimen>
+    <dimen name="settings_value_gap">8dp</dimen>
 </resources>

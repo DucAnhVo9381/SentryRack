@@ -78,4 +78,62 @@
         <item name="android:scaleType">fitCenter</item>
         <item name="android:importantForAccessibility">no</item>
     </style>
+
+    <!-- ===== Settings v2 - @author Anvesh @date 2026-11-02 ===== -->
+
+    <!-- A row you can tap (ripple effect), built on the normal Row -->
+    <style name="Widget.SentryRack.Settings.ClickRow" parent="Widget.SentryRack.Settings.Row">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <!-- Middle part of a row: title + summary, fills the free space -->
+    <style name="Widget.SentryRack.Settings.RowText" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- Title / summary that size themselves (so rows need fewer lines) -->
+    <style name="Widget.SentryRack.Settings.RowTitleText" parent="Widget.SentryRack.Settings.RowTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Widget.SentryRack.Settings.RowSummaryText" parent="Widget.SentryRack.Settings.RowSummary">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- Value on the right ("System", "Normal", "1.0") -->
+    <style name="Widget.SentryRack.Settings.RowValueText" parent="Widget.SentryRack.Settings.RowValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/settings_value_gap</item>
+    </style>
+
+    <!-- Small round preview next to a value (app icon, avatar colour) -->
+    <style name="Widget.SentryRack.Settings.Preview" parent="">
+        <item name="android:layout_width">@dimen/settings_preview_size</item>
+        <item name="android:layout_height">@dimen/settings_preview_size</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <!-- Arrow (›) at the end of rows that open something -->
+    <style name="Widget.SentryRack.Settings.Chevron" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/settings_value_gap</item>
+        <item name="android:src">@drawable/account_overflow_chevron_icon</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <!-- Switch at the end of a row -->
+    <style name="Widget.SentryRack.Settings.Switch" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>
