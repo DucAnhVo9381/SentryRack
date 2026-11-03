@@ -76,8 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int NOTIFICATION_ID = 1001;
     private static final String FULL_NAME = "Kava";
 
-    //Redirect user to settings if location permisison denied > 2
-    // Redirect user to settings if location permission denied > 2
+    //Redirect user to settings if location permisison denied >= 1
     private final ActivityResultLauncher<String[]> locationPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
                 boolean fineGranted = Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION));
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     fetchDeviceLocation();
                 } else {
                     locationPermissionDenied++;
-                    if (locationPermissionDenied > 2) {
+                    if (locationPermissionDenied >= 1) {
                         showSnackbar(getString(R.string.permission_denied_opening_settings), getString(R.string.settings), v -> {
                             Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                             intent.setData(Uri.fromParts("package", getPackageName(), null));
@@ -221,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, new androidx.activity.OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
                 alertBuilder.setTitle(R.string.closing_app);
                 alertBuilder.setMessage(R.string.are_you_sure_you_want_to_close_sentryrack);
