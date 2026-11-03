@@ -2,9 +2,6 @@
 <!-- Dark "tech dashboard" background for the Home and Racks screens.
      Layer 1: deep navy top-to-bottom gradient.
      Layer 2: faint circuit grid (app_bg_grid.xml).
-     Layers 3-5: three blurred colored lights (blue top-right,
-     purple middle-left, teal bottom-left) made with radial gradients
-     that fade to transparent.
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -21,52 +18,4 @@
 
     <!-- 2. Circuit grid -->
     <item android:drawable="@drawable/app_bg_grid" />
-
-    <!-- 3. Blue glow - top right corner -->
-    <item
-        android:width="@dimen/app_bg_glow_large"
-        android:height="@dimen/app_bg_glow_large"
-        android:gravity="top|end"
-        android:right="@dimen/app_bg_glow_offset"
-        android:top="@dimen/app_bg_glow_offset">
-        <shape android:shape="oval">
-            <gradient
-                android:endColor="@color/app_bg_glow_clear"
-                android:gradientRadius="@dimen/app_bg_glow_large_radius"
-                android:startColor="@color/app_bg_glow"
-                android:type="radial" />
-        </shape>
-    </item>
-
-    <!-- 4. Purple glow - middle left -->
-    <item
-        android:width="@dimen/app_bg_glow_small"
-        android:height="@dimen/app_bg_glow_small"
-        android:gravity="top|start"
-        android:left="@dimen/app_bg_glow_offset_small"
-        android:top="@dimen/app_bg_glow_middle_top">
-        <shape android:shape="oval">
-            <gradient
-                android:endColor="@color/app_bg_glow_clear"
-                android:gradientRadius="@dimen/app_bg_glow_small_radius"
-                android:startColor="@color/app_bg_glow"
-                android:type="radial" />
-        </shape>
-    </item>
-
-    <!-- 5. Teal glow - bottom left corner -->
-    <item
-        android:width="@dimen/app_bg_glow_large"
-        android:height="@dimen/app_bg_glow_large"
-        android:bottom="@dimen/app_bg_glow_offset"
-        android:gravity="bottom|start"
-        android:left="@dimen/app_bg_glow_offset">
-        <shape android:shape="oval">
-            <gradient
-                android:endColor="@color/app_bg_glow_clear"
-                android:gradientRadius="@dimen/app_bg_glow_large_radius"
-                android:startColor="@color/app_bg_glow"
-                android:type="radial" />
-        </shape>
-    </item>
 </layer-list>

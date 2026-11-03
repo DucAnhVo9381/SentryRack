@@ -45,8 +45,7 @@
     <!-- App Background -->
     <color name="app_bg_top">#FF0D1735</color>
     <color name="app_bg_bottom">#FF060A18</color>
-    <color name="app_bg_glow">#00FFC107</color>
     <color name="app_bg_grid_line">#12FFFFFF</color>
-    <color name="app_bg_circuit_line">#4022D3EE</color>
-    <color name="app_bg_circuit_node">#9922D3EE</color>
+    <color name="app_bg_circuit_line">#40FFB74D</color>
+    <color name="app_bg_circuit_node">#99FFB74D</color>
 </resources>
