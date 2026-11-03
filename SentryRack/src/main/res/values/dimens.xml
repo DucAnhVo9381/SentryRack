@@ -77,4 +77,8 @@
     <dimen name="settings_profile_padding">16dp</dimen>
     <dimen name="settings_preview_size">28dp</dimen>
     <dimen name="settings_value_gap">8dp</dimen>
+
+    <dimen name="settings_avatar_choice">64dp</dimen>
+    <dimen name="settings_avatar_choice_padding">14dp</dimen>
 </resources>
+

@@ -25,6 +25,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import android.content.res.ColorStateList;
+import android.view.Gravity;
+import android.widget.FrameLayout;
+import android.widget.GridLayout;
+import android.widget.ImageView;
+import androidx.core.content.ContextCompat;
 
 public class SettingsFragment extends Fragment {
 
@@ -38,6 +44,14 @@ public class SettingsFragment extends Fragment {
     private static final int[] THEME_OPTIONS = {R.string.theme_system, R.string.theme_light, R.string.theme_dark};
     private static final int[] TEXT_SIZE_OPTIONS = {R.string.text_small, R.string.text_normal, R.string.text_large};
     private static final float[] TEXT_SCALES = {0.85f, 1.0f, 1.15f};
+    // Profile avatar colours (same order everywhere) - @author Anvesh @date 2026-11-02
+    private static final String KEY_AVATAR = "avatar_colour";
+    private static final int[] AVATAR_NAMES = {R.string.avatar_blue, R.string.avatar_pink,
+            R.string.avatar_green, R.string.avatar_orange, R.string.avatar_purple, R.string.avatar_teal};
+    private static final int[] AVATAR_BG = {R.color.avatar_bg_blue, R.color.avatar_bg_pink,
+            R.color.avatar_bg_green, R.color.avatar_bg_orange, R.color.avatar_bg_purple, R.color.avatar_bg_teal};
+    private static final int[] AVATAR_FG = {R.color.avatar_fg_blue, R.color.avatar_fg_pink,
+            R.color.avatar_fg_green, R.color.avatar_fg_orange, R.color.avatar_fg_purple, R.color.avatar_fg_teal};
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -53,6 +67,8 @@ public class SettingsFragment extends Fragment {
         setupKeepScreenOn(view);
         setupTheme(view);
         setupTextSize(view);
+        setupProfileCard(view);   // Profile card - @author Anvesh @date 2026-11-02
+        setupAvatar(view);        // Profile avatar - @author Anvesh @date 2026-11-02
 
         return view;
     }
@@ -202,6 +218,99 @@ public class SettingsFragment extends Fragment {
     }
     public static float getTextScale(Context context) {
         return TEXT_SCALES[getSavedIndex(context, KEY_TEXT_SIZE)];
+    }
+    //--- PROFILE CARD ---
+
+    private void setupProfileCard(View root) {
+        TextView email = root.findViewById(R.id.profileEmail);
+        email.setText(AccountFragment.getDisplayEmail(requireContext()));
+        applyAvatar(root.findViewById(R.id.profileAvatar));
+
+        root.findViewById(R.id.cardProfile).setOnClickListener(v ->
+                ((MainActivity) requireActivity()).openScreen(new AccountFragment()));
+    }
+
+    //--- PROFILE AVATAR ---
+
+    private void setupAvatar(View root) {
+        refreshAvatar(root);
+        root.findViewById(R.id.rowAvatar).setOnClickListener(v -> showAvatarDialog(root));
+    }
+
+    private void refreshAvatar(View root) {
+        applyAvatar(root.findViewById(R.id.profileAvatar));
+        applyAvatar(root.findViewById(R.id.imgAvatarPreview));
+        showValue(root, R.id.valueAvatar, AVATAR_NAMES, getSavedIndex(requireContext(), KEY_AVATAR));
+    }
+
+
+    private void showAvatarDialog(View root) {
+        final int[] selected = {getSavedIndex(requireContext(), KEY_AVATAR)};
+        int size = getResources().getDimensionPixelSize(R.dimen.settings_avatar_choice);
+        int pad = getResources().getDimensionPixelSize(R.dimen.settings_avatar_choice_padding);
+        int gap = getResources().getDimensionPixelSize(R.dimen.settings_padding);
+
+        GridLayout grid = new GridLayout(requireContext());
+        grid.setColumnCount(3);
+        ImageView[] choices = new ImageView[AVATAR_NAMES.length];
+
+        for (int i = 0; i < choices.length; i++) {
+            ImageView choice = new ImageView(requireContext());
+            styleAvatar(choice, i);
+            choice.setPadding(pad, pad, pad, pad);
+            choice.setContentDescription(getString(AVATAR_NAMES[i]));
+
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.width = size;
+            params.height = size;
+            params.setMargins(gap, gap, gap, gap);
+            choice.setLayoutParams(params);
+
+            final int index = i;
+            choice.setOnClickListener(v -> {
+                selected[0] = index;
+                markSelected(choices, index);
+            });
+            choices[i] = choice;
+            grid.addView(choice);
+        }
+        markSelected(choices, selected[0]);
+
+        // Centre the grid inside the dialog
+        FrameLayout wrapper = new FrameLayout(requireContext());
+        wrapper.addView(grid, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT,
+                Gravity.CENTER_HORIZONTAL));
+
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.setting_avatar)
+                .setMessage(R.string.setting_avatar_msg)
+                .setView(wrapper)
+                .setNegativeButton(R.string.setting_cancel, null)
+                .setPositiveButton(R.string.setting_save, (dialog, which) -> {
+                    getPrefs(requireContext()).edit().putInt(KEY_AVATAR, selected[0]).apply();
+                    refreshAvatar(root);
+                })
+                .show();
+    }
+
+    private void markSelected(ImageView[] choices, int index) {
+        for (int i = 0; i < choices.length; i++) {
+            choices[i].setForeground(i == index
+                    ? ContextCompat.getDrawable(requireContext(), R.drawable.settings_avatar_ring)
+                    : null);
+        }
+    }
+
+    private static void styleAvatar(ImageView image, int index) {
+        Context context = image.getContext();
+        image.setBackgroundResource(R.drawable.settings_avatar_bg);
+        image.setImageResource(R.drawable.settings_ic_person);
+        image.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, AVATAR_BG[index])));
+        image.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, AVATAR_FG[index])));
+    }
+    public static void applyAvatar(ImageView image) {
+        styleAvatar(image, getSavedIndex(image.getContext(), KEY_AVATAR));
     }
     //--- UTILITY/REUSABLE METHODS ---
     private void showToast(int messageId) {
