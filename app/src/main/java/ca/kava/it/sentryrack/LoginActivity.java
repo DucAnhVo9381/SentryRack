@@ -4,24 +4,17 @@
 // Krushna Patel N01713093 ONC
 package ca.kava.it.sentryrack;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
+import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
-import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -42,13 +35,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String KEY_REMEMBERED_EMAIL = "remembered_email";
     //Set by MainActivity on Log out, so the 3-second splash is not shown again
     public static final String EXTRA_FROM_LOGOUT = "ca.kava.it.sentryrack.FROM_LOGOUT";
-    private static final long SPLASH_DURATION_MS = 3000;
-    private static final long SPLASH_EXIT_DURATION_MS = 500;
     private static final long ANIMATION_DURATION_MS = 600;
     private static final long CARD_ANIMATION_DELAY_MS = 150;
-
-    // Splash stays visible while this is true (set to false after 3 seconds)
-    private volatile boolean keepSplash = true;
 
     private View loginRoot;
     private TextInputLayout emailLayout;
@@ -63,13 +51,6 @@ public class LoginActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Fresh app launch = not a screen rotation
-        boolean freshLaunch = savedInstanceState == null
-                && !getIntent().getBooleanExtra(EXTRA_FROM_LOGOUT, false);
-
-        // The splash screen must be installed BEFORE super.onCreate()
-        setupSplashScreen(freshLaunch);
-
         super.onCreate(savedInstanceState);
         // Settings > "Lock screen to portrait" - apply the saved choice (Anvesh, 2026-10-01)
         SettingsFragment.applySavedOrientation(this);
@@ -80,45 +61,10 @@ public class LoginActivity extends AppCompatActivity {
         loadRememberedEmail();
         setupClickListeners();
 
-        // Play the entrance animation right after the splash disappears
-        if (freshLaunch) {
-            playEntranceAnimation(SPLASH_DURATION_MS);
-        }
-    }
-
-    /** Setup splashscreen (moved here from MainActivity so the splash appears before Login)
-     * Original splash code and zoom-out exit animation by Volk (2026-09-25).
-     * @author Anvesh
-     */
-    private void setupSplashScreen(boolean holdSplash) {
-        // Activates the splash screen API - Android creates splash screen
-        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
-
-        // Custom exit animation (Volk): the icon zooms out with a small overshoot
-        splashScreen.setOnExitAnimationListener(screen -> {
-            ObjectAnimator zoomX = ObjectAnimator.ofFloat(screen.getIconView(), View.SCALE_X, 0.8f, 0.0f);
-            zoomX.setInterpolator(new OvershootInterpolator());
-            zoomX.setDuration(SPLASH_EXIT_DURATION_MS);
-
-            ObjectAnimator zoomY = ObjectAnimator.ofFloat(screen.getIconView(), View.SCALE_Y, 0.8f, 0.0f);
-            zoomY.setInterpolator(new OvershootInterpolator());
-            zoomY.setDuration(SPLASH_EXIT_DURATION_MS);
-
-            zoomY.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    screen.remove();
-                }
-            });
-
-            zoomX.start();
-            zoomY.start();
-        });
-
-        // Keep the splash for 3 seconds on a fresh launch only (not after rotation)
-        if (holdSplash) {
-            splashScreen.setKeepOnScreenCondition(() -> keepSplash);
-            new Handler(Looper.getMainLooper()).postDelayed(() -> keepSplash = false, SPLASH_DURATION_MS);
+        boolean playEntrance = savedInstanceState == null
+                && !getIntent().getBooleanExtra(EXTRA_FROM_LOGOUT, false);
+        if (playEntrance) {
+            playEntranceAnimation(0);
         }
     }
 
