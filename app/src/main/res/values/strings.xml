@@ -26,9 +26,9 @@
     <!-- Login screen strings
      @author Anvesh
      @date 2026-10-01 -->
-    <string name="login_tagline">Rack monitoring for data centers</string>
-    <string name="login_welcome">Welcome back</string>
-    <string name="login_subtitle">Sign in to monitor your racks</string>
+    <string name="login_tagline">Rack Monitoring</string>
+    <string name="login_welcome">Login</string>
+    <string name="login_subtitle">Sign in to continue</string>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
     <string name="login_button">Log in</string>

@@ -19,19 +19,23 @@
         <!-- Login screen = app launcher. Splash (3 s) shows first, then Login.
              @author Anvesh @date 2026-10-01 -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".SplashActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.SentryRack.Splash"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Main screen - opened from LoginActivity after login.
-             Launcher + splash moved to LoginActivity by Anvesh (2026-10-01) -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SentryRack"
+            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".MainActivity"
             android:exported="false"

@@ -23,9 +23,9 @@
     <!-- Login screen strings
      @author Anvesh
      @date 2026-10-01 -->
-    <string name="login_tagline">Surveillance des baies pour centres de données</string>
-    <string name="login_welcome">Bon retour</string>
-    <string name="login_subtitle">Connectez-vous pour surveiller vos baies</string>
+    <string name="login_tagline">Surveillance des Baies</string>
+    <string name="login_welcome">Se connecter</string>
+    <string name="login_subtitle">connectez-vous pour continuer</string>
     <string name="login_email_hint">Courriel</string>
     <string name="login_password_hint">Mot de passe</string>
     <string name="login_button">Se connecter</string>
