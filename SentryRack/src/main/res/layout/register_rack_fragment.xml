@@ -38,7 +38,7 @@
             android:layout_height="180dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:background="@android:color/white">
+            android:background="@drawable/register_rack_hero_img_background">
 
             <ImageView
                 android:id="@+id/registerRackImage"
@@ -53,8 +53,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="4dp"
-                app:srcCompat="@drawable/register_rack_add_icon"
-                app:tint="@color/colorPrimary"/>
+                app:srcCompat="@drawable/register_rack_add_icon" />
         </FrameLayout>
 
         <!-- RACK NAME -->
@@ -82,7 +81,8 @@
             android:id="@+id/registerRackNameLayout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerRackNameInput"
@@ -116,7 +116,8 @@
             android:id="@+id/registerRackFloorLayout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerRackFloorInput"
@@ -151,7 +152,8 @@
             android:id="@+id/registerRackRoomLayout"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerRackRoomInput"
