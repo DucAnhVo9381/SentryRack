@@ -22,7 +22,7 @@
 
         <!-- Login screen = app launcher. Splash (3s) shows first, then Login.-->
         <activity
-            android:name=".LoginActivity"
+            android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.SentryRack.Splash"
             android:windowSoftInputMode="adjustResize">
@@ -33,8 +33,12 @@
             </intent-filter>
         </activity>
 
-        <!-- Main screen - opened from LoginActivity after login.
-             Launcher + splash moved to LoginActivity -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SentryRack"
+            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".MainActivity"
             android:exported="false"
