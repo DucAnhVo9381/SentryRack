@@ -31,9 +31,9 @@
     <string name="logout_dialog_msg">Are you sure you want to Log out? You will return to the login screen</string>
 
     <!-- Login screen strings -->
-    <string name="login_tagline">Rack monitoring for data centers</string>
-    <string name="login_welcome">Welcome back</string>
-    <string name="login_subtitle">Sign in to monitor your racks</string>
+    <string name="login_tagline">Rack Monitoring</string>
+    <string name="login_welcome">Login</string>
+    <string name="login_subtitle">Sign in to continue</string>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
     <string name="login_button">Log in</string>
@@ -165,4 +165,12 @@
     <string name="location_channel">Location Channel</string>
     <string name="channel_for_location_notifications">Channel for location notifs</string>
     <string name="location_determined">Location Determined</string>
+
+    <!-- for authentication classes -->
+    <string name="welcome">"Welcome "</string>
+    <string name="google_sign_in_failed_to_parse_token">Google Sign-In failed to parse token.</string>
+    <string name="good_morning">Good Morning</string>
+    <string name="good_afternoon">Good Afternoon</string>
+    <string name="good_evening">Good Evening</string>
+
 </resources>

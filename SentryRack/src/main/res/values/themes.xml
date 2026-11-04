@@ -14,8 +14,13 @@
     <!-- Splash theme shown when app launch -->
     <style name="Theme.SentryRack.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/splash_background</item>
-        <item name="postSplashScreenTheme">@style/Theme.SentryRack</item>
+        <item name="postSplashScreenTheme">@style/Theme.SentryRack.PostSplash</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_animated_logo</item>
+    </style>
+
+    <!-- What SplashActivity's window looks like after the splash is removed -->
+    <style name="Theme.SentryRack.PostSplash" parent="Theme.SentryRack">
+        <item name="android:windowBackground">@drawable/login_background</item>"
     </style>
 
     <!-- ===== Overflow (3-dot) menu look - Chrome-style =====

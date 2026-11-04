@@ -50,6 +50,10 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import androidx.core.view.MenuCompat;
+import androidx.lifecycle.ViewModelProvider;
+
+import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.viewmodel.AuthViewModel;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // Bottom nav and drawer fields
@@ -65,8 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int NOTIFICATION_ID = 1001;
     private static final String FULL_NAME = "Kava";
 
-    // Redirect user to settings if location permisison denied > 2
-    // Redirect user to settings if location permission denied > 2
+    //Redirect user to settings if location permisison denied > 2
     private final ActivityResultLauncher<String[]> locationPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
                 boolean fineGranted = Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION));
@@ -114,6 +117,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View header = navigationView.getHeaderView(0);
         ImageButton closeButton = header.findViewById(R.id.btnCloseDrawer);
         closeButton.setOnClickListener(view -> drawerLayout.closeDrawer(GravityCompat.START));
+
+        AuthViewModel authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        User currentUser = authViewModel.getCurrentUser();
+        if(currentUser != null){
+            TextView userName = header.findViewById(R.id.txtUserName);
+            TextView userEmail = header.findViewById(R.id.txtUserEmail);
+
+            if(userName != null && currentUser.getDisplayName() != null){
+                userName.setText(currentUser.getDisplayName());
+            }
+
+            if(userEmail != null && currentUser.getEmail() != null){
+                userEmail.setText(currentUser.getEmail());
+            }
+        }
 
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
@@ -234,13 +252,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         );
     }
 
+
     private void logout() {
+        AuthViewModel authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        authViewModel.logout();
+
         Intent intent = new Intent(this, LoginActivity.class);
         intent.putExtra(LoginActivity.FROM_LOGOUT, true);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
+
 
     private void showContactSupportSheet() {
         BottomSheetDialog sheet = new BottomSheetDialog(this);

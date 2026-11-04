@@ -39,13 +39,13 @@
             style="@style/Widget.SentryRack.Login.AppName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome Back" />
+            android:text="@string/login_welcome" />
 
         <TextView
             style="@style/Widget.SentryRack.Login.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign in to monitor your racks" />
+            android:text="@string/login_subtitle" />
 
         <!-- ===== Glass card with the form (shared file: login_form_card.xml) ===== -->
         <include

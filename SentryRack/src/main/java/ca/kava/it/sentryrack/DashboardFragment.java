@@ -7,6 +7,7 @@ package ca.kava.it.sentryrack;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.Calendar;
+
+import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.viewmodel.AuthViewModel;
 
 public class DashboardFragment extends Fragment {
 
@@ -53,8 +57,13 @@ public class DashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.dashboard_fragment, container, false);
 
+        AuthViewModel authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
+        User currentUser = authViewModel.getCurrentUser();
+
+        String displayName = (currentUser != null && currentUser.getDisplayName() != null) ? currentUser.getDisplayName() : getString(R.string.user_name_default);
+
         TextView dashboardGreeting = view.findViewById(R.id.dashboardGreeting);
-        dashboardGreeting.setText(getGreetingMessage(getString(R.string.drawer_header_username)));
+        dashboardGreeting.setText(getGreetingMessage(displayName));
 
         return view;
     }
@@ -65,14 +74,13 @@ public class DashboardFragment extends Fragment {
         String greeting;
 
         if (hour < 12) {
-            greeting = "Good Morning";
-            // greeting = getString(R.string.good_morning);
+            greeting = getString(R.string.good_morning);
         }
         else if (hour < 17) {
-            greeting = "Good Afternoon";
+            greeting = getString(R.string.good_afternoon);
         }
         else {
-            greeting = "Good Evening";
+            greeting = getString(R.string.good_evening);
         }
 
         return greeting + ", " + userName;
