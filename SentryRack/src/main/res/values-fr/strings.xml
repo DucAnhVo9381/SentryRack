@@ -175,9 +175,9 @@
     <string name="setting_app_icon">Icône de l\'application</string>
     <string name="setting_app_icon_summary">Change l\'icône sur votre écran d\'accueil</string>
     <string name="setting_app_icon_msg">Choisissez l\'icône de votre écran d\'accueil</string>
-    <string name="setting_app_icon_note">La nouvelle icône apparaît sur l\'écran d\'accueil dans quelques secondes.</string>
+    <string name="setting_app_icon_note">La nouvelle icône apparaît sur l\'écran d\'accueil quand vous quittez SentryRack.</string>
     <string name="setting_app_icon_current">Actuelle</string>
-    <string name="setting_app_icon_changed">Icône changée : %1$s</string>
+    <string name="setting_app_icon_changed">Icône %1$s choisie. Elle apparaît quand vous quittez l\'application.</string>
     <string name="icon_blue">Bleu</string>
     <string name="icon_dark">Sombre</string>
     <string name="icon_gold">Or</string>

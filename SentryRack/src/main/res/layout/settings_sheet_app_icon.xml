@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- App icon bottom sheet (Settings > App icon): Blue / Dark / Gold-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/settings_padding"
+    android:paddingEnd="@dimen/settings_padding"
+    android:paddingBottom="@dimen/settings_section_margin">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/setting_app_icon"
+        android:textAppearance="?attr/textAppearanceTitleLarge" />
+
+    <TextView
+        style="@style/Widget.SentryRack.Settings.RowSummaryText"
+        android:layout_marginTop="@dimen/settings_space_small"
+        android:layout_marginBottom="@dimen/settings_padding"
+        android:text="@string/setting_app_icon_msg" />
+
+    <!-- The 3 icons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Blue -->
+        <LinearLayout
+            android:id="@+id/iconOptionBlue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/settings_row_padding">
+
+            <ImageView
+                android:layout_width="@dimen/settings_icon_option"
+                android:layout_height="@dimen/settings_icon_option"
+                android:importantForAccessibility="no"
+                android:src="@mipmap/homescreen_icon_light_round" />
+
+            <TextView
+                style="@style/Widget.SentryRack.Settings.RowTitleText"
+                android:layout_marginTop="@dimen/settings_row_padding"
+                android:text="@string/icon_blue" />
+
+            <TextView
+                android:id="@+id/iconCurrentBlue"
+                style="@style/Widget.SentryRack.Settings.RowValueText"
+                android:layout_marginStart="0dp"
+                android:text="@string/setting_app_icon_current"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <!-- Dark -->
+        <LinearLayout
+            android:id="@+id/iconOptionDark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/settings_row_padding">
+
+            <ImageView
+                android:layout_width="@dimen/settings_icon_option"
+                android:layout_height="@dimen/settings_icon_option"
+                android:importantForAccessibility="no"
+                android:src="@mipmap/homescreen_icon_dark_round" />
+
+            <TextView
+                style="@style/Widget.SentryRack.Settings.RowTitleText"
+                android:layout_marginTop="@dimen/settings_row_padding"
+                android:text="@string/icon_dark" />
+
+            <TextView
+                android:id="@+id/iconCurrentDark"
+                style="@style/Widget.SentryRack.Settings.RowValueText"
+                android:layout_marginStart="0dp"
+                android:text="@string/setting_app_icon_current"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <!-- Gold -->
+        <LinearLayout
+            android:id="@+id/iconOptionGold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/settings_row_padding">
+
+            <ImageView
+                android:layout_width="@dimen/settings_icon_option"
+                android:layout_height="@dimen/settings_icon_option"
+                android:importantForAccessibility="no"
+                android:src="@mipmap/homescreen_icon_gold_round" />
+
+            <TextView
+                style="@style/Widget.SentryRack.Settings.RowTitleText"
+                android:layout_marginTop="@dimen/settings_row_padding"
+                android:text="@string/icon_gold" />
+
+            <TextView
+                android:id="@+id/iconCurrentGold"
+                style="@style/Widget.SentryRack.Settings.RowValueText"
+                android:layout_marginStart="0dp"
+                android:text="@string/setting_app_icon_current"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Small note -->
+    <TextView
+        style="@style/Widget.SentryRack.Settings.RowSummaryText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/settings_padding"
+        android:background="@drawable/settings_icon_option_selected"
+        android:backgroundTint="?attr/colorSurfaceContainerHigh"
+        android:padding="@dimen/settings_padding"
+        android:text="@string/setting_app_icon_note" />
+</LinearLayout>

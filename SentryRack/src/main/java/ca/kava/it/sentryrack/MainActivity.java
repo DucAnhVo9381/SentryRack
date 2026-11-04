@@ -192,6 +192,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }, true);
         }
     }
+    /** Settings > "App icon": the new home-screen icon is switched when the user leaves
+     * the app (Home button / another app), so the app is never closed while in use.Not done on screen rotation.
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (!isChangingConfigurations()) {
+            SettingsFragment.applySavedAppIcon(this);
+        }
+    }
 
     //---NAVIGATION HELPER METHODS---
     // Enable the toolbar

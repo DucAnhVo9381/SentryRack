@@ -34,6 +34,19 @@ import androidx.core.content.ContextCompat;
 import android.graphics.Typeface;
 import android.view.ViewGroup;
 import androidx.core.content.res.ResourcesCompat;
+import android.content.ComponentName;
+import android.content.pm.PackageManager;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import android.media.AudioManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.media.ToneGenerator;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.VibrationEffect;
+import android.os.VibratorManager;
+import android.provider.Settings;
 
 public class SettingsFragment extends Fragment {
 
@@ -58,7 +71,21 @@ public class SettingsFragment extends Fragment {
     // Font style - @author Anvesh @date 2026-11-04
     private static final String KEY_FONT = "font_style";        // 0 Default, 1 Rounded, 2 Serif
     private static final int[] FONT_OPTIONS = {R.string.font_default, R.string.font_rounded, R.string.font_serif};
-
+    // App icon (same order as the 3 activity-aliases in the Manifest) - @author Anvesh @date 2026-11-04
+    private static final String KEY_APP_ICON = "app_icon";
+    private static final int[] ICON_NAMES = {R.string.icon_blue, R.string.icon_dark, R.string.icon_gold};
+    private static final int[] ICON_PREVIEWS = {R.mipmap.homescreen_icon_light_round,
+            R.mipmap.homescreen_icon_dark_round, R.mipmap.homescreen_icon_gold_round};
+    private static final String[] ICON_ALIASES = {".IconBlue", ".IconDark", ".IconGold"};
+    // Notifications - @author Anvesh @date 2026-11-04
+    private static final String KEY_SOUND = "notification_sound";   // 0 Default, 1 Chime, 2 Alarm, 3 Silent
+    private static final String KEY_VIBRATION = "vibration";
+    private static final int[] SOUND_OPTIONS = {R.string.sound_default, R.string.sound_chime, R.string.sound_alarm, R.string.sound_silent};
+    private static final long PREVIEW_MS = 2500;
+    private static final long VIBRATE_MS = 200;
+    // Sound preview (stopped after a few seconds or when the screen closes) - @author Anvesh @date 2026-11-04
+    private Ringtone previewRingtone;
+    private final Handler previewHandler = new Handler(Looper.getMainLooper());
     public SettingsFragment() {
         // Required empty public constructor
     }
@@ -73,10 +100,12 @@ public class SettingsFragment extends Fragment {
         setupKeepScreenOn(view);
         setupTheme(view);
         setupTextSize(view);
-        setupProfileCard(view);   // Profile card - @author Anvesh @date 2026-11-02
+        setupProfileCard(view);   // Profile card
         setupAvatar(view);
         setupFont(view);   // Font style
-
+        setupAppIcon(view);
+        setupNotificationSound(view);   // Notification sound
+        setupVibration(view);           // Vibration
         return view;
     }
 
@@ -360,6 +389,168 @@ public class SettingsFragment extends Fragment {
                 applyFont(group.getChildAt(i), font);
             }
         }
+    }
+    //--- APP ICON ---
+
+    // App icon row: shows the current icon + name, opens the picker sheet
+    private void setupAppIcon(View root) {
+        refreshAppIconRow(root);
+        root.findViewById(R.id.rowAppIcon).setOnClickListener(v -> showAppIconSheet(root));
+    }
+    // Puts the current icon picture and name on the row
+    private void refreshAppIconRow(View root) {
+        int index = getSavedIndex(requireContext(), KEY_APP_ICON);
+        ImageView preview = root.findViewById(R.id.imgAppIconPreview);
+        preview.setImageResource(ICON_PREVIEWS[index]);
+        showValue(root, R.id.valueAppIcon, ICON_NAMES, index);
+    }
+    // Bottom sheet with the 3 icons. The current one is highlighted with "Current".Tapping another one switches the home-screen icon.
+    private void showAppIconSheet(View root) {
+        BottomSheetDialog sheet = new BottomSheetDialog(requireContext());
+        View sheetView = getLayoutInflater().inflate(R.layout.settings_sheet_app_icon, null);
+        sheet.setContentView(sheetView);
+
+        int[] optionIds = {R.id.iconOptionBlue, R.id.iconOptionDark, R.id.iconOptionGold};
+        int[] currentIds = {R.id.iconCurrentBlue, R.id.iconCurrentDark, R.id.iconCurrentGold};
+        int current = getSavedIndex(requireContext(), KEY_APP_ICON);
+
+        for (int i = 0; i < optionIds.length; i++) {
+            View option = sheetView.findViewById(optionIds[i]);
+            boolean isCurrent = (i == current);
+            option.setBackgroundResource(isCurrent ? R.drawable.settings_icon_option_selected : 0);
+            sheetView.findViewById(currentIds[i]).setVisibility(isCurrent ? View.VISIBLE : View.INVISIBLE);
+
+            final int index = i;
+            option.setOnClickListener(v -> {
+                if (index != current) {
+                    getPrefs(requireContext()).edit().putInt(KEY_APP_ICON, index).apply();
+                    //setAppIcon(requireContext(), index);
+                    refreshAppIconRow(root);
+                    Toast.makeText(requireContext(),
+                            getString(R.string.setting_app_icon_changed, getString(ICON_NAMES[index])),
+                            Toast.LENGTH_LONG).show();
+                }
+                sheet.dismiss();
+            });
+        }
+        sheet.show();
+    }
+
+    // Switches the home-screen icon: turns ON the chosen alias, then turns the others OFF(in that order, so there is never a moment with no icon).Also used by "Reset all settings" to go back to Blue.
+
+    static void setAppIcon(Context context, int index) {
+        PackageManager pm = context.getPackageManager();
+        String pkg = context.getPackageName();
+
+        pm.setComponentEnabledSetting(new ComponentName(context, pkg + ICON_ALIASES[index]),
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+        for (int i = 0; i < ICON_ALIASES.length; i++) {
+            if (i != index) {
+                pm.setComponentEnabledSetting(new ComponentName(context, pkg + ICON_ALIASES[i]),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+            }
+        }
+    }
+    /** Switches the home-screen icon to the saved choice, but only if it changed.
+     * Called when the user LEAVES the app (MainActivity.onStop), because Androidcloses the app if its own launcher icon is switched while it is open.
+     */
+    public static void applySavedAppIcon(Context context) {
+        int index = getSavedIndex(context, KEY_APP_ICON);
+        PackageManager pm = context.getPackageManager();
+        ComponentName chosen = new ComponentName(context, context.getPackageName() + ICON_ALIASES[index]);
+        int state = pm.getComponentEnabledSetting(chosen);
+
+        // Blue is ON by default in the Manifest, Dark and Gold are OFF
+        boolean alreadyOn = state == PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+                || (state == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT && index == 0);
+        if (!alreadyOn) {
+            setAppIcon(context, index);
+        }
+    }
+    //--- NOTIFICATION SOUND ---
+    //Sound row: reuses the choice dialog. Every tap plays a short preview,OK saves the choice, the preview always stops by itself.
+    private void setupNotificationSound(View root) {
+        showValue(root, R.id.valueNotifSound, SOUND_OPTIONS, getSavedIndex(requireContext(), KEY_SOUND));
+
+        root.findViewById(R.id.rowNotifSound).setOnClickListener(v ->
+                showChoiceDialog(root, R.string.setting_notif_sound, 0,
+                        SOUND_OPTIONS, KEY_SOUND, R.id.valueNotifSound,
+                        this::previewSound,          // plays on every tap
+                        index -> stopPreview()));    // OK pressed
+    }
+
+    // Plays a short preview of one sound option
+    private void previewSound(int index) {
+        stopPreview();
+        previewRingtone = playSound(requireContext(), index);
+        previewHandler.postDelayed(this::stopPreview, PREVIEW_MS);
+    }
+
+    // Stops the preview sound if it is still playing
+    private void stopPreview() {
+        previewHandler.removeCallbacksAndMessages(null);
+        if (previewRingtone != null && previewRingtone.isPlaying()) {
+            previewRingtone.stop();
+        }
+        previewRingtone = null;
+    }
+
+    // Plays one of the 4 sounds. Default and Alarm use the phone's own sounds,Chime is a short built-in tone, Silent plays nothing.Returns the Ringtone so it can be stopped (null for Chime / Silent).
+    static Ringtone playSound(Context context, int index) {
+        if (index == 3) {
+            return null;                                   // Silent
+        }
+        if (index == 1) {                                  // Chime
+            ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 90);
+            tone.startTone(ToneGenerator.TONE_PROP_ACK, 500);
+            new Handler(Looper.getMainLooper()).postDelayed(tone::release, 700);
+            return null;
+        }
+        Uri uri = (index == 2) ? Settings.System.DEFAULT_ALARM_ALERT_URI
+                : Settings.System.DEFAULT_NOTIFICATION_URI;
+        Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+        if (ringtone != null) {                            // some emulators have no sounds
+            ringtone.play();
+        }
+        return ringtone;
+    }
+
+    //--- VIBRATION ---
+
+    // Vibration switch: reuses bindSwitch, gives a short buzz when turned ON
+    private void setupVibration(View root) {
+        bindSwitch(root, R.id.switchVibration, KEY_VIBRATION, true, isOn -> {
+            if (isOn) {
+                vibrate(requireContext());
+            }
+        });
+    }
+
+    // One short vibration (uses the phone's VibratorManager, API 31+)
+    static void vibrate(Context context) {
+        VibratorManager manager =
+                (VibratorManager) context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
+        if (manager != null) {
+            manager.getDefaultVibrator().vibrate(
+                    VibrationEffect.createOneShot(VIBRATE_MS, VibrationEffect.DEFAULT_AMPLITUDE));
+        }
+    }
+
+    // For alerts anywhere in the app: plays the chosen sound and vibrates if allowed.e.g. SettingsFragment.playAlert(this); when a rack alert arrives.
+
+    public static void playAlert(Context context) {
+        playSound(context, getSavedIndex(context, KEY_SOUND));
+        if (getPrefs(context).getBoolean(KEY_VIBRATION, true)) {
+            vibrate(context);
+        }
+    }
+
+    // Stops the sound preview when the user leaves Settings
+    @Override
+    public void onDestroyView() {
+        stopPreview();
+        super.onDestroyView();
     }
     //--- UTILITY/REUSABLE METHODS ---
     private void showToast(int messageId) {

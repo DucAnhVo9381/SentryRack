@@ -181,9 +181,9 @@
     <string name="setting_app_icon">App icon</string>
     <string name="setting_app_icon_summary">Changes the icon on your home screen</string>
     <string name="setting_app_icon_msg">Choose the icon on your home screen</string>
-    <string name="setting_app_icon_note">The new icon appears on your home screen in a few seconds.</string>
+    <string name="setting_app_icon_note">The new icon appears on your home screen when you leave SentryRack.</string>
     <string name="setting_app_icon_current">Current</string>
-    <string name="setting_app_icon_changed">App icon changed to %1$s</string>
+    <string name="setting_app_icon_changed">%1$s icon selected. It appears when you leave the app.</string>
     <string name="icon_blue">Blue</string>
     <string name="icon_dark">Dark</string>
     <string name="icon_gold">Gold</string>

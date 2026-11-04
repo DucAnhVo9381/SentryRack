@@ -80,5 +80,6 @@
 
     <dimen name="settings_avatar_choice">64dp</dimen>
     <dimen name="settings_avatar_choice_padding">14dp</dimen>
+    <dimen name="settings_icon_option">64dp</dimen>
 </resources>
 
