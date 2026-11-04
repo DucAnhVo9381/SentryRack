@@ -25,7 +25,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-// Login screen : Splash (3s) -> Login -> Main
 public class LoginActivity extends AppCompatActivity {
     //--- CONSTANTS ---
     // Hardcoded login credential (remove later)
