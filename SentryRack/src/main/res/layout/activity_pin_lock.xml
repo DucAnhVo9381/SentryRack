@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- App lock PIN screen: blurred SentryRack logo + glass keypad.
+     Keys and dots are added in PinLockActivity. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pinRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pin_lock_background"
+    tools:context=".PinLockActivity">
+
+    <!-- Soft coloured glows (blurred in code) -->
+    <View
+        android:id="@+id/pinGlowTop"
+        android:layout_width="@dimen/pin_glow_top"
+        android:layout_height="@dimen/pin_glow_top"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="-60dp"
+        android:layout_marginTop="-40dp"
+        android:background="@drawable/pin_dot_filled"
+        android:backgroundTint="#597CF0FF" />
+
+    <View
+        android:id="@+id/pinGlowBottom"
+        android:layout_width="@dimen/pin_glow_bottom"
+        android:layout_height="@dimen/pin_glow_bottom"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="-70dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/pin_dot_filled"
+        android:backgroundTint="#66966EFF" />
+
+    <!-- Real app logo, blurred in code -->
+    <ImageView
+        android:id="@+id/pinBgLogo"
+        android:layout_width="@dimen/pin_logo_size"
+        android:layout_height="@dimen/pin_logo_size"
+        android:layout_gravity="center"
+        android:alpha="0.9"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:rotation="-10"
+        android:src="@mipmap/homescreen_icon_light_round" />
+
+    <!-- Dark layer so the white text is easy to read -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#40080E28" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="34dp">
+
+        <FrameLayout
+            android:id="@+id/pinIconBox"
+            android:layout_width="@dimen/pin_icon_box"
+            android:layout_height="@dimen/pin_icon_box"
+            android:background="@drawable/pin_icon_box">
+
+            <ImageView
+                android:id="@+id/pinIcon"
+                android:layout_width="@dimen/pin_icon"
+                android:layout_height="@dimen/pin_icon"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/pin_ic_lock" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/pinTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:shadowColor="#66000000"
+            android:shadowDy="2"
+            android:shadowRadius="12"
+            android:text="@string/pin_unlock_title"
+            android:textColor="#FFFFFFFF"
+            android:textSize="@dimen/pin_title_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/pinMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:minHeight="18dp"
+            android:paddingHorizontal="24dp"
+            android:text="@string/pin_unlock_msg"
+            android:textColor="#E6FFFFFF"
+            android:textSize="13sp" />
+
+        <!-- 4 dots added in code -->
+        <LinearLayout
+            android:id="@+id/pinDots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="24dp"
+            android:orientation="horizontal" />
+
+        <!-- 1-9, empty, 0, delete added in code -->
+        <GridLayout
+            android:id="@+id/pinKeypad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3" />
+
+        <TextView
+            android:id="@+id/pinFooter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:padding="12dp"
+            android:text="@string/pin_forgot"
+            android:textColor="#FFFFFFFF"
+            android:textSize="13sp" />
+    </LinearLayout>
+</FrameLayout>
