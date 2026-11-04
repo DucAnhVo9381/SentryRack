@@ -248,4 +248,25 @@
     <string name="feedback_sent">Merci ! Vos commentaires ont été envoyés.</string>
     <string name="feedback_failed">Impossible de joindre le cloud. Ouverture du courriel.</string>
     <string name="rate_saved_cloud">Merci ! Votre note a été enregistrée.</string>
+    <!-- Reset all settings -->
+    <string name="reset_all_title">Réinitialiser les paramètres ?</string>
+    <string name="reset_all_msg">Le thème, la taille du texte, la police, l\'avatar, l\'icône, le son et l\'affichage reviendront par défaut. Vous resterez connecté.</string>
+    <string name="reset_all_confirm">Réinitialiser</string>
+    <string name="reset_all_done">Paramètres réinitialisés</string>
+    <!-- @author Anvesh Rachakonda @date 2026-11-04 : App lock PIN -->
+    <string name="pin_create_title">Créer un NIP</string>
+    <string name="pin_create_msg">Choisissez 4 chiffres faciles à retenir</string>
+    <string name="pin_confirm_title">Confirmez votre NIP</string>
+    <string name="pin_confirm_msg">Entrez le même NIP encore une fois</string>
+    <string name="pin_mismatch">Les NIP ne correspondent pas. Réessayez.</string>
+    <string name="pin_unlock_title">Bon retour</string>
+    <string name="pin_unlock_msg">Entrez votre NIP pour déverrouiller SentryRack</string>
+    <string name="pin_disable_title">Désactiver le verrouillage</string>
+    <string name="pin_disable_msg">Entrez votre NIP pour le désactiver</string>
+    <string name="pin_wrong">NIP incorrect · %1$d essais restants</string>
+    <string name="pin_locked_out">Trop d\'essais incorrects. Veuillez vous reconnecter.</string>
+    <string name="pin_forgot">NIP oublié ? <b>Se reconnecter</b></string>
+    <string name="pin_lock_on">Verrouillage activé</string>
+    <string name="pin_lock_off">Verrouillage désactivé</string>
+    <string name="pin_delete_desc">Effacer le chiffre</string>
 </resources>

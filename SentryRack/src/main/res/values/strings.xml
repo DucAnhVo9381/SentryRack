@@ -260,4 +260,25 @@
     <string name="feedback_sent">Thanks! Your feedback was sent.</string>
     <string name="feedback_failed">Couldn\'t reach the cloud. Opening email instead.</string>
     <string name="rate_saved_cloud">Thanks! Your rating was saved.</string>
+    <!-- Reset all settings -->
+    <string name="reset_all_title">Reset all settings?</string>
+    <string name="reset_all_msg">Theme, text size, font, avatar, app icon, sound and display options will go back to default. You will stay signed in.</string>
+    <string name="reset_all_confirm">Reset</string>
+    <string name="reset_all_done">Settings reset to default</string>
+    <!-- @author Anvesh Rachakonda @date 2026-11-04 : App lock PIN -->
+    <string name="pin_create_title">Create a PIN</string>
+    <string name="pin_create_msg">Choose 4 digits you will remember</string>
+    <string name="pin_confirm_title">Confirm your PIN</string>
+    <string name="pin_confirm_msg">Enter the same PIN again</string>
+    <string name="pin_mismatch">PINs didn\'t match. Try again.</string>
+    <string name="pin_unlock_title">Welcome back</string>
+    <string name="pin_unlock_msg">Enter your PIN to unlock SentryRack</string>
+    <string name="pin_disable_title">Turn off App lock</string>
+    <string name="pin_disable_msg">Enter your PIN to turn it off</string>
+    <string name="pin_wrong">Wrong PIN · %1$d tries left</string>
+    <string name="pin_locked_out">Too many wrong tries. Please log in again.</string>
+    <string name="pin_forgot">Forgot PIN? <b>Log in again</b></string>
+    <string name="pin_lock_on">App lock is on</string>
+    <string name="pin_lock_off">App lock is off</string>
+    <string name="pin_delete_desc">Delete digit</string>
 </resources>

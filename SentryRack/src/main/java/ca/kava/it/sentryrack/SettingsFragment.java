@@ -49,6 +49,8 @@ import android.os.VibratorManager;
 import android.provider.Settings;
 import android.widget.RatingBar;
 import androidx.core.text.HtmlCompat;
+import android.app.Activity;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class SettingsFragment extends Fragment {
 
@@ -111,6 +113,7 @@ public class SettingsFragment extends Fragment {
         setupVibration(view);// Vibration
         setupRememberMe(view);   // Remember me
         setupAbout(view);   // About & support
+        setupReset(view);
         return view;
     }
 
@@ -578,6 +581,42 @@ public class SettingsFragment extends Fragment {
         root.findViewById(R.id.rowFeedback).setOnClickListener(v -> main.showSendFeedbackDialog());
         root.findViewById(R.id.rowPrivacy).setOnClickListener(v -> showPrivacyPolicy());
         root.findViewById(R.id.rowRate).setOnClickListener(v -> showRateDialog());
+    }
+
+    /**
+     * @author Anvesh Rachakonda
+     * @date 2026-11-04
+     * Red "Reset settings" row: asks first, then resets everything.
+     */
+    private void setupReset(View root) {
+        root.findViewById(R.id.rowReset).setOnClickListener(v ->
+                new MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.reset_all_title)
+                        .setMessage(R.string.reset_all_msg)
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .setPositiveButton(R.string.reset_all_confirm, (d, w) -> resetAllSettings())
+                        .show());
+    }
+
+    /**
+     * Clears settings_user_prefs (login prefs are a different file, so the user
+     * stays signed in), applies the defaults and refreshes the screen.
+     */
+    private void resetAllSettings() {
+        Activity activity = requireActivity();
+        stopPreview();
+
+        getPrefs(activity).edit().clear().apply();
+
+        Toast.makeText(activity, R.string.reset_all_done, Toast.LENGTH_SHORT).show();
+
+        // App icon goes back to Blue when the app is closed (MainActivity.onStop)
+        applySavedOrientation(activity);
+        applyKeepScreenOn(activity);
+
+        // Theme change recreates the activity by itself; recreate anyway for text size + font
+        AppCompatDelegate.setDefaultNightMode(nightModeFor(0));
+        activity.recreate();
     }
 
     //Privacy policy & terms: a simple in-app page (bold headings from the string)
