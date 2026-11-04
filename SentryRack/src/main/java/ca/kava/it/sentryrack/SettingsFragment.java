@@ -105,7 +105,8 @@ public class SettingsFragment extends Fragment {
         setupFont(view);   // Font style
         setupAppIcon(view);
         setupNotificationSound(view);   // Notification sound
-        setupVibration(view);           // Vibration
+        setupVibration(view);// Vibration
+        setupRememberMe(view);   // Remember me
         return view;
     }
 
@@ -551,6 +552,14 @@ public class SettingsFragment extends Fragment {
     public void onDestroyView() {
         stopPreview();
         super.onDestroyView();
+    }
+    //--- REMEMBER ME ---
+    // Remember me switch: uses the SAME saved value as the Login checkbox(stored by LoginActivity, so both always agree)
+    private void setupRememberMe(View root) {
+        MaterialSwitch rememberSwitch = root.findViewById(R.id.switchRememberMe);
+        rememberSwitch.setChecked(LoginActivity.isStaySignedIn(requireContext()));
+        rememberSwitch.setOnCheckedChangeListener((button, isOn) ->
+                LoginActivity.setStaySignedIn(requireContext(), isOn));
     }
     //--- UTILITY/REUSABLE METHODS ---
     private void showToast(int messageId) {

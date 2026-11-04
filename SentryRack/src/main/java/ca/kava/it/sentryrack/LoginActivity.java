@@ -26,6 +26,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import android.content.res.Configuration;
 import android.content.Context;
+import android.content.SharedPreferences;
+import com.google.android.material.checkbox.MaterialCheckBox;
 
 // Login screen : Splash (3s) -> Login -> Main
 public class LoginActivity extends AppCompatActivity {
@@ -36,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
 
     // Set by MainActivity on Log out, so the 3-second splash is not shown again
     public static final String FROM_LOGOUT = "FROM_LOGOUT";
+    private static final String LOGIN_PREFS = "sentryrack_login";
+    private static final String KEY_REMEMBERED_EMAIL = "remembered_email";
+    private static final String KEY_STAY_SIGNED_IN = "stay_signed_in";
     private static final long SPLASH_DURATION = 3000;
     private static final long SPLASH_EXIT_DURATION = 500;
     private static final long LOGO_ANIMATION = 1000;
@@ -51,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText passwordInput;
     private View loginLogo;
     private View loginCard;
+    private MaterialCheckBox rememberMeCheck;
     @Override
     protected void attachBaseContext(Context newBase) {
         Configuration override = new Configuration();
@@ -83,6 +89,15 @@ public class LoginActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.passwordInput);
         loginLogo = findViewById(R.id.loginLogo);
         loginCard = findViewById(R.id.loginCard);
+
+        rememberMeCheck = findViewById(R.id.rememberMeCheck);   // @author Anvesh @date 2026-11-04
+        loadRememberedEmail();                                  // @author Anvesh @date 2026-11-04
+
+        // Remember me: skip Login and go to the Dashboard once the splash is done
+        if (freshLaunch && isStaySignedIn(this)) {
+            new Handler(Looper.getMainLooper()).postDelayed(this::openMainScreen, SPLASH_DURATION);
+            return;
+        }
 
         setupClickListeners();
 
@@ -133,8 +148,8 @@ public class LoginActivity extends AppCompatActivity {
 
             if (EMAIL.equals(email) && PASSWORD.equals(password)) {
                 // Open main screen: Opens MainActivity and closes Login, so Back does not return to the login screen
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
+                saveRememberMe(email);   // Remember me - @author Anvesh @date 2026-11-04
+                openMainScreen();
             } else {
                 showToast(R.string.app_name);
             }
@@ -217,5 +232,46 @@ public class LoginActivity extends AppCompatActivity {
     // Shows a short message at the bottom of the screen
     private void showToast(@StringRes int message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+    //--- REMEMBER ME ---
+
+    // Fills in the saved email and ticks the box if the user chose Remember me
+    private void loadRememberedEmail() {
+        SharedPreferences prefs = getSharedPreferences(LOGIN_PREFS, MODE_PRIVATE);
+        String email = prefs.getString(KEY_REMEMBERED_EMAIL, "");
+        if (!email.isEmpty()) {
+            emailInput.setText(email);
+        }
+        rememberMeCheck.setChecked(isStaySignedIn(this));
+    }
+
+    // After a correct login: saves the email and the Remember me choice
+
+    private void saveRememberMe(String email) {
+        boolean remember = rememberMeCheck.isChecked();
+        getSharedPreferences(LOGIN_PREFS, MODE_PRIVATE).edit()
+                .putString(KEY_REMEMBERED_EMAIL, remember ? email : "")
+                .putBoolean(KEY_STAY_SIGNED_IN, remember)
+                .apply();
+    }
+
+    // Opens MainActivity and closes Login, so Back does not return to Login
+    private void openMainScreen() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    // Is "stay signed in" on? (used by Login and by the Settings switch)
+    public static boolean isStaySignedIn(Context context) {
+        return context.getSharedPreferences(LOGIN_PREFS, Context.MODE_PRIVATE)
+                .getBoolean(KEY_STAY_SIGNED_IN, false);
+    }
+
+    // Turns "stay signed in" on/off (Settings switch, Log out)
+
+    public static void setStaySignedIn(Context context, boolean stay) {
+        context.getSharedPreferences(LOGIN_PREFS, Context.MODE_PRIVATE).edit()
+                .putBoolean(KEY_STAY_SIGNED_IN, stay)
+                .apply();
     }
 }
