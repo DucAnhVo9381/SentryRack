@@ -31,6 +31,9 @@ import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import androidx.core.content.ContextCompat;
+import android.graphics.Typeface;
+import android.view.ViewGroup;
+import androidx.core.content.res.ResourcesCompat;
 
 public class SettingsFragment extends Fragment {
 
@@ -52,6 +55,9 @@ public class SettingsFragment extends Fragment {
             R.color.avatar_bg_green, R.color.avatar_bg_orange, R.color.avatar_bg_purple, R.color.avatar_bg_teal};
     private static final int[] AVATAR_FG = {R.color.avatar_fg_blue, R.color.avatar_fg_pink,
             R.color.avatar_fg_green, R.color.avatar_fg_orange, R.color.avatar_fg_purple, R.color.avatar_fg_teal};
+    // Font style - @author Anvesh @date 2026-11-04
+    private static final String KEY_FONT = "font_style";        // 0 Default, 1 Rounded, 2 Serif
+    private static final int[] FONT_OPTIONS = {R.string.font_default, R.string.font_rounded, R.string.font_serif};
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -68,7 +74,8 @@ public class SettingsFragment extends Fragment {
         setupTheme(view);
         setupTextSize(view);
         setupProfileCard(view);   // Profile card - @author Anvesh @date 2026-11-02
-        setupAvatar(view);        // Profile avatar - @author Anvesh @date 2026-11-02
+        setupAvatar(view);
+        setupFont(view);   // Font style
 
         return view;
     }
@@ -311,6 +318,48 @@ public class SettingsFragment extends Fragment {
     }
     public static void applyAvatar(ImageView image) {
         styleAvatar(image, getSavedIndex(image.getContext(), KEY_AVATAR));
+    }
+    //--- FONT STYLE ---
+
+    //Font style row: reuses the choice dialog, then redraws the screen with the new font
+
+    private void setupFont(View root) {
+        showValue(root, R.id.valueFont, FONT_OPTIONS, getSavedIndex(requireContext(), KEY_FONT));
+
+        root.findViewById(R.id.rowFont).setOnClickListener(v ->
+                showChoiceDialog(root, R.string.setting_font, 0,
+                        FONT_OPTIONS, KEY_FONT, R.id.valueFont, null,
+                        index -> requireActivity().recreate()));
+    }
+
+    //The font the user picked, or null for the phone's normal font
+    public static Typeface getAppTypeface(Context context) {
+        int index = getSavedIndex(context, KEY_FONT);
+        if (index == 1) {
+            try {
+                return ResourcesCompat.getFont(context, R.font.nunito);
+            } catch (Exception e) {
+                return null;   // font missing -> keep the normal font, never crash
+            }
+        } else if (index == 2) {
+            return Typeface.SERIF;
+        }
+        return null;
+    }
+    public static void applyFont(View view, Typeface font) {
+        if (font == null || view == null) {
+            return;
+        }
+        if (view instanceof TextView) {
+            TextView text = (TextView) view;
+            int style = text.getTypeface() != null ? text.getTypeface().getStyle() : Typeface.NORMAL;
+            text.setTypeface(font, style);
+        } else if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int i = 0; i < group.getChildCount(); i++) {
+                applyFont(group.getChildAt(i), font);
+            }
+        }
     }
     //--- UTILITY/REUSABLE METHODS ---
     private void showToast(int messageId) {

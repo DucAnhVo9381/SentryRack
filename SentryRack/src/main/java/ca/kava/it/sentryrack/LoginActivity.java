@@ -90,6 +90,8 @@ public class LoginActivity extends AppCompatActivity {
         if (freshLaunch) {
             playEntranceAnimation(SPLASH_DURATION);
         }
+        // Settings > "Font style"
+        SettingsFragment.applyFont(findViewById(android.R.id.content), SettingsFragment.getAppTypeface(this));
     }
 
     //--- LOGIN HELPER METHODS ---

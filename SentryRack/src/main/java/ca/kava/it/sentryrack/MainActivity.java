@@ -52,6 +52,8 @@ import com.google.android.gms.tasks.CancellationTokenSource;
 import androidx.core.view.MenuCompat;
 import android.content.res.Configuration;
 import android.content.Context;
+import android.graphics.Typeface;
+import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // Bottom nav and drawer fields
@@ -177,6 +179,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
+        // Settings > "Font style": the main screen now, and every screen opened later
+        Typeface appFont = SettingsFragment.getAppTypeface(this);
+        if (appFont != null) {
+            SettingsFragment.applyFont(findViewById(android.R.id.content), appFont);
+            getSupportFragmentManager().registerFragmentLifecycleCallbacks(
+                    new FragmentManager.FragmentLifecycleCallbacks() {
+                        @Override
+                        public void onFragmentViewCreated(@NonNull FragmentManager fm, @NonNull Fragment f, @NonNull View v, Bundle savedInstanceState) {
+                            SettingsFragment.applyFont(v, appFont);
+                        }
+                    }, true);
+        }
     }
 
     //---NAVIGATION HELPER METHODS---
