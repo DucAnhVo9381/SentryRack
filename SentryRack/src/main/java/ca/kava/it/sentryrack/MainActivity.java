@@ -54,6 +54,7 @@ import android.content.res.Configuration;
 import android.content.Context;
 import android.graphics.Typeface;
 import androidx.fragment.app.FragmentManager;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // Bottom nav and drawer fields
@@ -364,7 +365,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                     messageLayout.setError(null);
                     dialog.dismiss();
-                    sendFeedbackEmail(getSelectedFeedbackType(typeGroup), message);
+                    // save to Firebase (email = fallback)
+                    sendFeedbackToCloud(getSelectedFeedbackType(typeGroup), message);
                 }));
 
         dialog.show();
@@ -396,6 +398,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } catch (PackageManager.NameNotFoundException e) {
             return "1.0";
         }
+    }
+    /**
+     * Saves feedback to Firebase Realtime Database (feedback/{id}).
+     * If the cloud write fails, the old email option opens instead.
+     */
+    private void sendFeedbackToCloud(String type, String message) {
+        Toast.makeText(this, R.string.feedback_sending, Toast.LENGTH_SHORT).show();
+        String email = AccountFragment.getDisplayEmail(this);
+
+        SupportRepository.getInstance(this).sendFeedback(type, message, email, getAppVersion(),
+                success -> {
+                    if (isFinishing() || isDestroyed()) return;
+                    if (success) {
+                        Toast.makeText(this, R.string.feedback_sent, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, R.string.feedback_failed, Toast.LENGTH_LONG).show();
+                        sendFeedbackEmail(type, message);
+                    }
+                });
     }
 
     //---LOCATION & PERMISSIONS & NOTIFICATIONS---

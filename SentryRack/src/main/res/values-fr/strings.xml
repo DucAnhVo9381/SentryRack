@@ -243,4 +243,9 @@
     <string name="rate_submit">Envoyer</string>
     <string name="rate_pick">Veuillez choisir au moins 1 étoile</string>
     <string name="rate_thanks">Merci d\'avoir donné %1$d sur 5 à SentryRack!</string>
+    <!-- Firebase support -->
+    <string name="feedback_sending">Envoi des commentaires…</string>
+    <string name="feedback_sent">Merci ! Vos commentaires ont été envoyés.</string>
+    <string name="feedback_failed">Impossible de joindre le cloud. Ouverture du courriel.</string>
+    <string name="rate_saved_cloud">Merci ! Votre note a été enregistrée.</string>
 </resources>

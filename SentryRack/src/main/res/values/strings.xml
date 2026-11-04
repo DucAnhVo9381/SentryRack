@@ -254,4 +254,10 @@
     <string name="rate_submit">Submit</string>
     <string name="rate_pick">Please choose at least 1 star</string>
     <string name="rate_thanks">Thanks for rating SentryRack %1$d out of 5!</string>
+    <!-- Firebase support -->
+    <string name="firebase_db_url" translatable="false">https://sentryrack-default-rtdb.firebaseio.com</string>
+    <string name="feedback_sending">Sending feedback…</string>
+    <string name="feedback_sent">Thanks! Your feedback was sent.</string>
+    <string name="feedback_failed">Couldn\'t reach the cloud. Opening email instead.</string>
+    <string name="rate_saved_cloud">Thanks! Your rating was saved.</string>
 </resources>
