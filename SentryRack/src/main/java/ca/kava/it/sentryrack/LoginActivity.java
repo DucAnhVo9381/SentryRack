@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case SUCCESS:
                     setUiLoading(false);
-                    showToast("Welcome " + authState.getUser().getDisplayName());
+                    showToast(getString(R.string.welcome) + authState.getUser().getDisplayName());
                     // Open main screen: Opens MainActivity and closes Login, so Back does not return to the login screen
                     startActivity(new Intent(this, MainActivity.class));
                     finish();
@@ -216,14 +216,25 @@ public class LoginActivity extends AppCompatActivity {
                                         GoogleIdTokenCredential.createFrom(credential.getData());
                                 authViewModel.loginWithGoogle(googleIdTokenCredential.getIdToken());
                             } catch (Exception e) {
-                                showToast("Google Sign-In failed to parse token.");
+                                showToast(getString(R.string.google_sign_in_failed_to_parse_token));
                             }
                         }
                     }
 
                     @Override
                     public void onError(@NonNull GetCredentialException e) {
-                        if (!e.getMessage().contains("cancel")) {
+                        String msg = e.getMessage();
+                        if (msg != null && msg.toLowerCase().contains("no credentials")) {
+                            showToast("Please sign in to a Google account on this device first.");
+                            // Automatically launch Android's "Add Google Account" screen
+                            try {
+                                Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
+                                intent.putExtra(android.provider.Settings.EXTRA_ACCOUNT_TYPES, new String[]{"com.google"});
+                                startActivity(intent);
+                            } catch (Exception ex) {
+                                showToast("Could not open Account settings.");
+                            }
+                        } else if (msg != null && !msg.toLowerCase().contains("cancel")) {
                             showToast("Google Sign-In error: " + e.getLocalizedMessage());
                         }
                     }

@@ -165,4 +165,12 @@
     <string name="location_channel">Location Channel</string>
     <string name="channel_for_location_notifications">Channel for location notifs</string>
     <string name="location_determined">Location Determined</string>
+
+    <!-- for authentication classes -->
+    <string name="welcome">"Welcome "</string>
+    <string name="google_sign_in_failed_to_parse_token">Google Sign-In failed to parse token.</string>
+    <string name="good_morning">Good Morning</string>
+    <string name="good_afternoon">Good Afternoon</string>
+    <string name="good_evening">Good Evening</string>
+
 </resources>
