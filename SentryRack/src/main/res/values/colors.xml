@@ -76,4 +76,5 @@
     <color name="avatar_fg_purple">#FF7C3AED</color>
     <color name="avatar_bg_teal">#FFE2F3FC</color>
     <color name="avatar_fg_teal">#FF0284C7</color>
+    <color name="rate_star">#FFF5B400</color>   <!-- Rate SentryRack stars-->
 </resources>

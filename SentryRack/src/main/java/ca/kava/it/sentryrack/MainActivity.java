@@ -334,7 +334,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /** Opens the "Send feedback" dialog (from the 3-dot menu).
      * The Send button checks the message first - the dialog only closes
      */
-    private void showSendFeedbackDialog() {
+    public void showSendFeedbackDialog() {
         View dialogView = getLayoutInflater().inflate(R.layout.overflow_dialog_send_feedback, null);
         ChipGroup typeGroup = dialogView.findViewById(R.id.feedbackTypeGroup);
         TextInputLayout messageLayout = dialogView.findViewById(R.id.feedbackMessageLayout);
@@ -390,7 +390,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         email.putExtra(Intent.EXTRA_TEXT, message + "\n\n---\n" + deviceDetails);
         startExternalApp(email);
     }
-    private String getAppVersion() {
+    public String getAppVersion() {
         try {
             return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {

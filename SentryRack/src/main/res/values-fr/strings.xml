@@ -237,4 +237,10 @@
     <string name="setting_ok">OK</string>
     <string name="setting_cancel">Annuler</string>
     <string name="setting_save">Enregistrer</string>
+    <!-- About & support-->
+    <string name="privacy_text">SentryRack est un projet étudiant de l\'équipe KAVA (Humber Polytechnic, CENG 322).\n\n<b>Ce que nous enregistrons</b>\n• Sur ce téléphone : votre courriel (seulement avec Se souvenir de moi), votre mot de passe sous forme de hachage sécurisé et vos paramètres.\n• Dans le nuage (Firebase) : les mesures et alertes des baies, et les commentaires que vous envoyez.\n\n<b>Ce que nous ne faisons pas</b>\n• Nous ne vendons ni ne partageons jamais vos données.\n• Aucune publicité ni aucun suivi.\n\n<b>Vous gardez le contrôle</b>\n• Désactivez Se souvenir de moi ou utilisez Réinitialiser tous les paramètres à tout moment.\n• Des questions? Contactez le support depuis le menu.</string>
+    <string name="rate_msg">Comment évaluez-vous SentryRack?</string>
+    <string name="rate_submit">Envoyer</string>
+    <string name="rate_pick">Veuillez choisir au moins 1 étoile</string>
+    <string name="rate_thanks">Merci d\'avoir donné %1$d sur 5 à SentryRack!</string>
 </resources>

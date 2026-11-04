@@ -248,4 +248,10 @@
     <string name="setting_ok">OK</string>
     <string name="setting_cancel">Cancel</string>
     <string name="setting_save">Save</string>
+    <!-- About & support -->
+    <string name="privacy_text">SentryRack is a student project by Team KAVA (Humber Polytechnic, CENG 322).\n\n<b>What we store</b>\n• On this phone: your email (only if you choose Remember me), your password as a secure hash, and your settings.\n• In the cloud (Firebase): rack sensor readings and alerts, and feedback you send us.\n\n<b>What we do not do</b>\n• We never sell or share your data.\n• We do not use ads or tracking.\n\n<b>Your control</b>\n• Turn off Remember me or use Reset all settings at any time.\n• Questions? Contact support from the menu.</string>
+    <string name="rate_msg">How would you rate SentryRack?</string>
+    <string name="rate_submit">Submit</string>
+    <string name="rate_pick">Please choose at least 1 star</string>
+    <string name="rate_thanks">Thanks for rating SentryRack %1$d out of 5!</string>
 </resources>

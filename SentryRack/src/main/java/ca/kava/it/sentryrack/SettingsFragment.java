@@ -47,6 +47,8 @@ import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.VibratorManager;
 import android.provider.Settings;
+import android.widget.RatingBar;
+import androidx.core.text.HtmlCompat;
 
 public class SettingsFragment extends Fragment {
 
@@ -83,7 +85,8 @@ public class SettingsFragment extends Fragment {
     private static final int[] SOUND_OPTIONS = {R.string.sound_default, R.string.sound_chime, R.string.sound_alarm, R.string.sound_silent};
     private static final long PREVIEW_MS = 2500;
     private static final long VIBRATE_MS = 200;
-    // Sound preview (stopped after a few seconds or when the screen closes) - @author Anvesh @date 2026-11-04
+    private static final String KEY_RATING = "app_rating";
+    // Sound preview (stopped after a few seconds or when the screen closes)
     private Ringtone previewRingtone;
     private final Handler previewHandler = new Handler(Looper.getMainLooper());
     public SettingsFragment() {
@@ -107,6 +110,7 @@ public class SettingsFragment extends Fragment {
         setupNotificationSound(view);   // Notification sound
         setupVibration(view);// Vibration
         setupRememberMe(view);   // Remember me
+        setupAbout(view);   // About & support
         return view;
     }
 
@@ -560,6 +564,64 @@ public class SettingsFragment extends Fragment {
         rememberSwitch.setChecked(LoginActivity.isStaySignedIn(requireContext()));
         rememberSwitch.setOnCheckedChangeListener((button, isOn) ->
                 LoginActivity.setStaySignedIn(requireContext(), isOn));
+    }
+    //--- ABOUT & SUPPORT ---
+
+    // About rows: version is read from the app, the rest reuse existing screens/dialogs
+    private void setupAbout(View root) {
+        MainActivity main = (MainActivity) requireActivity();
+
+        TextView version = root.findViewById(R.id.valueAppVersion);
+        version.setText(main.getAppVersion());
+
+        root.findViewById(R.id.rowHelp).setOnClickListener(v -> main.openScreen(new HelpCenterFragment()));
+        root.findViewById(R.id.rowFeedback).setOnClickListener(v -> main.showSendFeedbackDialog());
+        root.findViewById(R.id.rowPrivacy).setOnClickListener(v -> showPrivacyPolicy());
+        root.findViewById(R.id.rowRate).setOnClickListener(v -> showRateDialog());
+    }
+
+    //Privacy policy & terms: a simple in-app page (bold headings from the string)
+
+    private void showPrivacyPolicy() {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.setting_privacy)
+                .setMessage(HtmlCompat.fromHtml(getString(R.string.privacy_text).replace("\n", "<br>"),
+                        HtmlCompat.FROM_HTML_MODE_LEGACY))
+                .setPositiveButton(R.string.setting_ok, null)
+                .show();
+    }
+
+    // Rate SentryRack: 5 gold stars, shows the last rating, saves the new one
+    private void showRateDialog() {
+        RatingBar stars = new RatingBar(requireContext());
+        stars.setNumStars(5);
+        stars.setStepSize(1f);
+        stars.setRating(getPrefs(requireContext()).getInt(KEY_RATING, 0));
+        stars.setProgressTintList(ColorStateList.valueOf(
+                ContextCompat.getColor(requireContext(), R.color.rate_star)));
+
+        // WRAP_CONTENT is needed, otherwise Android draws more than 5 stars
+        FrameLayout wrapper = new FrameLayout(requireContext());
+        wrapper.addView(stars, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT,
+                Gravity.CENTER_HORIZONTAL));
+
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.setting_rate)
+                .setMessage(R.string.rate_msg)
+                .setView(wrapper)
+                .setNegativeButton(R.string.setting_cancel, null)
+                .setPositiveButton(R.string.rate_submit, (dialog, which) -> {
+                    int rating = (int) stars.getRating();
+                    if (rating == 0) {
+                        showToast(R.string.rate_pick);
+                        return;
+                    }
+                    getPrefs(requireContext()).edit().putInt(KEY_RATING, rating).apply();
+                    Toast.makeText(requireContext(), getString(R.string.rate_thanks, rating),
+                            Toast.LENGTH_LONG).show();
+                })
+                .show();
     }
     //--- UTILITY/REUSABLE METHODS ---
     private void showToast(int messageId) {
