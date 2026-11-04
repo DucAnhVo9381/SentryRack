@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,6 +27,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.viewmodel.AuthViewModel;
 
 /** User (profile) screen - 3rd bottom navigation tab.
  * Working features: Change password (dialog with Current, New, Confirm) and Log out.
@@ -72,17 +76,24 @@ public class AccountFragment extends Fragment {
         setupRows(view);
     }
 
-    /** Shows the email the user logged in with (if "Remember me" was ticked)
+    /** Shows the email the user logged in with (if "Remember me" was ticked) Edited by Andres
      * @author Anvesh
      * @date 2026-10-07
      */
     private void showSavedEmail(View root) {
-        SharedPreferences loginPrefs =
-                requireContext().getSharedPreferences(LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
-        String email = loginPrefs.getString(KEY_REMEMBERED_EMAIL, "");
-        if (!email.isEmpty()) {
+        AuthViewModel authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
+        User currentUser = authViewModel.getCurrentUser();
+
+        if (currentUser != null) {
             TextView emailText = root.findViewById(R.id.userEmail);
-            emailText.setText(email);
+            TextView userNameText = root.findViewById(R.id.userName);
+
+            if (emailText != null && currentUser.getEmail() != null) {
+                emailText.setText(currentUser.getEmail());
+            }
+            if (userNameText != null && currentUser.getDisplayName() != null) {
+                userNameText.setText(currentUser.getDisplayName());
+            }
         }
     }
 
