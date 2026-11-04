@@ -618,10 +618,26 @@ public class SettingsFragment extends Fragment {
                         return;
                     }
                     getPrefs(requireContext()).edit().putInt(KEY_RATING, rating).apply();
+                    // also save rating to Firebase
+                    sendRatingToCloud((int) stars.getRating());
                     Toast.makeText(requireContext(), getString(R.string.rate_thanks, rating),
                             Toast.LENGTH_LONG).show();
                 })
                 .show();
+    }
+    /**
+     * Saves the star rating to Firebase Realtime Database (ratings/{id}).The local copy in SharedPreferences (KEY_RATING) is still kept.
+     */
+    private void sendRatingToCloud(int stars) {
+        if (!(getActivity() instanceof MainActivity)) return;
+        MainActivity main = (MainActivity) getActivity();
+        Context appContext = requireContext().getApplicationContext();
+
+        SupportRepository.getInstance(appContext).sendRating(stars,
+                AccountFragment.getDisplayEmail(appContext), main.getAppVersion(),
+                success -> Toast.makeText(appContext,
+                        success ? R.string.rate_saved_cloud : R.string.feedback_failed,
+                        Toast.LENGTH_SHORT).show());
     }
     //--- UTILITY/REUSABLE METHODS ---
     private void showToast(int messageId) {
