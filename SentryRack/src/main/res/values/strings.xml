@@ -1,36 +1,31 @@
-<!-- Andres Zambrano N01495324 ONC
-     Duc Anh Vo N01729381 0NC
-     Anvesh Rachakonda N01661293 ONC
-     Krushna Patel N01713093 ONC -->
+<!--  Andres Zambrano N01495324 ONC
+      Duc Anh Vo N01729381 0NC
+      Anvesh Rachakonda N01661293 ONC
+      Krushna Patel N01713093 ONC  -->
 <resources>
     <string name="app_name">Sentry Rack</string>
-
-    <!-- Navigation drawer -->
+    <!--  Navigation drawer  -->
     <string name="drawer_account">Account</string>
     <string name="drawer_settings">Settings</string>
     <string name="drawer_about">About</string>
     <string name="drawer_logout">Logout</string>
     <string name="open_drawer">Open navigation drawer</string>
     <string name="close_drawer">Close navigation drawer</string>
-
     <string name="drawer_header_username">Guts and Grit</string>
     <string name="drawer_header_user_role">Data center staff</string>
     <string name="drawer_header_email">volkdoesntsocialize@fu.ca</string>
-
-    <!-- Bottom navigation -->
+    <!--  Bottom navigation  -->
     <string name="bottom_dashboard">Dashboard</string>
     <string name="bottom_racks">Racks</string>
     <string name="bottom_activity">Activity</string>
-
-    <!-- Confirm dialog -->
+    <!--  Confirm dialog  -->
     <string name="exit_title">CONFIRM EXIT</string>
     <string name="exit_message">Are you sure you want to exit Sentry Rack? Active monitoring sessions will run in the background</string>
     <string name="exit_action_no">NO</string>
     <string name="exit_action_yes">YES</string>
     <string name="logout_dialog_title">CONFIRM LOGOUT</string>
     <string name="logout_dialog_msg">Are you sure you want to Log out? You will return to the login screen</string>
-
-    <!-- Login screen strings -->
+    <!--  Login screen strings  -->
     <string name="login_tagline">Rack monitoring for data centers</string>
     <string name="login_welcome">Welcome back</string>
     <string name="login_subtitle">Sign in to monitor your racks</string>
@@ -42,8 +37,7 @@
     <string name="error_email_empty">Please enter your email</string>
     <string name="error_password_empty">Please enter your password</string>
     <string name="error_password_short">Password must be at least %1$d characters</string>
-
-    <!-- Login screen - extra options (Remember me, OR, Google, Sign up) -->
+    <!--  Login screen - extra options (Remember me, OR, Google, Sign up)  -->
     <string name="login_remember_me">Remember me</string>
     <string name="login_or">OR</string>
     <string name="login_google">Continue with Google</string>
@@ -52,11 +46,9 @@
     <string name="login_secured">Secured with Firebase Authentication</string>
     <string name="login_google_soon">Google sign-in will be available soon.</string>
     <string name="login_sign_up_soon">Sign up will be available soon. Please contact your administrator.</string>
-
-    <!-- Toolbar (action bar) menu -->
+    <!--  Toolbar (action bar) menu  -->
     <string name="menu_alerts">Alerts</string>
-
-    <!-- Settings screen -->
+    <!--  Settings screen  -->
     <string name="settings_subtitle">Choose how SentryRack works for you</string>
     <string name="settings_group_display">Display</string>
     <string name="settings_group_notifications">Notifications</string>
@@ -72,14 +64,9 @@
     <string name="setting_temp_unit_value">°C</string>
     <string name="setting_portrait_locked_msg">Screen locked to portrait</string>
     <string name="setting_portrait_unlocked_msg">Screen rotation unlocked</string>
-
-    <!-- Dashboard screen -->
-
-
-    <!-- Racks screen -->
-
-
-    <!-- User (profile) screen - bottom navigation tab -->
+    <!--  Dashboard screen  -->
+    <!--  Racks screen  -->
+    <!--  User (profile) screen - bottom navigation tab  -->
     <string name="user_name_default">User</string>
     <string name="user_email_default">user@kava.ca</string>
     <string name="user_edit_profile">Edit profile</string>
@@ -94,8 +81,7 @@
     <string name="user_soon_msg">This option will be available soon.</string>
     <string name="cd_user_avatar">Profile picture</string>
     <string name="cd_user_online">Online</string>
-
-    <!-- User screen - Change password dialog (working feature) -->
+    <!--  User screen - Change password dialog (working feature)  -->
     <string name="user_pw_title">Change password</string>
     <string name="user_pw_current">Current password</string>
     <string name="user_pw_new">New password</string>
@@ -108,13 +94,11 @@
     <string name="user_pw_error_match">Passwords do not match</string>
     <string name="user_pw_error_same">New password must be different</string>
     <string name="user_pw_error_current">Current password is incorrect</string>
-
-    <!-- Overflow menu items -->
+    <!--  Overflow menu items  -->
     <string name="overflow_help_center">Help center</string>
     <string name="overflow_contact">Contact support</string>
     <string name="overflow_feedback">Send feedback</string>
-
-    <!-- Help center screen - @author Anvesh @date 2026-10-08 -->
+    <!--  Help center screen - @author Anvesh @date 2026-10-08  -->
     <string name="help_title">Help center</string>
     <string name="help_search_hint">Search help</string>
     <string name="help_faq_header">Frequently asked</string>
@@ -129,8 +113,7 @@
     <string name="help_a4">Open Settings from the side menu and turn on Lock portrait.</string>
     <string name="help_q5">What does the current sensor measure?</string>
     <string name="help_a5">Each rack has an ACS723 current sensor that measures how much electrical current the rack is using, so overloads can be caught early.</string>
-
-    <!-- Contact support sheet -->
+    <!--  Contact support sheet  -->
     <string name="contact_title">Contact support</string>
     <string name="contact_email">Email us</string>
     <string name="contact_call">Call us</string>
@@ -141,8 +124,7 @@
     <string name="contact_email_address" translatable="false">support@kava.ca</string>
     <string name="contact_phone_number" translatable="false">+14165550123</string>
     <string name="contact_web_url" translatable="false">https://humber.ca</string>
-
-    <!-- Send feedback dialog -->
+    <!--  Send feedback dialog  -->
     <string name="feedback_title">Send feedback</string>
     <string name="feedback_bug">Bug</string>
     <string name="feedback_idea">Idea</string>
@@ -153,8 +135,7 @@
     <string name="feedback_empty_error">Please write a few words</string>
     <string name="feedback_subject">SentryRack feedback: %1$s</string>
     <string name="feedback_cancel">Cancel</string>
-
-    <!-- for location services -->
+    <!--  for location services  -->
     <string name="permission_denied_opening_settings">Permission denied, opening settings...</string>
     <string name="location_permission_denied">Location permission denied</string>
     <string name="dismiss">Dismiss</string>
@@ -165,19 +146,14 @@
     <string name="location_channel">Location Channel</string>
     <string name="channel_for_location_notifications">Channel for location notifs</string>
     <string name="location_determined">Location Determined</string>
-
-
-    <!-- ===== Settings v2 - @author Anvesh @date 2026-11-02 ===== -->
-    <!-- Groups -->
+    <!--  ===== Settings v2 - @author Anvesh @date 2026-11-02 =====  -->
+    <!--  Groups  -->
     <string name="settings_group_personalise">Personalise</string>
     <string name="settings_group_appearance">Appearance</string>
-    <string name="settings_group_privacy">Privacy &amp; security</string>
-    <string name="settings_group_about">About &amp; support</string>
-
-    <!-- Profile card -->
+    <string name="settings_group_about">About</string>
+    <!--  Profile card  -->
     <string name="setting_profile_hint">Profile, password &amp; account</string>
-
-    <!-- Personalise -->
+    <!--  Personalise  -->
     <string name="setting_app_icon">App icon</string>
     <string name="setting_app_icon_summary">Changes the icon on your home screen</string>
     <string name="setting_app_icon_msg">Choose the icon on your home screen</string>
@@ -187,7 +163,6 @@
     <string name="icon_blue">Blue</string>
     <string name="icon_dark">Dark</string>
     <string name="icon_gold">Gold</string>
-
     <string name="setting_avatar">Profile avatar</string>
     <string name="setting_avatar_summary">Your picture on Account and Settings</string>
     <string name="setting_avatar_msg">Pick a colour for your picture</string>
@@ -197,14 +172,12 @@
     <string name="avatar_orange">Orange</string>
     <string name="avatar_purple">Purple</string>
     <string name="avatar_teal">Teal</string>
-
     <string name="setting_font">Font style</string>
     <string name="font_default">Default</string>
     <string name="font_rounded">Rounded</string>
     <string name="font_serif">Serif</string>
     <string name="setting_font_sample">Rack Atlas needs attention</string>
-
-    <!-- Appearance -->
+    <!--  Appearance  -->
     <string name="setting_theme">Theme</string>
     <string name="setting_theme_msg">System follows your phone\'s setting</string>
     <string name="theme_system">System default</string>
@@ -214,10 +187,7 @@
     <string name="text_small">Small</string>
     <string name="text_normal">Normal</string>
     <string name="text_large">Large</string>
-    <string name="setting_keep_screen_on">Keep screen on</string>
-    <string name="setting_keep_screen_on_summary">Screen stays awake on this app</string>
-
-    <!-- Notifications -->
+    <!--  Notifications  -->
     <string name="setting_notif_sound">Notification sound</string>
     <string name="setting_notif_sound_summary">Tap to choose · plays a preview</string>
     <string name="sound_default">Default</string>
@@ -226,59 +196,33 @@
     <string name="sound_silent">Silent</string>
     <string name="setting_vibration">Vibration</string>
     <string name="setting_vibration_summary">Vibrate with alerts</string>
-
-    <!-- Privacy & security -->
-    <string name="setting_app_lock">App lock</string>
-    <string name="setting_app_lock_summary">Ask for a 4-digit PIN when the app opens</string>
-    <string name="setting_remember_me">Remember me</string>
-    <string name="setting_remember_me_summary">Stay signed in on this phone</string>
-
-    <!-- About & support -->
+    <!--  About & support  -->
     <string name="setting_app_version">App version</string>
     <string name="setting_privacy">Privacy policy &amp; terms</string>
-    <string name="setting_rate">Rate SentryRack</string>
-    <string name="setting_rate_summary">Tell us what you think</string>
     <string name="setting_reset">Reset all settings</string>
     <string name="setting_reset_summary">Back to default</string>
-    <string name="setting_reset_title">Reset all settings?</string>
-    <string name="setting_reset_msg">Theme, text size, icon, avatar, sounds and App lock go back to default. You stay signed in.</string>
-    <string name="setting_reset_done">Settings reset to default</string>
-
-    <!-- Dialog buttons -->
+    <!--  Dialog buttons  -->
     <string name="setting_ok">OK</string>
     <string name="setting_cancel">Cancel</string>
     <string name="setting_save">Save</string>
-    <!-- About & support -->
-    <string name="privacy_text">SentryRack is a student project by Team KAVA (Humber Polytechnic, CENG 322).\n\n<b>What we store</b>\n• On this phone: your email (only if you choose Remember me), your password as a secure hash, and your settings.\n• In the cloud (Firebase): rack sensor readings and alerts, and feedback you send us.\n\n<b>What we do not do</b>\n• We never sell or share your data.\n• We do not use ads or tracking.\n\n<b>Your control</b>\n• Turn off Remember me or use Reset all settings at any time.\n• Questions? Contact support from the menu.</string>
-    <string name="rate_msg">How would you rate SentryRack?</string>
-    <string name="rate_submit">Submit</string>
-    <string name="rate_pick">Please choose at least 1 star</string>
-    <string name="rate_thanks">Thanks for rating SentryRack %1$d out of 5!</string>
-    <!-- Firebase support -->
+    <!--  About & support  -->
+    <string name="privacy_text">
+SentryRack is a student project by Team KAVA (Humber Polytechnic, CENG 322).\n\n
+<b>What we store</b>
+\n• On this phone: your email (only if you choose Remember me), your password as a secure hash, and your settings.\n• In the cloud (Firebase): rack sensor readings and alerts, and feedback you send us.\n\n
+<b>What we do not do</b>
+\n• We never sell or share your data.\n• We do not use ads or tracking.\n\n
+<b>Your control</b>
+\n• Turn off Remember me or use Reset all settings at any time.\n• Questions? Contact support from the menu.
+</string>
+    <!--  Firebase support  -->
     <string name="firebase_db_url" translatable="false">https://sentryrack-default-rtdb.firebaseio.com</string>
     <string name="feedback_sending">Sending feedback…</string>
     <string name="feedback_sent">Thanks! Your feedback was sent.</string>
     <string name="feedback_failed">Couldn\'t reach the cloud. Opening email instead.</string>
-    <string name="rate_saved_cloud">Thanks! Your rating was saved.</string>
-    <!-- Reset all settings -->
+    <!--  Reset all settings  -->
     <string name="reset_all_title">Reset all settings?</string>
     <string name="reset_all_msg">Theme, text size, font, avatar, app icon, sound and display options will go back to default. You will stay signed in.</string>
     <string name="reset_all_confirm">Reset</string>
     <string name="reset_all_done">Settings reset to default</string>
-    <!-- @author Anvesh Rachakonda @date 2026-11-04 : App lock PIN -->
-    <string name="pin_create_title">Create a PIN</string>
-    <string name="pin_create_msg">Choose 4 digits you will remember</string>
-    <string name="pin_confirm_title">Confirm your PIN</string>
-    <string name="pin_confirm_msg">Enter the same PIN again</string>
-    <string name="pin_mismatch">PINs didn\'t match. Try again.</string>
-    <string name="pin_unlock_title">Welcome back</string>
-    <string name="pin_unlock_msg">Enter your PIN to unlock SentryRack</string>
-    <string name="pin_disable_title">Turn off App lock</string>
-    <string name="pin_disable_msg">Enter your PIN to turn it off</string>
-    <string name="pin_wrong">Wrong PIN · %1$d tries left</string>
-    <string name="pin_locked_out">Too many wrong tries. Please log in again.</string>
-    <string name="pin_forgot">Forgot PIN? <b>Log in again</b></string>
-    <string name="pin_lock_on">App lock is on</string>
-    <string name="pin_lock_off">App lock is off</string>
-    <string name="pin_delete_desc">Delete digit</string>
 </resources>

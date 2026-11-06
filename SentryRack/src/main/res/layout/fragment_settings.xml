@@ -1,505 +1,154 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Settings screen v2 (Deliverable 3)
-     Profile card + 5 groups: Personalise, Appearance, Notifications,
-     Privacy & security, About & support. Every choice is saved in SharedPreferences.
-     @author Anvesh
-     @date 2026-11-02 -->
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/settings_padding">
-
-        <!-- Screen title + subtitle -->
-        <TextView
-            style="@style/Widget.SentryRack.Settings.ScreenTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/drawer_settings" />
-
-        <TextView
-            style="@style/Widget.SentryRack.Settings.RowSummaryText"
-            android:layout_marginTop="@dimen/settings_space_small"
-            android:text="@string/settings_subtitle" />
-
-        <!-- ===== Profile card: opens the Account screen (no repeated rows) ===== -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardProfile"
-            style="@style/Widget.SentryRack.Settings.Card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_section_margin"
-            android:clickable="true"
-            android:focusable="true"
-            app:contentPaddingLeft="0dp"
-            app:contentPaddingRight="0dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/login_background"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/settings_profile_padding">
-
-                <FrameLayout
-                    android:layout_width="@dimen/settings_profile_avatar"
-                    android:layout_height="@dimen/settings_profile_avatar">
-
-                    <ImageView
-                        android:id="@+id/profileAvatar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/settings_avatar_bg"
-                        android:contentDescription="@string/cd_user_avatar"
-                        android:padding="@dimen/settings_row_padding"
-                        android:src="@drawable/settings_ic_person" />
-
-                    <View
-                        android:layout_width="@dimen/settings_value_gap"
-                        android:layout_height="@dimen/settings_value_gap"
-                        android:layout_gravity="bottom|end"
-                        android:background="@drawable/account_user_online_icon" />
+<!--  Settings screen v2 (Deliverable 3)
+      Profile card + 5 groups: Personalise, Appearance, Notifications,
+      Privacy & security, About & support. Every choice is saved in SharedPreferences.
+      @author Anvesh
+      @date 2026-11-02  -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/settings_padding">
+        <!--  Screen title + subtitle  -->
+        <TextView style="@style/Widget.SentryRack.Settings.ScreenTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/drawer_settings"/>
+        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:layout_marginTop="@dimen/settings_space_small" android:text="@string/settings_subtitle"/>
+        <!--  ===== Profile card: opens the Account screen (no repeated rows) =====  -->
+        <com.google.android.material.card.MaterialCardView android:id="@+id/cardProfile" style="@style/Widget.SentryRack.Settings.Card" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/settings_section_margin" android:clickable="true" android:focusable="true" app:contentPaddingLeft="0dp" app:contentPaddingRight="0dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/login_background" android:gravity="center_vertical" android:orientation="horizontal" android:padding="@dimen/settings_profile_padding">
+                <FrameLayout android:layout_width="@dimen/settings_profile_avatar" android:layout_height="@dimen/settings_profile_avatar">
+                    <ImageView android:id="@+id/profileAvatar" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/settings_avatar_bg" android:contentDescription="@string/cd_user_avatar" android:padding="@dimen/settings_row_padding" android:src="@drawable/settings_ic_person"/>
+                    <View android:layout_width="@dimen/settings_value_gap" android:layout_height="@dimen/settings_value_gap" android:layout_gravity="bottom|end" android:background="@drawable/account_user_online_icon"/>
                 </FrameLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/settings_padding"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/profileName"
-                        style="@style/Widget.SentryRack.User.Name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_name_default" />
-
-                    <TextView
-                        android:id="@+id/profileEmail"
-                        style="@style/Widget.SentryRack.User.Email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_email_default" />
-
-                    <TextView
-                        style="@style/Widget.SentryRack.User.Email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/setting_profile_hint" />
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="@dimen/settings_padding" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:id="@+id/profileName" style="@style/Widget.SentryRack.User.Name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/user_name_default"/>
+                    <TextView android:id="@+id/profileEmail" style="@style/Widget.SentryRack.User.Email" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/user_email_default"/>
+                    <TextView style="@style/Widget.SentryRack.User.Email" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/setting_profile_hint"/>
                 </LinearLayout>
-
-                <ImageView
-                    style="@style/Widget.SentryRack.Settings.Chevron"
-                    app:tint="@color/login_on_bg" />
+                <ImageView style="@style/Widget.SentryRack.Settings.Chevron" app:tint="@color/login_on_bg"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- ===== PERSONALISE ===== -->
-        <TextView
-            style="@style/Widget.SentryRack.Settings.SectionHeader"
-            android:text="@string/settings_group_personalise" />
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.SentryRack.Settings.Card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- setting_app_icon -->
-                <LinearLayout
-                    android:id="@+id/rowAppIcon"
-                    style="@style/Widget.SentryRack.Settings.ClickRow">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_apps" />
-
+        <!--  ===== PERSONALISE =====  -->
+        <TextView style="@style/Widget.SentryRack.Settings.SectionHeader" android:text="@string/settings_group_personalise"/>
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.SentryRack.Settings.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <!--  setting_app_icon  -->
+                <LinearLayout android:id="@+id/rowAppIcon" style="@style/Widget.SentryRack.Settings.ClickRow">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_apps"/>
                     <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_app_icon" />
-                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_app_icon_summary" />
+                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_app_icon"/>
+                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_app_icon_summary"/>
                     </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/imgAppIconPreview"
-                        style="@style/Widget.SentryRack.Settings.Preview"
-                        android:src="@mipmap/homescreen_icon_light_round" />
-                    <TextView
-                        android:id="@+id/valueAppIcon"
-                        style="@style/Widget.SentryRack.Settings.RowValueText"
-                        android:text="@string/icon_blue" />
+                    <ImageView android:id="@+id/imgAppIconPreview" style="@style/Widget.SentryRack.Settings.Preview" android:src="@mipmap/homescreen_icon_light_round"/>
+                    <TextView android:id="@+id/valueAppIcon" style="@style/Widget.SentryRack.Settings.RowValueText" android:text="@string/icon_blue"/>
                 </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
-                <!-- setting_avatar -->
-                <LinearLayout
-                    android:id="@+id/rowAvatar"
-                    style="@style/Widget.SentryRack.Settings.ClickRow">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_avatar" />
-
+                <View style="@style/Widget.SentryRack.Settings.Divider"/>
+                <!--  setting_avatar  -->
+                <LinearLayout android:id="@+id/rowAvatar" style="@style/Widget.SentryRack.Settings.ClickRow">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_avatar"/>
                     <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_avatar" />
-                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_avatar_summary" />
+                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_avatar"/>
+                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_avatar_summary"/>
                     </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/imgAvatarPreview"
-                        style="@style/Widget.SentryRack.Settings.Preview"
-                        android:background="@drawable/settings_avatar_bg"
-                        android:padding="@dimen/settings_space_small"
-                        android:src="@drawable/settings_ic_person" />
-                    <TextView
-                        android:id="@+id/valueAvatar"
-                        style="@style/Widget.SentryRack.Settings.RowValueText"
-                        android:text="@string/avatar_blue" />
+                    <ImageView android:id="@+id/imgAvatarPreview" style="@style/Widget.SentryRack.Settings.Preview" android:background="@drawable/settings_avatar_bg" android:padding="@dimen/settings_space_small" android:src="@drawable/settings_ic_person"/>
+                    <TextView android:id="@+id/valueAvatar" style="@style/Widget.SentryRack.Settings.RowValueText" android:text="@string/avatar_blue"/>
                 </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
-                <!-- setting_font -->
-                <LinearLayout
-                    android:id="@+id/rowFont"
-                    style="@style/Widget.SentryRack.Settings.ClickRow">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_font" />
-
+                <View style="@style/Widget.SentryRack.Settings.Divider"/>
+                <!--  setting_font  -->
+                <LinearLayout android:id="@+id/rowFont" style="@style/Widget.SentryRack.Settings.ClickRow">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_font"/>
                     <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_font" />
+                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_font"/>
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/valueFont"
-                        style="@style/Widget.SentryRack.Settings.RowValueText"
-                        android:text="@string/font_default" />
+                    <TextView android:id="@+id/valueFont" style="@style/Widget.SentryRack.Settings.RowValueText" android:text="@string/font_default"/>
                 </LinearLayout>
-
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- ===== APPEARANCE ===== -->
-        <TextView
-            style="@style/Widget.SentryRack.Settings.SectionHeader"
-            android:text="@string/settings_group_appearance" />
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.SentryRack.Settings.Card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- setting_theme -->
-                <LinearLayout
-                    android:id="@+id/rowTheme"
-                    style="@style/Widget.SentryRack.Settings.ClickRow">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_theme" />
-
+        <!--  ===== APPEARANCE =====  -->
+        <TextView style="@style/Widget.SentryRack.Settings.SectionHeader" android:text="@string/settings_group_appearance"/>
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.SentryRack.Settings.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <!--  setting_theme  -->
+                <LinearLayout android:id="@+id/rowTheme" style="@style/Widget.SentryRack.Settings.ClickRow">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_theme"/>
                     <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_theme" />
+                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_theme"/>
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/valueTheme"
-                        style="@style/Widget.SentryRack.Settings.RowValueText"
-                        android:text="@string/theme_system" />
+                    <TextView android:id="@+id/valueTheme" style="@style/Widget.SentryRack.Settings.RowValueText" android:text="@string/theme_system"/>
                 </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
-                <!-- setting_text_size -->
-                <LinearLayout
-                    android:id="@+id/rowTextSize"
-                    style="@style/Widget.SentryRack.Settings.ClickRow">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_text_size" />
-
+                <View style="@style/Widget.SentryRack.Settings.Divider"/>
+                <!--  setting_text_size  -->
+                <LinearLayout android:id="@+id/rowTextSize" style="@style/Widget.SentryRack.Settings.ClickRow">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_text_size"/>
                     <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_text_size" />
+                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_text_size"/>
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/valueTextSize"
-                        style="@style/Widget.SentryRack.Settings.RowValueText"
-                        android:text="@string/text_normal" />
+                    <TextView android:id="@+id/valueTextSize" style="@style/Widget.SentryRack.Settings.RowValueText" android:text="@string/text_normal"/>
                 </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
-                <!-- setting_lock_portrait -->
+                <View style="@style/Widget.SentryRack.Settings.Divider"/>
+                <!--  setting_lock_portrait  -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_portrait" />
-
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_portrait"/>
                     <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_lock_portrait" />
-                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_lock_portrait_summary" />
+                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_lock_portrait"/>
+                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_lock_portrait_summary"/>
                     </LinearLayout>
-
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchLockPortrait"
-                        style="@style/Widget.SentryRack.Settings.Switch"
-                        android:contentDescription="@string/setting_lock_portrait" />
+                    <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switchLockPortrait" style="@style/Widget.SentryRack.Settings.Switch" android:contentDescription="@string/setting_lock_portrait"/>
                 </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
-                <!-- setting_keep_screen_on -->
-                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_screen_on" />
-
-                    <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_keep_screen_on" />
-                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_keep_screen_on_summary" />
-                    </LinearLayout>
-
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchKeepScreenOn"
-                        style="@style/Widget.SentryRack.Settings.Switch"
-                        android:contentDescription="@string/setting_keep_screen_on" />
-                </LinearLayout>
-
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- ===== NOTIFICATIONS ===== -->
-        <TextView
-            style="@style/Widget.SentryRack.Settings.SectionHeader"
-            android:text="@string/settings_group_notifications" />
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.SentryRack.Settings.Card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- setting_notif_sound -->
-                <LinearLayout
-                    android:id="@+id/rowNotifSound"
-                    style="@style/Widget.SentryRack.Settings.ClickRow">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_sound" />
-
+        <!--  ===== NOTIFICATIONS =====  -->
+        <TextView style="@style/Widget.SentryRack.Settings.SectionHeader" android:text="@string/settings_group_notifications"/>
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.SentryRack.Settings.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <!--  setting_notif_sound  -->
+                <LinearLayout android:id="@+id/rowNotifSound" style="@style/Widget.SentryRack.Settings.ClickRow">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_sound"/>
                     <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_notif_sound" />
-                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_notif_sound_summary" />
+                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_notif_sound"/>
+                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_notif_sound_summary"/>
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/valueNotifSound"
-                        style="@style/Widget.SentryRack.Settings.RowValueText"
-                        android:text="@string/sound_default" />
+                    <TextView android:id="@+id/valueNotifSound" style="@style/Widget.SentryRack.Settings.RowValueText" android:text="@string/sound_default"/>
                 </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
-                <!-- setting_vibration -->
+                <View style="@style/Widget.SentryRack.Settings.Divider"/>
+                <!--  setting_vibration  -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_vibration" />
-
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_vibration"/>
                     <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_vibration" />
-                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_vibration_summary" />
+                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_vibration"/>
+                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_vibration_summary"/>
                     </LinearLayout>
-
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchVibration"
-                        style="@style/Widget.SentryRack.Settings.Switch"
-                        android:contentDescription="@string/setting_vibration" />
+                    <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switchVibration" style="@style/Widget.SentryRack.Settings.Switch" android:contentDescription="@string/setting_vibration"/>
                 </LinearLayout>
-
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- ===== PRIVACY &amp; SECURITY ===== -->
-        <TextView
-            style="@style/Widget.SentryRack.Settings.SectionHeader"
-            android:text="@string/settings_group_privacy" />
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.SentryRack.Settings.Card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- setting_app_lock -->
+        <!--  ===== ABOUT =====  -->
+        <TextView style="@style/Widget.SentryRack.Settings.SectionHeader" android:text="@string/settings_group_about"/>
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.SentryRack.Settings.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <!--  App version (read from the app, not tappable)  -->
                 <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_app_lock" />
-
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_version"/>
                     <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_app_lock" />
-                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_app_lock_summary" />
+                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_app_version"/>
                     </LinearLayout>
-
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchAppLock"
-                        style="@style/Widget.SentryRack.Settings.Switch"
-                        android:contentDescription="@string/setting_app_lock" />
+                    <TextView android:id="@+id/valueAppVersion" style="@style/Widget.SentryRack.Settings.RowValueText" tools:text="1.0"/>
                 </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
-                <!-- setting_remember_me -->
-                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_remember" />
-
+                <View style="@style/Widget.SentryRack.Settings.Divider"/>
+                <!--  setting_privacy  -->
+                <LinearLayout android:id="@+id/rowPrivacy" style="@style/Widget.SentryRack.Settings.ClickRow">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_privacy"/>
                     <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_remember_me" />
-                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_remember_me_summary" />
+                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_privacy"/>
                     </LinearLayout>
-
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchRememberMe"
-                        style="@style/Widget.SentryRack.Settings.Switch"
-                        android:contentDescription="@string/setting_remember_me" />
+                    <ImageView style="@style/Widget.SentryRack.Settings.Chevron"/>
                 </LinearLayout>
-
+                <View style="@style/Widget.SentryRack.Settings.Divider"/>
+                <!--  Reset all settings (red title)  -->
+                <LinearLayout android:id="@+id/rowReset" style="@style/Widget.SentryRack.Settings.ClickRow">
+                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_reset"/>
+                    <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
+                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_reset" android:textColor="?attr/colorError"/>
+                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_reset_summary"/>
+                    </LinearLayout>
+                    <ImageView style="@style/Widget.SentryRack.Settings.Chevron"/>
+                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- ===== ABOUT &amp; SUPPORT ===== -->
-        <TextView
-            style="@style/Widget.SentryRack.Settings.SectionHeader"
-            android:text="@string/settings_group_about" />
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.SentryRack.Settings.Card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- App version (read from the app, not tappable) -->
-                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_version" />
-
-                    <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_app_version" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/valueAppVersion"
-                        style="@style/Widget.SentryRack.Settings.RowValueText"
-                        tools:text="1.0" />
-                </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
-                <!-- overflow_help_center -->
-                <LinearLayout
-                    android:id="@+id/rowHelp"
-                    style="@style/Widget.SentryRack.Settings.ClickRow">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_help" />
-
-                    <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/overflow_help_center" />
-                    </LinearLayout>
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.Chevron" />
-                </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
-                <!-- overflow_feedback -->
-                <LinearLayout
-                    android:id="@+id/rowFeedback"
-                    style="@style/Widget.SentryRack.Settings.ClickRow">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_feedback" />
-
-                    <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/overflow_feedback" />
-                    </LinearLayout>
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.Chevron" />
-                </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
-                <!-- setting_privacy -->
-                <LinearLayout
-                    android:id="@+id/rowPrivacy"
-                    style="@style/Widget.SentryRack.Settings.ClickRow">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_privacy" />
-
-                    <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_privacy" />
-                    </LinearLayout>
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.Chevron" />
-                </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
-                <!-- setting_rate -->
-                <LinearLayout
-                    android:id="@+id/rowRate"
-                    style="@style/Widget.SentryRack.Settings.ClickRow">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_rate" />
-
-                    <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView style="@style/Widget.SentryRack.Settings.RowTitleText" android:text="@string/setting_rate" />
-                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_rate_summary" />
-                    </LinearLayout>
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.Chevron" />
-                </LinearLayout>
-
-                <View style="@style/Widget.SentryRack.Settings.Divider" />
-
-                <!-- Reset all settings (red title) -->
-                <LinearLayout
-                    android:id="@+id/rowReset"
-                    style="@style/Widget.SentryRack.Settings.ClickRow">
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_ic_reset" />
-
-                    <LinearLayout style="@style/Widget.SentryRack.Settings.RowText">
-                        <TextView
-                            style="@style/Widget.SentryRack.Settings.RowTitleText"
-                            android:text="@string/setting_reset"
-                            android:textColor="?attr/colorError" />
-                        <TextView style="@style/Widget.SentryRack.Settings.RowSummaryText" android:text="@string/setting_reset_summary" />
-                    </LinearLayout>
-
-                    <ImageView style="@style/Widget.SentryRack.Settings.Chevron" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

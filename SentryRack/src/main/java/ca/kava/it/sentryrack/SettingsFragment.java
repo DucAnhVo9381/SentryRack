@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import android.view.WindowManager;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -32,7 +31,6 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import androidx.core.content.ContextCompat;
 import android.graphics.Typeface;
-import android.view.ViewGroup;
 import androidx.core.content.res.ResourcesCompat;
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
@@ -47,10 +45,7 @@ import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.VibratorManager;
 import android.provider.Settings;
-import android.widget.RatingBar;
 import androidx.core.text.HtmlCompat;
-import android.app.Activity;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class SettingsFragment extends Fragment {
 
@@ -58,7 +53,6 @@ public class SettingsFragment extends Fragment {
     private static final String PREFS_NAME = "settings_user_prefs";
     private static final String KEY_LOCK_PORTRAIT = "lock_portrait";
     private static final String KEY_DARK_MODE = "dark_mode";
-    private static final String KEY_KEEP_SCREEN_ON = "keep_screen_on";
     private static final String KEY_THEME = "theme_mode";
     private static final String KEY_TEXT_SIZE = "text_size";
     private static final int[] THEME_OPTIONS = {R.string.theme_system, R.string.theme_light, R.string.theme_dark};
@@ -87,7 +81,6 @@ public class SettingsFragment extends Fragment {
     private static final int[] SOUND_OPTIONS = {R.string.sound_default, R.string.sound_chime, R.string.sound_alarm, R.string.sound_silent};
     private static final long PREVIEW_MS = 2500;
     private static final long VIBRATE_MS = 200;
-    private static final String KEY_RATING = "app_rating";
     // Sound preview (stopped after a few seconds or when the screen closes)
     private Ringtone previewRingtone;
     private final Handler previewHandler = new Handler(Looper.getMainLooper());
@@ -102,7 +95,6 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         setupPortraitLock(view);
-        setupKeepScreenOn(view);
         setupTheme(view);
         setupTextSize(view);
         setupProfileCard(view);   // Profile card
@@ -111,8 +103,7 @@ public class SettingsFragment extends Fragment {
         setupAppIcon(view);
         setupNotificationSound(view);   // Notification sound
         setupVibration(view);// Vibration
-        setupRememberMe(view);   // Remember me
-        setupAbout(view);   // About & support
+        setupAbout(view);   // About
         setupReset(view);
         return view;
     }
@@ -223,17 +214,6 @@ public class SettingsFragment extends Fragment {
         valueText.setText(options[index]);
     }
 
-    private void setupKeepScreenOn(View root) {
-        bindSwitch(root, R.id.switchKeepScreenOn, KEY_KEEP_SCREEN_ON, false,
-                isOn -> applyKeepScreenOn(requireActivity()));
-    }
-    public static void applyKeepScreenOn(Activity activity) {
-        if (getPrefs(activity).getBoolean(KEY_KEEP_SCREEN_ON, false)) {
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        } else {
-            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
-    }
     private void setupTheme(View root) {
         showValue(root, R.id.valueTheme, THEME_OPTIONS, getSavedIndex(requireContext(), KEY_THEME));
 
@@ -560,27 +540,20 @@ public class SettingsFragment extends Fragment {
         stopPreview();
         super.onDestroyView();
     }
-    //--- REMEMBER ME ---
-    // Remember me switch: uses the SAME saved value as the Login checkbox(stored by LoginActivity, so both always agree)
-    private void setupRememberMe(View root) {
-        MaterialSwitch rememberSwitch = root.findViewById(R.id.switchRememberMe);
-        rememberSwitch.setChecked(LoginActivity.isStaySignedIn(requireContext()));
-        rememberSwitch.setOnCheckedChangeListener((button, isOn) ->
-                LoginActivity.setStaySignedIn(requireContext(), isOn));
-    }
-    //--- ABOUT & SUPPORT ---
+    //--- ABOUT ---
 
-    // About rows: version is read from the app, the rest reuse existing screens/dialogs
+    /** About rows: app version (read from the app) and Privacy policy.
+     * Help center, Send feedback and Rate were removed (team decision) - they live in the overflow menu.
+     * @author Anvesh Rachakonda
+     * @date 2026-11-06
+     */
     private void setupAbout(View root) {
         MainActivity main = (MainActivity) requireActivity();
 
         TextView version = root.findViewById(R.id.valueAppVersion);
         version.setText(main.getAppVersion());
 
-        root.findViewById(R.id.rowHelp).setOnClickListener(v -> main.openScreen(new HelpCenterFragment()));
-        root.findViewById(R.id.rowFeedback).setOnClickListener(v -> main.showSendFeedbackDialog());
         root.findViewById(R.id.rowPrivacy).setOnClickListener(v -> showPrivacyPolicy());
-        root.findViewById(R.id.rowRate).setOnClickListener(v -> showRateDialog());
     }
 
     /**
@@ -612,7 +585,6 @@ public class SettingsFragment extends Fragment {
 
         // App icon goes back to Blue when the app is closed (MainActivity.onStop)
         applySavedOrientation(activity);
-        applyKeepScreenOn(activity);
 
         // Theme change recreates the activity by itself; recreate anyway for text size + font
         AppCompatDelegate.setDefaultNightMode(nightModeFor(0));
@@ -630,54 +602,6 @@ public class SettingsFragment extends Fragment {
                 .show();
     }
 
-    // Rate SentryRack: 5 gold stars, shows the last rating, saves the new one
-    private void showRateDialog() {
-        RatingBar stars = new RatingBar(requireContext());
-        stars.setNumStars(5);
-        stars.setStepSize(1f);
-        stars.setRating(getPrefs(requireContext()).getInt(KEY_RATING, 0));
-        stars.setProgressTintList(ColorStateList.valueOf(
-                ContextCompat.getColor(requireContext(), R.color.rate_star)));
-
-        // WRAP_CONTENT is needed, otherwise Android draws more than 5 stars
-        FrameLayout wrapper = new FrameLayout(requireContext());
-        wrapper.addView(stars, new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT,
-                Gravity.CENTER_HORIZONTAL));
-
-        new MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.setting_rate)
-                .setMessage(R.string.rate_msg)
-                .setView(wrapper)
-                .setNegativeButton(R.string.setting_cancel, null)
-                .setPositiveButton(R.string.rate_submit, (dialog, which) -> {
-                    int rating = (int) stars.getRating();
-                    if (rating == 0) {
-                        showToast(R.string.rate_pick);
-                        return;
-                    }
-                    getPrefs(requireContext()).edit().putInt(KEY_RATING, rating).apply();
-                    // also save rating to Firebase
-                    sendRatingToCloud((int) stars.getRating());
-                    Toast.makeText(requireContext(), getString(R.string.rate_thanks, rating),
-                            Toast.LENGTH_LONG).show();
-                })
-                .show();
-    }
-    /**
-     * Saves the star rating to Firebase Realtime Database (ratings/{id}).The local copy in SharedPreferences (KEY_RATING) is still kept.
-     */
-    private void sendRatingToCloud(int stars) {
-        if (!(getActivity() instanceof MainActivity)) return;
-        MainActivity main = (MainActivity) getActivity();
-        Context appContext = requireContext().getApplicationContext();
-
-        SupportRepository.getInstance(appContext).sendRating(stars,
-                AccountFragment.getDisplayEmail(appContext), main.getAppVersion(),
-                success -> Toast.makeText(appContext,
-                        success ? R.string.rate_saved_cloud : R.string.feedback_failed,
-                        Toast.LENGTH_SHORT).show());
-    }
     //--- UTILITY/REUSABLE METHODS ---
     private void showToast(int messageId) {
         Toast.makeText(requireContext(),messageId,Toast.LENGTH_LONG).show();

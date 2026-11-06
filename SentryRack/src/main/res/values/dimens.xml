@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- App background -->
-    <!-- Home and Racks glow background - size and position of the colored lights
-         (negative offset pushes each glow partly off-screen for a soft corner light) -->
+    <!--  App background  -->
+    <!--  Home and Racks glow background - size and position of the colored lights
+             (negative offset pushes each glow partly off-screen for a soft corner light)  -->
     <dimen name="app_bg_glow_large">420dp</dimen>
     <dimen name="app_bg_glow_large_radius">210dp</dimen>
     <dimen name="app_bg_glow_small">320dp</dimen>
@@ -10,9 +9,8 @@
     <dimen name="app_bg_glow_offset">-140dp</dimen>
     <dimen name="app_bg_glow_offset_small">-120dp</dimen>
     <dimen name="app_bg_glow_middle_top">260dp</dimen>
-
-    <!-- LOGIN SCREEN -->
-    <!-- Login screen sizes -->
+    <!--  LOGIN SCREEN  -->
+    <!--  Login screen sizes  -->
     <dimen name="login_padding">24dp</dimen>
     <dimen name="login_space_small">8dp</dimen>
     <dimen name="login_space_medium">16dp</dimen>
@@ -22,8 +20,7 @@
     <dimen name="login_button_height">52dp</dimen>
     <dimen name="login_title_text">28sp</dimen>
     <dimen name="login_subtitle_text">14sp</dimen>
-
-    <!-- Login screen - background glow, glass card, fields, buttons -->
+    <!--  Login screen - background glow, glass card, fields, buttons  -->
     <dimen name="login_glass_corner">28dp</dimen>
     <dimen name="login_field_corner">14dp</dimen>
     <dimen name="login_pill_corner">26dp</dimen>
@@ -34,9 +31,8 @@
     <dimen name="login_divider_height">1dp</dimen>
     <dimen name="login_caption_text">12sp</dimen>
     <dimen name="login_body_text">15sp</dimen>
-
-    <!-- SETTINGS SCREEN -->
-    <!-- Settings screen sizes -->
+    <!--  SETTINGS SCREEN  -->
+    <!--  Settings screen sizes  -->
     <dimen name="settings_padding">16dp</dimen>
     <dimen name="settings_space_small">4dp</dimen>
     <dimen name="settings_section_margin">24dp</dimen>
@@ -47,11 +43,9 @@
     <dimen name="settings_divider_height">1dp</dimen>
     <dimen name="settings_title_text">22sp</dimen>
     <dimen name="settings_header_text">14sp</dimen>
-
-    <!-- Settings row image size -->
+    <!--  Settings row image size  -->
     <dimen name="settings_icon_size">40dp</dimen>
-
-    <!-- User (profile) screen sizes -->
+    <!--  User (profile) screen sizes  -->
     <dimen name="user_header_padding">24dp</dimen>
     <dimen name="user_avatar_size">88dp</dimen>
     <dimen name="user_online_dot">20dp</dimen>
@@ -62,36 +56,19 @@
     <dimen name="user_button_height">52dp</dimen>
     <dimen name="user_dialog_padding">24dp</dimen>
     <dimen name="user_field_spacing">8dp</dimen>
-
-    <!-- Help center screen -->
+    <!--  Help center screen  -->
     <dimen name="help_search_radius">24dp</dimen>
     <dimen name="help_card_gap">10dp</dimen>
     <dimen name="help_answer_padding">16dp</dimen>
-
-    <!-- Send feedback dialog -->
+    <!--  Send feedback dialog  -->
     <dimen name="feedback_dialog_padding">24dp</dimen>
     <dimen name="feedback_message_min_height">120dp</dimen>
-
-    <!-- Settings v2 - @author Anvesh @date 2026-11-02 -->
+    <!--  Settings v2 - @author Anvesh @date 2026-11-02  -->
     <dimen name="settings_profile_avatar">56dp</dimen>
     <dimen name="settings_profile_padding">16dp</dimen>
     <dimen name="settings_preview_size">28dp</dimen>
     <dimen name="settings_value_gap">8dp</dimen>
-
     <dimen name="settings_avatar_choice">64dp</dimen>
     <dimen name="settings_avatar_choice_padding">14dp</dimen>
     <dimen name="settings_icon_option">64dp</dimen>
-    <!--  App lock PIN screen -->
-    <dimen name="pin_logo_size">340dp</dimen>
-    <dimen name="pin_glow_top">220dp</dimen>
-    <dimen name="pin_glow_bottom">240dp</dimen>
-    <dimen name="pin_icon_box">78dp</dimen>
-    <dimen name="pin_icon">40dp</dimen>
-    <dimen name="pin_key_size">70dp</dimen>
-    <dimen name="pin_key_gap_h">14dp</dimen>
-    <dimen name="pin_key_gap_v">7dp</dimen>
-    <dimen name="pin_dot_gap">9dp</dimen>
-    <dimen name="pin_title_text">26sp</dimen>
-    <dimen name="pin_key_text">27sp</dimen>
 </resources>
-
