@@ -16,9 +16,9 @@
             android:title="@string/drawer_settings"/>
 
         <item
-            android:id="@+id/drawer_about"
-            android:icon="@drawable/drawer_about_icon"
-            android:title="@string/drawer_about"/>
+            android:id="@+id/drawer_feedback"
+            android:icon="@drawable/drawer_feedback_icon"
+            android:title="@string/overflow_feedback"/>
     </group>
 
     <item
