@@ -40,11 +40,7 @@ import android.net.Uri;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.widget.EditText;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
@@ -54,7 +50,6 @@ import android.content.res.Configuration;
 import android.content.Context;
 import android.graphics.Typeface;
 import androidx.fragment.app.FragmentManager;
-import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -264,8 +259,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setCurrentFragment(new AccountFragment());
         } else if (itemId == R.id.drawer_settings) {
             setCurrentFragment(new SettingsFragment());
-        } else if (itemId == R.id.drawer_feedback) {
-            showSendFeedbackDialog();
         } else if (itemId == R.id.drawer_logout) {
             confirmLogout();
         }
@@ -354,92 +347,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    /** Opens the "Send feedback" dialog (from the 3-dot menu).
-     * The Send button checks the message first - the dialog only closes
-     */
-    public void showSendFeedbackDialog() {
-        View dialogView = getLayoutInflater().inflate(R.layout.overflow_dialog_send_feedback, null);
-        ChipGroup typeGroup = dialogView.findViewById(R.id.feedbackTypeGroup);
-        TextInputLayout messageLayout = dialogView.findViewById(R.id.feedbackMessageLayout);
-        EditText messageInput = dialogView.findViewById(R.id.feedbackMessageInput);
-        TextView deviceInfo = dialogView.findViewById(R.id.feedbackDeviceInfo);
-
-        // "App version 1.0 · Android 14 added automatically"
-        deviceInfo.setText(getString(R.string.feedback_device_info,
-                getAppVersion(), Build.VERSION.RELEASE));
-
-        AlertDialog dialog = new MaterialAlertDialogBuilder(this)
-                .setTitle(R.string.feedback_title)
-                .setView(dialogView)
-                .setNegativeButton(R.string.feedback_cancel, null)
-                .setPositiveButton(R.string.feedback_send, null)   // real click set below
-                .create();
-
-        // Replace the Send click so an empty message does NOT close the dialog
-        dialog.setOnShowListener(d -> dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                .setOnClickListener(button -> {
-                    String message = messageInput.getText() == null
-                            ? "" : messageInput.getText().toString().trim();
-
-                    if (message.isEmpty()) {
-                        messageLayout.setError(getString(R.string.feedback_empty_error));
-                        return;
-                    }
-                    messageLayout.setError(null);
-                    dialog.dismiss();
-                    // save to Firebase (email = fallback)
-                    sendFeedbackToCloud(getSelectedFeedbackType(typeGroup), message);
-                }));
-
-        dialog.show();
-    }
-
-    // Returns the text of the selected chip: "Bug", "Idea" or "Other"
-    private String getSelectedFeedbackType(ChipGroup typeGroup) {
-        Chip selected = typeGroup.findViewById(typeGroup.getCheckedChipId());
-        return selected != null ? selected.getText().toString() : getString(R.string.feedback_other);
-    }
-
-    /** Opens the email app with the feedback filled in:
-     * subject = "SentryRack feedback: Bug", body = message + device details.
-     */
-    private void sendFeedbackEmail(String type, String message) {
-        String deviceDetails = getString(R.string.app_name) + " " + getAppVersion()
-                + " · Android " + Build.VERSION.RELEASE
-                + " · " + Build.MANUFACTURER + " " + Build.MODEL;
-
-        Intent email = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
-        email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.contact_email_address)});
-        email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_subject, type));
-        email.putExtra(Intent.EXTRA_TEXT, message + "\n\n---\n" + deviceDetails);
-        startExternalApp(email);
-    }
     public String getAppVersion() {
         try {
             return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             return "1.0";
         }
-    }
-
-    /**
-     * Saves feedback to Firebase Realtime Database (feedback/{id}).
-     * If the cloud write fails, the old email option opens instead.
-     */
-    private void sendFeedbackToCloud(String type, String message) {
-        Toast.makeText(this, R.string.feedback_sending, Toast.LENGTH_SHORT).show();
-        String email = AccountFragment.getDisplayEmail(this);
-
-        SupportRepository.getInstance(this).sendFeedback(type, message, email, getAppVersion(),
-                success -> {
-                    if (isFinishing() || isDestroyed()) return;
-                    if (success) {
-                        Toast.makeText(this, R.string.feedback_sent, Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(this, R.string.feedback_failed, Toast.LENGTH_LONG).show();
-                        sendFeedbackEmail(type, message);
-                    }
-                });
     }
 
     //---LOCATION & PERMISSIONS & NOTIFICATIONS---
