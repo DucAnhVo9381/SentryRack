@@ -259,6 +259,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setCurrentFragment(new AccountFragment());
         } else if (itemId == R.id.drawer_settings) {
             setCurrentFragment(new SettingsFragment());
+        } else if (itemId == R.id.drawer_feedback) {
+            setCurrentFragment(new FeedbackFragment());
         } else if (itemId == R.id.drawer_logout) {
             confirmLogout();
         }
