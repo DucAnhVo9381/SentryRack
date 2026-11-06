@@ -27,6 +27,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import android.widget.ImageView;
 
 import ca.kava.it.sentryrack.model.User;
 import ca.kava.it.sentryrack.viewmodel.AuthViewModel;
@@ -74,9 +75,17 @@ public class AccountFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         showSavedEmail(view);
         setupRows(view);
+        ImageView avatar = view.findViewById(R.id.userAvatar);
+        SettingsFragment.applyAvatar(avatar);
+        int pad = getResources().getDimensionPixelSize(R.dimen.settings_avatar_choice_padding);
+        avatar.setPadding(pad, pad, pad, pad);
     }
 
     /** Shows the email the user logged in with (if "Remember me" was ticked) Edited by Andres
+     * @author Anvesh
+     * @date 2026-10-07
+     */
+    /** Shows the email the user logged in with (if "Remember me" was ticked)
      * @author Anvesh
      * @date 2026-10-07
      */
@@ -95,6 +104,17 @@ public class AccountFragment extends Fragment {
                 userNameText.setText(currentUser.getDisplayName());
             }
         }
+    }
+
+    /** The email to show for the user: the remembered login email, or the default one.
+     * Used by Account and by the Settings profile card.
+     * @author Anvesh
+     * @date 2026-11-02
+     */
+    public static String getDisplayEmail(Context context) {
+        String email = context.getSharedPreferences(LOGIN_PREFS_NAME, Context.MODE_PRIVATE)
+                .getString(KEY_REMEMBERED_EMAIL, "");
+        return email.isEmpty() ? context.getString(R.string.user_email_default) : email;
     }
 
     /** Connects each row: Change password works, the others show "available soon"

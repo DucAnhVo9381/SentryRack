@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Circle behind the profile avatar. Its colour is set from Java (Profile avatar setting)
+     @author Anvesh
+     @date 2026-11-02 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@android:color/white" />
+</shape>

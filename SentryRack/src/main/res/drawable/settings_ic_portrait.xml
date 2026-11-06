@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings icon: Lock portrait - colourful gradient square + white symbol
+     @author Anvesh
+     @date 2026-11-02 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Rounded square with a diagonal gradient -->
+    <path android:pathData="M12,0L36,0A12,12 0,0 1,48 12L48,36A12,12 0,0 1,36 48L12,48A12,12 0,0 1,0 36L0,12A12,12 0,0 1,12 0Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0" android:startY="0"
+                android:endX="48" android:endY="48"
+                android:startColor="#FF6366F1"
+                android:endColor="#FF3730A3" />
+        </aapt:attr>
+    </path>
+
+    <!-- Soft shine on the top half -->
+    <path android:pathData="M12,0L36,0A12,12 0,0 1,48 12L48,24L0,24L0,12A12,12 0,0 1,12 0Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="24" android:startY="0"
+                android:endX="24" android:endY="24"
+                android:startColor="#47FFFFFF"
+                android:endColor="#00FFFFFF" />
+        </aapt:attr>
+    </path>
+
+    <!-- White symbol, centred -->
+    <group android:translateX="12" android:translateY="12">
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" />
+    </group>
+</vector>

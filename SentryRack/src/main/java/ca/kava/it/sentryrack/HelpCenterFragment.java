@@ -23,12 +23,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.util.Locale;
+import android.graphics.Typeface;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** Help center screen (opened from the 3-dot overflow menu).
  * - Search bar filters the questions while you type
  * - Tap a question card to open / close its answer (smooth animation + arrow turns)
- * @author Anvesh
- * @date 2026-10-08
  */
 public class HelpCenterFragment extends Fragment {
 
@@ -54,20 +56,15 @@ public class HelpCenterFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /** Loads the Help center layout
-     * @author Anvesh
-     * @date 2026-10-08
-     */
+    // Loads the Help center layout
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_help_center, container, false);
     }
 
-    /** Finds the views, builds the FAQ cards and turns on the search
-     * @author Anvesh
-     * @date 2026-10-08
-     */
+    // Finds the views, builds the FAQ cards and turns on the search
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -76,12 +73,12 @@ public class HelpCenterFragment extends Fragment {
 
         addFaqCards();
         setupSearch(view);
+        loadCloudFaqs(view);
+
     }
 
-    /** Creates one card (ar_item_faq.xml) for each question and adds it to the screen
-     * @author Anvesh
-     * @date 2026-10-08
-     */
+    // Creates one card (ar_item_faq.xml) for each question and adds it to the screen
+
     private void addFaqCards() {
         LayoutInflater inflater = getLayoutInflater();
 
@@ -100,8 +97,6 @@ public class HelpCenterFragment extends Fragment {
 
     /** Opens the answer if it is closed, closes it if it is open.
      * The card grows/shrinks smoothly and the arrow turns.
-     * @author Anvesh
-     * @date 2026-10-08
      */
     private void toggleAnswer(View card) {
         TextView answer = card.findViewById(R.id.faqAnswer);
@@ -118,10 +113,8 @@ public class HelpCenterFragment extends Fragment {
                 .start();
     }
 
-    /** Filters the cards every time the user types in the search bar
-     * @author Anvesh
-     * @date 2026-10-08
-     */
+    // Filters the cards every time the user types in the search bar
+
     private void setupSearch(View view) {
         EditText searchInput = view.findViewById(R.id.helpSearchInput);
         searchInput.addTextChangedListener(new TextWatcher() {
@@ -140,8 +133,6 @@ public class HelpCenterFragment extends Fragment {
 
     /** Shows only the cards whose question OR answer contains the search text.
      * Shows "No matching questions" when nothing matches.
-     * @author Anvesh
-     * @date 2026-10-08
      */
     private void filterFaq(String query) {
         String search = query.trim().toLowerCase(Locale.getDefault());
@@ -162,5 +153,55 @@ public class HelpCenterFragment extends Fragment {
             }
         }
         noResults.setVisibility(shownCount == 0 ? View.VISIBLE : View.GONE);
+    }
+    /**
+     * Reads help_faq/{en|fr} from Firebase. If the cloud is empty it uploadsthe local FAQs once (seed); otherwise it shows the cloud FAQs.
+     */
+    private void loadCloudFaqs(View view) {
+        String lang = "fr".equals(getResources().getConfiguration()
+                .getLocales().get(0).getLanguage()) ? "fr" : "en";
+
+        SupportRepository.getInstance(requireContext()).loadFaqs(lang, (questions, answers) -> {
+            if (!isAdded() || getView() == null) return;   // user already left the screen
+
+            if (questions.isEmpty()) {
+                SupportRepository.getInstance(requireContext())
+                        .seedFaqs(lang, localTexts(QUESTIONS), localTexts(ANSWERS));
+            } else {
+                showCloudFaqs(view, questions, answers);
+            }
+        });
+    }
+
+    /**
+     * Replaces the local cards with the cloud FAQs and keeps the current search.
+     */
+    private void showCloudFaqs(View view, List<String> questions, List<String> answers) {
+        faqContainer.removeAllViews();
+        LayoutInflater inflater = getLayoutInflater();
+        Typeface font = SettingsFragment.getAppTypeface(requireContext());
+
+        for (int i = 0; i < questions.size(); i++) {
+            View card = inflater.inflate(R.layout.overflow_item_faq, faqContainer, false);
+            ((TextView) card.findViewById(R.id.faqQuestion)).setText(questions.get(i));
+            ((TextView) card.findViewById(R.id.faqAnswer)).setText(answers.get(i));
+            card.findViewById(R.id.faqHeader).setOnClickListener(v -> toggleAnswer(card));
+            if (font != null) SettingsFragment.applyFont(card, font);
+            faqContainer.addView(card);
+        }
+
+        EditText searchInput = view.findViewById(R.id.helpSearchInput);
+        filterFaq(searchInput.getText() == null ? "" : searchInput.getText().toString());
+    }
+
+    /**
+     * Turns an array of string IDs into a list of texts (used for seeding).
+     */
+    private List<String> localTexts(int[] ids) {
+        List<String> texts = new ArrayList<>();
+        for (int id : ids) {
+            texts.add(getString(id));
+        }
+        return texts;
     }
 }
