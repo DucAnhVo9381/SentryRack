@@ -234,4 +234,16 @@ SentryRack est un projet étudiant de l\'équipe KAVA (Humber Polytechnic, CENG 
     <string name="register_button">Créer un compte</string>
     <string name="register_have_account">Vous avez déjà un compte?</string>
     <string name="register_sign_in">Se connecter</string>
+
+    <string name="register_error_name">Entrez votre nom complet (2 lettres ou plus)</string>
+    <string name="register_error_phone">Entrez un numéro de téléphone valide à 10 chiffres</string>
+    <string name="register_error_email">Entrez une adresse courriel valide</string>
+    <string name="register_error_password">Le mot de passe doit respecter les 4 règles</string>
+    <string name="register_error_agree">Veuillez accepter la politique de confidentialité.</string>
+    <string name="register_error_email_used">Un compte existe déjà avec ce courriel</string>
+    <string name="register_error_network">Aucune connexion Internet. Veuillez réessayer.</string>
+    <string name="register_error_failed">Impossible de créer le compte. Veuillez réessayer.</string>
+    <string name="register_creating">Création du compte…</string>
+    <string name="register_success_title">Compte créé!</string>
+    <string name="register_success_msg">Bienvenue sur SentryRack, %1$s. Vous pouvez vous connecter.</string>
 </resources>
