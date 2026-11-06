@@ -256,7 +256,6 @@ public class SettingsFragment extends Fragment {
     }
 
     //--- PROFILE AVATAR ---
-
     private void setupAvatar(View root) {
         refreshAvatar(root);
         root.findViewById(R.id.rowAvatar).setOnClickListener(v -> showAvatarDialog(root));

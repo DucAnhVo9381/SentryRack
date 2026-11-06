@@ -280,9 +280,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
-//    public void openScreen(Fragment fragment) {
-//        setCurrentFragment(fragment);
-//    }
+    public void openScreen(Fragment fragment) {
+        setCurrentFragment(fragment);
+    }
 
     //---MENU ITEMS FUNCTIONALITY METHODS---
     public void confirmLogout() {
