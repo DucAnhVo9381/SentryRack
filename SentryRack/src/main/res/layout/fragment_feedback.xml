@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Send feedback screen (will replace overflow_dialog_send_feedback.xml)
+<!-- Send feedback screen (replaces the old feedback dialog)
      - Type chips: Bug / Idea / Other (one must be selected)
      - Message box with 500-character counter
      - App + Android version added automatically
