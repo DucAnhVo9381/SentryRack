@@ -214,4 +214,24 @@ SentryRack est un projet étudiant de l\'équipe KAVA (Humber Polytechnic, CENG 
     <string name="reset_all_msg">Le thème, la taille du texte, la police, l\'avatar, l\'icône, le son et l\'affichage reviendront par défaut. Vous resterez connecté.</string>
     <string name="reset_all_confirm">Réinitialiser</string>
     <string name="reset_all_done">Paramètres réinitialisés</string>
+
+    <!-- ===== Inscription ===== -->
+    <string name="register_title">Créer un compte</string>
+    <string name="register_subtitle">Rejoignez SentryRack pour surveiller vos baies</string>
+    <string name="register_back">Retour à la connexion</string>
+    <string name="register_name_hint">Nom complet</string>
+    <string name="register_name_placeholder">ex. Alex Morgan</string>
+    <string name="register_phone_hint">Numéro de téléphone</string>
+    <string name="register_phone_placeholder">(416) 555-0123</string>
+    <string name="register_email_placeholder">vous@exemple.com</string>
+    <string name="register_confirm_hint">Confirmer le mot de passe</string>
+    <string name="register_rule_length">8 caractères ou plus</string>
+    <string name="register_rule_upper">1 lettre majuscule</string>
+    <string name="register_rule_number">1 chiffre</string>
+    <string name="register_rule_symbol">1 symbole (!@#…)</string>
+    <string name="register_agree">J\'accepte la</string>
+    <string name="register_privacy">Politique de confidentialité</string>
+    <string name="register_button">Créer un compte</string>
+    <string name="register_have_account">Vous avez déjà un compte?</string>
+    <string name="register_sign_in">Se connecter</string>
 </resources>

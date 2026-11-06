@@ -225,4 +225,24 @@ SentryRack is a student project by Team KAVA (Humber Polytechnic, CENG 322).\n\n
     <string name="reset_all_msg">Theme, text size, font, avatar, app icon, sound and display options will go back to default. You will stay signed in.</string>
     <string name="reset_all_confirm">Reset</string>
     <string name="reset_all_done">Settings reset to default</string>
+
+    <!-- ===== Sign up  ===== -->
+    <string name="register_title">Create account</string>
+    <string name="register_subtitle">Join SentryRack to monitor your racks</string>
+    <string name="register_back">Back to sign in</string>
+    <string name="register_name_hint">Full name</string>
+    <string name="register_name_placeholder">e.g. Alex Morgan</string>
+    <string name="register_phone_hint">Phone number</string>
+    <string name="register_phone_placeholder">(416) 555-0123</string>
+    <string name="register_email_placeholder">you@example.com</string>
+    <string name="register_confirm_hint">Confirm password</string>
+    <string name="register_rule_length">8+ characters</string>
+    <string name="register_rule_upper">1 uppercase letter</string>
+    <string name="register_rule_number">1 number</string>
+    <string name="register_rule_symbol">1 symbol (!@#…)</string>
+    <string name="register_agree">I agree to the</string>
+    <string name="register_privacy">Privacy policy</string>
+    <string name="register_button">Create account</string>
+    <string name="register_have_account">Already have an account?</string>
+    <string name="register_sign_in">Sign in</string>
 </resources>
