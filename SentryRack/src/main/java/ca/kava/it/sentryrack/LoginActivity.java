@@ -30,7 +30,7 @@ import android.content.SharedPreferences;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-
+import com.google.firebase.auth.FirebaseAuth;
 // Login screen : Splash (3s) -> Login -> Main
 public class LoginActivity extends AppCompatActivity {
     //--- CONSTANTS ---
@@ -162,9 +162,32 @@ public class LoginActivity extends AppCompatActivity {
                 saveRememberMe(email);   // Remember me - @author Anvesh @date 2026-11-04
                 openMainScreen();
             } else {
-                showToast(R.string.app_name);
+                signInWithFirebase(email, password);
             }
         }
+    }
+    /**
+     * Signs in an account created on the Sign up screen (Firebase Authentication).Wrong email or password shows a red error under the password field.
+     */
+    private void signInWithFirebase(String email, String password) {
+        MaterialButton loginButton = findViewById(R.id.loginButton);
+        CharSequence buttonText = loginButton.getText();
+        loginButton.setEnabled(false);
+        loginButton.setText(R.string.login_signing_in);
+
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (isFinishing() || isDestroyed()) return;
+                    loginButton.setEnabled(true);
+                    loginButton.setText(buttonText);
+
+                    if (task.isSuccessful()) {
+                        saveRememberMe(email);
+                        openMainScreen();
+                    } else {
+                        passwordLayout.setError(getString(R.string.login_error_wrong));
+                    }
+                });
     }
 
     // Shows a red error under the field if it is empty, clears it otherwise
