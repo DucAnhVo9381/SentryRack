@@ -45,7 +45,6 @@
     <string name="login_sign_up">S\'inscrire</string>
     <string name="login_secured">Sécurisé par Firebase Authentication</string>
     <string name="login_google_soon">La connexion avec Google sera bientôt disponible.</string>
-    <string name="login_sign_up_soon">L\'inscription sera bientôt disponible. Veuillez contacter votre administrateur.</string>
     <!--  Toolbar (action bar) menu  -->
     <string name="menu_alerts">Alertes</string>
     <!--  Settings screen  -->

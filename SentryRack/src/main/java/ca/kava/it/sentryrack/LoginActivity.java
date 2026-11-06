@@ -28,6 +28,8 @@ import android.content.res.Configuration;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.google.android.material.checkbox.MaterialCheckBox;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 // Login screen : Splash (3s) -> Login -> Main
 public class LoginActivity extends AppCompatActivity {
@@ -57,6 +59,15 @@ public class LoginActivity extends AppCompatActivity {
     private View loginLogo;
     private View loginCard;
     private MaterialCheckBox rememberMeCheck;
+    // Opens Sign up; when an account is created, its email comes back and is filled in
+    private final ActivityResultLauncher<Intent> registerLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    emailInput.setText(result.getData().getStringExtra(RegisterActivity.EXTRA_EMAIL));
+                    passwordInput.setText("");
+                    passwordInput.requestFocus();
+                }
+            });
     @Override
     protected void attachBaseContext(Context newBase) {
         Configuration override = new Configuration();
@@ -132,8 +143,8 @@ public class LoginActivity extends AppCompatActivity {
         googleButton.setOnClickListener(v -> showToast(R.string.login_google_soon));
 
         MaterialButton signUpButton = findViewById(R.id.signUpButton);
-        signUpButton.setOnClickListener(v -> showToast(R.string.login_sign_up_soon));
-    }
+        // open the Sign up screen
+        signUpButton.setOnClickListener(v -> registerLauncher.launch(new Intent(this, RegisterActivity.class)));    }
 
     // Opens the main screen if BOTH fields have text (anything is accepted for now)
     private void attemptLogin() {
