@@ -60,4 +60,20 @@
     <color name="app_bg_grid_line">#1A2454D6</color>
     <color name="app_bg_circuit_line">#4D2454D6</color>
     <color name="app_bg_circuit_node">#992454D6</color>
+
+    <!-- Profile avatar colours (circle / person)  -->
+    <color name="avatar_bg_blue">#FFD9E2FF</color>
+    <color name="avatar_fg_blue">#FF2454D6</color>
+    <color name="avatar_bg_pink">#FFFDE7F1</color>
+    <color name="avatar_fg_pink">#FFDB2777</color>
+    <color name="avatar_bg_green">#FFE3F7EF</color>
+    <color name="avatar_fg_green">#FF059669</color>
+    <color name="avatar_bg_orange">#FFFFF4E0</color>
+    <color name="avatar_fg_orange">#FFD97706</color>
+    <color name="avatar_bg_purple">#FFF1EAFE</color>
+    <color name="avatar_fg_purple">#FF7C3AED</color>
+    <color name="avatar_bg_teal">#FFE2F3FC</color>
+    <color name="avatar_fg_teal">#FF0284C7</color>
+    <color name="rate_star">#FFF5B400</color>   <!-- Rate SentryRack stars-->
+    <color name="register_rule_ok">#FF9EF0B5</color>
 </resources>

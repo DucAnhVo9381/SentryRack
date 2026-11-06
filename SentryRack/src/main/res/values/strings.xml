@@ -51,7 +51,6 @@
     <string name="login_sign_up">Sign up</string>
     <string name="login_secured">Secured with Firebase Authentication</string>
     <string name="login_google_soon">Google sign-in will be available soon.</string>
-    <string name="login_sign_up_soon">Sign up will be available soon. Please contact your administrator.</string>
 
     <!-- Toolbar (action bar) menu -->
     <string name="menu_alerts">Alerts</string>
@@ -173,4 +172,116 @@
     <string name="good_afternoon">Good Afternoon</string>
     <string name="good_evening">Good Evening</string>
 
+    <!--  ===== Settings v2 - @author Anvesh @date 2026-11-02 =====  -->
+    <!--  Groups  -->
+    <string name="settings_group_personalise">Personalise</string>
+    <string name="settings_group_appearance">Appearance</string>
+    <string name="settings_group_about">About</string>
+    <!--  Profile card  -->
+    <string name="setting_profile_hint">Profile, password &amp; account</string>
+    <!--  Personalise  -->
+    <string name="setting_app_icon">App icon</string>
+    <string name="setting_app_icon_summary">Changes the icon on your home screen</string>
+    <string name="setting_app_icon_msg">Choose the icon on your home screen</string>
+    <string name="setting_app_icon_note">The new icon appears on your home screen when you leave SentryRack.</string>
+    <string name="setting_app_icon_current">Current</string>
+    <string name="setting_app_icon_changed">%1$s icon selected. It appears when you leave the app.</string>
+    <string name="icon_blue">Blue</string>
+    <string name="icon_dark">Dark</string>
+    <string name="icon_gold">Gold</string>
+    <string name="setting_avatar">Profile avatar</string>
+    <string name="setting_avatar_summary">Your picture on Account and Settings</string>
+    <string name="setting_avatar_msg">Pick a colour for your picture</string>
+    <string name="avatar_blue">Blue</string>
+    <string name="avatar_pink">Pink</string>
+    <string name="avatar_green">Green</string>
+    <string name="avatar_orange">Orange</string>
+    <string name="avatar_purple">Purple</string>
+    <string name="avatar_teal">Teal</string>
+    <string name="setting_font">Font style</string>
+    <string name="font_default">Default</string>
+    <string name="font_rounded">Rounded</string>
+    <string name="font_serif">Serif</string>
+    <string name="setting_font_sample">Rack Atlas needs attention</string>
+    <!--  Appearance  -->
+    <string name="setting_theme">Theme</string>
+    <string name="theme_system">System default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="setting_text_size">Text size</string>
+    <string name="text_small">Small</string>
+    <string name="text_normal">Normal</string>
+    <string name="text_large">Large</string>
+    <!--  Notifications  -->
+    <string name="setting_notif_sound">Notification sound</string>
+    <string name="setting_notif_sound_summary">Tap to choose · plays a preview</string>
+    <string name="sound_default">Default</string>
+    <string name="sound_chime">Chime</string>
+    <string name="sound_alarm">Alarm</string>
+    <string name="sound_silent">Silent</string>
+    <string name="setting_vibration">Vibration</string>
+    <string name="setting_vibration_summary">Vibrate with alerts</string>
+    <!--  About & support  -->
+    <string name="setting_app_version">App version</string>
+    <string name="setting_privacy">Privacy policy &amp; terms</string>
+    <string name="setting_reset">Reset all settings</string>
+    <string name="setting_reset_summary">Back to default</string>
+    <!--  Dialog buttons  -->
+    <string name="setting_ok">OK</string>
+    <string name="setting_cancel">Cancel</string>
+    <string name="setting_save">Save</string>
+    <!--  About & support  -->
+    <string name="privacy_text">
+SentryRack is a student project by Team KAVA (Humber Polytechnic, CENG 322).\n\n
+<b>What we store</b>
+\n• On this phone: your email (only if you choose Remember me), your password as a secure hash, and your settings.\n• In the cloud (Firebase): rack sensor readings and alerts, and feedback you send us.\n\n
+<b>What we do not do</b>
+\n• We never sell or share your data.\n• We do not use ads or tracking.\n\n
+<b>Your control</b>
+\n• Turn off Remember me or use Reset all settings at any time.\n• Questions? Contact support from the menu.
+</string>
+    <!--  Firebase support  -->
+    <string name="firebase_db_url" translatable="false">https://sentryrack-default-rtdb.firebaseio.com</string>
+    <string name="feedback_sending">Sending feedback…</string>
+    <string name="feedback_sent">Thanks! Your feedback was sent.</string>
+    <string name="feedback_failed">Couldn\'t reach the cloud. Opening email instead.</string>
+    <!--  Reset all settings  -->
+    <string name="reset_all_title">Reset all settings?</string>
+    <string name="reset_all_msg">Theme, text size, font, avatar, app icon, sound and display options will go back to default. You will stay signed in.</string>
+    <string name="reset_all_confirm">Reset</string>
+    <string name="reset_all_done">Settings reset to default</string>
+
+    <!-- ===== Sign up  ===== -->
+    <string name="register_title">Create account</string>
+    <string name="register_subtitle">Join SentryRack to monitor your racks</string>
+    <string name="register_back">Back to sign in</string>
+    <string name="register_name_hint">Full name</string>
+    <string name="register_name_placeholder">e.g. Alex Morgan</string>
+    <string name="register_phone_hint">Phone number</string>
+    <string name="register_phone_placeholder">(416) 555-0123</string>
+    <string name="register_email_placeholder">you@example.com</string>
+    <string name="register_confirm_hint">Confirm password</string>
+    <string name="register_rule_length">8+ characters</string>
+    <string name="register_rule_upper">1 uppercase letter</string>
+    <string name="register_rule_number">1 number</string>
+    <string name="register_rule_symbol">1 symbol (!@#…)</string>
+    <string name="register_agree">I agree to the</string>
+    <string name="register_privacy">Privacy policy</string>
+    <string name="register_button">Create account</string>
+    <string name="register_have_account">Already have an account?</string>
+    <string name="register_sign_in">Sign in</string>
+
+    <string name="register_error_name">Enter your full name (2+ letters)</string>
+    <string name="register_error_phone">Enter a valid 10-digit phone number</string>
+    <string name="register_error_email">Enter a valid email address</string>
+    <string name="register_error_password">Password must meet all 4 rules below</string>
+    <string name="register_error_agree">Please accept the Privacy policy to continue.</string>
+    <string name="register_error_email_used">An account with this email already exists</string>
+    <string name="register_error_network">No internet connection. Please try again.</string>
+    <string name="register_error_failed">Couldn\'t create the account. Please try again.</string>
+    <string name="register_creating">Creating account…</string>
+    <string name="register_success_title">Account created!</string>
+    <string name="register_success_msg">Welcome to SentryRack, %1$s. You can sign in now.</string>
+    <string name="login_error_wrong">Wrong email or password</string>
+    <string name="login_signing_in">Signing in…</string>
 </resources>

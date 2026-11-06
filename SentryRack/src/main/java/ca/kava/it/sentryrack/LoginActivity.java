@@ -30,6 +30,13 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingExcept
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import android.content.res.Configuration;
+import android.content.Context;
+import android.content.SharedPreferences;
+import com.google.android.material.checkbox.MaterialCheckBox;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import com.google.firebase.auth.FirebaseAuth;
 
 import ca.kava.it.sentryrack.model.AuthState;
 import ca.kava.it.sentryrack.viewmodel.AuthViewModel;
@@ -48,6 +55,25 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText passwordInput;
     private View loginLogo;
     private View loginCard;
+    private MaterialCheckBox rememberMeCheck;
+    // Opens Sign up; when an account is created, its email comes back and is filled in
+    private final ActivityResultLauncher<Intent> registerLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    emailInput.setText(result.getData().getStringExtra(RegisterActivity.EXTRA_EMAIL));
+                    passwordInput.setText("");
+                    passwordInput.requestFocus();
+                }
+            });
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Configuration override = new Configuration();
+        override.fontScale = newBase.getResources().getConfiguration().fontScale
+                * SettingsFragment.getTextScale(newBase);
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
+
     private MaterialButton loginButton;
     private MaterialButton googleButton;
     private MaterialButton signUpButton;
@@ -97,6 +123,9 @@ public class LoginActivity extends AppCompatActivity {
         if (playSplash) {
             playEntranceAnimation(0);
         }
+
+        // Settings > "Font style"
+        SettingsFragment.applyFont(findViewById(android.R.id.content), SettingsFragment.getAppTypeface(this));
     }
 
     //--- OBSERVERS ---
@@ -291,4 +320,45 @@ public class LoginActivity extends AppCompatActivity {
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
+
+    //--- REMEMBER ME ---
+    // Fills in the saved email and ticks the box if the user chose Remember me
+//    private void loadRememberedEmail() {
+//        SharedPreferences prefs = getSharedPreferences(LOGIN_PREFS, MODE_PRIVATE);
+//        String email = prefs.getString(KEY_REMEMBERED_EMAIL, "");
+//        if (!email.isEmpty()) {
+//            emailInput.setText(email);
+//        }
+//        rememberMeCheck.setChecked(isStaySignedIn(this));
+//    }
+//
+//    // After a correct login: saves the email and the Remember me choice
+//
+//    private void saveRememberMe(String email) {
+//        boolean remember = rememberMeCheck.isChecked();
+//        getSharedPreferences(LOGIN_PREFS, MODE_PRIVATE).edit()
+//                .putString(KEY_REMEMBERED_EMAIL, remember ? email : "")
+//                .putBoolean(KEY_STAY_SIGNED_IN, remember)
+//                .apply();
+//    }
+//
+//    // Opens MainActivity and closes Login, so Back does not return to Login
+//    private void openMainScreen() {
+//        startActivity(new Intent(this, MainActivity.class));
+//        finish();
+//    }
+//
+//    // Is "stay signed in" on? (used by Login and by the Settings switch)
+//    public static boolean isStaySignedIn(Context context) {
+//        return context.getSharedPreferences(LOGIN_PREFS, Context.MODE_PRIVATE)
+//                .getBoolean(KEY_STAY_SIGNED_IN, false);
+//    }
+//
+//    // Turns "stay signed in" on/off (Settings switch, Log out)
+//
+//    public static void setStaySignedIn(Context context, boolean stay) {
+//        context.getSharedPreferences(LOGIN_PREFS, Context.MODE_PRIVATE).edit()
+//                .putBoolean(KEY_STAY_SIGNED_IN, stay)
+//                .apply();
+//    }
 }

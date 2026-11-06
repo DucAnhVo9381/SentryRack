@@ -50,6 +50,12 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import androidx.core.view.MenuCompat;
+import android.content.res.Configuration;
+import android.content.Context;
+import android.graphics.Typeface;
+import androidx.fragment.app.FragmentManager;
+import android.widget.Toast;
+
 import androidx.lifecycle.ViewModelProvider;
 
 import ca.kava.it.sentryrack.model.User;
@@ -91,6 +97,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 }
             });
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Configuration override = new Configuration();
+        override.fontScale = newBase.getResources().getConfiguration().fontScale
+                * SettingsFragment.getTextScale(newBase);
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +199,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
+
+        // Settings > "Font style": the main screen now, and every screen opened later
+        Typeface appFont = SettingsFragment.getAppTypeface(this);
+        if (appFont != null) {
+            SettingsFragment.applyFont(findViewById(android.R.id.content), appFont);
+            getSupportFragmentManager().registerFragmentLifecycleCallbacks(
+                    new FragmentManager.FragmentLifecycleCallbacks() {
+                        @Override
+                        public void onFragmentViewCreated(@NonNull FragmentManager fm, @NonNull Fragment f, @NonNull View v, Bundle savedInstanceState) {
+                            SettingsFragment.applyFont(v, appFont);
+                        }
+                    }, true);
+        }
+    }
+    /** Settings > "App icon": the new home-screen icon is switched when the user leaves
+     * the app (Home button / another app), so the app is never closed while in use.Not done on screen rotation.
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (!isChangingConfigurations()) {
+            SettingsFragment.applySavedAppIcon(this);
+        }
     }
 
     //---NAVIGATION HELPER METHODS---
@@ -242,6 +280,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
+    public void openScreen(Fragment fragment) {
+        setCurrentFragment(fragment);
+    }
 
     //---MENU ITEMS FUNCTIONALITY METHODS---
     public void confirmLogout() {
@@ -251,7 +292,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 v -> logout() // Action executed when user clicks YES
         );
     }
-
 
     private void logout() {
         AuthViewModel authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
@@ -263,7 +303,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
         finish();
     }
-
 
     private void showContactSupportSheet() {
         BottomSheetDialog sheet = new BottomSheetDialog(this);
@@ -318,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /** Opens the "Send feedback" dialog (from the 3-dot menu).
      * The Send button checks the message first - the dialog only closes
      */
-    private void showSendFeedbackDialog() {
+    public void showSendFeedbackDialog() {
         View dialogView = getLayoutInflater().inflate(R.layout.overflow_dialog_send_feedback, null);
         ChipGroup typeGroup = dialogView.findViewById(R.id.feedbackTypeGroup);
         TextInputLayout messageLayout = dialogView.findViewById(R.id.feedbackMessageLayout);
@@ -348,7 +387,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                     messageLayout.setError(null);
                     dialog.dismiss();
-                    sendFeedbackEmail(getSelectedFeedbackType(typeGroup), message);
+                    // save to Firebase (email = fallback)
+                    sendFeedbackToCloud(getSelectedFeedbackType(typeGroup), message);
                 }));
 
         dialog.show();
@@ -374,12 +414,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         email.putExtra(Intent.EXTRA_TEXT, message + "\n\n---\n" + deviceDetails);
         startExternalApp(email);
     }
-    private String getAppVersion() {
+    public String getAppVersion() {
         try {
             return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             return "1.0";
         }
+    }
+
+    /**
+     * Saves feedback to Firebase Realtime Database (feedback/{id}).
+     * If the cloud write fails, the old email option opens instead.
+     */
+    private void sendFeedbackToCloud(String type, String message) {
+        Toast.makeText(this, R.string.feedback_sending, Toast.LENGTH_SHORT).show();
+        String email = AccountFragment.getDisplayEmail(this);
+
+        SupportRepository.getInstance(this).sendFeedback(type, message, email, getAppVersion(),
+                success -> {
+                    if (isFinishing() || isDestroyed()) return;
+                    if (success) {
+                        Toast.makeText(this, R.string.feedback_sent, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, R.string.feedback_failed, Toast.LENGTH_LONG).show();
+                        sendFeedbackEmail(type, message);
+                    }
+                });
     }
 
     //---LOCATION & PERMISSIONS & NOTIFICATIONS---
