@@ -210,8 +210,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.action_contact) {
             showContactSupportSheet();
             return true;
-        } else if (id == R.id.action_feedback) {
-            showSendFeedbackDialog();
+        } else if (id == R.id.action_about) {
+            setCurrentFragment(new AboutFragment());
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -226,8 +226,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setCurrentFragment(new AccountFragment());
         } else if (itemId == R.id.drawer_settings) {
             setCurrentFragment(new SettingsFragment());
-        } else if (itemId == R.id.drawer_about) {
-            setCurrentFragment(new AboutFragment());
+        } else if (itemId == R.id.drawer_feedback) {
+            showSendFeedbackDialog();
         } else if (itemId == R.id.drawer_logout) {
             confirmLogout();
         }
