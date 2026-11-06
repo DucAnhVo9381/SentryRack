@@ -178,7 +178,6 @@
     <string name="setting_font_sample">Rack Atlas needs attention</string>
     <!--  Appearance  -->
     <string name="setting_theme">Theme</string>
-    <string name="setting_theme_msg">System follows your phone\'s setting</string>
     <string name="theme_system">System default</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>

@@ -171,7 +171,6 @@
     <string name="font_serif">Serif</string>
     <string name="setting_font_sample">La baie Atlas demande votre attention</string>
     <string name="setting_theme">Thème</string>
-    <string name="setting_theme_msg">Système suit le réglage de votre téléphone</string>
     <string name="theme_system">Par défaut du système</string>
     <string name="theme_light">Clair</string>
     <string name="theme_dark">Sombre</string>

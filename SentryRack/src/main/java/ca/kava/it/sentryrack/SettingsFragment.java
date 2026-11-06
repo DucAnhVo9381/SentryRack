@@ -217,8 +217,9 @@ public class SettingsFragment extends Fragment {
     private void setupTheme(View root) {
         showValue(root, R.id.valueTheme, THEME_OPTIONS, getSavedIndex(requireContext(), KEY_THEME));
 
+        // No dialog message here: a message would hide the list of options
         root.findViewById(R.id.rowTheme).setOnClickListener(v ->
-                showChoiceDialog(root, R.string.setting_theme, R.string.setting_theme_msg,
+                showChoiceDialog(root, R.string.setting_theme, 0,
                         THEME_OPTIONS, KEY_THEME, R.id.valueTheme, null,
                         index -> AppCompatDelegate.setDefaultNightMode(nightModeFor(index))));
     }
