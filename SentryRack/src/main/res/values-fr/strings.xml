@@ -273,4 +273,9 @@ SentryRack est un projet étudiant de l\'équipe KAVA (Humber Polytechnic, CENG 
     <string name="register_success_msg">Bienvenue sur SentryRack, %1$s. Vous pouvez vous connecter.</string>
     <string name="login_error_wrong">Courriel ou mot de passe incorrect</string>
     <string name="login_signing_in">Connexion…</string>
+
+    <!-- feedback screen -->
+    <string name="feedback_subtitle">Dites-nous ce qui fonctionne et ce qui ne fonctionne pas</string>
+    <string name="feedback_type_header">Type de commentaire</string>
+    <string name="feedback_message_header">Message</string>
 </resources>

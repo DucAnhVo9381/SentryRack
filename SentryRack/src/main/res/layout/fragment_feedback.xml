@@ -30,12 +30,12 @@
             style="@style/Widget.SentryRack.Settings.RowSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tell us what is working and what is not" />
+            android:text="@string/feedback_subtitle" />
 
         <!-- "FEEDBACK TYPE" -->
         <TextView
             style="@style/Widget.SentryRack.Settings.SectionHeader"
-            android:text="Feedback type" />
+            android:text="@string/feedback_type_header" />
 
         <!-- Feedback type: only one can be selected, Bug is selected by default -->
         <com.google.android.material.chip.ChipGroup
@@ -71,7 +71,7 @@
         <!-- "MESSAGE" -->
         <TextView
             style="@style/Widget.SentryRack.Settings.SectionHeader"
-            android:text="Message" />
+            android:text="@string/feedback_message_header" />
 
         <!-- Message box (grows up to 6 lines, counter shows 0/500) -->
         <com.google.android.material.textfield.TextInputLayout
