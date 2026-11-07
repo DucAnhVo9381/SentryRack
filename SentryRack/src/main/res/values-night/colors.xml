@@ -9,17 +9,13 @@
     <color name="splash_background">#FF75757E</color>
 
     <!-- TOOLBAR COLOR -->
-    <!-- Overflow (3-dot) menu colours - DARK mode -->
     <color name="menu_background">#FF2B2D31</color>
     <color name="menu_highlight">#FF3C3F45</color>
     <color name="menu_ripple">#29FFFFFF</color>
 
     <!-- BOTTOM & DRAWER NAV -->
-    <!-- Navigation item selector colors -->
     <color name="selected">#FFEC7627</color>
     <color name="unselected">#FFFFFFFF</color>
-
-    <!-- Drawer's text color -->
     <color name="header_text">#FF9800</color>
 
     <!-- CONFIRM DIALOG -->
@@ -30,15 +26,11 @@
     <color name="dialog_button_background">#FFEC7627</color>
 
     <!-- LOGIN SCREEN COLOR -->
-    <!-- Login screen colors - DARK theme (black + orange, matches the dark logo)
-     Only colors that change in dark mode are here; the rest come from values/colors_login.xml -->
     <color name="login_bg_start">#FF0E0E12</color>
     <color name="login_bg_center">#FF1C1C22</color>
     <color name="login_bg_end">#FF3A2416</color>
-
     <color name="login_glow_primary">#59FF8A3D</color>
     <color name="login_glow_secondary">#2EFF8A3D</color>
-
     <color name="login_accent">#FFFF8A3D</color>
     <color name="login_button_text">#FFE8641C</color>
 
@@ -48,4 +40,10 @@
     <color name="app_bg_grid_line">#12FFFFFF</color>
     <color name="app_bg_circuit_line">#40FFB74D</color>
     <color name="app_bg_circuit_node">#99FFB74D</color>
+
+    <!-- RACK STATUS COLORS -->
+    <color name="status_healthy">#4CAF50</color>
+    <color name="status_warning">#FFC107</color>
+    <color name="status_critical">#F44336</color>
+    <color name="status_offline">#757575</color>
 </resources>

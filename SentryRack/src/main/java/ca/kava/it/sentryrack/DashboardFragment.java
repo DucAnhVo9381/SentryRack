@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 
 import ca.kava.it.sentryrack.model.User;
-import ca.kava.it.sentryrack.viewmodel.AuthViewModel;
+import ca.kava.it.sentryrack.controller.AuthController;
 
 public class DashboardFragment extends Fragment {
 
@@ -57,9 +57,8 @@ public class DashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.dashboard_fragment, container, false);
 
-        AuthViewModel authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
-        User currentUser = authViewModel.getCurrentUser();
-
+        AuthController authController = new AuthController();
+        User currentUser = authController.getCurrentUser();
         String displayName = (currentUser != null && currentUser.getDisplayName() != null) ? currentUser.getDisplayName() : getString(R.string.user_name_default);
 
         TextView dashboardGreeting = view.findViewById(R.id.dashboardGreeting);
