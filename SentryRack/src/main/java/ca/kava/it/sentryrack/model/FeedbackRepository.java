@@ -1,4 +1,4 @@
 package ca.kava.it.sentryrack.controller;
 
-public class RackStatusAdapter {
+public class FeedbackRepository {
 }
