@@ -29,7 +29,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import ca.kava.it.sentryrack.model.User;
-import ca.kava.it.sentryrack.viewmodel.AuthViewModel;
+import ca.kava.it.sentryrack.controller.AuthController;
 
 /** User (profile) screen - 3rd bottom navigation tab.
  * Working features: Change password (dialog with Current, New, Confirm) and Log out.
@@ -81,8 +81,8 @@ public class AccountFragment extends Fragment {
      * @date 2026-10-07
      */
     private void showSavedEmail(View root) {
-        AuthViewModel authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
-        User currentUser = authViewModel.getCurrentUser();
+        AuthController authController = new AuthController();
+        User currentUser = authController.getCurrentUser();
 
         if (currentUser != null) {
             TextView emailText = root.findViewById(R.id.userEmail);
