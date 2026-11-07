@@ -278,4 +278,16 @@ SentryRack est un projet étudiant de l\'équipe KAVA (Humber Polytechnic, CENG 
     <string name="feedback_subtitle">Dites-nous ce qui fonctionne et ce qui ne fonctionne pas</string>
     <string name="feedback_type_header">Type de commentaire</string>
     <string name="feedback_message_header">Message</string>
+
+    <!-- About Screen -->
+    <string name="about_subtitle">En savoir plus sur Sentry Rack</string>
+    <string name="about_description">Sentry Rack est une plateforme de surveillance au niveau du rack qui transforme les données brutes des capteurs (sécurité, courant, environnement et détection de fuites) en informations claires sur l\'état des racks de serveurs.</string>
+    <string name="about_monitor_header">Ce que nous surveillons</string>
+    <string name="about_monitor_door">Sécurité de la porte du rack</string>
+    <string name="about_monitor_power">Consommation électrique</string>
+    <string name="about_monitor_environment">Température et qualité de l\'air</string>
+    <string name="about_monitor_leak">Fuites d\'eau</string>
+    <string name="about_team_header">Notre équipe</string>
+    <string name="about_copyright">© 2026 Sentry Rack. Tous droits réservés.</string>
+
 </resources>
