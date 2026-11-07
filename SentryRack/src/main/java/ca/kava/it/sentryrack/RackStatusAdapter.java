@@ -2,8 +2,9 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-package ca.kava.it.sentryrack;
 
+package ca.kava.it.sentryrack
+;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Locale;
 
-import ca.kava.it.sentryrack.R;
 import ca.kava.it.sentryrack.model.RackStatus;
-
 public class RackStatusAdapter extends ListAdapter<RackStatus, RackStatusAdapter.VH> {
-
     private static final long STALE_MS = 60_000;
 
     public RackStatusAdapter() {

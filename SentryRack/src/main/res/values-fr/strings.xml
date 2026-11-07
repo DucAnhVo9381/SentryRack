@@ -140,16 +140,28 @@
     <string name="contact_no_app">Aucune application trouvée pour ouvrir ceci</string>
 
     <!-- Send feedback dialog -->
-    <string name="feedback_title">Envoyer un commentaire</string>
-    <string name="feedback_bug">Bogue</string>
-    <string name="feedback_idea">Idée</string>
-    <string name="feedback_other">Autre</string>
-    <string name="feedback_hint">Décrivez le problème…</string>
-    <string name="feedback_device_info">Version %1$s · Android %2$s ajoutés automatiquement</string>
-    <string name="feedback_send">Envoyer</string>
-    <string name="feedback_empty_error">Veuillez écrire quelques mots</string>
-    <string name="feedback_subject">Commentaire SentryRack : %1$s</string>
-    <string name="feedback_cancel">Annuler</string>
+    <string name="feedback_hint">Votre commentaire…</string>
+    <string name="feedback_subject">Commentaire SentryRack</string>
+    <string name="feedback_name_hint">Nom complet</string>
+    <string name="feedback_phone_hint">Numéro de téléphone</string>
+    <string name="feedback_email_hint">Adresse courriel</string>
+    <string name="feedback_rating_label">Votre note</string>
+    <string name="feedback_name_error">Veuillez entrer votre nom complet</string>
+    <string name="feedback_phone_error">Veuillez entrer un numéro de téléphone valide</string>
+    <string name="feedback_email_error">Veuillez entrer une adresse courriel valide</string>
+    <string name="feedback_rating_error">Veuillez choisir une note en étoiles</string>
+    <string name="feedback_login_required">Veuillez vous connecter pour envoyer un commentaire</string>
+    <string name="feedback_success">Commentaire envoyé. Merci !</string>
+    <string name="feedback_failed">Échec de l\'envoi du commentaire : %1$s</string>
+
+    <string name="feedback_title">Send feedback</string>
+    <string name="feedback_bug">Bug</string>
+    <string name="feedback_idea">Idea</string>
+    <string name="feedback_other">Other</string>
+    <string name="feedback_device_info">App version %1$s · Android %2$s added automatically</string>
+    <string name="feedback_send">Send</string>
+    <string name="feedback_empty_error">Please write a few words</string>
+    <string name="feedback_cancel">Cancel</string>
 
     <!-- For location services -->
     <string name="permission_denied_opening_settings">Permission denied, opening settings...</string>

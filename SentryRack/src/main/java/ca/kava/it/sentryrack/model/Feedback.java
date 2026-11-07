@@ -5,55 +5,41 @@
 package ca.kava.it.sentryrack.model;
 
 public class Feedback {
-    private String id;
-    private String userId;
-    private String message;
-    private int rating;
-    private String category;
-    private String locationId;
-    private String buildingId;
-    private long timestamp;
-    private String status;
+    private String fullName;
+    private String phoneNumber;
+    private String email;
+    private String comment;
+    private int starRating;
+    private DeviceInfo deviceInfo;
 
     public Feedback() {
     }
 
-    public Feedback(String id, String userId, String message, int rating, String category, String locationId, String buildingId, long timestamp, String status) {
-        this.id = id;
-        this.userId = userId;
-        this.message = message;
-        this.rating = rating;
-        this.category = category;
-        this.locationId = locationId;
-        this.buildingId = buildingId;
-        this.timestamp = timestamp;
-        this.status = status;
+    public Feedback(String fullName, String phoneNumber, String email, String comment,
+                    int starRating, DeviceInfo deviceInfo) {
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.comment = comment;
+        this.starRating = starRating;
+        this.deviceInfo = deviceInfo;
     }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public int getRating() { return rating; }
-    public void setRating(int rating) { this.rating = rating; }
+    public String getComment() { return comment; }
+    public void setComment(String comment) { this.comment = comment; }
 
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
+    public int getStarRating() { return starRating; }
+    public void setStarRating(int starRating) { this.starRating = starRating; }
 
-    public String getLocationId() { return locationId; }
-    public void setLocationId(String locationId) { this.locationId = locationId; }
-
-    public String getBuildingId() { return buildingId; }
-    public void setBuildingId(String buildingId) { this.buildingId = buildingId; }
-
-    public long getTimestamp() { return timestamp; }
-    public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public DeviceInfo getDeviceInfo() { return deviceInfo; }
+    public void setDeviceInfo(DeviceInfo deviceInfo) { this.deviceInfo = deviceInfo; }
 }
