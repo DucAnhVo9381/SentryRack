@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel;
 
 import ca.kava.it.sentryrack.model.AuthState;
 import ca.kava.it.sentryrack.model.User;
-import ca.kava.it.sentryrack.repository.AuthRepository;
+import ca.kava.it.sentryrack.model.AuthRepository;
 
 /**
  * ViewModel exposing authentication states and actions to the View.
