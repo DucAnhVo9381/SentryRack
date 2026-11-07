@@ -4,8 +4,13 @@
 // Krushna Patel N01713093 ONC
 package ca.kava.it.sentryrack.model;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +26,160 @@ public class LocationRepository {
 
     public LocationRepository() {
         this.rootRef = FirebaseDatabase.getInstance().getReference();
+    }
+
+    public void registerRackHierarchy(String rackName, String floorName, String roomName,
+                                     String creatorUid, String role, Callback callback) {
+        String rack = rackName == null ? "" : rackName.trim();
+        String floor = floorName == null ? "" : floorName.trim();
+        String room = roomName == null ? "" : roomName.trim();
+
+        if (rack.isEmpty() || floor.isEmpty() || room.isEmpty()) {
+            callback.onError("Rack name, floor, and room are required.");
+            return;
+        }
+
+        final String locationName = "Default Location";
+        final String buildingName = "Default Building";
+
+        resolveOrCreateLocation(locationName, "Auto-created for rack registration", creatorUid, role,
+                new Callback() {
+                    @Override
+                    public void onSuccess(String locationId) {
+                        resolveOrCreateBuilding(locationId, buildingName, creatorUid, role,
+                                new Callback() {
+                                    @Override
+                                    public void onSuccess(String buildingId) {
+                                        resolveOrCreateFloor(buildingId, locationId, floor,
+                                                new Callback() {
+                                                    @Override
+                                                    public void onSuccess(String floorId) {
+                                                        resolveOrCreateRoom(floorId, buildingId, locationId, room,
+                                                                new Callback() {
+                                                                    @Override
+                                                                    public void onSuccess(String roomId) {
+                                                                        createRack(roomId, floorId, buildingId, locationId, rack, callback);
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onError(String message) {
+                                                                        callback.onError(message);
+                                                                    }
+                                                                });
+                                                    }
+
+                                                    @Override
+                                                    public void onError(String message) {
+                                                        callback.onError(message);
+                                                    }
+                                                });
+                                    }
+
+                                    @Override
+                                    public void onError(String message) {
+                                        callback.onError(message);
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        callback.onError(message);
+                    }
+                });
+    }
+
+    private void resolveOrCreateLocation(String name, String address, String creatorUid, String role, Callback callback) {
+        rootRef.child("locations").orderByChild("name").equalTo(name).limitToFirst(1)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot child : snapshot.getChildren()) {
+                                callback.onSuccess(child.getKey());
+                                return;
+                            }
+                        }
+                        createLocation(name, address, creatorUid, role, callback);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        callback.onError(error.getMessage());
+                    }
+                });
+    }
+
+    private void resolveOrCreateBuilding(String locationId, String name, String creatorUid, String role, Callback callback) {
+        rootRef.child("buildings").orderByChild("locationId").equalTo(locationId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot child : snapshot.getChildren()) {
+                                String existingName = child.child("name").getValue(String.class);
+                                if (name.equals(existingName)) {
+                                    callback.onSuccess(child.getKey());
+                                    return;
+                                }
+                            }
+                        }
+                        createBuilding(locationId, name, creatorUid, role, callback);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        callback.onError(error.getMessage());
+                    }
+                });
+    }
+
+    private void resolveOrCreateFloor(String buildingId, String locationId, String name, Callback callback) {
+        rootRef.child("floors").orderByChild("buildingId").equalTo(buildingId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot child : snapshot.getChildren()) {
+                                String existingName = child.child("name").getValue(String.class);
+                                if (name.equals(existingName)) {
+                                    callback.onSuccess(child.getKey());
+                                    return;
+                                }
+                            }
+                        }
+                        createFloor(buildingId, locationId, 1, name, callback);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        callback.onError(error.getMessage());
+                    }
+                });
+    }
+
+    private void resolveOrCreateRoom(String floorId, String buildingId, String locationId, String name, Callback callback) {
+        rootRef.child("rooms").orderByChild("floorId").equalTo(floorId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot child : snapshot.getChildren()) {
+                                String existingName = child.child("name").getValue(String.class);
+                                if (name.equals(existingName)) {
+                                    callback.onSuccess(child.getKey());
+                                    return;
+                                }
+                            }
+                        }
+                        createRoom(floorId, buildingId, locationId, name, callback);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        callback.onError(error.getMessage());
+                    }
+                });
     }
 
     public void createLocation(String name, String address, String creatorUid, String role, Callback callback) {
