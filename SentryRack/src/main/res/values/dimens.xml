@@ -69,4 +69,11 @@
     <dimen name="settings_avatar_choice">64dp</dimen>
     <dimen name="settings_avatar_choice_padding">14dp</dimen>
     <dimen name="settings_icon_option">64dp</dimen>
+
+    <!-- About screen -->
+    <dimen name="about_padding">16dp</dimen>
+    <dimen name="about_space_small">8dp</dimen>
+    <dimen name="about_section_space">24dp</dimen>
+    <dimen name="about_logo_size">72dp</dimen>
+
 </resources>
