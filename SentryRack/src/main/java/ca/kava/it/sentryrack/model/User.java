@@ -41,8 +41,7 @@ public class User {
                 name = "User";
             }
         }
-        long now = System.currentTimeMillis();
-        return new User(firebaseUser.getUid(), name, firebaseUser.getEmail(), now, now);
+        return new User(firebaseUser.getUid(), name, firebaseUser.getEmail(), 0, 0);
     }
 
     public String getUid() { return uid; }
@@ -52,6 +51,7 @@ public class User {
     public void setName(String name) { this.name = name; }
 
     // Helper getter for existing UI components expecting getDisplayName()
+    @com.google.firebase.database.Exclude
     public String getDisplayName() { return name; }
 
     public String getEmail() { return email; }

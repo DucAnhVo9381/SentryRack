@@ -6,7 +6,6 @@ package ca.kava.it.sentryrack.model;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +15,7 @@ public class FeedbackRepository {
     private final DatabaseReference rootRef;
 
     public interface Callback {
-        void onSuccess(String feedbackId);
+        void onSuccess();
         void onError(String message);
     }
 
@@ -24,35 +23,45 @@ public class FeedbackRepository {
         this.rootRef = FirebaseDatabase.getInstance().getReference();
     }
 
-    public void submitFeedback(String userId, String message, int rating, String category,
-                               String locationId, String buildingId, Callback callback) {
-        if (userId == null || userId.isEmpty()) {
+    /**
+     * Saves feedback/{id} and the users/{uid}/feedback/{id} link in one atomic write.
+     */
+    public void submitFeedback(String uid, Feedback feedback, Callback callback) {
+        if (uid == null || uid.isEmpty()) {
             callback.onError("User must be logged in to send feedback");
             return;
         }
+        if (feedback == null || feedback.getDeviceInfo() == null) {
+            callback.onError("Feedback is incomplete");
+            return;
+        }
 
-        String fbId = rootRef.child("feedback").push().getKey();
-        if (fbId == null) {
+        String id = rootRef.child("feedback").push().getKey();
+        if (id == null) {
             callback.onError("Could not generate feedback ID");
             return;
         }
 
+        DeviceInfo device = feedback.getDeviceInfo();
+        String base = "/feedback/" + id + "/";
+
         Map<String, Object> updates = new HashMap<>();
-        updates.put("/feedback/" + fbId + "/userId", userId);
-        updates.put("/feedback/" + fbId + "/message", message);
-        updates.put("/feedback/" + fbId + "/rating", rating);
-        updates.put("/feedback/" + fbId + "/category", category != null ? category : "Other");
-        updates.put("/feedback/" + fbId + "/locationId", locationId != null ? locationId : "");
-        updates.put("/feedback/" + fbId + "/buildingId", buildingId != null ? buildingId : "");
-        updates.put("/feedback/" + fbId + "/timestamp", ServerValue.TIMESTAMP);
-        updates.put("/feedback/" + fbId + "/status", "open");
-        updates.put("/users/" + userId + "/feedback/" + fbId, true);
+        updates.put(base + "fullName", feedback.getFullName());
+        updates.put(base + "phoneNumber", feedback.getPhoneNumber());
+        updates.put(base + "email", feedback.getEmail());
+        updates.put(base + "comment", feedback.getComment());
+        updates.put(base + "starRating", feedback.getStarRating());
+        updates.put(base + "deviceInfo/appVersion", device.getAppVersion());
+        updates.put(base + "deviceInfo/androidVersion", device.getAndroidVersion());
+        updates.put(base + "deviceInfo/manufacturer", device.getManufacturer());
+        updates.put(base + "deviceInfo/model", device.getModel());
+        updates.put("/users/" + uid + "/feedback/" + id, true);
 
         rootRef.updateChildren(updates, (error, ref) -> {
             if (error != null) {
                 callback.onError(error.getMessage());
             } else {
-                callback.onSuccess(fbId);
+                callback.onSuccess();
             }
         });
     }

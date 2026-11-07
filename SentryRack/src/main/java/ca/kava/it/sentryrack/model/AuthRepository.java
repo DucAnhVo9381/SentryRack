@@ -7,20 +7,10 @@ package ca.kava.it.sentryrack.model;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 
-import java.util.HashMap;
-import java.util.Map;
-
-/**
- * Repository performing Firebase Authentication and User node Sync operations.
- */
 public class AuthRepository {
 
     private final FirebaseAuth firebaseAuth;
-    private final DatabaseReference rootRef;
 
     public interface AuthCallback {
         void onSuccess(User user);
@@ -34,7 +24,6 @@ public class AuthRepository {
 
     public AuthRepository() {
         this.firebaseAuth = FirebaseAuth.getInstance();
-        this.rootRef = FirebaseDatabase.getInstance().getReference();
     }
 
     public User getCurrentUser() {
@@ -45,9 +34,7 @@ public class AuthRepository {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && firebaseAuth.getCurrentUser() != null) {
-                        User user = User.fromFirebaseUser(firebaseAuth.getCurrentUser());
-                        syncUserLastLogin(user);
-                        callback.onSuccess(user);
+                        callback.onSuccess(User.fromFirebaseUser(firebaseAuth.getCurrentUser()));
                     } else {
                         String err = task.getException() != null ? task.getException().getMessage() : "Authentication failed";
                         callback.onError(err);
@@ -59,9 +46,7 @@ public class AuthRepository {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && firebaseAuth.getCurrentUser() != null) {
-                        User user = User.fromFirebaseUser(firebaseAuth.getCurrentUser());
-                        registerUserNode(user);
-                        callback.onSuccess(user);
+                        callback.onSuccess(User.fromFirebaseUser(firebaseAuth.getCurrentUser()));
                     } else {
                         String err = task.getException() != null ? task.getException().getMessage() : "Sign up failed";
                         callback.onError(err);
@@ -74,9 +59,7 @@ public class AuthRepository {
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && firebaseAuth.getCurrentUser() != null) {
-                        User user = User.fromFirebaseUser(firebaseAuth.getCurrentUser());
-                        syncUserLastLogin(user);
-                        callback.onSuccess(user);
+                        callback.onSuccess(User.fromFirebaseUser(firebaseAuth.getCurrentUser()));
                     } else {
                         String err = task.getException() != null ? task.getException().getMessage() : "Google sign-in failed";
                         callback.onError(err);
@@ -98,28 +81,5 @@ public class AuthRepository {
 
     public void logout() {
         firebaseAuth.signOut();
-    }
-
-    private void registerUserNode(User user) {
-        if (user == null || user.getUid() == null) return;
-        Map<String, Object> childUpdates = new HashMap<>();
-        String basePath = "/users/" + user.getUid() + "/";
-        childUpdates.put(basePath + "name", user.getDisplayName());
-        childUpdates.put(basePath + "email", user.getEmail());
-        childUpdates.put(basePath + "createdAt", ServerValue.TIMESTAMP);
-        childUpdates.put(basePath + "lastLoginAt", ServerValue.TIMESTAMP);
-        rootRef.updateChildren(childUpdates);
-    }
-
-    private void syncUserLastLogin(User user) {
-        if (user == null || user.getUid() == null) return;
-        Map<String, Object> childUpdates = new HashMap<>();
-        String basePath = "/users/" + user.getUid() + "/";
-        childUpdates.put(basePath + "lastLoginAt", ServerValue.TIMESTAMP);
-        childUpdates.put(basePath + "email", user.getEmail());
-        if (user.getDisplayName() != null && !user.getDisplayName().isEmpty()) {
-            childUpdates.put(basePath + "name", user.getDisplayName());
-        }
-        rootRef.updateChildren(childUpdates);
     }
 }

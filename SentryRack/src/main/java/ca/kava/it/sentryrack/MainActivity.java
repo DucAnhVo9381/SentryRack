@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.RatingBar;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -44,16 +45,15 @@ import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import ca.kava.it.sentryrack.controller.AuthController;
-import ca.kava.it.sentryrack.model.FeedbackRepository;
 import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.controller.FeedbackController;
+import ca.kava.it.sentryrack.model.DeviceInfo;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // Bottom nav and drawer fields
@@ -292,12 +292,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showSendFeedbackDialog() {
         View dialogView = getLayoutInflater().inflate(R.layout.overflow_dialog_send_feedback, null);
-        ChipGroup typeGroup = dialogView.findViewById(R.id.feedbackTypeGroup);
+        TextInputLayout nameLayout = dialogView.findViewById(R.id.feedbackNameLayout);
+        EditText nameInput = dialogView.findViewById(R.id.feedbackNameInput);
+        TextInputLayout phoneLayout = dialogView.findViewById(R.id.feedbackPhoneLayout);
+        EditText phoneInput = dialogView.findViewById(R.id.feedbackPhoneInput);
+        TextInputLayout emailLayout = dialogView.findViewById(R.id.feedbackEmailLayout);
+        EditText emailInput = dialogView.findViewById(R.id.feedbackEmailInput);
         TextInputLayout messageLayout = dialogView.findViewById(R.id.feedbackMessageLayout);
         EditText messageInput = dialogView.findViewById(R.id.feedbackMessageInput);
-        TextView deviceInfo = dialogView.findViewById(R.id.feedbackDeviceInfo);
+        RatingBar ratingBar = dialogView.findViewById(R.id.feedbackRatingBar);
+        TextView ratingError = dialogView.findViewById(R.id.feedbackRatingError);
+        TextView deviceInfoText = dialogView.findViewById(R.id.feedbackDeviceInfo);
 
-        deviceInfo.setText(getString(R.string.feedback_device_info,
+        deviceInfoText.setText(getString(R.string.feedback_device_info,
                 getAppVersion(), Build.VERSION.RELEASE));
 
         AlertDialog dialog = new MaterialAlertDialogBuilder(this)
@@ -309,44 +316,89 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         dialog.setOnShowListener(d -> dialog.getButton(AlertDialog.BUTTON_POSITIVE)
                 .setOnClickListener(button -> {
-                    String message = messageInput.getText() == null
-                            ? "" : messageInput.getText().toString().trim();
-
-                    if (message.isEmpty()) {
-                        messageLayout.setError(getString(R.string.feedback_empty_error));
-                        return;
-                    }
+                    nameLayout.setError(null);
+                    phoneLayout.setError(null);
+                    emailLayout.setError(null);
                     messageLayout.setError(null);
-                    dialog.dismiss();
+                    ratingError.setVisibility(View.GONE);
 
-                    String category = getSelectedFeedbackType(typeGroup);
-                    AuthController authController = new AuthController();
-                    User currentUser = authController.getCurrentUser();
-                    String uid = currentUser != null ? currentUser.getUid() : "";
+                    String comment = textOf(messageInput);
 
-                    // Write feedback atomically to Firebase Realtime Database
-                    FeedbackRepository feedbackRepo = new FeedbackRepository();
-                    feedbackRepo.submitFeedback(uid, message, 5, category, "", "", new FeedbackRepository.Callback() {
+                    FeedbackController controller = new FeedbackController(new FeedbackController.Callback() {
                         @Override
-                        public void onSuccess(String feedbackId) {
-                            Toast.makeText(MainActivity.this, "Feedback submitted. Thank you!", Toast.LENGTH_SHORT).show();
+                        public void onFieldError(FeedbackController.Field field, int errorResId) {
+                            String error = getString(errorResId);
+                            switch (field) {
+                                case FULL_NAME:
+                                    nameLayout.setError(error);
+                                    break;
+                                case PHONE:
+                                    phoneLayout.setError(error);
+                                    break;
+                                case EMAIL:
+                                    emailLayout.setError(error);
+                                    break;
+                                case COMMENT:
+                                    messageLayout.setError(error);
+                                    break;
+                                case RATING:
+                                    ratingError.setText(error);
+                                    ratingError.setVisibility(View.VISIBLE);
+                                    break;
+                            }
+                        }
+
+                        @Override
+                        public void onNotLoggedIn() {
+                            Toast.makeText(MainActivity.this, R.string.feedback_login_required,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onSuccess() {
+                            Toast.makeText(MainActivity.this, R.string.feedback_success,
+                                    Toast.LENGTH_SHORT).show();
+                            sendFeedbackEmail(comment.trim());
                         }
 
                         @Override
                         public void onError(String message) {
-                            Toast.makeText(MainActivity.this, "Failed to submit feedback: " + message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this,
+                                    getString(R.string.feedback_failed, message),
+                                    Toast.LENGTH_SHORT).show();
                         }
                     });
 
-                    sendFeedbackEmail(category, message);
+                    boolean started = controller.submit(
+                            textOf(nameInput),
+                            textOf(phoneInput),
+                            textOf(emailInput),
+                            comment,
+                            (int) ratingBar.getRating(),
+                            DeviceInfo.from(getAppVersion()));
+
+                    if (started) {
+                        dialog.dismiss();
+                    }
                 }));
 
         dialog.show();
     }
 
-    private String getSelectedFeedbackType(ChipGroup typeGroup) {
-        Chip selected = typeGroup.findViewById(typeGroup.getCheckedChipId());
-        return selected != null ? selected.getText().toString() : getString(R.string.feedback_other);
+    private String textOf(EditText input) {
+        return input.getText() == null ? "" : input.getText().toString();
+    }
+
+    private void sendFeedbackEmail(String comment) {
+        String deviceDetails = getString(R.string.app_name) + " " + getAppVersion()
+                + " · Android " + Build.VERSION.RELEASE
+                + " · " + Build.MANUFACTURER + " " + Build.MODEL;
+
+        Intent email = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.contact_email_address)});
+        email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_subject));
+        email.putExtra(Intent.EXTRA_TEXT, comment + "\n\n---\n" + deviceDetails);
+        startExternalApp(email);
     }
 
     private void sendFeedbackEmail(String type, String message) {

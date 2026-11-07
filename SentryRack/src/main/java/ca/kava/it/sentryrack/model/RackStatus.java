@@ -66,7 +66,7 @@ public class RackStatus {
         return timestamp == 0 || System.currentTimeMillis() - timestamp > maxAgeMs;
     }
 
-    // Just random health score for now
+    // Health score out of 100 minus 50 for a leak and minus 10 for each AQI level
     public int getHealthScore(long staleMs) {
         if (isStale(staleMs)) {
             return 0;

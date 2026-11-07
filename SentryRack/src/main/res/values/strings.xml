@@ -143,16 +143,28 @@
     <string name="contact_web_url" translatable="false">https://humber.ca</string>
 
     <!-- Send feedback dialog -->
+    <string name="feedback_hint">Your comment…</string>
+    <string name="feedback_subject">SentryRack feedback</string>
+    <string name="feedback_name_hint">Full name</string>
+    <string name="feedback_phone_hint">Phone number</string>
+    <string name="feedback_email_hint">Email</string>
+    <string name="feedback_rating_label">Your rating</string>
+    <string name="feedback_name_error">Please enter your full name</string>
+    <string name="feedback_phone_error">Please enter a valid phone number</string>
+    <string name="feedback_email_error">Please enter a valid email address</string>
+    <string name="feedback_rating_error">Please choose a star rating</string>
+    <string name="feedback_login_required">Please log in to send feedback</string>
+    <string name="feedback_success">Feedback submitted. Thank you!</string>
+    <string name="feedback_failed">Failed to submit feedback: %1$s</string>
     <string name="feedback_title">Send feedback</string>
     <string name="feedback_bug">Bug</string>
     <string name="feedback_idea">Idea</string>
     <string name="feedback_other">Other</string>
-    <string name="feedback_hint">Describe the problem…</string>
     <string name="feedback_device_info">App version %1$s · Android %2$s added automatically</string>
     <string name="feedback_send">Send</string>
     <string name="feedback_empty_error">Please write a few words</string>
-    <string name="feedback_subject">SentryRack feedback: %1$s</string>
     <string name="feedback_cancel">Cancel</string>
+
 
     <!-- for location services -->
     <string name="permission_denied_opening_settings">Permission denied, opening settings...</string>
