@@ -12,7 +12,7 @@ public class RackRegistration {
     public final String locationName;
     public final String buildingName;
     public final String floorName;
-    public final Integer floorLevel; // null when the floor name has no number
+    public final Integer floorLevel;
     public final String roomName;
     public final String rackName;
 
