@@ -4,114 +4,134 @@
 // Krushna Patel N01713093 ONC
 package ca.kava.it.sentryrack;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.android.material.textfield.TextInputLayout;
 
-import ca.kava.it.sentryrack.model.LocationRepository;
+import ca.kava.it.sentryrack.controller.RegisterRackController;
 
-public class RegisterRackFragment extends Fragment {
-    private static final String ARG_ROOM_ID = "roomId";
+public class RegisterRackFragment extends Fragment implements RegisterRackController.Callback {
 
+    private TextInputLayout rackNameLayout;
+    private TextInputLayout floorLayout;
+    private TextInputLayout roomLayout;
     private TextInputEditText rackNameInput;
     private TextInputEditText floorInput;
     private TextInputEditText roomInput;
     private MaterialButton registerButton;
-    private final LocationRepository repository = new LocationRepository();
-
-    public RegisterRackFragment() {
-    }
-
-    public static RegisterRackFragment newInstance(String roomId) {
-        RegisterRackFragment fragment = new RegisterRackFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_ROOM_ID, roomId);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private RegisterRackController controller;
+    private String registeredRackName = "";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.register_rack_fragment, container, false);
 
+        rackNameLayout = view.findViewById(R.id.registerRackNameLayout);
+        floorLayout = view.findViewById(R.id.registerRackFloorLayout);
+        roomLayout = view.findViewById(R.id.registerRackRoomLayout);
         rackNameInput = view.findViewById(R.id.registerRackNameInput);
         floorInput = view.findViewById(R.id.registerRackFloorInput);
         roomInput = view.findViewById(R.id.registerRackRoomInput);
         registerButton = view.findViewById(R.id.registerRackButton);
 
+        controller = new RegisterRackController(this);
         registerButton.setOnClickListener(v -> registerRack());
 
         return view;
     }
 
     private void registerRack() {
-        String rackName = rackNameInput.getText() == null ? "" : rackNameInput.getText().toString().trim();
-        String floorName = floorInput.getText() == null ? "" : floorInput.getText().toString().trim();
-        String roomName = roomInput.getText() == null ? "" : roomInput.getText().toString().trim();
+        rackNameLayout.setError(null);
+        floorLayout.setError(null);
+        roomLayout.setError(null);
 
-        if (TextUtils.isEmpty(rackName)) {
-            rackNameInput.setError("Rack name is required");
-            rackNameInput.requestFocus();
-            return;
-        }
-        if (TextUtils.isEmpty(floorName)) {
-            floorInput.setError("Floor is required");
-            floorInput.requestFocus();
-            return;
-        }
-        if (TextUtils.isEmpty(roomName)) {
-            roomInput.setError("Room is required");
-            roomInput.requestFocus();
-            return;
-        }
+        registeredRackName = textOf(rackNameInput).trim();
+        boolean started = controller.register(registeredRackName, textOf(floorInput), textOf(roomInput));
+        registerButton.setEnabled(!started);
+    }
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null) {
-            Toast.makeText(requireContext(), "Please sign in before registering a rack.", Toast.LENGTH_SHORT).show();
-            return;
+    @Override
+    public void onFieldError(RegisterRackController.Field field, int errorResId) {
+        if (!isAdded()) return;
+        registerButton.setEnabled(true);
+        String error = getString(errorResId);
+        switch (field) {
+            case RACK_NAME:
+                rackNameLayout.setError(error);
+                break;
+            case FLOOR:
+                floorLayout.setError(error);
+                break;
+            case ROOM:
+                roomLayout.setError(error);
+                break;
         }
+    }
 
-        registerButton.setEnabled(false);
-        repository.registerRackHierarchy(rackName, floorName, roomName, currentUser.getUid(), "admin",
-                new LocationRepository.Callback() {
-                    @Override
-                    public void onSuccess(String id) {
-                        if (!isAdded()) {
-                            return;
-                        }
-                        registerButton.setEnabled(true);
-                        Toast.makeText(requireContext(), "Rack registered successfully.", Toast.LENGTH_SHORT).show();
-                        rackNameInput.setText("");
-                        floorInput.setText("");
-                        roomInput.setText("");
-                    }
+    @Override
+    public void onNotLoggedIn() {
+        if (!isAdded()) return;
+        registerButton.setEnabled(true);
+        Toast.makeText(requireContext(), R.string.register_rack_login_required, Toast.LENGTH_SHORT).show();
+    }
 
-                    @Override
-                    public void onError(String message) {
-                        if (!isAdded()) {
-                            return;
-                        }
-                        registerButton.setEnabled(true);
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
-                    }
-                });
+    @Override
+    public void onSuccess(String rackId, String roomId) {
+        if (!isAdded()) return;
+        registerButton.setEnabled(true);
+        RacksFragment.saveLastRoomId(requireContext(), roomId);
+        showRegisteredDialog(rackId);
+    }
+
+    @Override
+    public void onError(String message) {
+        if (!isAdded()) return;
+        registerButton.setEnabled(true);
+        Toast.makeText(requireContext(),
+                getString(R.string.register_rack_failed, message), Toast.LENGTH_SHORT).show();
+    }
+
+    // Shows the new rack's ID (the other application needs it), then opens the Racks screen
+    private void showRegisteredDialog(String rackId) {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.register_rack_success_title)
+                .setMessage(getString(R.string.register_rack_success_message, registeredRackName, rackId))
+                .setPositiveButton(R.string.register_rack_copy_id, (dialog, which) -> copyToClipboard(rackId))
+                .setNegativeButton(R.string.register_rack_done, null)
+                .setOnDismissListener(dialog -> openRacks())
+                .show();
+    }
+
+    private void copyToClipboard(String rackId) {
+        ClipboardManager clipboard =
+                (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboard.setPrimaryClip(ClipData.newPlainText(getString(R.string.register_rack_clip_label), rackId));
+        Toast.makeText(requireContext(), R.string.register_rack_id_copied, Toast.LENGTH_SHORT).show();
+    }
+
+    private void openRacks() {
+        if (!isAdded()) return;
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new RacksFragment())
+                .commit();
+    }
+
+    private String textOf(TextInputEditText input) {
+        return input.getText() == null ? "" : input.getText().toString();
     }
 }

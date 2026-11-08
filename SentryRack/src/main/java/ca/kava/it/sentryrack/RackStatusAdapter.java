@@ -3,8 +3,8 @@
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
 
-package ca.kava.it.sentryrack
-;
+package ca.kava.it.sentryrack;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Locale;
 
 import ca.kava.it.sentryrack.model.RackStatus;
 public class RackStatusAdapter extends ListAdapter<RackStatus, RackStatusAdapter.VH> {
@@ -55,20 +54,19 @@ public class RackStatusAdapter extends ListAdapter<RackStatus, RackStatusAdapter
 
         boolean isOffline = r.isStale(STALE_MS);
         if (isOffline) {
-            h.racksStatusChip.setText("OFFLINE");
+            h.racksStatusChip.setText(R.string.racks_status_offline);
             h.racksStatusChip.setBackgroundColor(ContextCompat.getColor(context, R.color.status_offline));
         } else if (r.leak) {
-            h.racksStatusChip.setText("LEAK");
+            h.racksStatusChip.setText(R.string.racks_status_leak);
             h.racksStatusChip.setBackgroundColor(ContextCompat.getColor(context, R.color.status_critical));
         } else {
-            h.racksStatusChip.setText("Healthy");
+            h.racksStatusChip.setText(R.string.racks_status_healthy);
             h.racksStatusChip.setBackgroundColor(ContextCompat.getColor(context, R.color.status_healthy));
         }
 
-        String sensorDetails = String.format(Locale.US,
-                "Coolant: %.1fmm | Current: %.1fA | Door: %s",
-                r.coolantLevel, r.currentA, r.doorOpen ? "OPEN" : "Closed");
-        h.racksLocation.setText(sensorDetails);
+        String doorState = context.getString(r.doorOpen ? R.string.racks_door_open : R.string.racks_door_closed);
+        h.racksLocation.setText(context.getString(R.string.racks_sensor_details,
+                r.coolantLevel, r.currentA, doorState));
 
         int healthScore = r.getHealthScore(STALE_MS);
         h.racksHealthProgress.setProgress(healthScore);

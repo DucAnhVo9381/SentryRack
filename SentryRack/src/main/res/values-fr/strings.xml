@@ -77,6 +77,51 @@
 
 
     <!-- Racks screen -->
+    <string name="racks_title">Baies</string>
+    <string name="racks_subtitle">Gérez et inspectez les baies de serveurs</string>
+    <string name="racks_search_hint">Rechercher des baies...</string>
+    <string name="racks_chip_all">Toutes</string>
+    <string name="racks_chip_healthy">Saines</string>
+    <string name="racks_chip_warning">Avertissement</string>
+    <string name="racks_chip_critical">Critiques</string>
+    <string name="racks_register_button">Enregistrer une baie</string>
+    <string name="racks_header_title">Baies surveillées</string>
+    <plurals name="racks_total_count">
+        <item quantity="one">%d baie</item>
+        <item quantity="many">%d baies</item>
+        <item quantity="other">%d baies</item>
+    </plurals>
+    <string name="racks_health_label">Indice de santé</string>
+    <string name="racks_status_offline">HORS LIGNE</string>
+    <string name="racks_status_leak">FUITE</string>
+    <string name="racks_status_healthy">Saine</string>
+    <string name="racks_door_open">OUVERTE</string>
+    <string name="racks_door_closed">Fermée</string>
+    <string name="racks_sensor_details">Liquide de refroidissement : %1$.1f mm | Courant : %2$.1f A | Porte : %3$s</string>
+
+    <!-- Register rack screen -->
+    <string name="register_rack_title">Enregistrer une baie</string>
+    <string name="register_rack_subtitle">Ajoutez une nouvelle baie à votre système</string>
+    <string name="register_rack_name_label">Nom de la baie</string>
+    <string name="register_rack_name_hint">p. ex. R-001</string>
+    <string name="register_rack_floor_label">Étage</string>
+    <string name="register_rack_floor_hint">p. ex. Étage 1</string>
+    <string name="register_rack_room_label">Salle</string>
+    <string name="register_rack_room_hint">p. ex. Salle A</string>
+    <string name="register_rack_info">Seules les informations de la baie sont requises. L\'état de santé et les relevés des capteurs seront surveillés automatiquement après l\'enregistrement.</string>
+    <string name="register_rack_button">Enregistrer la baie</string>
+    <string name="register_rack_name_error">Le nom de la baie est requis</string>
+    <string name="register_rack_floor_error">L\'étage est requis</string>
+    <string name="register_rack_room_error">La salle est requise</string>
+    <string name="register_rack_duplicate_error">Une baie portant ce nom existe déjà dans cette salle</string>
+    <string name="register_rack_login_required">Veuillez vous connecter avant d\'enregistrer une baie.</string>
+    <string name="register_rack_failed">Impossible d\'enregistrer la baie : %1$s</string>
+    <string name="register_rack_success_title">Baie enregistrée</string>
+    <string name="register_rack_success_message">%1$s a été ajoutée.\n\nID de la baie :\n%2$s\n\nVotre application de capteurs a besoin de cet ID pour envoyer les relevés de cette baie.</string>
+    <string name="register_rack_copy_id">Copier l\'ID</string>
+    <string name="register_rack_done">Terminé</string>
+    <string name="register_rack_id_copied">ID de la baie copié</string>
+    <string name="register_rack_clip_label">ID de la baie</string>
 
 
     <!-- User (profile) screen - bottom navigation tab -->
@@ -153,11 +198,7 @@
     <string name="feedback_login_required">Veuillez vous connecter pour envoyer un commentaire</string>
     <string name="feedback_success">Commentaire envoyé. Merci !</string>
     <string name="feedback_failed">Échec de l\'envoi du commentaire : %1$s</string>
-
     <string name="feedback_title">Send feedback</string>
-    <string name="feedback_bug">Bug</string>
-    <string name="feedback_idea">Idea</string>
-    <string name="feedback_other">Other</string>
     <string name="feedback_device_info">App version %1$s · Android %2$s added automatically</string>
     <string name="feedback_send">Send</string>
     <string name="feedback_empty_error">Please write a few words</string>

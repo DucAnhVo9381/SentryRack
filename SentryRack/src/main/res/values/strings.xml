@@ -75,8 +75,52 @@
 
     <!-- Dashboard screen -->
 
-
     <!-- Racks screen -->
+    <string name="racks_title">Racks</string>
+    <string name="racks_subtitle">Manage and investigate server racks</string>
+    <string name="racks_search_hint">Search racks...</string>
+    <string name="racks_chip_all">All</string>
+    <string name="racks_chip_healthy">Healthy</string>
+    <string name="racks_chip_warning">Warning</string>
+    <string name="racks_chip_critical">Critical</string>
+    <string name="racks_register_button">Register Rack</string>
+    <string name="racks_header_title">Monitored Racks</string>
+    <plurals name="racks_total_count">
+        <item quantity="one">%d Rack</item>
+        <item quantity="other">%d Racks</item>
+    </plurals>
+    <string name="racks_health_label">Health Score</string>
+    <string name="racks_status_offline">OFFLINE</string>
+    <string name="racks_status_leak">LEAK</string>
+    <string name="racks_status_healthy">Healthy</string>
+    <string name="racks_door_open">OPEN</string>
+    <string name="racks_door_closed">Closed</string>
+    <string name="racks_sensor_details">Coolant: %1$.1fmm | Current: %2$.1fA | Door: %3$s</string>
+
+    <!-- Register rack screen -->
+    <string name="required_marker" translatable="false">" *"</string>
+    <string name="register_rack_title">Register Rack</string>
+    <string name="register_rack_subtitle">Add a new rack to your system</string>
+    <string name="register_rack_name_label">Rack Name</string>
+    <string name="register_rack_name_hint">e.g. R-001</string>
+    <string name="register_rack_floor_label">Floor</string>
+    <string name="register_rack_floor_hint">e.g. Floor 1</string>
+    <string name="register_rack_room_label">Room</string>
+    <string name="register_rack_room_hint">e.g. Room A</string>
+    <string name="register_rack_info">Only rack information is required. Health status and sensor readings will be monitored automatically after registration.</string>
+    <string name="register_rack_button">Register Rack</string>
+    <string name="register_rack_name_error">Rack name is required</string>
+    <string name="register_rack_floor_error">Floor is required</string>
+    <string name="register_rack_room_error">Room is required</string>
+    <string name="register_rack_duplicate_error">A rack with this name already exists in this room</string>
+    <string name="register_rack_login_required">Please sign in before registering a rack.</string>
+    <string name="register_rack_failed">Could not register the rack: %1$s</string>
+    <string name="register_rack_success_title">Rack registered</string>
+    <string name="register_rack_success_message">%1$s was added.\n\nRack ID:\n%2$s\n\nYour sensor application needs this ID to send readings for this rack.</string>
+    <string name="register_rack_copy_id">Copy ID</string>
+    <string name="register_rack_done">Done</string>
+    <string name="register_rack_id_copied">Rack ID copied</string>
+    <string name="register_rack_clip_label">Rack ID</string>
 
 
     <!-- User (profile) screen - bottom navigation tab -->
@@ -157,9 +201,6 @@
     <string name="feedback_success">Feedback submitted. Thank you!</string>
     <string name="feedback_failed">Failed to submit feedback: %1$s</string>
     <string name="feedback_title">Send feedback</string>
-    <string name="feedback_bug">Bug</string>
-    <string name="feedback_idea">Idea</string>
-    <string name="feedback_other">Other</string>
     <string name="feedback_device_info">App version %1$s · Android %2$s added automatically</string>
     <string name="feedback_send">Send</string>
     <string name="feedback_empty_error">Please write a few words</string>
