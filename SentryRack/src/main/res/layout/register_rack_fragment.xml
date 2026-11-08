@@ -20,7 +20,7 @@
             android:id="@+id/registerRackTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register Rack"
+            android:text="@string/register_rack_title"
             android:textSize="28sp"
             android:textStyle="bold" />
 
@@ -28,7 +28,7 @@
             android:id="@+id/registerRackSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add a new rack to your system"
+            android:text="@string/register_rack_subtitle"
             android:textSize="16sp" />
 
         <!-- HERO IMAGE -->
@@ -67,13 +67,13 @@
                 android:id="@+id/registerRackNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rack Name"
+                android:text="@string/register_rack_name_label"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" *"
+                android:text="@string/required_marker"
                 android:textColor="#F44336"/>
         </LinearLayout>
 
@@ -88,7 +88,7 @@
                 android:id="@+id/registerRackNameInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="e.g. R-001"/>
+                android:hint="@string/register_rack_name_hint"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- FLOOR -->
@@ -102,13 +102,13 @@
                 android:id="@+id/registerRackFloorLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Floor"
+                android:text="@string/register_rack_floor_label"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" *"
+                android:text="@string/required_marker"
                 android:textColor="#F44336"/>
         </LinearLayout>
 
@@ -124,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:hint="e.g. Floor 1" />
+                android:hint="@string/register_rack_floor_hint" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- ROOM -->
@@ -138,13 +138,13 @@
                 android:id="@+id/registerRackRoomLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Room"
+                android:text="@string/register_rack_room_label"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" *"
+                android:text="@string/required_marker"
                 android:textColor="#F44336"/>
         </LinearLayout>
 
@@ -159,7 +159,7 @@
                 android:id="@+id/registerRackRoomInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="e.g. Room A" />
+                android:hint="@string/register_rack_room_hint" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- INFO CARD -->
@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_weight="1"
-                    android:text="Only rack information is required. Health status and sensor readings will be monitored automatically after registration." />
+                    android:text="@string/register_rack_info" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -198,7 +198,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="10dp"
-            android:text="Register Rack"
+            android:text="@string/register_rack_button"
             android:textAllCaps="false"
             android:textStyle="bold"
             app:cornerRadius="16dp"

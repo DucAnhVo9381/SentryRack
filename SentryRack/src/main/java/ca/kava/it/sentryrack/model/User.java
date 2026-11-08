@@ -50,7 +50,6 @@ public class User {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    // Helper getter for existing UI components expecting getDisplayName()
     @com.google.firebase.database.Exclude
     public String getDisplayName() { return name; }
 

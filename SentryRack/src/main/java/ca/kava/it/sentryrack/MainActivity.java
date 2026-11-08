@@ -157,8 +157,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                Fragment current = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
                 if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                     drawerLayout.closeDrawer(GravityCompat.START);
+                }else if (current instanceof RegisterRackFragment) {
+                        setCurrentFragment(new RacksFragment());
                 } else if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container) instanceof DashboardFragment)) {
                     bottomNav.getMenu().findItem(R.id.dashboard).setChecked(true);
                     bottomNav.setSelectedItemId(R.id.dashboard);
@@ -229,6 +233,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void logout() {
+        RacksFragment.clearLastRoomId(this);
         AuthController authController = new AuthController();
         authController.logout();
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/racksRVCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="R-001"
+                    tools:text="R-001"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -56,7 +56,7 @@
                     android:background="@android:color/holo_red_light"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="4dp"
-                    android:text="Critical"
+                    tools:text="Critical"
                     android:textColor="@android:color/white"
                     android:textSize="11sp"
                     android:textStyle="bold" />
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Floor 1 • Room A"
+                tools:text="Floor 1 • Room A"
                 android:textSize="13sp" />
 
             <!-- Health Score Row -->
@@ -83,7 +83,7 @@
                     android:id="@+id/racksHealthLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Health Score"
+                    android:text="@string/racks_health_label"
                     android:textSize="13sp" />
 
                 <ProgressBar
