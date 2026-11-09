@@ -222,7 +222,7 @@ public class DashboardRackController {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (requestGeneration != generation || !items.containsKey(rackId)) return;
                 if (!snapshot.exists()) {
-                    RackRepository.ensureLatestIfMissing(rackId, callback::onError);
+                    RackRepository.initializeLatestFromTemplate(rackId, callback::onError);
                 }
                 String name = names.containsKey(rackId) ? names.get(rackId) : rackId;
                 items.put(rackId, RackStatus.fromSnapshot(rackId, name, snapshot));
@@ -242,7 +242,8 @@ public class DashboardRackController {
         RackStatus current = items.get(rackId);
         if (current == null) return;
         items.put(rackId, new RackStatus(rackId, names.get(rackId), current.timestamp,
-                current.simulated, current.coolantLevel, current.leak, current.currentA,
+                current.simulated, current.hasSensorData, current.coolantLevel,
+                current.leak, current.currentA,
                 current.powerW, current.doorOpen, current.aqi, current.tvoc, current.eco2));
         publish();
     }

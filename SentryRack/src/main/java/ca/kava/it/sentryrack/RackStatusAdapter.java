@@ -64,9 +64,15 @@ public class RackStatusAdapter extends ListAdapter<RackStatus, RackStatusAdapter
             h.racksStatusChip.setBackgroundColor(ContextCompat.getColor(context, R.color.status_healthy));
         }
 
-        String doorState = context.getString(r.doorOpen ? R.string.racks_door_open : R.string.racks_door_closed);
-        String details = context.getString(R.string.racks_sensor_details,
-                r.coolantLevel, r.currentA, doorState);
+        String details;
+        if (!r.hasSensorData) {
+            details = context.getString(R.string.racks_no_sensor_data);
+        } else {
+            String doorState = context.getString(
+                    r.doorOpen ? R.string.racks_door_open : R.string.racks_door_closed);
+            details = context.getString(R.string.racks_sensor_details,
+                    r.coolantLevel, r.currentA, doorState);
+        }
         if (r.simulated) {
             details += " · " + context.getString(R.string.racks_simulated_data);
         }

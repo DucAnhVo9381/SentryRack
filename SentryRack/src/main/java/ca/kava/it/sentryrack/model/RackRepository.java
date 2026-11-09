@@ -43,44 +43,51 @@ public class RackRepository {
         this.rootRef = FirebaseDatabase.getInstance().getReference();
     }
 
-    public static void ensureLatestIfMissing(String rackId, Consumer<String> onError) {
-        DatabaseReference latestRef = FirebaseDatabase.getInstance().getReference()
-                .child("latest").child(rackId);
-        latestRef.runTransaction(new Transaction.Handler() {
-            @NonNull
-            @Override
-            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
-                if (currentData.getValue() == null) {
-                    currentData.setValue(simulatedLatest());
-                }
-                return Transaction.success(currentData);
+    public static void initializeLatestFromTemplate(String rackId, Consumer<String> onError) {
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+        root.child("sensorTemplate").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Exception error = task.getException();
+                onError.accept(error != null ? error.getMessage()
+                        : "Could not read the sensor template");
+                return;
             }
 
-            @Override
-            public void onComplete(DatabaseError error, boolean committed,
-                                   DataSnapshot currentData) {
-                if (error != null) onError.accept(error.getMessage());
-            }
+            DataSnapshot template = task.getResult();
+            if (!template.exists() || !template.hasChildren()) return;
+
+            Map<String, Object> initialReadings = copyObject(template);
+            initialReadings.put("timestamp", 0L);
+            initialReadings.put("simulated", true);
+            root.child("latest").child(rackId).runTransaction(new Transaction.Handler() {
+                @NonNull
+                @Override
+                public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                    if (currentData.getValue() == null) {
+                        currentData.setValue(initialReadings);
+                    }
+                    return Transaction.success(currentData);
+                }
+
+                @Override
+                public void onComplete(DatabaseError error, boolean committed,
+                                       DataSnapshot currentData) {
+                    if (error != null) onError.accept(error.getMessage());
+                }
+            });
         });
     }
 
-    private static Map<String, Object> sensorValues(Object... values) {
-        Map<String, Object> result = new HashMap<>();
-        for (int i = 0; i < values.length; i += 2) {
-            result.put((String) values[i], values[i + 1]);
+    private static Map<String, Object> copyObject(DataSnapshot snapshot) {
+        Map<String, Object> values = new HashMap<>();
+        for (DataSnapshot child : snapshot.getChildren()) {
+            if (child.hasChildren()) {
+                values.put(child.getKey(), copyObject(child));
+            } else {
+                values.put(child.getKey(), child.getValue());
+            }
         }
-        return result;
-    }
-
-    private static Map<String, Object> simulatedLatest() {
-        Map<String, Object> readings = new HashMap<>();
-        readings.put("timestamp", System.currentTimeMillis());
-        readings.put("simulated", true);
-        readings.put("coolantLevel", sensorValues("value", 45.0, "leak", false));
-        readings.put("current", sensorValues("value", 4.2, "powerW", 924.0));
-        readings.put("door", sensorValues("open", false));
-        readings.put("airQuality", sensorValues("aqi", 22, "tvoc", 120, "eco2", 650));
-        return readings;
+        return values;
     }
 
     public void registerRack(RackRegistration request, Callback callback) {
@@ -173,14 +180,27 @@ public class RackRepository {
         updates.put(rackBase + "lastSeen", 0);
         updates.put("/rooms/" + roomId + "/racks/" + rackId, true);
 
-        updates.put("/latest/" + rackId, simulatedLatest());
-
-        rootRef.updateChildren(updates, (error, ref) -> {
-            if (error != null) {
-                callback.onError(error.getMessage());
-            } else {
-                callback.onSuccess(rackId, roomId);
+        rootRef.child("sensorTemplate").get().addOnCompleteListener(templateTask -> {
+            if (!templateTask.isSuccessful()) {
+                Exception error = templateTask.getException();
+                callback.onError(error != null ? error.getMessage()
+                        : "Could not read the sensor template");
+                return;
             }
+            DataSnapshot template = templateTask.getResult();
+            if (template.exists() && template.hasChildren()) {
+                Map<String, Object> initialReadings = copyObject(template);
+                initialReadings.put("timestamp", 0L);
+                initialReadings.put("simulated", true);
+                updates.put("/latest/" + rackId, initialReadings);
+            }
+            rootRef.updateChildren(updates, (error, ref) -> {
+                if (error != null) {
+                    callback.onError(error.getMessage());
+                } else {
+                    callback.onSuccess(rackId, roomId);
+                }
+            });
         });
     }
 

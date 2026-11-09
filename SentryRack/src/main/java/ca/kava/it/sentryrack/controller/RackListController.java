@@ -107,7 +107,8 @@ public class RackListController {
                         RackStatus cur = items.get(rackId);
                         if (cur != null) {
                             items.put(rackId, new RackStatus(rackId, names.get(rackId),
-                                    cur.timestamp, cur.simulated, cur.coolantLevel, cur.leak, cur.currentA,
+                                    cur.timestamp, cur.simulated, cur.hasSensorData,
+                                    cur.coolantLevel, cur.leak, cur.currentA,
                                     cur.powerW, cur.doorOpen, cur.aqi, cur.tvoc, cur.eco2));
                             publish();
                         }
@@ -124,7 +125,7 @@ public class RackListController {
             public void onDataChange(@NonNull DataSnapshot s) {
                 if (!items.containsKey(rackId)) return;
                 if (!s.exists()) {
-                    RackRepository.ensureLatestIfMissing(rackId, callback::onError);
+                    RackRepository.initializeLatestFromTemplate(rackId, callback::onError);
                 }
                 String name = names.containsKey(rackId) ? names.get(rackId) : rackId;
                 items.put(rackId, RackStatus.fromSnapshot(rackId, name, s));
