@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ca.kava.it.sentryrack.model.RackStatus;
 public class RackStatusAdapter extends ListAdapter<RackStatus, RackStatusAdapter.VH> {
-    private static final long STALE_MS = 60_000;
+    private static final long STALE_MS = RackStatus.STALE_AFTER_MS;
 
     public RackStatusAdapter() {
         super(new DiffUtil.ItemCallback<RackStatus>() {
@@ -52,11 +52,11 @@ public class RackStatusAdapter extends ListAdapter<RackStatus, RackStatusAdapter
 
         h.racksName.setText(r.name);
 
-        boolean isOffline = r.isStale(STALE_MS);
-        if (isOffline) {
+        RackStatus.Condition condition = r.getCondition(STALE_MS);
+        if (condition == RackStatus.Condition.WARNING) {
             h.racksStatusChip.setText(R.string.racks_status_offline);
             h.racksStatusChip.setBackgroundColor(ContextCompat.getColor(context, R.color.status_offline));
-        } else if (r.leak) {
+        } else if (condition == RackStatus.Condition.CRITICAL) {
             h.racksStatusChip.setText(R.string.racks_status_leak);
             h.racksStatusChip.setBackgroundColor(ContextCompat.getColor(context, R.color.status_critical));
         } else {
@@ -64,9 +64,19 @@ public class RackStatusAdapter extends ListAdapter<RackStatus, RackStatusAdapter
             h.racksStatusChip.setBackgroundColor(ContextCompat.getColor(context, R.color.status_healthy));
         }
 
-        String doorState = context.getString(r.doorOpen ? R.string.racks_door_open : R.string.racks_door_closed);
-        h.racksLocation.setText(context.getString(R.string.racks_sensor_details,
-                r.coolantLevel, r.currentA, doorState));
+        String details;
+        if (!r.hasSensorData) {
+            details = context.getString(R.string.racks_no_sensor_data);
+        } else {
+            String doorState = context.getString(
+                    r.doorOpen ? R.string.racks_door_open : R.string.racks_door_closed);
+            details = context.getString(R.string.racks_sensor_details,
+                    r.coolantLevel, r.currentA, doorState);
+        }
+        if (r.simulated) {
+            details += " · " + context.getString(R.string.racks_simulated_data);
+        }
+        h.racksLocation.setText(details);
 
         int healthScore = r.getHealthScore(STALE_MS);
         h.racksHealthProgress.setProgress(healthScore);

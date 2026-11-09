@@ -4,17 +4,23 @@
 // Krushna Patel N01713093 ONC
 package ca.kava.it.sentryrack.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class RackRepository {
 
@@ -35,6 +41,53 @@ public class RackRepository {
 
     public RackRepository() {
         this.rootRef = FirebaseDatabase.getInstance().getReference();
+    }
+
+    public static void initializeLatestFromTemplate(String rackId, Consumer<String> onError) {
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+        root.child("sensorTemplate").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Exception error = task.getException();
+                onError.accept(error != null ? error.getMessage()
+                        : "Could not read the sensor template");
+                return;
+            }
+
+            DataSnapshot template = task.getResult();
+            if (!template.exists() || !template.hasChildren()) return;
+
+            Map<String, Object> initialReadings = copyObject(template);
+            initialReadings.put("timestamp", 0L);
+            initialReadings.put("simulated", true);
+            root.child("latest").child(rackId).runTransaction(new Transaction.Handler() {
+                @NonNull
+                @Override
+                public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                    if (currentData.getValue() == null) {
+                        currentData.setValue(initialReadings);
+                    }
+                    return Transaction.success(currentData);
+                }
+
+                @Override
+                public void onComplete(DatabaseError error, boolean committed,
+                                       DataSnapshot currentData) {
+                    if (error != null) onError.accept(error.getMessage());
+                }
+            });
+        });
+    }
+
+    private static Map<String, Object> copyObject(DataSnapshot snapshot) {
+        Map<String, Object> values = new HashMap<>();
+        for (DataSnapshot child : snapshot.getChildren()) {
+            if (child.hasChildren()) {
+                values.put(child.getKey(), copyObject(child));
+            } else {
+                values.put(child.getKey(), child.getValue());
+            }
+        }
+        return values;
     }
 
     public void registerRack(RackRegistration request, Callback callback) {
@@ -127,12 +180,27 @@ public class RackRepository {
         updates.put(rackBase + "lastSeen", 0);
         updates.put("/rooms/" + roomId + "/racks/" + rackId, true);
 
-        rootRef.updateChildren(updates, (error, ref) -> {
-            if (error != null) {
-                callback.onError(error.getMessage());
-            } else {
-                callback.onSuccess(rackId, roomId);
+        rootRef.child("sensorTemplate").get().addOnCompleteListener(templateTask -> {
+            if (!templateTask.isSuccessful()) {
+                Exception error = templateTask.getException();
+                callback.onError(error != null ? error.getMessage()
+                        : "Could not read the sensor template");
+                return;
             }
+            DataSnapshot template = templateTask.getResult();
+            if (template.exists() && template.hasChildren()) {
+                Map<String, Object> initialReadings = copyObject(template);
+                initialReadings.put("timestamp", 0L);
+                initialReadings.put("simulated", true);
+                updates.put("/latest/" + rackId, initialReadings);
+            }
+            rootRef.updateChildren(updates, (error, ref) -> {
+                if (error != null) {
+                    callback.onError(error.getMessage());
+                } else {
+                    callback.onSuccess(rackId, roomId);
+                }
+            });
         });
     }
 
