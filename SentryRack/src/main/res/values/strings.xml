@@ -91,6 +91,7 @@
     <string name="racks_status_offline">OFFLINE</string>
     <string name="racks_status_leak">LEAK</string>
     <string name="racks_status_healthy">Healthy</string>
+    <string name="racks_simulated_data">SIMULATED DATA</string>
     <string name="racks_door_open">OPEN</string>
     <string name="racks_door_closed">Closed</string>
     <string name="racks_sensor_details">Coolant: %1$.1fmm | Current: %2$.1fA | Door: %3$s</string>
@@ -114,7 +115,7 @@
     <string name="register_rack_login_required">Please sign in before registering a rack.</string>
     <string name="register_rack_failed">Could not register the rack: %1$s</string>
     <string name="register_rack_success_title">Rack registered</string>
-    <string name="register_rack_success_message">%1$s was added.\n\nRack ID:\n%2$s\n\nYour sensor application needs this ID to send readings for this rack.</string>
+    <string name="register_rack_success_message">%1$s was added.\n\nRack ID:\n%2$s\n\nYour sensor application needs this ID to send readings for this rack. Initial readings are marked simulated; set simulated to false when sending real sensor data.</string>
     <string name="register_rack_copy_id">Copy ID</string>
     <string name="register_rack_done">Done</string>
     <string name="register_rack_id_copied">Rack ID copied</string>

@@ -93,7 +93,6 @@ public class RegisterRackFragment extends Fragment implements RegisterRackContro
     public void onSuccess(String rackId, String roomId) {
         if (!isAdded()) return;
         registerButton.setEnabled(true);
-        RacksFragment.saveLastRoomId(requireContext(), roomId);
         showRegisteredDialog(rackId);
     }
 
