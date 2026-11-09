@@ -16,6 +16,7 @@ public class RackStatus {
     public final String name;
     public final long timestamp;
     public final boolean simulated;
+    public final boolean hasSensorData;
     public final double coolantLevel;
     public final boolean leak;
     public final double currentA;
@@ -26,6 +27,7 @@ public class RackStatus {
     public final int eco2;
 
     public RackStatus(String rackId, String name, long timestamp, boolean simulated,
+                      boolean hasSensorData,
                       double coolantLevel,
                       boolean leak, double currentA, double powerW, boolean doorOpen,
                       int aqi, int tvoc, int eco2) {
@@ -33,6 +35,7 @@ public class RackStatus {
         this.name = name;
         this.timestamp = timestamp;
         this.simulated = simulated;
+        this.hasSensorData = hasSensorData;
         this.coolantLevel = coolantLevel;
         this.leak = leak;
         this.currentA = currentA;
@@ -44,7 +47,8 @@ public class RackStatus {
     }
 
     public static RackStatus placeholder(String rackId, String name) {
-        return new RackStatus(rackId, name, 0, false, 0, false, 0, 0, false, 0, 0, 0);
+        return new RackStatus(rackId, name, 0, false, false,
+                0, false, 0, 0, false, 0, 0, 0);
     }
 
     public static RackStatus fromSnapshot(String rackId, String name, DataSnapshot s) {
@@ -53,6 +57,8 @@ public class RackStatus {
                 name,
                 num(s.child("timestamp").getValue()).longValue(),
                 Boolean.TRUE.equals(s.child("simulated").getValue(Boolean.class)),
+                s.child("coolantLevel").exists() || s.child("current").exists()
+                        || s.child("door").exists() || s.child("airQuality").exists(),
                 num(s.child("coolantLevel").child("value").getValue()).doubleValue(),
                 Boolean.TRUE.equals(s.child("coolantLevel").child("leak").getValue(Boolean.class)),
                 num(s.child("current").child("value").getValue()).doubleValue(),
@@ -95,6 +101,7 @@ public class RackStatus {
         if (!(o instanceof RackStatus)) return false;
         RackStatus r = (RackStatus) o;
         return timestamp == r.timestamp && simulated == r.simulated
+                && hasSensorData == r.hasSensorData
                 && Double.compare(coolantLevel, r.coolantLevel) == 0
                 && leak == r.leak && Double.compare(currentA, r.currentA) == 0
                 && Double.compare(powerW, r.powerW) == 0 && doorOpen == r.doorOpen
@@ -104,7 +111,7 @@ public class RackStatus {
 
     @Override
     public int hashCode() {
-        return Objects.hash(rackId, name, timestamp, simulated, coolantLevel, leak, currentA,
+        return Objects.hash(rackId, name, timestamp, simulated, hasSensorData, coolantLevel, leak, currentA,
                 powerW, doorOpen, aqi, tvoc, eco2);
     }
 }

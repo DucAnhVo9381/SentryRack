@@ -70,6 +70,21 @@
     <string name="setting_temp_unit_value">°C</string>
     <string name="setting_portrait_locked_msg">Screen locked to portrait</string>
     <string name="setting_portrait_unlocked_msg">Screen rotation unlocked</string>
+    <string name="sensor_template_title">Sensor data template</string>
+    <string name="sensor_template_summary">Values here are copied as simulated starting readings when a rack has no readings. Existing rack readings are not replaced.</string>
+    <string name="sensor_template_coolant">Coolant level (mm)</string>
+    <string name="sensor_template_leak">Coolant leak detected</string>
+    <string name="sensor_template_current">Current (A)</string>
+    <string name="sensor_template_power">Power (W)</string>
+    <string name="sensor_template_door_open">Door is open</string>
+    <string name="sensor_template_aqi">Air quality index (AQI)</string>
+    <string name="sensor_template_tvoc">TVOC</string>
+    <string name="sensor_template_eco2">eCO₂</string>
+    <string name="sensor_template_save">Save template to Firebase</string>
+    <string name="sensor_template_saved">Sensor template saved to Firebase</string>
+    <string name="sensor_template_save_failed">Could not save sensor template: %1$s</string>
+    <string name="sensor_template_invalid_number">Enter a non-negative number</string>
+    <string name="sensor_template_invalid_integer">Enter a non-negative whole number</string>
 
     <!-- Dashboard screen -->
 
@@ -92,6 +107,7 @@
     <string name="racks_status_leak">LEAK</string>
     <string name="racks_status_healthy">Healthy</string>
     <string name="racks_simulated_data">SIMULATED DATA</string>
+    <string name="racks_no_sensor_data">No sensor readings available</string>
     <string name="racks_door_open">OPEN</string>
     <string name="racks_door_closed">Closed</string>
     <string name="racks_sensor_details">Coolant: %1$.1fmm | Current: %2$.1fA | Door: %3$s</string>
@@ -115,7 +131,7 @@
     <string name="register_rack_login_required">Please sign in before registering a rack.</string>
     <string name="register_rack_failed">Could not register the rack: %1$s</string>
     <string name="register_rack_success_title">Rack registered</string>
-    <string name="register_rack_success_message">%1$s was added.\n\nRack ID:\n%2$s\n\nYour sensor application needs this ID to send readings for this rack. Initial readings are marked simulated; set simulated to false when sending real sensor data.</string>
+    <string name="register_rack_success_message">%1$s was added.\n\nRack ID:\n%2$s\n\nIf Firebase /sensorTemplate is configured, its readings were copied into /latest/%2$s as simulated starting values. Your sensor application should update that rack’s readings and set simulated to false.</string>
     <string name="register_rack_copy_id">Copy ID</string>
     <string name="register_rack_done">Done</string>
     <string name="register_rack_id_copied">Rack ID copied</string>
