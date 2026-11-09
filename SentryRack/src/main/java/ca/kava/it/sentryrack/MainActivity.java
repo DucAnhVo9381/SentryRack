@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.action_contact) {
             showContactSupportSheet();
             return true;
-        } else if (id == R.id.action_feedback) {
+        } else if (id == R.id.overflow_about) {
             showSendFeedbackDialog();
             return true;
         }

@@ -8,7 +8,7 @@
     <!-- Navigation Drawer -->
     <string name="drawer_account">Account</string>
     <string name="drawer_settings">Settings</string>
-    <string name="drawer_about">About</string>
+    <string name="drawer_feedback">Feedback</string>
     <string name="drawer_logout">Logout</string>
     <string name="open_drawer">Ouvrir le menu de navigation</string>
     <string name="close_drawer">Fermer le menu de navigation</string>
@@ -155,7 +155,7 @@
     <!-- Overflow menu items -->
     <string name="overflow_help_center">Centre d\'aide</string>
     <string name="overflow_contact">Contacter le support</string>
-    <string name="overflow_feedback">Envoyer un commentaire</string>
+    <string name="overflow_about">About</string>
 
     <!-- Help center screen - @author Anvesh @date 2026-10-08 -->
     <string name="help_title">Centre d\'aide</string>
