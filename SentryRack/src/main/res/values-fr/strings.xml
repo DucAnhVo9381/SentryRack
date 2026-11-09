@@ -223,7 +223,7 @@
 
     <!-- ===== Signup screen ===== -->
     <string name="register_title">Créer un compte</string>
-    <string name="register_subtitle">Rejoignez SentryRack pour surveiller vos baies</string>
+    <string name="register_subtitle">Rejoignez Sentry Rack pour surveiller vos baies</string>
     <string name="register_back">Retour à la connexion</string>
     <string name="register_name_hint">Nom complet</string>
     <string name="register_name_placeholder">ex. Alex Morgan</string>
@@ -240,4 +240,16 @@
     <string name="register_button">Créer un compte</string>
     <string name="register_have_account">Vous avez déjà un compte?</string>
     <string name="signup_sign_in">Se connecter</string>
+
+    <!-- About Screen -->
+    <string name="about_subtitle">En savoir plus sur Sentry Rack</string>
+    <string name="about_description">Sentry Rack est une plateforme de surveillance au niveau du rack qui transforme les données brutes des capteurs (sécurité, courant, environnement et détection de fuites) en informations claires sur l\'état des racks de serveurs.</string>
+    <string name="about_monitor_header">Ce que nous surveillons</string>
+    <string name="about_monitor_door">Sécurité de la porte du rack</string>
+    <string name="about_monitor_power">Consommation électrique</string>
+    <string name="about_monitor_environment">Température et qualité de l\'air</string>
+    <string name="about_monitor_leak">Fuites d\'eau</string>
+    <string name="about_team_header">Notre équipe</string>
+    <string name="about_copyright">© 2026 Sentry Rack. Tous droits réservés.</string>
+
 </resources>

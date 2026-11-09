@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
+        android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingStart="@dimen/login_padding"
         android:paddingEnd="@dimen/login_padding"
@@ -28,8 +29,7 @@
             style="@style/Widget.SentryRack.Login.AppName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register_title"
-            android:layout_marginTop="24dp" />
+            android:text="@string/register_title" />
 
         <TextView
             style="@style/Widget.SentryRack.Login.Subtitle"
