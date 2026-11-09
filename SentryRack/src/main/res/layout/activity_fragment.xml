@@ -95,7 +95,7 @@
                 android:id="@+id/activityTotalCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="0 Events" />
+                android:text="0 Events" />
 
         </LinearLayout>
 
