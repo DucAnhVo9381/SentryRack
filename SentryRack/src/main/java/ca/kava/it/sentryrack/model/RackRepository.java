@@ -4,17 +4,23 @@
 // Krushna Patel N01713093 ONC
 package ca.kava.it.sentryrack.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class RackRepository {
 
@@ -35,6 +41,46 @@ public class RackRepository {
 
     public RackRepository() {
         this.rootRef = FirebaseDatabase.getInstance().getReference();
+    }
+
+    public static void ensureLatestIfMissing(String rackId, Consumer<String> onError) {
+        DatabaseReference latestRef = FirebaseDatabase.getInstance().getReference()
+                .child("latest").child(rackId);
+        latestRef.runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                if (currentData.getValue() == null) {
+                    currentData.setValue(simulatedLatest());
+                }
+                return Transaction.success(currentData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError error, boolean committed,
+                                   DataSnapshot currentData) {
+                if (error != null) onError.accept(error.getMessage());
+            }
+        });
+    }
+
+    private static Map<String, Object> sensorValues(Object... values) {
+        Map<String, Object> result = new HashMap<>();
+        for (int i = 0; i < values.length; i += 2) {
+            result.put((String) values[i], values[i + 1]);
+        }
+        return result;
+    }
+
+    private static Map<String, Object> simulatedLatest() {
+        Map<String, Object> readings = new HashMap<>();
+        readings.put("timestamp", System.currentTimeMillis());
+        readings.put("simulated", true);
+        readings.put("coolantLevel", sensorValues("value", 45.0, "leak", false));
+        readings.put("current", sensorValues("value", 4.2, "powerW", 924.0));
+        readings.put("door", sensorValues("open", false));
+        readings.put("airQuality", sensorValues("aqi", 22, "tvoc", 120, "eco2", 650));
+        return readings;
     }
 
     public void registerRack(RackRegistration request, Callback callback) {
@@ -126,6 +172,8 @@ public class RackRepository {
         updates.put(rackBase + "online", false);
         updates.put(rackBase + "lastSeen", 0);
         updates.put("/rooms/" + roomId + "/racks/" + rackId, true);
+
+        updates.put("/latest/" + rackId, simulatedLatest());
 
         rootRef.updateChildren(updates, (error, ref) -> {
             if (error != null) {
