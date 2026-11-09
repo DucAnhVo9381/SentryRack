@@ -2,8 +2,8 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-
 package ca.kava.it.sentryrack;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +31,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import ca.kava.it.sentryrack.controller.AuthController;
 import ca.kava.it.sentryrack.model.User;
+
 public class LoginActivity extends AppCompatActivity implements AuthController.Callback {
     //--- CONSTANTS ---//
     public static final String FROM_LOGOUT = "FROM_LOGOUT";
@@ -129,7 +130,10 @@ public class LoginActivity extends AppCompatActivity implements AuthController.C
         forgotButton.setOnClickListener(v -> attemptPasswordReset());
 
         googleButton.setOnClickListener(v -> performGoogleSignIn());
-        signUpButton.setOnClickListener(v -> attemptSignUp());
+        signUpButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SignUpActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void attemptLogin() {
@@ -140,17 +144,6 @@ public class LoginActivity extends AppCompatActivity implements AuthController.C
             String email = emailInput.getText().toString().trim();
             String password = passwordInput.getText().toString();
             authController.loginWithEmail(email, password);
-        }
-    }
-
-    private void attemptSignUp() {
-        boolean emailFilled = isFieldFilled(emailInput, emailLayout, R.string.error_email_empty);
-        boolean passwordFilled = isFieldFilled(passwordInput, passwordLayout, R.string.error_password_empty);
-
-        if (emailFilled && passwordFilled && emailInput.getText() != null && passwordInput.getText() != null) {
-            String email = emailInput.getText().toString().trim();
-            String password = passwordInput.getText().toString();
-            authController.signUpWithEmail(email, password);
         }
     }
 

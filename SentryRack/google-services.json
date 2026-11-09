@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "188794669750-p8u2942hepa8ljvuus52s9415n76mj1g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.kava.it.sentryrack",
+            "certificate_hash": "68c7b78ac817bd5e052c3d22b1ddea895a094d16"
+          }
+        },
+        {
           "client_id": "188794669750-st2vkrb9p8knph7rd7a51jkik7s8f1o6.apps.googleusercontent.com",
           "client_type": 3
         }

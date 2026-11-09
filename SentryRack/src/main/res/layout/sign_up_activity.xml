@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sign up screen (D3 #26-28) - same blue glass style as the Login screen.
+     Reuses the Login styles, colours, dimens and background (DRY).
+     Fields: full name, phone, email, password (+ live rules), confirm password.
+     @author Anvesh Rachakonda
+     @date 2026-11-06 -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registerRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    android:fillViewport="true"
+    android:theme="@style/ThemeOverlay.SentryRack.Login"
+    tools:context=".SignUpActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/login_padding"
+        android:paddingEnd="@dimen/login_padding"
+        android:paddingBottom="@dimen/login_padding">
+
+        <TextView
+            style="@style/Widget.SentryRack.Login.AppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register_title"
+            android:layout_marginTop="24dp" />
+
+        <TextView
+            style="@style/Widget.SentryRack.Login.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register_subtitle" />
+
+        <!-- ===== Glass card with the form ===== -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Outlined"
+            android:id="@+id/registerCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/login_space_medium"
+            app:cardBackgroundColor="@color/login_glass"
+            app:cardCornerRadius="@dimen/login_glass_corner"
+            app:contentPadding="@dimen/login_space_medium"
+            app:strokeColor="@color/login_glass_stroke"
+            app:strokeWidth="@dimen/login_stroke_width">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Full name -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/registerNameLayout"
+                    style="@style/Widget.SentryRack.Login.TextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/register_name_hint"
+                    app:placeholderText="@string/register_name_placeholder"
+                    app:startIconDrawable="@drawable/signup_name_field_icon">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/registerNameInput"
+                        style="@style/Widget.SentryRack.Login.EditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName|textCapWords"
+                        android:maxLength="50" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Phone number -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/registerPhoneLayout"
+                    style="@style/Widget.SentryRack.Login.TextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/login_space_small"
+                    android:hint="@string/register_phone_hint"
+                    app:placeholderText="@string/register_phone_placeholder"
+                    app:startIconDrawable="@drawable/signup_email_field_icon">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/registerPhoneInput"
+                        style="@style/Widget.SentryRack.Login.EditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="phone"
+                        android:imeOptions="actionNext"
+                        android:inputType="phone"
+                        android:maxLength="14" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Email (unique ID of the account) -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/registerEmailLayout"
+                    style="@style/Widget.SentryRack.Login.TextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/login_space_small"
+                    android:hint="@string/login_email_hint"
+                    app:placeholderText="@string/register_email_placeholder"
+                    app:startIconDrawable="@drawable/login_email_icon">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/registerEmailInput"
+                        style="@style/Widget.SentryRack.Login.EditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="emailAddress"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Password (eye icon = built-in password_toggle) -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/registerPasswordLayout"
+                    style="@style/Widget.SentryRack.Login.TextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/login_space_small"
+                    android:hint="@string/login_password_hint"
+                    app:endIconMode="password_toggle"
+                    app:startIconDrawable="@drawable/login_password_icon">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/registerPasswordInput"
+                        style="@style/Widget.SentryRack.Login.EditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="newPassword"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Confirm password -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/registerConfirmLayout"
+                    style="@style/Widget.SentryRack.Login.TextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/login_space_small"
+                    android:hint="@string/register_confirm_hint"
+                    app:endIconMode="password_toggle"
+                    app:startIconDrawable="@drawable/login_password_icon">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/registerConfirmInput"
+                        style="@style/Widget.SentryRack.Login.EditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="newPassword"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- I agree to the Privacy policy -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/registerAgreeCheck"
+                        style="@style/Widget.SentryRack.Login.CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/register_agree" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/registerPrivacyButton"
+                        style="@style/Widget.SentryRack.Login.LinkButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/register_privacy" />
+                </LinearLayout>
+
+                <!-- Create account -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/registerButton"
+                    style="@style/Widget.SentryRack.Login.PrimaryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/login_button_height"
+                    android:layout_marginTop="@dimen/login_space_small"
+                    android:text="@string/register_button" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Already have an account? Sign in -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/login_space_medium"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Widget.SentryRack.Login.Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_have_account" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/signupSignInButton"
+                style="@style/Widget.SentryRack.Login.LinkButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/signup_sign_in" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

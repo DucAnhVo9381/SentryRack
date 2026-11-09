@@ -31,8 +31,6 @@
     <string name="logout_dialog_msg">Are you sure you want to Log out? You will return to the login screen</string>
 
     <!-- Login screen strings -->
-    <string name="login_tagline">Rack Monitoring</string>
-    <string name="login_welcome">Login</string>
     <string name="login_subtitle">Sign in to continue</string>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
@@ -226,4 +224,23 @@
     <string name="good_afternoon">Good Afternoon</string>
     <string name="good_evening">Good Evening</string>
 
+    <!-- ===== Sign up  ===== -->
+    <string name="register_title">Create account</string>
+    <string name="register_subtitle">Join SentryRack to monitor your racks</string>
+    <string name="register_back">Back to sign in</string>
+    <string name="register_name_hint">Full name</string>
+    <string name="register_name_placeholder">e.g. Alex Morgan</string>
+    <string name="register_phone_hint">Phone number</string>
+    <string name="register_phone_placeholder">(416) 555-0123</string>
+    <string name="register_email_placeholder">you@example.com</string>
+    <string name="register_confirm_hint">Confirm password</string>
+    <string name="register_rule_length">8+ characters</string>
+    <string name="register_rule_upper">1 uppercase letter</string>
+    <string name="register_rule_number">1 number</string>
+    <string name="register_rule_symbol">1 symbol (!@#…)</string>
+    <string name="register_agree">I agree to the</string>
+    <string name="register_privacy">Privacy policy</string>
+    <string name="register_button">Create account</string>
+    <string name="register_have_account">Already have an account?</string>
+    <string name="signup_sign_in">Sign in</string>
 </resources>

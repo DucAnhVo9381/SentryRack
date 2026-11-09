@@ -17,11 +17,6 @@ import android.view.animation.OvershootInterpolator;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 
-/** Launcher screen: Splash (3 s) -> Login.
- * Original splash code and zoom-out exit animation by Volk (2026-09-25).
- * @author Anvesh
- * @date 2026-10-01
- */
 public class SplashActivity extends AppCompatActivity {
 
     private static final long SPLASH_DURATION_MS = 3000;

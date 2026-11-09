@@ -31,8 +31,6 @@
     <string name="logout_dialog_msg">Are you sure you want to Log out? You will return to the login screen</string>
 
     <!-- Login screen strings -->
-    <string name="login_tagline">Surveillance des baies pour centres de données</string>
-    <string name="login_welcome">Bon retour</string>
     <string name="login_subtitle">Connectez-vous pour surveiller vos baies</string>
     <string name="login_email_hint">Courriel</string>
     <string name="login_password_hint">Mot de passe</string>
@@ -223,4 +221,23 @@
     <string name="good_afternoon">Bon après-midi</string>
     <string name="good_evening">Bonsoir</string>
 
+    <!-- ===== Signup screen ===== -->
+    <string name="register_title">Créer un compte</string>
+    <string name="register_subtitle">Rejoignez SentryRack pour surveiller vos baies</string>
+    <string name="register_back">Retour à la connexion</string>
+    <string name="register_name_hint">Nom complet</string>
+    <string name="register_name_placeholder">ex. Alex Morgan</string>
+    <string name="register_phone_hint">Numéro de téléphone</string>
+    <string name="register_phone_placeholder">(416) 555-0123</string>
+    <string name="register_email_placeholder">vous@exemple.com</string>
+    <string name="register_confirm_hint">Confirmer le mot de passe</string>
+    <string name="register_rule_length">8 caractères ou plus</string>
+    <string name="register_rule_upper">1 lettre majuscule</string>
+    <string name="register_rule_number">1 chiffre</string>
+    <string name="register_rule_symbol">1 symbole (!@#…)</string>
+    <string name="register_agree">J\'accepte la</string>
+    <string name="register_privacy">Politique de confidentialité</string>
+    <string name="register_button">Créer un compte</string>
+    <string name="register_have_account">Vous avez déjà un compte?</string>
+    <string name="signup_sign_in">Se connecter</string>
 </resources>

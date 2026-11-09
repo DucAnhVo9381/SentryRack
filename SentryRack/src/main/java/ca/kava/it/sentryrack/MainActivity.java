@@ -406,18 +406,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startExternalApp(email);
     }
 
-    private void sendFeedbackEmail(String type, String message) {
-        String deviceDetails = getString(R.string.app_name) + " " + getAppVersion()
-                + " · Android " + Build.VERSION.RELEASE
-                + " · " + Build.MANUFACTURER + " " + Build.MODEL;
-
-        Intent email = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
-        email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.contact_email_address)});
-        email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_subject, type));
-        email.putExtra(Intent.EXTRA_TEXT, message + "\n\n---\n" + deviceDetails);
-        startExternalApp(email);
-    }
-
     private String getAppVersion() {
         try {
             return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
