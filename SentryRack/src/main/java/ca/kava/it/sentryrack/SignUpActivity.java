@@ -32,6 +32,7 @@ public class SignUpActivity extends AppCompatActivity implements AuthController.
 
     private MaterialCheckBox agreeCheck;
     private MaterialButton registerButton;
+    private MaterialButton signInButton;
 
     private AuthController authController;
 
@@ -53,10 +54,12 @@ public class SignUpActivity extends AppCompatActivity implements AuthController.
         agreeCheck = findViewById(R.id.registerAgreeCheck);
 
         registerButton = findViewById(R.id.registerButton);
+        signInButton = findViewById(R.id.signupSignInButton);
 
         authController = new AuthController(this);
 
         registerButton.setOnClickListener(v -> attemptSignUp());
+        signInButton.setOnClickListener(v -> finish());
     }
 
     private void attemptSignUp() {
