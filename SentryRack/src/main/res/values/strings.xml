@@ -243,7 +243,7 @@
 
     <!-- ===== Sign up  ===== -->
     <string name="register_title">Create account</string>
-    <string name="register_subtitle">Join SentryRack to monitor your racks</string>
+    <string name="register_subtitle">Join Sentry Rack to monitor your racks</string>
     <string name="register_back">Back to sign in</string>
     <string name="register_name_hint">Full name</string>
     <string name="register_name_placeholder">e.g. Alex Morgan</string>
@@ -260,6 +260,21 @@
     <string name="register_button">Create account</string>
     <string name="register_have_account">Already have an account?</string>
     <string name="signup_sign_in">Sign in</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- About Screen -->
+    <string name="about_subtitle">Learn more about Sentry Rack</string>
+    <string name="about_description">Sentry Rack is a rack-level monitoring platform that turns raw sensor data (security, current, environment and leak detection) into clear insights about server rack health.</string>
+    <string name="about_monitor_header">What we monitor</string>
+    <string name="about_monitor_door">Rack door security</string>
+    <string name="about_monitor_power">Power usage</string>
+    <string name="about_monitor_environment">Temperature and air quality</string>
+    <string name="about_monitor_leak">Water leaks</string>
+    <string name="about_team_header">Our team</string>
+    <string name="about_member_1" translatable="false">Andres Zambrano</string>
+    <string name="about_member_2" translatable="false">Duc Anh Vo</string>
+    <string name="about_member_3" translatable="false">Anvesh Rachakonda</string>
+    <string name="about_member_4" translatable="false">Krushna Patel</string>
+    <string name="about_group" translatable="false">Group KAVA · Humber Polytechnic</string>
+    <string name="about_copyright">© 2026 Sentry Rack. All rights reserved.</string>
+
 </resources>
