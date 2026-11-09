@@ -5,7 +5,6 @@
 
 package ca.kava.it.sentryrack;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,23 +20,21 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
 import java.util.List;
 
-import ca.kava.it.sentryrack.controller.RackListController;
+import ca.kava.it.sentryrack.controller.AuthController;
+import ca.kava.it.sentryrack.controller.DashboardRackController;
+import ca.kava.it.sentryrack.model.User;
 import ca.kava.it.sentryrack.model.RackStatus;
 
-public class RacksFragment extends Fragment implements RackListController.Callback {
+public class RacksFragment extends Fragment implements DashboardRackController.Callback {
 
     private static final long STALE_CHECK_INTERVAL_MS = 20_000; // 20 seconds
-    private static final String PREFS_NAME = "sentryrack_prefs";
-    private static final String KEY_LAST_ROOM_ID = "last_room_id";
-    // Used until a room has been registered or chosen
-    private static final String DEFAULT_ROOM_ID = "room_01";
 
     private RackStatusAdapter adapter;
-    private RackListController controller;
+    private DashboardRackController controller;
     private TextView racksTotalCount;
-    private String roomId;
 
     // Rack data = dead Rack = OFFLINE
     private final Handler staleHandler = new Handler(Looper.getMainLooper());
@@ -51,23 +48,6 @@ public class RacksFragment extends Fragment implements RackListController.Callba
         }
     };
 
-    public static void saveLastRoomId(Context context, String roomId) {
-        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                .edit().putString(KEY_LAST_ROOM_ID, roomId).apply();
-    }
-
-    public static void clearLastRoomId(Context context) {
-        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                .edit().remove(KEY_LAST_ROOM_ID).apply();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        roomId = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                .getString(KEY_LAST_ROOM_ID, DEFAULT_ROOM_ID);
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,7 +60,7 @@ public class RacksFragment extends Fragment implements RackListController.Callba
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);
 
-        controller = new RackListController(this);
+        controller = new DashboardRackController(this);
 
         view.findViewById(R.id.racksRegisterButton).setOnClickListener(v ->
                 requireActivity().getSupportFragmentManager()
@@ -94,19 +74,29 @@ public class RacksFragment extends Fragment implements RackListController.Callba
     @Override
     public void onStart() {
         super.onStart();
-        controller.start(roomId);
+        User currentUser = new AuthController().getCurrentUser();
+        if (currentUser == null) {
+            adapter.submitList(Collections.emptyList());
+            if (racksTotalCount != null) {
+                racksTotalCount.setText(getResources().getQuantityString(
+                        R.plurals.racks_total_count, 0, 0));
+            }
+            return;
+        }
+        controller.start(currentUser.getUid());
         staleHandler.postDelayed(staleRunnable, STALE_CHECK_INTERVAL_MS);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        controller.stop();
+        if (controller != null) controller.stop();
         staleHandler.removeCallbacks(staleRunnable);
     }
 
     @Override
     public void onRacksChanged(List<RackStatus> racks) {
+        if (adapter == null) return;
         adapter.submitList(racks);
         if (racksTotalCount != null && isAdded()) {
             racksTotalCount.setText(getResources().getQuantityString(

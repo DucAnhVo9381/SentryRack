@@ -233,7 +233,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void logout() {
-        RacksFragment.clearLastRoomId(this);
         AuthController authController = new AuthController();
         authController.logout();
 
