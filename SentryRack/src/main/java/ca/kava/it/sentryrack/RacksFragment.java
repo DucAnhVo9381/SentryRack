@@ -15,10 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,6 +58,10 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
         RecyclerView recyclerView = view.findViewById(R.id.racksRecyclerView);
 
         adapter = new RackStatusAdapter();
+
+        // Long click listener
+        adapter.setOnItemLongClickListener(rack -> showDeleteDialog(rack));
+
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);
 
@@ -109,5 +114,17 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
         if (getContext() != null) {
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    // Show delete dialog for long click listener
+    private void showDeleteDialog(RackStatus rack) {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Delete Rack")
+                .setMessage("Delete " + rack.name + "?")
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    Toast.makeText(requireContext(), "Delete " + rack.name, Toast.LENGTH_SHORT).show();
+                })
+                .show();
     }
 }

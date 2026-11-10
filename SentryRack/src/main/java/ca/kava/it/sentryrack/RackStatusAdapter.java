@@ -81,6 +81,13 @@ public class RackStatusAdapter extends ListAdapter<RackStatus, RackStatusAdapter
         int healthScore = r.getHealthScore(STALE_MS);
         h.racksHealthProgress.setProgress(healthScore);
         h.racksHealthValue.setText(String.valueOf(healthScore));
+
+        h.itemView.setOnLongClickListener(v -> {
+            if (longClickListener != null) {
+                longClickListener.onItemLongClick(r);
+            }
+            return true;
+        });
     }
 
     public static class VH extends RecyclerView.ViewHolder {
@@ -98,5 +105,16 @@ public class RackStatusAdapter extends ListAdapter<RackStatus, RackStatusAdapter
             racksHealthProgress = v.findViewById(R.id.racksHealthProgress);
             racksHealthValue = v.findViewById(R.id.racksHealthValue);
         }
+    }
+
+    //--- Long click listener ---
+    public interface OnItemLongClickListener {
+        void onItemLongClick(RackStatus rack);
+    }
+
+    private OnItemLongClickListener longClickListener;
+
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        this.longClickListener = listener;
     }
 }
