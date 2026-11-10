@@ -8,7 +8,7 @@
     <!-- Navigation Drawer -->
     <string name="drawer_account">Account</string>
     <string name="drawer_settings">Settings</string>
-    <string name="drawer_about">About</string>
+    <string name="drawer_feedback">Feedback</string>
     <string name="drawer_logout">Logout</string>
     <string name="open_drawer">Ouvrir le menu de navigation</string>
     <string name="close_drawer">Fermer le menu de navigation</string>
@@ -31,8 +31,6 @@
     <string name="logout_dialog_msg">Are you sure you want to Log out? You will return to the login screen</string>
 
     <!-- Login screen strings -->
-    <string name="login_tagline">Surveillance des baies pour centres de données</string>
-    <string name="login_welcome">Bon retour</string>
     <string name="login_subtitle">Connectez-vous pour surveiller vos baies</string>
     <string name="login_email_hint">Courriel</string>
     <string name="login_password_hint">Mot de passe</string>
@@ -77,6 +75,51 @@
 
 
     <!-- Racks screen -->
+    <string name="racks_title">Baies</string>
+    <string name="racks_subtitle">Gérez et inspectez les baies de serveurs</string>
+    <string name="racks_search_hint">Rechercher des baies...</string>
+    <string name="racks_chip_all">Toutes</string>
+    <string name="racks_chip_healthy">Saines</string>
+    <string name="racks_chip_warning">Avertissement</string>
+    <string name="racks_chip_critical">Critiques</string>
+    <string name="racks_register_button">Enregistrer une baie</string>
+    <string name="racks_header_title">Baies surveillées</string>
+    <plurals name="racks_total_count">
+        <item quantity="one">%d baie</item>
+        <item quantity="many">%d baies</item>
+        <item quantity="other">%d baies</item>
+    </plurals>
+    <string name="racks_health_label">Indice de santé</string>
+    <string name="racks_status_offline">HORS LIGNE</string>
+    <string name="racks_status_leak">FUITE</string>
+    <string name="racks_status_healthy">Saine</string>
+    <string name="racks_door_open">OUVERTE</string>
+    <string name="racks_door_closed">Fermée</string>
+    <string name="racks_sensor_details">Liquide de refroidissement : %1$.1f mm | Courant : %2$.1f A | Porte : %3$s</string>
+
+    <!-- Register rack screen -->
+    <string name="register_rack_title">Enregistrer une baie</string>
+    <string name="register_rack_subtitle">Ajoutez une nouvelle baie à votre système</string>
+    <string name="register_rack_name_label">Nom de la baie</string>
+    <string name="register_rack_name_hint">p. ex. R-001</string>
+    <string name="register_rack_floor_label">Étage</string>
+    <string name="register_rack_floor_hint">p. ex. Étage 1</string>
+    <string name="register_rack_room_label">Salle</string>
+    <string name="register_rack_room_hint">p. ex. Salle A</string>
+    <string name="register_rack_info">Seules les informations de la baie sont requises. L\'état de santé et les relevés des capteurs seront surveillés automatiquement après l\'enregistrement.</string>
+    <string name="register_rack_button">Enregistrer la baie</string>
+    <string name="register_rack_name_error">Le nom de la baie est requis</string>
+    <string name="register_rack_floor_error">L\'étage est requis</string>
+    <string name="register_rack_room_error">La salle est requise</string>
+    <string name="register_rack_duplicate_error">Une baie portant ce nom existe déjà dans cette salle</string>
+    <string name="register_rack_login_required">Veuillez vous connecter avant d\'enregistrer une baie.</string>
+    <string name="register_rack_failed">Impossible d\'enregistrer la baie : %1$s</string>
+    <string name="register_rack_success_title">Baie enregistrée</string>
+    <string name="register_rack_success_message">%1$s a été ajoutée.\n\nID de la baie :\n%2$s\n\nVotre application de capteurs a besoin de cet ID pour envoyer les relevés de cette baie.</string>
+    <string name="register_rack_copy_id">Copier l\'ID</string>
+    <string name="register_rack_done">Terminé</string>
+    <string name="register_rack_id_copied">ID de la baie copié</string>
+    <string name="register_rack_clip_label">ID de la baie</string>
 
 
     <!-- User (profile) screen - bottom navigation tab -->
@@ -112,7 +155,7 @@
     <!-- Overflow menu items -->
     <string name="overflow_help_center">Centre d\'aide</string>
     <string name="overflow_contact">Contacter le support</string>
-    <string name="overflow_feedback">Envoyer un commentaire</string>
+    <string name="overflow_about">About</string>
 
     <!-- Help center screen - @author Anvesh @date 2026-10-08 -->
     <string name="help_title">Centre d\'aide</string>
@@ -140,16 +183,24 @@
     <string name="contact_no_app">Aucune application trouvée pour ouvrir ceci</string>
 
     <!-- Send feedback dialog -->
-    <string name="feedback_title">Envoyer un commentaire</string>
-    <string name="feedback_bug">Bogue</string>
-    <string name="feedback_idea">Idée</string>
-    <string name="feedback_other">Autre</string>
-    <string name="feedback_hint">Décrivez le problème…</string>
-    <string name="feedback_device_info">Version %1$s · Android %2$s ajoutés automatiquement</string>
-    <string name="feedback_send">Envoyer</string>
-    <string name="feedback_empty_error">Veuillez écrire quelques mots</string>
-    <string name="feedback_subject">Commentaire SentryRack : %1$s</string>
-    <string name="feedback_cancel">Annuler</string>
+    <string name="feedback_hint">Votre commentaire…</string>
+    <string name="feedback_subject">Commentaire SentryRack</string>
+    <string name="feedback_name_hint">Nom complet</string>
+    <string name="feedback_phone_hint">Numéro de téléphone</string>
+    <string name="feedback_email_hint">Adresse courriel</string>
+    <string name="feedback_rating_label">Votre note</string>
+    <string name="feedback_name_error">Veuillez entrer votre nom complet</string>
+    <string name="feedback_phone_error">Veuillez entrer un numéro de téléphone valide</string>
+    <string name="feedback_email_error">Veuillez entrer une adresse courriel valide</string>
+    <string name="feedback_rating_error">Veuillez choisir une note en étoiles</string>
+    <string name="feedback_login_required">Veuillez vous connecter pour envoyer un commentaire</string>
+    <string name="feedback_success">Commentaire envoyé. Merci !</string>
+    <string name="feedback_failed">Échec de l\'envoi du commentaire : %1$s</string>
+    <string name="feedback_title">Send feedback</string>
+    <string name="feedback_device_info">App version %1$s · Android %2$s added automatically</string>
+    <string name="feedback_send">Send</string>
+    <string name="feedback_empty_error">Please write a few words</string>
+    <string name="feedback_cancel">Cancel</string>
 
     <!-- For location services -->
     <string name="permission_denied_opening_settings">Permission denied, opening settings...</string>
@@ -169,5 +220,36 @@
     <string name="good_morning">Bonjour</string>
     <string name="good_afternoon">Bon après-midi</string>
     <string name="good_evening">Bonsoir</string>
+
+    <!-- ===== Signup screen ===== -->
+    <string name="register_title">Créer un compte</string>
+    <string name="register_subtitle">Rejoignez Sentry Rack pour surveiller vos baies</string>
+    <string name="register_back">Retour à la connexion</string>
+    <string name="register_name_hint">Nom complet</string>
+    <string name="register_name_placeholder">ex. Alex Morgan</string>
+    <string name="register_phone_hint">Numéro de téléphone</string>
+    <string name="register_phone_placeholder">(416) 555-0123</string>
+    <string name="register_email_placeholder">vous@exemple.com</string>
+    <string name="register_confirm_hint">Confirmer le mot de passe</string>
+    <string name="register_rule_length">8 caractères ou plus</string>
+    <string name="register_rule_upper">1 lettre majuscule</string>
+    <string name="register_rule_number">1 chiffre</string>
+    <string name="register_rule_symbol">1 symbole (!@#…)</string>
+    <string name="register_agree">J\'accepte la</string>
+    <string name="register_privacy">Politique de confidentialité</string>
+    <string name="register_button">Créer un compte</string>
+    <string name="register_have_account">Vous avez déjà un compte?</string>
+    <string name="signup_sign_in">Se connecter</string>
+
+    <!-- About Screen -->
+    <string name="about_subtitle">En savoir plus sur Sentry Rack</string>
+    <string name="about_description">Sentry Rack est une plateforme de surveillance au niveau du rack qui transforme les données brutes des capteurs (sécurité, courant, environnement et détection de fuites) en informations claires sur l\'état des racks de serveurs.</string>
+    <string name="about_monitor_header">Ce que nous surveillons</string>
+    <string name="about_monitor_door">Sécurité de la porte du rack</string>
+    <string name="about_monitor_power">Consommation électrique</string>
+    <string name="about_monitor_environment">Température et qualité de l\'air</string>
+    <string name="about_monitor_leak">Fuites d\'eau</string>
+    <string name="about_team_header">Notre équipe</string>
+    <string name="about_copyright">© 2026 Sentry Rack. Tous droits réservés.</string>
 
 </resources>
