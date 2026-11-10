@@ -8,4 +8,173 @@
     <!-- Unselected items -->
     <item
         android:color="@color/unselected"/>
+    <!-- App color theme -->
+    <color name="colorPrimary">#FF2454D6</color>
+    <color name="colorSecondary">#FF8ED0F8</color>
+    <color name="colorTertiary">#FFFFD873</color>
+
+    <!-- SPLASH -->
+    <color name="splash_background">#FF4E8EEA</color>
+
+    <!-- TOOLBAR -->
+    <color name="menu_background">#FFFFFFFF</color>
+    <color name="menu_highlight">#FFECECEF</color>
+    <color name="menu_ripple">#1F000000</color>
+
+    <!-- BOTTOM & DRAWER NAV -->
+    <color name="selected">#FF3FA2F7</color>
+    <color name="unselected">#FF000000</color>
+    <color name="header_text">#FFFFFFFF</color>
+
+    <!-- CONFIRM DIALOG -->
+    <color name="dialog_bg">#660F172A</color>
+    <color name="dialog_title">#FFFFFF</color>
+    <color name="dialog_message">#E0E6ED</color>
+    <color name="dialog_button">#FFFFFF</color>
+    <color name="dialog_button_background">#3B82F6</color>
+
+    <!-- LOGIN SCREEN -->
+    <color name="black">#FF000000</color>
+    <color name="login_bg_start">#FF0A1F5C</color>
+    <color name="login_bg_center">#FF1B4DD8</color>
+    <color name="login_bg_end">#FF3FA2F7</color>
+    <color name="login_glow_primary">#734FC3F7</color>
+    <color name="login_glow_secondary">#4DFFD873</color>
+    <color name="login_accent">#FFFFD873</color>
+    <color name="login_button_text">#FF1B4DD8</color>
+    <color name="login_on_bg">#FFFFFFFF</color>
+    <color name="login_on_bg_muted">#BFFFFFFF</color>
+    <color name="login_glass">#1FFFFFFF</color>
+    <color name="login_glass_stroke">#47FFFFFF</color>
+    <color name="login_field_fill">#14FFFFFF</color>
+    <color name="login_field_stroke">#8CFFFFFF</color>
+    <color name="login_divider">#66FFFFFF</color>
+    <color name="login_button_bg">#FFFFFFFF</color>
+
+    <!-- APP BACKGROUND -->
+    <color name="app_bg_top">#FFDCE7FF</color>
+    <color name="app_bg_bottom">#FFF4F7FF</color>
+    <color name="app_bg_grid_line">#1A2454D6</color>
+    <color name="app_bg_circuit_line">#4D2454D6</color>
+    <color name="app_bg_circuit_node">#992454D6</color>
+
+    <!-- RACK STATUS COLORS -->
+    <color name="status_healthy">#4CAF50</color>
+    <color name="status_warning">#FFC107</color>
+    <color name="status_critical">#F44336</color>
+    <color name="status_offline">#757575</color>
+
+    <!-- App color theme -->
+    <!-- <color name="colorPrimary">#FF4C4C54</color> -->
+
+    <!-- <color name="colorSecondary">#FF9C9CA6</color> -->
+
+    <!-- <color name="colorTertiary">#FFEC7627</color> -->
+
+
+    <!-- SPLASH -->
+    <!-- <color name="splash_background">#FF75757E</color> -->
+
+
+    <!-- TOOLBAR COLOR -->
+    <!-- <color name="menu_background">#FF2B2D31</color> -->
+
+    <!-- <color name="menu_highlight">#FF3C3F45</color> -->
+
+    <!-- <color name="menu_ripple">#29FFFFFF</color> -->
+
+
+    <!-- BOTTOM & DRAWER NAV -->
+    <!-- <color name="selected">#FFEC7627</color> -->
+
+    <!-- <color name="unselected">#FFFFFFFF</color> -->
+
+    <!-- <color name="header_text">#FF9800</color> -->
+
+    <!-- <color name="dialog_button_background">#FFEC7627</color> -->
+
+
+    <!-- LOGIN SCREEN COLOR -->
+    <!-- <color name="login_bg_start">#FF0E0E12</color> -->
+
+    <!-- <color name="login_bg_center">#FF1C1C22</color> -->
+
+    <!-- <color name="login_bg_end">#FF3A2416</color> -->
+
+    <!-- <color name="login_glow_primary">#59FF8A3D</color> -->
+
+    <!-- <color name="login_glow_secondary">#2EFF8A3D</color> -->
+
+    <!-- <color name="login_accent">#FFFF8A3D</color> -->
+
+    <!-- <color name="login_button_text">#FFE8641C</color> -->
+
+
+    <!-- App Background -->
+    <!-- <color name="app_bg_top">#FF0D1735</color> -->
+
+    <!-- <color name="app_bg_bottom">#FF060A18</color> -->
+
+    <!-- <color name="app_bg_grid_line">#12FFFFFF</color> -->
+
+    <!-- <color name="app_bg_circuit_line">#40FFB74D</color> -->
+
+    <!-- <color name="app_bg_circuit_node">#99FFB74D</color> -->
+
+    <!-- App color theme -->
+    <!-- <color name="colorPrimary">#FF4C4C54</color> -->
+
+    <!-- <color name="colorSecondary">#FF9C9CA6</color> -->
+
+    <!-- <color name="colorTertiary">#FFEC7627</color> -->
+
+
+    <!-- SPLASH -->
+    <!-- <color name="splash_background">#FF75757E</color> -->
+
+
+    <!-- TOOLBAR COLOR -->
+    <!-- <color name="menu_background">#FF2B2D31</color> -->
+
+    <!-- <color name="menu_highlight">#FF3C3F45</color> -->
+
+    <!-- <color name="menu_ripple">#29FFFFFF</color> -->
+
+
+    <!-- BOTTOM & DRAWER NAV -->
+    <!-- <color name="selected">#FFEC7627</color> -->
+
+    <!-- <color name="unselected">#FFFFFFFF</color> -->
+
+    <!-- <color name="header_text">#FF9800</color> -->
+
+    <!-- <color name="dialog_button_background">#FFEC7627</color> -->
+
+
+    <!-- LOGIN SCREEN COLOR -->
+    <!-- <color name="login_bg_start">#FF0E0E12</color> -->
+
+    <!-- <color name="login_bg_center">#FF1C1C22</color> -->
+
+    <!-- <color name="login_bg_end">#FF3A2416</color> -->
+
+    <!-- <color name="login_glow_primary">#59FF8A3D</color> -->
+
+    <!-- <color name="login_glow_secondary">#2EFF8A3D</color> -->
+
+    <!-- <color name="login_accent">#FFFF8A3D</color> -->
+
+    <!-- <color name="login_button_text">#FFE8641C</color> -->
+
+
+    <!-- App Background -->
+    <!-- <color name="app_bg_top">#FF0D1735</color> -->
+
+    <!-- <color name="app_bg_bottom">#FF060A18</color> -->
+
+    <!-- <color name="app_bg_grid_line">#12FFFFFF</color> -->
+
+    <!-- <color name="app_bg_circuit_line">#40FFB74D</color> -->
+
+    <!-- <color name="app_bg_circuit_node">#99FFB74D</color> -->
 </selector>
