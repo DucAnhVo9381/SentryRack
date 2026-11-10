@@ -60,4 +60,10 @@
     <!-- Send feedback dialog -->
     <dimen name="feedback_dialog_padding">24dp</dimen>
     <dimen name="feedback_message_min_height">120dp</dimen>
+
+    <!-- About screen -->
+    <dimen name="about_padding">16dp</dimen>
+    <dimen name="about_space_small">8dp</dimen>
+    <dimen name="about_section_space">24dp</dimen>
+    <dimen name="about_logo_size">72dp</dimen>
 </resources>

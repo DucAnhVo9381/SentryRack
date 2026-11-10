@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- RUNTIME PERMISSION -->
@@ -19,8 +18,6 @@
         android:roundIcon="@mipmap/homescreen_icon_light_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SentryRack.Splash">
-
-        <!-- Login screen = app launcher. Splash (3s) shows first, then Login.-->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -44,5 +41,12 @@
             android:exported="false"
             android:theme="@style/Theme.SentryRack"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SentryRack"
+            android:windowSoftInputMode="adjustResize" />
     </application>
+
 </manifest>
