@@ -9,17 +9,13 @@
     <color name="splash_background">#FF4E8EEA</color>
 
     <!-- TOOLBAR -->
-    <!-- Overflow (3-dot) menu colours - LIGHT mode -->
     <color name="menu_background">#FFFFFFFF</color>
     <color name="menu_highlight">#FFECECEF</color>
     <color name="menu_ripple">#1F000000</color>
 
     <!-- BOTTOM & DRAWER NAV -->
-    <!-- Navigation item selector colors -->
     <color name="selected">#FF3FA2F7</color>
     <color name="unselected">#FF000000</color>
-
-    <!-- Drawer navigation -->
     <color name="header_text">#FFFFFFFF</color>
 
     <!-- CONFIRM DIALOG -->
@@ -31,20 +27,13 @@
 
     <!-- LOGIN SCREEN -->
     <color name="black">#FF000000</color>
-    <!-- Background gradient (top to bottom) -->
     <color name="login_bg_start">#FF0A1F5C</color>
     <color name="login_bg_center">#FF1B4DD8</color>
     <color name="login_bg_end">#FF3FA2F7</color>
-
-    <!-- Soft glow circles in the corners -->
     <color name="login_glow_primary">#734FC3F7</color>
     <color name="login_glow_secondary">#4DFFD873</color>
-
-    <!-- Accent: Forgot password, checkbox, Sign up -->
     <color name="login_accent">#FFFFD873</color>
     <color name="login_button_text">#FF1B4DD8</color>
-
-    <!-- Same in both themes (white text + glass effect) -->
     <color name="login_on_bg">#FFFFFFFF</color>
     <color name="login_on_bg_muted">#BFFFFFFF</color>
     <color name="login_glass">#1FFFFFFF</color>
@@ -60,4 +49,10 @@
     <color name="app_bg_grid_line">#1A2454D6</color>
     <color name="app_bg_circuit_line">#4D2454D6</color>
     <color name="app_bg_circuit_node">#992454D6</color>
+
+    <!-- RACK STATUS COLORS -->
+    <color name="status_healthy">#4CAF50</color>
+    <color name="status_warning">#FFC107</color>
+    <color name="status_critical">#F44336</color>
+    <color name="status_offline">#757575</color>
 </resources>

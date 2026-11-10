@@ -8,7 +8,7 @@
     <!-- Navigation drawer -->
     <string name="drawer_account">Account</string>
     <string name="drawer_settings">Settings</string>
-    <string name="drawer_about">About</string>
+    <string name="drawer_feedback">Feedback</string>
     <string name="drawer_logout">Logout</string>
     <string name="open_drawer">Open navigation drawer</string>
     <string name="close_drawer">Close navigation drawer</string>
@@ -31,8 +31,6 @@
     <string name="logout_dialog_msg">Are you sure you want to Log out? You will return to the login screen</string>
 
     <!-- Login screen strings -->
-    <string name="login_tagline">Rack Monitoring</string>
-    <string name="login_welcome">Login</string>
     <string name="login_subtitle">Sign in to continue</string>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
@@ -72,11 +70,72 @@
     <string name="setting_temp_unit_value">°C</string>
     <string name="setting_portrait_locked_msg">Screen locked to portrait</string>
     <string name="setting_portrait_unlocked_msg">Screen rotation unlocked</string>
+    <string name="sensor_template_title">Sensor data template</string>
+    <string name="sensor_template_summary">Values here are copied as simulated starting readings when a rack has no readings. Existing rack readings are not replaced.</string>
+    <string name="sensor_template_coolant">Coolant level (mm)</string>
+    <string name="sensor_template_leak">Coolant leak detected</string>
+    <string name="sensor_template_current">Current (A)</string>
+    <string name="sensor_template_power">Power (W)</string>
+    <string name="sensor_template_door_open">Door is open</string>
+    <string name="sensor_template_aqi">Air quality index (AQI)</string>
+    <string name="sensor_template_tvoc">TVOC</string>
+    <string name="sensor_template_eco2">eCO₂</string>
+    <string name="sensor_template_save">Save template to Firebase</string>
+    <string name="sensor_template_saved">Sensor template saved to Firebase</string>
+    <string name="sensor_template_save_failed">Could not save sensor template: %1$s</string>
+    <string name="sensor_template_invalid_number">Enter a non-negative number</string>
+    <string name="sensor_template_invalid_integer">Enter a non-negative whole number</string>
 
     <!-- Dashboard screen -->
 
-
     <!-- Racks screen -->
+    <string name="racks_title">Racks</string>
+    <string name="racks_subtitle">Manage and investigate server racks</string>
+    <string name="racks_search_hint">Search racks...</string>
+    <string name="racks_chip_all">All</string>
+    <string name="racks_chip_healthy">Healthy</string>
+    <string name="racks_chip_warning">Warning</string>
+    <string name="racks_chip_critical">Critical</string>
+    <string name="racks_register_button">Register Rack</string>
+    <string name="racks_header_title">Monitored Racks</string>
+    <plurals name="racks_total_count">
+        <item quantity="one">%d Rack</item>
+        <item quantity="other">%d Racks</item>
+    </plurals>
+    <string name="racks_health_label">Health Score</string>
+    <string name="racks_status_offline">OFFLINE</string>
+    <string name="racks_status_leak">LEAK</string>
+    <string name="racks_status_healthy">Healthy</string>
+    <string name="racks_simulated_data">SIMULATED DATA</string>
+    <string name="racks_no_sensor_data">No sensor readings available</string>
+    <string name="racks_door_open">OPEN</string>
+    <string name="racks_door_closed">Closed</string>
+    <string name="racks_sensor_details">Coolant: %1$.1fmm | Current: %2$.1fA | Door: %3$s</string>
+
+    <!-- Register rack screen -->
+    <string name="required_marker" translatable="false">" *"</string>
+    <string name="register_rack_title">Register Rack</string>
+    <string name="register_rack_subtitle">Add a new rack to your system</string>
+    <string name="register_rack_name_label">Rack Name</string>
+    <string name="register_rack_name_hint">e.g. R-001</string>
+    <string name="register_rack_floor_label">Floor</string>
+    <string name="register_rack_floor_hint">e.g. Floor 1</string>
+    <string name="register_rack_room_label">Room</string>
+    <string name="register_rack_room_hint">e.g. Room A</string>
+    <string name="register_rack_info">Only rack information is required. Health status and sensor readings will be monitored automatically after registration.</string>
+    <string name="register_rack_button">Register Rack</string>
+    <string name="register_rack_name_error">Rack name is required</string>
+    <string name="register_rack_floor_error">Floor is required</string>
+    <string name="register_rack_room_error">Room is required</string>
+    <string name="register_rack_duplicate_error">A rack with this name already exists in this room</string>
+    <string name="register_rack_login_required">Please sign in before registering a rack.</string>
+    <string name="register_rack_failed">Could not register the rack: %1$s</string>
+    <string name="register_rack_success_title">Rack registered</string>
+    <string name="register_rack_success_message">%1$s was added.\n\nRack ID:\n%2$s\n\nIf Firebase /sensorTemplate is configured, its readings were copied into /latest/%2$s as simulated starting values. Your sensor application should update that rack’s readings and set simulated to false.</string>
+    <string name="register_rack_copy_id">Copy ID</string>
+    <string name="register_rack_done">Done</string>
+    <string name="register_rack_id_copied">Rack ID copied</string>
+    <string name="register_rack_clip_label">Rack ID</string>
 
 
     <!-- User (profile) screen - bottom navigation tab -->
@@ -112,7 +171,7 @@
     <!-- Overflow menu items -->
     <string name="overflow_help_center">Help center</string>
     <string name="overflow_contact">Contact support</string>
-    <string name="overflow_feedback">Send feedback</string>
+    <string name="overflow_about">About</string>
 
     <!-- Help center screen - @author Anvesh @date 2026-10-08 -->
     <string name="help_title">Help center</string>
@@ -143,16 +202,25 @@
     <string name="contact_web_url" translatable="false">https://humber.ca</string>
 
     <!-- Send feedback dialog -->
+    <string name="feedback_hint">Your comment…</string>
+    <string name="feedback_subject">SentryRack feedback</string>
+    <string name="feedback_name_hint">Full name</string>
+    <string name="feedback_phone_hint">Phone number</string>
+    <string name="feedback_email_hint">Email</string>
+    <string name="feedback_rating_label">Your rating</string>
+    <string name="feedback_name_error">Please enter your full name</string>
+    <string name="feedback_phone_error">Please enter a valid phone number</string>
+    <string name="feedback_email_error">Please enter a valid email address</string>
+    <string name="feedback_rating_error">Please choose a star rating</string>
+    <string name="feedback_login_required">Please log in to send feedback</string>
+    <string name="feedback_success">Feedback submitted. Thank you!</string>
+    <string name="feedback_failed">Failed to submit feedback: %1$s</string>
     <string name="feedback_title">Send feedback</string>
-    <string name="feedback_bug">Bug</string>
-    <string name="feedback_idea">Idea</string>
-    <string name="feedback_other">Other</string>
-    <string name="feedback_hint">Describe the problem…</string>
     <string name="feedback_device_info">App version %1$s · Android %2$s added automatically</string>
     <string name="feedback_send">Send</string>
     <string name="feedback_empty_error">Please write a few words</string>
-    <string name="feedback_subject">SentryRack feedback: %1$s</string>
     <string name="feedback_cancel">Cancel</string>
+
 
     <!-- for location services -->
     <string name="permission_denied_opening_settings">Permission denied, opening settings...</string>
@@ -172,5 +240,41 @@
     <string name="good_morning">Good Morning</string>
     <string name="good_afternoon">Good Afternoon</string>
     <string name="good_evening">Good Evening</string>
+
+    <!-- ===== Sign up  ===== -->
+    <string name="register_title">Create account</string>
+    <string name="register_subtitle">Join Sentry Rack to monitor your racks</string>
+    <string name="register_back">Back to sign in</string>
+    <string name="register_name_hint">Full name</string>
+    <string name="register_name_placeholder">e.g. Alex Morgan</string>
+    <string name="register_phone_hint">Phone number</string>
+    <string name="register_phone_placeholder">(416) 555-0123</string>
+    <string name="register_email_placeholder">you@example.com</string>
+    <string name="register_confirm_hint">Confirm password</string>
+    <string name="register_rule_length">8+ characters</string>
+    <string name="register_rule_upper">1 uppercase letter</string>
+    <string name="register_rule_number">1 number</string>
+    <string name="register_rule_symbol">1 symbol (!@#…)</string>
+    <string name="register_agree">I agree to the</string>
+    <string name="register_privacy">Privacy policy</string>
+    <string name="register_button">Create account</string>
+    <string name="register_have_account">Already have an account?</string>
+    <string name="signup_sign_in">Sign in</string>
+
+    <!-- About Screen -->
+    <string name="about_subtitle">Learn more about Sentry Rack</string>
+    <string name="about_description">Sentry Rack is a rack-level monitoring platform that turns raw sensor data (security, current, environment and leak detection) into clear insights about server rack health.</string>
+    <string name="about_monitor_header">What we monitor</string>
+    <string name="about_monitor_door">Rack door security</string>
+    <string name="about_monitor_power">Power usage</string>
+    <string name="about_monitor_environment">Temperature and air quality</string>
+    <string name="about_monitor_leak">Water leaks</string>
+    <string name="about_team_header">Our team</string>
+    <string name="about_member_1" translatable="false">Andres Zambrano</string>
+    <string name="about_member_2" translatable="false">Duc Anh Vo</string>
+    <string name="about_member_3" translatable="false">Anvesh Rachakonda</string>
+    <string name="about_member_4" translatable="false">Krushna Patel</string>
+    <string name="about_group" translatable="false">Group KAVA · Humber Polytechnic</string>
+    <string name="about_copyright">© 2026 Sentry Rack. All rights reserved.</string>
 
 </resources>

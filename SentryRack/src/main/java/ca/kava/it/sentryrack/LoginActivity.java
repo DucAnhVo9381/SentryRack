@@ -22,21 +22,18 @@ import androidx.credentials.CustomCredential;
 import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
 import androidx.credentials.exceptions.GetCredentialException;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
-import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import ca.kava.it.sentryrack.model.AuthState;
-import ca.kava.it.sentryrack.viewmodel.AuthViewModel;
+import ca.kava.it.sentryrack.controller.AuthController;
+import ca.kava.it.sentryrack.model.User;
 
-public class LoginActivity extends AppCompatActivity {
-    //--- CONSTANTS ---
-    // Set by MainActivity on Log out, so the 3-second splash is not shown again
+public class LoginActivity extends AppCompatActivity implements AuthController.Callback {
+    //--- CONSTANTS ---//
     public static final String FROM_LOGOUT = "FROM_LOGOUT";
     private static final long LOGO_ANIMATION = 1000;
     private static final long CARD_ANIMATION_DELAY = 150;
@@ -52,21 +49,18 @@ public class LoginActivity extends AppCompatActivity {
     private MaterialButton googleButton;
     private MaterialButton signUpButton;
 
-    //--- VIEWMODEL ---
-    private AuthViewModel authViewModel;
+    //--- CONTROLLER ---
+    private AuthController authController;
 
-    // Shows the splash (first launch only), then loads the login layout
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Apply the saved light/dark theme before the screen is drawn - @author Anvesh @date 2026-10-15
         SettingsFragment.applySavedTheme(this);
-        // Settings > "Lock screen to portrait" - apply the saved choice (Anvesh, 2026-10-01)
         SettingsFragment.applySavedOrientation(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-        // Bind views: Connects the Java fields to the views in activity_login.xml / login_form_card.xml
+        // Bind views
         emailLayout = findViewById(R.id.emailLayout);
         passwordLayout = findViewById(R.id.passwordLayout);
         emailInput = findViewById(R.id.emailInput);
@@ -77,67 +71,53 @@ public class LoginActivity extends AppCompatActivity {
         googleButton = findViewById(R.id.googleButton);
         signUpButton = findViewById(R.id.signUpButton);
 
-        // Initialize MVVM ViewModel
-        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        // Initialize Controller
+        authController = new AuthController(this);
 
-        // Check if user is already authenticated with Firebase
+        // Check if user is already authenticated
         boolean isFromLogout = getIntent().getBooleanExtra(FROM_LOGOUT, false);
-        if (!isFromLogout && authViewModel.getCurrentUser() != null) {
-            // Open main screen: Opens MainActivity and closes Login, so Back does not return to the login screen
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+        if (!isFromLogout && authController.getCurrentUser() != null) {
+            navigateToMain();
             return;
         }
 
-        setupObservers();
         setupClickListeners();
 
-        // Show splash only on first app launch, not after rotation or logout
         boolean playSplash = savedInstanceState == null && !isFromLogout;
         if (playSplash) {
             playEntranceAnimation(0);
         }
     }
 
-    //--- OBSERVERS ---
-    private void setupObservers() {
-        authViewModel.getAuthState().observe(this, authState -> {
-            if (authState == null) return;
-
-            switch (authState.getStatus()) {
-                case LOADING:
-                    setUiLoading(true);
-                    break;
-                case SUCCESS:
-                    setUiLoading(false);
-                    showToast(getString(R.string.welcome) + authState.getUser().getDisplayName());
-                    // Open main screen: Opens MainActivity and closes Login, so Back does not return to the login screen
-                    startActivity(new Intent(this, MainActivity.class));
-                    finish();
-                    break;
-                case ERROR:
-                    setUiLoading(false);
-                    showToast(authState.getMessage());
-                    break;
-                case IDLE:
-                    setUiLoading(false);
-                    break;
-            }
-        });
-
-        authViewModel.getResetEmailStatus().observe(this, statusMsg -> {
-            if (statusMsg != null) {
-                showToast(statusMsg);
-            }
-        });
+    // Calls to controllers
+    @Override
+    public void onLoading() {
+        setUiLoading(true);
     }
 
+    @Override
+    public void onSuccess(User user) {
+        setUiLoading(false);
+        showToast("Welcome " + user.getDisplayName());
+        navigateToMain();
+    }
+
+    @Override
+    public void onError(String errorMessage) {
+        setUiLoading(false);
+        showToast(errorMessage);
+    }
+
+    @Override
+    public void onActionMessage(String message) {
+        showToast(message);
+    }
+
+
     //--- LOGIN HELPER METHODS ---
-    // Wires up every button on the login screen
     private void setupClickListeners() {
         loginButton.setOnClickListener(v -> attemptLogin());
 
-        // "Done" on the keyboard (after typing the password) also logs in
         passwordInput.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 attemptLogin();
@@ -150,30 +130,20 @@ public class LoginActivity extends AppCompatActivity {
         forgotButton.setOnClickListener(v -> attemptPasswordReset());
 
         googleButton.setOnClickListener(v -> performGoogleSignIn());
-        signUpButton.setOnClickListener(v -> attemptSignUp());
+        signUpButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SignUpActivity.class);
+            startActivity(intent);
+        });
     }
 
-    // Opens the main screen if BOTH fields have text
     private void attemptLogin() {
-        // Check both so the user sees every error at once
         boolean emailFilled = isFieldFilled(emailInput, emailLayout, R.string.error_email_empty);
         boolean passwordFilled = isFieldFilled(passwordInput, passwordLayout, R.string.error_password_empty);
 
         if (emailFilled && passwordFilled && emailInput.getText() != null && passwordInput.getText() != null) {
             String email = emailInput.getText().toString().trim();
             String password = passwordInput.getText().toString();
-            authViewModel.loginWithEmail(email, password);
-        }
-    }
-
-    private void attemptSignUp() {
-        boolean emailFilled = isFieldFilled(emailInput, emailLayout, R.string.error_email_empty);
-        boolean passwordFilled = isFieldFilled(passwordInput, passwordLayout, R.string.error_password_empty);
-
-        if (emailFilled && passwordFilled && emailInput.getText() != null && passwordInput.getText() != null) {
-            String email = emailInput.getText().toString().trim();
-            String password = passwordInput.getText().toString();
-            authViewModel.signUpWithEmail(email, password);
+            authController.loginWithEmail(email, password);
         }
     }
 
@@ -184,10 +154,9 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         emailLayout.setError(null);
-        authViewModel.sendPasswordResetEmail(email);
+        authController.sendPasswordResetEmail(email);
     }
 
-    // Google Sign-In using Credential Manager API
     private void performGoogleSignIn() {
         GetGoogleIdOption googleIdOption = new GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
@@ -214,9 +183,9 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 GoogleIdTokenCredential googleIdTokenCredential =
                                         GoogleIdTokenCredential.createFrom(credential.getData());
-                                authViewModel.loginWithGoogle(googleIdTokenCredential.getIdToken());
+                                authController.loginWithGoogle(googleIdTokenCredential.getIdToken());
                             } catch (Exception e) {
-                                showToast(getString(R.string.google_sign_in_failed_to_parse_token));
+                                showToast("Google Sign-In failed to parse token.");
                             }
                         }
                     }
@@ -226,7 +195,6 @@ public class LoginActivity extends AppCompatActivity {
                         String msg = e.getMessage();
                         if (msg != null && msg.toLowerCase().contains("no credentials")) {
                             showToast("Please sign in to a Google account on this device first.");
-                            // Automatically launch Android's "Add Google Account" screen
                             try {
                                 Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
                                 intent.putExtra(android.provider.Settings.EXTRA_ACCOUNT_TYPES, new String[]{"com.google"});
@@ -248,7 +216,11 @@ public class LoginActivity extends AppCompatActivity {
         signUpButton.setEnabled(!isLoading);
     }
 
-    // Shows a red error under the field if it is empty, clears it otherwise
+    private void navigateToMain() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
     private boolean isFieldFilled(TextInputEditText input, TextInputLayout layout, @StringRes int error) {
         if (input.getText() == null || input.getText().toString().trim().isEmpty()) {
             layout.setError(getString(error));
@@ -258,13 +230,8 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    //--- ANIMATION METHODS ---
-    /* Entrance animation: logo fades in from above, card slides up from below
-     * @param startDelayMs wait this long first
-     */
     private void playEntranceAnimation(long startDelayMs) {
         float distance = getResources().getDimension(R.dimen.login_space_large);
-
         loginLogo.setAlpha(0f);
         loginLogo.setTranslationY(-distance);
         loginLogo.animate()
@@ -286,9 +253,7 @@ public class LoginActivity extends AppCompatActivity {
                 .start();
     }
 
-    //--- UTILITY/REUSABLE METHODS ---
-    // Shows a short message at the bottom of the screen
     private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

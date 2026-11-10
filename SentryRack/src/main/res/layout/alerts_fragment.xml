@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/alertsScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/alertsContentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- TITLE -->
+        <TextView
+            android:id="@+id/alertsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alerts"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/alertsSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Active issues requiring immediate attention"
+            android:textSize="16sp" />
+
+        <!-- TABS -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/alertsTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+
+            app:tabGravity="fill"
+            app:tabIndicatorFullWidth="true"
+            app:tabMode="fixed">
+
+            <com.google.android.material.tabs.TabItem
+                android:text="Active (0)" />
+
+            <com.google.android.material.tabs.TabItem
+                android:text="Resolved" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <!-- HEADER -->
+        <LinearLayout
+            android:id="@+id/alertsHeaderRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/alertsHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Active Alerts"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:text="•" />
+
+            <TextView
+                android:id="@+id/alertsTotalCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 Alerts" />
+
+        </LinearLayout>
+
+        <!-- ALERTS LIST -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/alertsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:nestedScrollingEnabled="false" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

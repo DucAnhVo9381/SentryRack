@@ -7,53 +7,53 @@ package ca.kava.it.sentryrack;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.RatingBar;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.MenuCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import android.content.Intent;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import android.content.ActivityNotFoundException;
-import android.net.Uri;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.widget.EditText;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.CancellationTokenSource;
-import androidx.core.view.MenuCompat;
-import androidx.lifecycle.ViewModelProvider;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 
+import ca.kava.it.sentryrack.controller.AuthController;
 import ca.kava.it.sentryrack.model.User;
-import ca.kava.it.sentryrack.viewmodel.AuthViewModel;
+import ca.kava.it.sentryrack.controller.FeedbackController;
+import ca.kava.it.sentryrack.model.DeviceInfo;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // Bottom nav and drawer fields
@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int NOTIFICATION_ID = 1001;
     private static final String FULL_NAME = "Kava";
 
-    //Redirect user to settings if location permisison denied > 2
     private final ActivityResultLauncher<String[]> locationPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
                 boolean fineGranted = Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION));
@@ -94,23 +93,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Apply the saved light/dark theme before the screen is drawn - @author Anvesh @date 2026-10-15
         SettingsFragment.applySavedTheme(this);
-        // Settings > "Lock screen to portrait" - apply the saved choice (Anvesh, 2026-10-01)
         SettingsFragment.applySavedOrientation(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        // Initialize location services
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         createNotificationChannel();
 
-        // Setup toolbar - The toolbar lives inside the layout (not the window), so the drawer can slide over it
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Setup navigation drawer
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.drawer_nav_view);
 
@@ -118,18 +112,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ImageButton closeButton = header.findViewById(R.id.btnCloseDrawer);
         closeButton.setOnClickListener(view -> drawerLayout.closeDrawer(GravityCompat.START));
 
-        AuthViewModel authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-        User currentUser = authViewModel.getCurrentUser();
-        if(currentUser != null){
-            TextView userName = header.findViewById(R.id.txtUserName);
-            TextView userEmail = header.findViewById(R.id.txtUserEmail);
+        AuthController authController = new AuthController();
+        User currentUser = authController.getCurrentUser();
+        if (currentUser != null) {
+            TextView txtUserName = header.findViewById(R.id.txtUserName);
+            TextView txtUserEmail = header.findViewById(R.id.txtUserEmail);
 
-            if(userName != null && currentUser.getDisplayName() != null){
-                userName.setText(currentUser.getDisplayName());
+            if (txtUserEmail != null && currentUser.getEmail() != null) {
+                txtUserEmail.setText(currentUser.getEmail());
             }
-
-            if(userEmail != null && currentUser.getEmail() != null){
-                userEmail.setText(currentUser.getEmail());
+            if (txtUserName != null && currentUser.getDisplayName() != null) {
+                txtUserName.setText(currentUser.getDisplayName());
             }
         }
 
@@ -138,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        // Setup bottom navigation
         bottomNav = findViewById(R.id.bottomNavigation);
 
         bottomNav.setOnItemSelectedListener(item -> {
@@ -157,46 +149,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return false;
         });
 
-        // First-time startup actions
         if (savedInstanceState == null) {
-            // Set the main screen as default screen
             bottomNav.setSelectedItemId(R.id.dashboard);
-            // Request location when app first launch
             requestLocation();
         }
 
-        // Android back press handler
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                Fragment current = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
                 if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    // Close drawer if open
                     drawerLayout.closeDrawer(GravityCompat.START);
-                }
-                else if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container) instanceof DashboardFragment)) {
-                    // If the currently visible screen is not the main screen, jump back to dashboard
-                    bottomNav.getMenu().findItem(R.id.dashboard).setChecked(true);  // Forces highlight
+                }else if (current instanceof RegisterRackFragment) {
+                        setCurrentFragment(new RacksFragment());
+                } else if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container) instanceof DashboardFragment)) {
+                    bottomNav.getMenu().findItem(R.id.dashboard).setChecked(true);
                     bottomNav.setSelectedItemId(R.id.dashboard);
-                }
-                else {
-                    // Only show exit dialog if user strictly on dashboard screen with no where else to go
+                } else {
                     showCustomConfirmationDialog(null, null, v -> moveTaskToBack(true));
                 }
             }
         });
     }
 
-    //---NAVIGATION HELPER METHODS---
-    // Enable the toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        // Divider line between overflow groups (like Chrome's menu)
-        MenuCompat.setGroupDividerEnabled(menu,true);
+        MenuCompat.setGroupDividerEnabled(menu, true);
         return true;
     }
 
-    // Handle toolbar items clicks
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -210,14 +193,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.action_contact) {
             showContactSupportSheet();
             return true;
-        } else if (id == R.id.action_about) {
+        } else if (id == R.id.overflow_about) {
             setCurrentFragment(new AboutFragment());
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    // Handle drawer menu item clicks
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int itemId = menuItem.getItemId();
@@ -235,7 +217,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    // Replaces the screen shown in fragment container with the given fragment
     private void setCurrentFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
@@ -243,19 +224,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
 
-    //---MENU ITEMS FUNCTIONALITY METHODS---
     public void confirmLogout() {
         showCustomConfirmationDialog(
                 getString(R.string.logout_dialog_title),
                 getString(R.string.logout_dialog_msg),
-                v -> logout() // Action executed when user clicks YES
+                v -> logout()
         );
     }
 
-
     private void logout() {
-        AuthViewModel authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-        authViewModel.logout();
+        AuthController authController = new AuthController();
+        authController.logout();
 
         Intent intent = new Intent(this, LoginActivity.class);
         intent.putExtra(LoginActivity.FROM_LOGOUT, true);
@@ -263,7 +242,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
         finish();
     }
-
 
     private void showContactSupportSheet() {
         BottomSheetDialog sheet = new BottomSheetDialog(this);
@@ -305,6 +283,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Uri.parse(getString(R.string.contact_web_url)));
         startExternalApp(web);
     }
+
     private void startExternalApp(Intent intent) {
         try {
             startActivity(intent);
@@ -315,65 +294,117 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    /** Opens the "Send feedback" dialog (from the 3-dot menu).
-     * The Send button checks the message first - the dialog only closes
-     */
     private void showSendFeedbackDialog() {
         View dialogView = getLayoutInflater().inflate(R.layout.overflow_dialog_send_feedback, null);
-        ChipGroup typeGroup = dialogView.findViewById(R.id.feedbackTypeGroup);
+        TextInputLayout nameLayout = dialogView.findViewById(R.id.feedbackNameLayout);
+        EditText nameInput = dialogView.findViewById(R.id.feedbackNameInput);
+        TextInputLayout phoneLayout = dialogView.findViewById(R.id.feedbackPhoneLayout);
+        EditText phoneInput = dialogView.findViewById(R.id.feedbackPhoneInput);
+        TextInputLayout emailLayout = dialogView.findViewById(R.id.feedbackEmailLayout);
+        EditText emailInput = dialogView.findViewById(R.id.feedbackEmailInput);
         TextInputLayout messageLayout = dialogView.findViewById(R.id.feedbackMessageLayout);
         EditText messageInput = dialogView.findViewById(R.id.feedbackMessageInput);
-        TextView deviceInfo = dialogView.findViewById(R.id.feedbackDeviceInfo);
+        RatingBar ratingBar = dialogView.findViewById(R.id.feedbackRatingBar);
+        TextView ratingError = dialogView.findViewById(R.id.feedbackRatingError);
+        TextView deviceInfoText = dialogView.findViewById(R.id.feedbackDeviceInfo);
 
-        // "App version 1.0 · Android 14 added automatically"
-        deviceInfo.setText(getString(R.string.feedback_device_info,
+        deviceInfoText.setText(getString(R.string.feedback_device_info,
                 getAppVersion(), Build.VERSION.RELEASE));
 
         AlertDialog dialog = new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.feedback_title)
                 .setView(dialogView)
                 .setNegativeButton(R.string.feedback_cancel, null)
-                .setPositiveButton(R.string.feedback_send, null)   // real click set below
+                .setPositiveButton(R.string.feedback_send, null)
                 .create();
 
-        // Replace the Send click so an empty message does NOT close the dialog
         dialog.setOnShowListener(d -> dialog.getButton(AlertDialog.BUTTON_POSITIVE)
                 .setOnClickListener(button -> {
-                    String message = messageInput.getText() == null
-                            ? "" : messageInput.getText().toString().trim();
-
-                    if (message.isEmpty()) {
-                        messageLayout.setError(getString(R.string.feedback_empty_error));
-                        return;
-                    }
+                    nameLayout.setError(null);
+                    phoneLayout.setError(null);
+                    emailLayout.setError(null);
                     messageLayout.setError(null);
-                    dialog.dismiss();
-                    sendFeedbackEmail(getSelectedFeedbackType(typeGroup), message);
+                    ratingError.setVisibility(View.GONE);
+
+                    String comment = textOf(messageInput);
+
+                    FeedbackController controller = new FeedbackController(new FeedbackController.Callback() {
+                        @Override
+                        public void onFieldError(FeedbackController.Field field, int errorResId) {
+                            String error = getString(errorResId);
+                            switch (field) {
+                                case FULL_NAME:
+                                    nameLayout.setError(error);
+                                    break;
+                                case PHONE:
+                                    phoneLayout.setError(error);
+                                    break;
+                                case EMAIL:
+                                    emailLayout.setError(error);
+                                    break;
+                                case COMMENT:
+                                    messageLayout.setError(error);
+                                    break;
+                                case RATING:
+                                    ratingError.setText(error);
+                                    ratingError.setVisibility(View.VISIBLE);
+                                    break;
+                            }
+                        }
+
+                        @Override
+                        public void onNotLoggedIn() {
+                            Toast.makeText(MainActivity.this, R.string.feedback_login_required,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onSuccess() {
+                            Toast.makeText(MainActivity.this, R.string.feedback_success,
+                                    Toast.LENGTH_SHORT).show();
+                            sendFeedbackEmail(comment.trim());
+                        }
+
+                        @Override
+                        public void onError(String message) {
+                            Toast.makeText(MainActivity.this,
+                                    getString(R.string.feedback_failed, message),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    boolean started = controller.submit(
+                            textOf(nameInput),
+                            textOf(phoneInput),
+                            textOf(emailInput),
+                            comment,
+                            (int) ratingBar.getRating(),
+                            DeviceInfo.from(getAppVersion()));
+
+                    if (started) {
+                        dialog.dismiss();
+                    }
                 }));
 
         dialog.show();
     }
 
-    // Returns the text of the selected chip: "Bug", "Idea" or "Other"
-    private String getSelectedFeedbackType(ChipGroup typeGroup) {
-        Chip selected = typeGroup.findViewById(typeGroup.getCheckedChipId());
-        return selected != null ? selected.getText().toString() : getString(R.string.feedback_other);
+    private String textOf(EditText input) {
+        return input.getText() == null ? "" : input.getText().toString();
     }
 
-    /** Opens the email app with the feedback filled in:
-     * subject = "SentryRack feedback: Bug", body = message + device details.
-     */
-    private void sendFeedbackEmail(String type, String message) {
+    private void sendFeedbackEmail(String comment) {
         String deviceDetails = getString(R.string.app_name) + " " + getAppVersion()
                 + " · Android " + Build.VERSION.RELEASE
                 + " · " + Build.MANUFACTURER + " " + Build.MODEL;
 
         Intent email = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
         email.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.contact_email_address)});
-        email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_subject, type));
-        email.putExtra(Intent.EXTRA_TEXT, message + "\n\n---\n" + deviceDetails);
+        email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_subject));
+        email.putExtra(Intent.EXTRA_TEXT, comment + "\n\n---\n" + deviceDetails);
         startExternalApp(email);
     }
+
     private String getAppVersion() {
         try {
             return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
@@ -382,7 +413,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    //---LOCATION & PERMISSIONS & NOTIFICATIONS---
     private boolean hasLocationPermission() {
         return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
@@ -393,7 +423,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
     }
 
-    // Get perms
     private void requestLocation() {
         if (hasLocationPermission() && hasNotificationPermission()) {
             fetchDeviceLocation();
@@ -415,7 +444,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        // getCurrentLocation
         CancellationTokenSource cts = new CancellationTokenSource();
         fusedLocationClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, cts.getToken())
                 .addOnSuccessListener(this, location -> {
@@ -469,8 +497,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    //---REUSABLE/UTILITY METHODS---
-    //Misc snack bar method REUSABLE
     private void showSnackbar(String message, String actionText, View.OnClickListener listener) {
         Snackbar snackbar = Snackbar.make(findViewById(R.id.fragment_container), message, Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction(actionText, v -> {
@@ -482,11 +508,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         snackbar.show();
     }
 
-    // Inflate the custom confirm dialog and determine the behavior of the "yes" button
     private void showCustomConfirmationDialog(String title, String message, View.OnClickListener onYesClick) {
         View dialogView = getLayoutInflater().inflate(R.layout.confirm_dialog, null);
 
-        // Optional: Update title/message text if your exit_dialog.xml contains TextViews for them
         TextView txtTitle = dialogView.findViewById(R.id.confirmDialogTitle);
         TextView txtMessage = dialogView.findViewById(R.id.confirmDialogMessage);
 

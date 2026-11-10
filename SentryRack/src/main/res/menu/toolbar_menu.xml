@@ -22,11 +22,11 @@
             app:showAsAction="never" />
     </group>
 
-    <!-- Overflow group 2: feedback (a divider line is drawn above it) -->
-    <group android:id="@+id/group_feedback">
+    <!-- Overflow group 2: about (a divider line is drawn above it) -->
+    <group android:id="@+id/group_2">
         <item
-            android:id="@+id/action_about"
-            android:title="@string/drawer_about"
+            android:id="@+id/overflow_about"
+            android:title="@string/overflow_about"
             app:showAsAction="never" />
     </group>
 </menu>

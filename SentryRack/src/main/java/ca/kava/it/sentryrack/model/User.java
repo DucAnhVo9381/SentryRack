@@ -5,38 +5,34 @@
 package ca.kava.it.sentryrack.model;
 
 import com.google.firebase.auth.FirebaseUser;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Domain model representing an authenticated user in SentryRack.
- * Note these fields are default in Firebase Auth
- */
 public class User {
     private String uid;
+    private String name;
     private String email;
-    private String displayName;
-    private String photoUrl;
-    private boolean isEmailVerified;
+    private long createdAt;
+    private long lastLoginAt;
+    private Map<String, Boolean> locations = new HashMap<>();
+    private Map<String, Boolean> buildings = new HashMap<>();
+    private Map<String, Boolean> feedback = new HashMap<>();
 
     public User() {
     }
 
-    public User(String uid, String email, String displayName, String photoUrl, boolean isEmailVerified) {
+    public User(String uid, String name, String email, long createdAt, long lastLoginAt) {
         this.uid = uid;
+        this.name = name;
         this.email = email;
-        this.displayName = displayName;
-        this.photoUrl = photoUrl;
-        this.isEmailVerified = isEmailVerified;
+        this.createdAt = createdAt;
+        this.lastLoginAt = lastLoginAt;
     }
 
-    /**
-     * Factory method mapping FirebaseUser to the domain User model
-     * This maps the object to Firebase
-     */
     public static User fromFirebaseUser(FirebaseUser firebaseUser) {
         if (firebaseUser == null) {
             return null;
         }
-        String photo = firebaseUser.getPhotoUrl() != null ? firebaseUser.getPhotoUrl().toString() : null;
         String name = firebaseUser.getDisplayName();
         if (name == null || name.trim().isEmpty()) {
             if (firebaseUser.getEmail() != null && firebaseUser.getEmail().contains("@")) {
@@ -45,27 +41,33 @@ public class User {
                 name = "User";
             }
         }
-        return new User(
-                firebaseUser.getUid(),
-                firebaseUser.getEmail(),
-                name,
-                photo,
-                firebaseUser.isEmailVerified()
-        );
+        return new User(firebaseUser.getUid(), name, firebaseUser.getEmail(), 0, 0);
     }
 
     public String getUid() { return uid; }
     public void setUid(String uid) { this.uid = uid; }
 
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    @com.google.firebase.database.Exclude
+    public String getDisplayName() { return name; }
+
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public String getDisplayName() { return displayName; }
-    public void setDisplayName(String displayName) { this.displayName = displayName; }
+    public long getCreatedAt() { return createdAt; }
+    public void setCreatedAt(long createdAt) { this.createdAt = createdAt; }
 
-    public String getPhotoUrl() { return photoUrl; }
-    public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }
+    public long getLastLoginAt() { return lastLoginAt; }
+    public void setLastLoginAt(long lastLoginAt) { this.lastLoginAt = lastLoginAt; }
 
-    public boolean isEmailVerified() { return isEmailVerified; }
-    public void setEmailVerified(boolean emailVerified) { isEmailVerified = emailVerified; }
+    public Map<String, Boolean> getLocations() { return locations; }
+    public void setLocations(Map<String, Boolean> locations) { this.locations = locations; }
+
+    public Map<String, Boolean> getBuildings() { return buildings; }
+    public void setBuildings(Map<String, Boolean> buildings) { this.buildings = buildings; }
+
+    public Map<String, Boolean> getFeedback() { return feedback; }
+    public void setFeedback(Map<String, Boolean> feedback) { this.feedback = feedback; }
 }
