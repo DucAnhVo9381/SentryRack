@@ -64,6 +64,7 @@ public class SettingsFragment extends Fragment {
         setupSensorTemplate(view);
         setupSensorUnits(view);   // Sensor units
         setupDecimals(view);      // Decimal places
+        setupResetAll(view);      // Reset all settings
 
         return view;
     }
@@ -431,6 +432,33 @@ public class SettingsFragment extends Fragment {
     /** A base-unit reading ready for the screen, e.g. 124.5 mm -> "12.45 cm". */
     public static String formatReading(Context context, SensorUnitConverter.Sensor sensor, double baseValue) {
         return SensorUnitConverter.format(baseValue, getUnit(context, sensor), getDecimals(context));
+    }
+    //--- RESET ALL SETTINGS (Deliverable 4) ---
+
+    // Red "Reset all settings" row: asks first, then resets.
+    private void setupResetAll(View root) {
+        root.findViewById(R.id.rowResetAll).setOnClickListener(v ->
+                new MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.reset_all_title)
+                        .setMessage(R.string.reset_all_msg)
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .setPositiveButton(R.string.reset_all_confirm, (dialog, which) -> resetAllSettings())
+                        .show());
+    }
+
+    /** Clears settings_user_prefs: portrait lock, dark theme, sensor units and decimal places.The login is stored in a different place, so the user stays signed in.
+     * Firebase data (sensor template, racks) is not touched.
+     */
+    private void resetAllSettings() {
+        Activity activity = requireActivity();
+        getPrefs(activity).edit().clear().apply();
+
+        applySavedOrientation(activity);   // back to "follow the phone"
+        applySavedTheme(activity);         // back to system theme
+        Toast.makeText(activity, R.string.reset_all_done, Toast.LENGTH_SHORT).show();
+
+        // Redraw so every switch, unit and decimal shows its default again
+        activity.recreate();
     }
     //--- UTILITY/REUSABLE METHODS ---
     private void showToast(int messageId) {
