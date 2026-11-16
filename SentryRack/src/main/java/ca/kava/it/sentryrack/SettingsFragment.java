@@ -442,22 +442,31 @@ public class SettingsFragment extends Fragment {
                         .setTitle(R.string.reset_all_title)
                         .setMessage(R.string.reset_all_msg)
                         .setNegativeButton(android.R.string.cancel, null)
-                        .setPositiveButton(R.string.reset_all_confirm, (dialog, which) -> resetAllSettings())
+                        .setPositiveButton(R.string.reset_all_confirm, (dialog, which) -> resetAllSettings(root))
                         .show());
     }
 
-    /** Clears settings_user_prefs: portrait lock, dark theme, sensor units and decimal places.The login is stored in a different place, so the user stays signed in.
+    /** Resets portrait lock, dark theme, alert sound, sensor units and decimal places.
+     * The login is stored in a different place, so the user stays signed in.
      * Firebase data (sensor template, racks) is not touched.
      */
-    private void resetAllSettings() {
+    private void resetAllSettings(View root) {
         Activity activity = requireActivity();
-        getPrefs(activity).edit().clear().apply();
 
-        applySavedOrientation(activity);   // back to "follow the phone"
-        applySavedTheme(activity);         // back to system theme
+        // 1) Switches back to default FIRST. Their own listeners save + apply the default,
+        //    and Android will not restore the old ON position when the screen reloads.
+        ((MaterialSwitch) root.findViewById(R.id.switchDarkMode)).setChecked(false);
+        ((MaterialSwitch) root.findViewById(R.id.switchLockPortrait)).setChecked(false);
+        ((MaterialSwitch) root.findViewById(R.id.switchSound)).setChecked(true);   // default in the layout
+
+        // 2) Clear every saved setting (units, decimals, theme, portrait)
+        getPrefs(activity).edit().clear().apply();
+        applySavedOrientation(activity);
+        applySavedTheme(activity);
+
         Toast.makeText(activity, R.string.reset_all_done, Toast.LENGTH_SHORT).show();
 
-        // Redraw so every switch, unit and decimal shows its default again
+        // 3) Reload so the unit rows and decimal places show their defaults
         activity.recreate();
     }
     //--- UTILITY/REUSABLE METHODS ---
