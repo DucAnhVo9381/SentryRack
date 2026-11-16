@@ -91,7 +91,6 @@
     <string name="racks_status_healthy">Saine</string>
     <string name="racks_door_open">OUVERTE</string>
     <string name="racks_door_closed">Fermée</string>
-    <string name="racks_sensor_details">Liquide de refroidissement : %1$.1f mm | Courant : %2$.1f A | Porte : %3$s</string>
 
     <!-- Register rack screen -->
     <string name="register_rack_title">Enregistrer une baie</string>
@@ -275,4 +274,9 @@
     <string name="unit_ppb">Parties par milliard</string>
     <string name="unit_ppm">Parties par million</string>
     <string name="unit_percent">Pour cent</string>
+    <string name="racks_sensor_details">Liquide : %1$s · Courant : %2$s · Puissance : %3$s\nCOVT : %4$s · eCO₂ : %5$s · Porte : %6$s</string>
+    <string name="reset_all_title">Réinitialiser tous les paramètres?</string>
+    <string name="reset_all_msg">Le thème, le verrouillage portrait, les unités et les décimales reviendront par défaut. Vous resterez connecté.</string>
+    <string name="reset_all_confirm">Réinitialiser</string>
+    <string name="reset_all_done">Paramètres réinitialisés</string>
 </resources>

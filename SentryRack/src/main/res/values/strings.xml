@@ -106,7 +106,6 @@
     <string name="racks_no_sensor_data">No sensor readings available</string>
     <string name="racks_door_open">OPEN</string>
     <string name="racks_door_closed">Closed</string>
-    <string name="racks_sensor_details">Coolant: %1$.1fmm | Current: %2$.1fA | Door: %3$s</string>
 
     <!-- Register rack screen -->
     <string name="required_marker" translatable="false">" *"</string>
@@ -300,4 +299,9 @@
     <string name="unit_ppb">Parts per billion</string>
     <string name="unit_ppm">Parts per million</string>
     <string name="unit_percent">Percent</string>
+    <string name="racks_sensor_details">Coolant: %1$s · Current: %2$s · Power: %3$s\nTVOC: %4$s · eCO₂: %5$s · Door: %6$s</string>
+    <string name="reset_all_title">Reset all settings?</string>
+    <string name="reset_all_msg">Theme, portrait lock, sensor units and decimal places will go back to default. You will stay signed in.</string>
+    <string name="reset_all_confirm">Reset</string>
+    <string name="reset_all_done">Settings reset to default</string>
 </resources>
