@@ -55,4 +55,8 @@
     <color name="status_warning">#FFC107</color>
     <color name="status_critical">#F44336</color>
     <color name="status_offline">#757575</color>
+
+    <!-- Feedback screen -->
+    <color name="fb_star">#FFF5B400</color>
+    <color name="fb_overlay">#99000000</color>
 </resources>

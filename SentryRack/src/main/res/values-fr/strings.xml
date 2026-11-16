@@ -279,4 +279,25 @@
     <string name="reset_all_msg">Le thème, le verrouillage portrait, les unités et les décimales reviendront par défaut. Vous resterez connecté.</string>
     <string name="reset_all_confirm">Réinitialiser</string>
     <string name="reset_all_done">Paramètres réinitialisés</string>
+
+    <!-- Écran de commentaires (D4)  -->
+    <string name="fb_title">Comment allons-nous?</string>
+    <string name="fb_subtitle">Vos commentaires nous aident à améliorer SentryRack</string>
+    <string name="fb_phone_placeholder">4165550123</string>
+    <string name="fb_email_placeholder">vous@exemple.com</string>
+    <string name="fb_rating_tap">Touchez une étoile pour noter</string>
+    <string name="fb_rating_1">Mauvais</string>
+    <string name="fb_rating_2">Passable</string>
+    <string name="fb_rating_3">Bien</string>
+    <string name="fb_rating_4">Très bien</string>
+    <string name="fb_rating_5">Excellent!</string>
+    <string name="fb_submit">Envoyer</string>
+    <string name="fb_note_device">Le modèle de l\'appareil et la version de l\'application sont ajoutés automatiquement</string>
+    <string name="fb_note_limit">Vous pouvez envoyer un commentaire toutes les 24 heures</string>
+    <string name="fb_next_in">Prochain commentaire dans %1$d h %2$02d min</string>
+    <string name="fb_sending">Envoi de vos commentaires…</string>
+    <string name="fb_please_wait">Veuillez patienter</string>
+    <string name="fb_done_title">Commentaire envoyé</string>
+    <string name="fb_done_msg">Merci! Vos commentaires et votre note de %1$d étoiles ont été enregistrés.</string>
+    <string name="fb_phone_error">Entrez un numéro de téléphone à 10 chiffres</string>
 </resources>
