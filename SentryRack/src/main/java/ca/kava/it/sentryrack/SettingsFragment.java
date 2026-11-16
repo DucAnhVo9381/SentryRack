@@ -30,6 +30,10 @@ import java.util.Map;
 
 import ca.kava.it.sentryrack.controller.AuthController;
 import ca.kava.it.sentryrack.model.SensorTemplateRepository;
+import android.widget.TextView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import java.util.List;
+import ca.kava.it.sentryrack.model.SensorUnitConverter;
 
 public class SettingsFragment extends Fragment {
 
@@ -57,6 +61,9 @@ public class SettingsFragment extends Fragment {
         setupPortraitLock(view);
         setupDarkMode(view);   // Dark theme switch
         setupSensorTemplate(view);
+        setupSensorTemplate(view);
+        setupSensorUnits(view);   // Sensor units
+        setupDecimals(view);      // Decimal places
 
         return view;
     }
@@ -286,6 +293,145 @@ public class SettingsFragment extends Fragment {
         );
     }
 
+
+    // Saved in SharedPreferences. Firebase always keeps the base unit (mm, A, W, ppb, ppm);
+    // only the value SHOWN on screen is converted (SensorUnitConverter).
+
+    private static final String KEY_UNIT_PREFIX = "sensor_unit_";   // + COOLANT, CURRENT, ...
+    private static final String KEY_DECIMALS = "decimal_places";
+    private static final SensorUnitConverter.Sensor[] UNIT_SENSORS = {
+            SensorUnitConverter.Sensor.COOLANT, SensorUnitConverter.Sensor.CURRENT,
+            SensorUnitConverter.Sensor.POWER, SensorUnitConverter.Sensor.TVOC,
+            SensorUnitConverter.Sensor.ECO2};
+    private static final int[] UNIT_ROWS = {R.id.rowUnitCoolant, R.id.rowUnitCurrent,
+            R.id.rowUnitPower, R.id.rowUnitTvoc, R.id.rowUnitEco2};
+    private static final int[] UNIT_VALUES = {R.id.valueUnitCoolant, R.id.valueUnitCurrent,
+            R.id.valueUnitPower, R.id.valueUnitTvoc, R.id.valueUnitEco2};
+    private static final int[] UNIT_TITLES = {R.string.setting_unit_coolant, R.string.setting_unit_current,
+            R.string.setting_unit_power, R.string.setting_unit_tvoc, R.string.setting_unit_eco2};
+    private static final double[] SAMPLE_VALUES = {124.5, 3.2468, 1532.5, 245, 612};
+    private static final int SAMPLE_CURRENT = 1;   // decimal places example uses the current reading
+
+    private void setupSensorUnits(View root) {
+        for (int i = 0; i < UNIT_SENSORS.length; i++) {
+            final int index = i;
+            showUnitValue(root, index);
+            root.findViewById(UNIT_ROWS[index]).setOnClickListener(v -> showUnitDialog(root, index));
+        }
+    }
+
+    private void showUnitValue(View root, int index) {
+        TextView value = root.findViewById(UNIT_VALUES[index]);
+        value.setText(getUnit(requireContext(), UNIT_SENSORS[index]).symbol);
+    }
+
+    private void showUnitDialog(View root, int index) {
+        Context context = requireContext();
+        SensorUnitConverter.Sensor sensor = UNIT_SENSORS[index];
+        List<SensorUnitConverter.Unit> units = SensorUnitConverter.unitsFor(sensor);
+        int decimals = getDecimals(context);
+
+        String[] labels = new String[units.size()];
+        for (int i = 0; i < labels.length; i++) {
+            SensorUnitConverter.Unit unit = units.get(i);
+            labels[i] = getString(unitNameRes(unit)) + " (" + unit.symbol + ")  ·  "
+                    + SensorUnitConverter.format(SAMPLE_VALUES[index], unit, decimals);
+        }
+        final int[] selected = {units.indexOf(getUnit(context, sensor))};
+
+        new MaterialAlertDialogBuilder(context)
+                .setTitle(UNIT_TITLES[index])
+                .setSingleChoiceItems(labels, selected[0], (dialog, which) -> selected[0] = which)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    getPrefs(context).edit()
+                            .putString(KEY_UNIT_PREFIX + sensor.name(), units.get(selected[0]).name())
+                            .apply();
+                    showUnitValue(root, index);
+                    showDecimalsValue(root);   // its example uses the current unit
+                })
+                .show();
+    }
+
+    /** Decimal places row: 0 to 3 digits after the point. */
+    private void setupDecimals(View root) {
+        showDecimalsValue(root);
+        root.findViewById(R.id.rowDecimals).setOnClickListener(v -> showDecimalsDialog(root));
+    }
+
+    private void showDecimalsValue(View root) {
+        Context context = requireContext();
+        int decimals = getDecimals(context);
+        TextView value = root.findViewById(R.id.valueDecimals);
+        TextView summary = root.findViewById(R.id.summaryDecimals);
+        value.setText(String.valueOf(decimals));
+        summary.setText(getString(R.string.setting_decimals_example,
+                formatSample(context, SAMPLE_CURRENT, decimals)));
+    }
+
+    /** "2  ·  3.25 A" - every option shows how a reading will look. */
+    private void showDecimalsDialog(View root) {
+        Context context = requireContext();
+        int count = SensorUnitConverter.MAX_DECIMALS - SensorUnitConverter.MIN_DECIMALS + 1;
+        String[] labels = new String[count];
+        for (int i = 0; i < count; i++) {
+            int decimals = SensorUnitConverter.MIN_DECIMALS + i;
+            labels[i] = decimals + "  ·  " + formatSample(context, SAMPLE_CURRENT, decimals);
+        }
+        final int[] selected = {getDecimals(context) - SensorUnitConverter.MIN_DECIMALS};
+
+        new MaterialAlertDialogBuilder(context)
+                .setTitle(R.string.setting_decimals)
+                .setSingleChoiceItems(labels, selected[0], (dialog, which) -> selected[0] = which)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    getPrefs(context).edit()
+                            .putInt(KEY_DECIMALS, SensorUnitConverter.MIN_DECIMALS + selected[0])
+                            .apply();
+                    showDecimalsValue(root);
+                })
+                .show();
+    }
+
+    // Example reading in the saved unit with the given decimals
+    private static String formatSample(Context context, int index, int decimals) {
+        return SensorUnitConverter.format(SAMPLE_VALUES[index],
+                getUnit(context, UNIT_SENSORS[index]), decimals);
+    }
+
+    // Full unit name for the dialog (translated in values-fr)
+    private static int unitNameRes(SensorUnitConverter.Unit unit) {
+        switch (unit) {
+            case CENTIMETRE:  return R.string.unit_centimetre;
+            case INCH:        return R.string.unit_inch;
+            case AMPERE:      return R.string.unit_ampere;
+            case MILLIAMPERE: return R.string.unit_milliampere;
+            case WATT:        return R.string.unit_watt;
+            case KILOWATT:    return R.string.unit_kilowatt;
+            case PPB:         return R.string.unit_ppb;
+            case PPM_TVOC:
+            case PPM:         return R.string.unit_ppm;
+            case PERCENT:     return R.string.unit_percent;
+            default:          return R.string.unit_millimetre;
+        }
+    }
+
+    /** Saved unit for one sensor (default = base unit). Used by the Racks list. */
+    public static SensorUnitConverter.Unit getUnit(Context context, SensorUnitConverter.Sensor sensor) {
+        return SensorUnitConverter.unitFromName(sensor,
+                getPrefs(context).getString(KEY_UNIT_PREFIX + sensor.name(), null));
+    }
+
+    /** Saved decimal places (0-3, default 1). */
+    public static int getDecimals(Context context) {
+        return SensorUnitConverter.clampDecimals(
+                getPrefs(context).getInt(KEY_DECIMALS, SensorUnitConverter.DEFAULT_DECIMALS));
+    }
+
+    /** A base-unit reading ready for the screen, e.g. 124.5 mm -> "12.45 cm". */
+    public static String formatReading(Context context, SensorUnitConverter.Sensor sensor, double baseValue) {
+        return SensorUnitConverter.format(baseValue, getUnit(context, sensor), getDecimals(context));
+    }
     //--- UTILITY/REUSABLE METHODS ---
     private void showToast(int messageId) {
         Toast.makeText(requireContext(),messageId,Toast.LENGTH_LONG).show();
