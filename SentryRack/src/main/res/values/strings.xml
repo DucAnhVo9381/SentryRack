@@ -58,16 +58,12 @@
     <string name="settings_subtitle">Choose how SentryRack works for you</string>
     <string name="settings_group_display">Display</string>
     <string name="settings_group_notifications">Notifications</string>
-    <string name="settings_group_monitoring">Monitoring</string>
     <string name="setting_lock_portrait">Lock screen to portrait</string>
     <string name="setting_lock_portrait_summary">Keep the app upright when the phone rotates</string>
     <string name="setting_dark_mode">Dark theme</string>
     <string name="setting_dark_mode_summary">Easier on the eyes in server rooms</string>
     <string name="setting_sound">Critical alert sound</string>
     <string name="setting_sound_summary">Play a sound for fire, leak and door alerts</string>
-    <string name="setting_temp_unit">Temperature unit</string>
-    <string name="setting_temp_unit_summary">Used on all screens</string>
-    <string name="setting_temp_unit_value">°C</string>
     <string name="setting_portrait_locked_msg">Screen locked to portrait</string>
     <string name="setting_portrait_unlocked_msg">Screen rotation unlocked</string>
     <string name="sensor_template_title">Sensor data template</string>
@@ -277,4 +273,20 @@
     <string name="about_group" translatable="false">Group KAVA · Humber Polytechnic</string>
     <string name="about_copyright">© 2026 Sentry Rack. All rights reserved.</string>
 
+    <!-- Settings: Sensor units + Reset - @author Anvesh Rachakonda @date 2026-11-16 -->
+    <string name="settings_group_sensor_units">Sensor units</string>
+    <string name="setting_unit_coolant">Coolant level</string>
+    <string name="setting_unit_coolant_summary">Racks list and templates</string>
+    <string name="setting_unit_current">Current</string>
+    <string name="setting_unit_current_summary">ACS723 current sensor</string>
+    <string name="setting_unit_power">Power</string>
+    <string name="setting_unit_power_summary">Rack power use</string>
+    <string name="setting_unit_tvoc">TVOC</string>
+    <string name="setting_unit_eco2">eCO₂</string>
+    <string name="setting_unit_air_summary">ENS160 air quality sensor</string>
+    <string name="setting_decimals">Decimal places</string>
+    <string name="setting_decimals_summary">Digits shown after the point</string>
+    <string name="settings_group_reset">Reset</string>
+    <string name="setting_reset_all">Reset all settings</string>
+    <string name="setting_reset_all_summary">Theme, units and decimals back to default</string>
 </resources>
