@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (itemId == R.id.drawer_settings) {
             setCurrentFragment(new SettingsFragment());
         } else if (itemId == R.id.drawer_feedback) {
-            showSendFeedbackDialog();
+            setCurrentFragment(new FeedbackFragment()); // full Feedback screen (D4)
         } else if (itemId == R.id.drawer_logout) {
             confirmLogout();
         }
