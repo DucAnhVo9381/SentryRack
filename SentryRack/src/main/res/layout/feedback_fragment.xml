@@ -1,9 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Customer Feedback screen (Deliverable 4 #30, #42-52)
+     Form: full name, phone, email, comment, 1-5 stars. Device model is added in Java.
+     The overlay (progress) covers the form for 5 seconds while the feedback is sent.
+     @author Anvesh Rachakonda
+     @date 2026-11-16 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fbRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FeedbackFragment">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/settings_padding">
+
+            <TextView
+                style="@style/Widget.SentryRack.Settings.ScreenTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fb_title" />
+
+            <TextView
+                style="@style/Widget.SentryRack.Settings.RowSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/settings_padding"
+                android:text="@string/fb_subtitle" />
+
+            <!-- Full name -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fbNameLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/feedback_name_hint"
+                app:startIconDrawable="@drawable/feedback_ic_person">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fbNameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName|textCapWords"
+                    android:maxLength="50" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Phone: digits only, 10 digits -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fbPhoneLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_space_small"
+                android:hint="@string/feedback_phone_hint"
+                app:placeholderText="@string/fb_phone_placeholder"
+                app:startIconDrawable="@drawable/feedback_ic_phone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fbPhoneInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="phone"
+                    android:digits="0123456789"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="10" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Email -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fbEmailLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_space_small"
+                android:hint="@string/feedback_email_hint"
+                app:placeholderText="@string/fb_email_placeholder"
+                app:startIconDrawable="@drawable/feedback_ic_email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fbEmailInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="emailAddress"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Comment (500 characters max, counter shown) -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fbCommentLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_space_small"
+                android:hint="@string/feedback_hint"
+                app:counterEnabled="true"
+                app:counterMaxLength="500"
+                app:startIconDrawable="@drawable/feedback_ic_comment">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fbCommentInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLength="500"
+                    android:minLines="3" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Stars -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/settings_space_small"
+                android:text="@string/feedback_rating_label"
+                android:textAppearance="?attr/textAppearanceTitleSmall" />
+
+            <RatingBar
+                android:id="@+id/fbRatingBar"
+                style="?android:attr/ratingBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:numStars="5"
+                android:progressTint="@color/fb_star"
+                android:rating="0"
+                android:stepSize="1" />
+
+            <!-- "Tap a star to rate" / "Excellent!" / error (set in Java) -->
+            <TextView
+                android:id="@+id/fbRatingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/fb_rating_tap"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
+
+            <!-- Submit (greyed with a countdown for 24 h after sending) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/fbSubmitButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="@dimen/settings_padding"
+                android:text="@string/fb_submit" />
+
+            <TextView
+                android:id="@+id/fbNote"
+                style="@style/Widget.SentryRack.Settings.RowSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/settings_space_small"
+                android:gravity="center"
+                android:text="@string/fb_note_device" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Progress overlay: shown for 5 seconds while sending (blocks taps on the form) -->
+    <FrameLayout
+        android:id="@+id/fbProgressOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/fb_overlay"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cardCornerRadius="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/fb_sending"
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fb_please_wait"
+                    android:textAppearance="?attr/textAppearanceBodySmall" />
+
+                <!-- Fills up over the 5 seconds (set in Java) -->
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/fbProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:max="100" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 </FrameLayout>

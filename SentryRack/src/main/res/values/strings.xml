@@ -304,4 +304,25 @@
     <string name="reset_all_msg">Theme, portrait lock, sensor units and decimal places will go back to default. You will stay signed in.</string>
     <string name="reset_all_confirm">Reset</string>
     <string name="reset_all_done">Settings reset to default</string>
+
+    <!-- Feedback screen (D4)  -->
+    <string name="fb_title">How are we doing?</string>
+    <string name="fb_subtitle">Your feedback helps us improve SentryRack</string>
+    <string name="fb_phone_placeholder">4165550123</string>
+    <string name="fb_email_placeholder">you@example.com</string>
+    <string name="fb_rating_tap">Tap a star to rate</string>
+    <string name="fb_rating_1">Poor</string>
+    <string name="fb_rating_2">Fair</string>
+    <string name="fb_rating_3">Good</string>
+    <string name="fb_rating_4">Great</string>
+    <string name="fb_rating_5">Excellent!</string>
+    <string name="fb_submit">Submit</string>
+    <string name="fb_note_device">Device model and app version are added automatically</string>
+    <string name="fb_note_limit">You can send one feedback every 24 hours</string>
+    <string name="fb_next_in">Next feedback in %1$d h %2$02d min</string>
+    <string name="fb_sending">Sending your feedback…</string>
+    <string name="fb_please_wait">Please wait</string>
+    <string name="fb_done_title">Feedback submitted</string>
+    <string name="fb_done_msg">Thank you! Your feedback and %1$d-star rating were saved.</string>
+    <string name="fb_phone_error">Enter a 10-digit phone number</string>
 </resources>
