@@ -59,4 +59,7 @@
     <!-- Feedback screen -->
     <color name="fb_star">#FFF5B400</color>
     <color name="fb_overlay">#99000000</color>
+    <color name="fb_error">#FFD32F2F</color>
+    <color name="fb_star_text">#FFB07A00</color>
+
 </resources>
