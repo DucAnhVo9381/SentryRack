@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import ca.kava.it.sentryrack.model.SensorUnitConverter;
 
 
 import ca.kava.it.sentryrack.model.RackStatus;
@@ -70,8 +71,14 @@ public class RackStatusAdapter extends ListAdapter<RackStatus, RackStatusAdapter
         } else {
             String doorState = context.getString(
                     r.doorOpen ? R.string.racks_door_open : R.string.racks_door_closed);
+            // Settings > Sensor units + Decimal places
             details = context.getString(R.string.racks_sensor_details,
-                    r.coolantLevel, r.currentA, doorState);
+                    SettingsFragment.formatReading(context, SensorUnitConverter.Sensor.COOLANT, r.coolantLevel),
+                    SettingsFragment.formatReading(context, SensorUnitConverter.Sensor.CURRENT, r.currentA),
+                    SettingsFragment.formatReading(context, SensorUnitConverter.Sensor.POWER, r.powerW),
+                    SettingsFragment.formatReading(context, SensorUnitConverter.Sensor.TVOC, r.tvoc),
+                    SettingsFragment.formatReading(context, SensorUnitConverter.Sensor.ECO2, r.eco2),
+                    doorState);
         }
         if (r.simulated) {
             details += " · " + context.getString(R.string.racks_simulated_data);

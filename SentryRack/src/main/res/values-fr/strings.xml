@@ -58,16 +58,12 @@
     <string name="settings_subtitle">Choisissez comment SentryRack fonctionne pour vous</string>
     <string name="settings_group_display">Affichage</string>
     <string name="settings_group_notifications">Notifications</string>
-    <string name="settings_group_monitoring">Surveillance</string>
     <string name="setting_lock_portrait">Verrouiller en mode portrait</string>
     <string name="setting_lock_portrait_summary">Garder l\'application droite quand le téléphone pivote</string>
     <string name="setting_dark_mode">Thème sombre</string>
     <string name="setting_dark_mode_summary">Plus doux pour les yeux dans les salles de serveurs</string>
     <string name="setting_sound">Son des alertes critiques</string>
     <string name="setting_sound_summary">Jouer un son pour les alertes d\'incendie, de fuite et de porte</string>
-    <string name="setting_temp_unit">Unité de température</string>
-    <string name="setting_temp_unit_summary">Utilisée sur tous les écrans</string>
-    <string name="setting_temp_unit_value">°C</string>
     <string name="setting_portrait_locked_msg">Écran verrouillé en mode portrait</string>
     <string name="setting_portrait_unlocked_msg">Rotation de l\'écran déverrouillée</string>
 
@@ -95,7 +91,6 @@
     <string name="racks_status_healthy">Saine</string>
     <string name="racks_door_open">OUVERTE</string>
     <string name="racks_door_closed">Fermée</string>
-    <string name="racks_sensor_details">Liquide de refroidissement : %1$.1f mm | Courant : %2$.1f A | Porte : %3$s</string>
 
     <!-- Register rack screen -->
     <string name="register_rack_title">Enregistrer une baie</string>
@@ -252,4 +247,36 @@
     <string name="about_team_header">Notre équipe</string>
     <string name="about_copyright">© 2026 Sentry Rack. Tous droits réservés.</string>
 
+    <!-- Paramètres : unités des capteurs + réinitialisation - @author Anvesh Rachakonda @date 2026-11-16 -->
+    <string name="settings_group_sensor_units">Unités des capteurs</string>
+    <string name="setting_unit_coolant">Niveau du liquide de refroidissement</string>
+    <string name="setting_unit_coolant_summary">Liste des baies et modèles</string>
+    <string name="setting_unit_current">Courant</string>
+    <string name="setting_unit_current_summary">Capteur de courant ACS723</string>
+    <string name="setting_unit_power">Puissance</string>
+    <string name="setting_unit_power_summary">Consommation de la baie</string>
+    <string name="setting_unit_tvoc">COVT</string>
+    <string name="setting_unit_eco2">eCO₂</string>
+    <string name="setting_unit_air_summary">Capteur de qualité de l\'air ENS160</string>
+    <string name="setting_decimals">Décimales</string>
+    <string name="setting_decimals_summary">Chiffres affichés après la virgule</string>
+    <string name="settings_group_reset">Réinitialiser</string>
+    <string name="setting_reset_all">Réinitialiser tous les paramètres</string>
+    <string name="setting_reset_all_summary">Thème, unités et décimales par défaut</string>
+    <string name="setting_decimals_example">Exemple : %1$s</string>
+    <string name="unit_millimetre">Millimètres</string>
+    <string name="unit_centimetre">Centimètres</string>
+    <string name="unit_inch">Pouces</string>
+    <string name="unit_ampere">Ampères</string>
+    <string name="unit_milliampere">Milliampères</string>
+    <string name="unit_watt">Watts</string>
+    <string name="unit_kilowatt">Kilowatts</string>
+    <string name="unit_ppb">Parties par milliard</string>
+    <string name="unit_ppm">Parties par million</string>
+    <string name="unit_percent">Pour cent</string>
+    <string name="racks_sensor_details">Liquide : %1$s · Courant : %2$s · Puissance : %3$s\nCOVT : %4$s · eCO₂ : %5$s · Porte : %6$s</string>
+    <string name="reset_all_title">Réinitialiser tous les paramètres?</string>
+    <string name="reset_all_msg">Le thème, le verrouillage portrait, les unités et les décimales reviendront par défaut. Vous resterez connecté.</string>
+    <string name="reset_all_confirm">Réinitialiser</string>
+    <string name="reset_all_done">Paramètres réinitialisés</string>
 </resources>
