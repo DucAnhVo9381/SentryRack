@@ -289,4 +289,15 @@
     <string name="settings_group_reset">Reset</string>
     <string name="setting_reset_all">Reset all settings</string>
     <string name="setting_reset_all_summary">Theme, units and decimals back to default</string>
+    <string name="setting_decimals_example">Example: %1$s</string>
+    <string name="unit_millimetre">Millimetres</string>
+    <string name="unit_centimetre">Centimetres</string>
+    <string name="unit_inch">Inches</string>
+    <string name="unit_ampere">Amperes</string>
+    <string name="unit_milliampere">Milliamperes</string>
+    <string name="unit_watt">Watts</string>
+    <string name="unit_kilowatt">Kilowatts</string>
+    <string name="unit_ppb">Parts per billion</string>
+    <string name="unit_ppm">Parts per million</string>
+    <string name="unit_percent">Percent</string>
 </resources>

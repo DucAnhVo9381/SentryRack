@@ -264,4 +264,15 @@
     <string name="settings_group_reset">Réinitialiser</string>
     <string name="setting_reset_all">Réinitialiser tous les paramètres</string>
     <string name="setting_reset_all_summary">Thème, unités et décimales par défaut</string>
+    <string name="setting_decimals_example">Exemple : %1$s</string>
+    <string name="unit_millimetre">Millimètres</string>
+    <string name="unit_centimetre">Centimètres</string>
+    <string name="unit_inch">Pouces</string>
+    <string name="unit_ampere">Ampères</string>
+    <string name="unit_milliampere">Milliampères</string>
+    <string name="unit_watt">Watts</string>
+    <string name="unit_kilowatt">Kilowatts</string>
+    <string name="unit_ppb">Parties par milliard</string>
+    <string name="unit_ppm">Parties par million</string>
+    <string name="unit_percent">Pour cent</string>
 </resources>
