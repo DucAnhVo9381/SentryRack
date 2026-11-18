@@ -57,13 +57,10 @@
     <!-- Settings screen -->
     <string name="settings_subtitle">Choose how SentryRack works for you</string>
     <string name="settings_group_display">Display</string>
-    <string name="settings_group_notifications">Notifications</string>
     <string name="setting_lock_portrait">Lock screen to portrait</string>
     <string name="setting_lock_portrait_summary">Keep the app upright when the phone rotates</string>
     <string name="setting_dark_mode">Dark theme</string>
     <string name="setting_dark_mode_summary">Easier on the eyes in server rooms</string>
-    <string name="setting_sound">Critical alert sound</string>
-    <string name="setting_sound_summary">Play a sound for fire, leak and door alerts</string>
     <string name="setting_portrait_locked_msg">Screen locked to portrait</string>
     <string name="setting_portrait_unlocked_msg">Screen rotation unlocked</string>
     <string name="sensor_template_title">Sensor data template</string>
