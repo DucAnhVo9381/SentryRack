@@ -38,7 +38,7 @@ public class FeedbackController {
      * and the save was started; the result then arrives through the callback.
      */
     public boolean submit(String fullName, String phone, String email, String comment,
-                          int stars, DeviceInfo deviceInfo) {
+                          double stars, DeviceInfo deviceInfo) {
         String name = clean(fullName);
         String phoneNumber = clean(phone);
         String mail = clean(email);
@@ -60,7 +60,7 @@ public class FeedbackController {
             callback.onFieldError(Field.COMMENT, R.string.feedback_empty_error);
             return false;
         }
-        if (stars < 1 || stars > 5) {
+        if (stars < 0.5 || stars > 5) {
             callback.onFieldError(Field.RATING, R.string.feedback_rating_error);
             return false;
         }
