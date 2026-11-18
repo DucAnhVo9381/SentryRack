@@ -185,7 +185,7 @@
     <string name="feedback_email_hint">Adresse courriel</string>
     <string name="feedback_rating_label">Votre note</string>
     <string name="feedback_name_error">Veuillez entrer votre nom complet</string>
-    <string name="feedback_phone_error">Veuillez entrer un numéro de téléphone valide</string>
+    <string name="feedback_phone_error">Entrez un numéro de téléphone valide à 10 chiffres</string>
     <string name="feedback_email_error">Veuillez entrer une adresse courriel valide</string>
     <string name="feedback_rating_error">Veuillez choisir une note en étoiles</string>
     <string name="feedback_login_required">Veuillez vous connecter pour envoyer un commentaire</string>
@@ -299,6 +299,5 @@
     <string name="fb_please_wait">Veuillez patienter</string>
     <string name="fb_done_title">Commentaire envoyé</string>
     <string name="fb_done_msg">Merci! Vos commentaires et votre note de %1$s étoiles ont été enregistrés.</string>
-    <string name="fb_phone_error">Entrez un numéro de téléphone à 10 chiffres</string>
     <string name="fb_rating_value">%1$s · %2$s / 5</string>
 </resources>

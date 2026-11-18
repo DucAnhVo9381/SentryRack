@@ -204,7 +204,7 @@
     <string name="feedback_email_hint">Email</string>
     <string name="feedback_rating_label">Your rating</string>
     <string name="feedback_name_error">Please enter your full name</string>
-    <string name="feedback_phone_error">Please enter a valid phone number</string>
+    <string name="feedback_phone_error">Enter a valid 10-digit phone number</string>
     <string name="feedback_email_error">Please enter a valid email address</string>
     <string name="feedback_rating_error">Please choose a star rating</string>
     <string name="feedback_login_required">Please log in to send feedback</string>
@@ -324,6 +324,5 @@
     <string name="fb_please_wait">Please wait</string>
     <string name="fb_done_title">Feedback submitted</string>
     <string name="fb_done_msg">Thank you! Your feedback and %1$s-star rating were saved.</string>
-    <string name="fb_phone_error">Enter a 10-digit phone number</string>
     <string name="fb_rating_value">%1$s · %2$s / 5</string>
 </resources>

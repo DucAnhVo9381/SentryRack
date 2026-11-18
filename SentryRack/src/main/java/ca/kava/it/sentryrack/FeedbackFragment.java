@@ -56,7 +56,6 @@ public class FeedbackFragment extends Fragment implements FeedbackController.Cal
     private static final long MIN_SENDING_MS = 5_000;              // D4 #44: 5-second delay
     private static final long LIMIT_MS = 24L * 60 * 60 * 1000;     // D4 #50: once per 24 hours
     private static final long TIMER_TICK_MS = 30_000;              // countdown refresh
-    private static final int PHONE_DIGITS = 10;
     private static final int[] RATING_LABELS = {R.string.fb_rating_1, R.string.fb_rating_2,
             R.string.fb_rating_3, R.string.fb_rating_4, R.string.fb_rating_5};
 
@@ -141,12 +140,6 @@ public class FeedbackFragment extends Fragment implements FeedbackController.Cal
 
     private void attemptSubmit() {
         clearErrors();
-
-        // Extra rule on top of the controller: exactly 10 digits (D4 #43)
-        if (text(phoneInput).length() != PHONE_DIGITS) {
-            phoneLayout.setError(getString(R.string.fb_phone_error));
-            return;
-        }
 
         sentStars = ratingBar.getRating();   // e.g. 4.5
         FeedbackController controller = new FeedbackController(this);
