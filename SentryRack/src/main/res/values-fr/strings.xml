@@ -298,6 +298,7 @@
     <string name="fb_sending">Envoi de vos commentaires…</string>
     <string name="fb_please_wait">Veuillez patienter</string>
     <string name="fb_done_title">Commentaire envoyé</string>
-    <string name="fb_done_msg">Merci! Vos commentaires et votre note de %1$d étoiles ont été enregistrés.</string>
+    <string name="fb_done_msg">Merci! Vos commentaires et votre note de %1$s étoiles ont été enregistrés.</string>
     <string name="fb_phone_error">Entrez un numéro de téléphone à 10 chiffres</string>
+    <string name="fb_rating_value">%1$s · %2$s / 5</string>
 </resources>

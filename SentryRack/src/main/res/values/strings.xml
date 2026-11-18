@@ -323,6 +323,7 @@
     <string name="fb_sending">Sending your feedback…</string>
     <string name="fb_please_wait">Please wait</string>
     <string name="fb_done_title">Feedback submitted</string>
-    <string name="fb_done_msg">Thank you! Your feedback and %1$d-star rating were saved.</string>
+    <string name="fb_done_msg">Thank you! Your feedback and %1$s-star rating were saved.</string>
     <string name="fb_phone_error">Enter a 10-digit phone number</string>
+    <string name="fb_rating_value">%1$s · %2$s / 5</string>
 </resources>

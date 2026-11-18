@@ -9,14 +9,14 @@ public class Feedback {
     private String phoneNumber;
     private String email;
     private String comment;
-    private int starRating;
+    private double starRating;
     private DeviceInfo deviceInfo;
 
     public Feedback() {
     }
 
     public Feedback(String fullName, String phoneNumber, String email, String comment,
-                    int starRating, DeviceInfo deviceInfo) {
+                    double starRating, DeviceInfo deviceInfo) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -37,8 +37,8 @@ public class Feedback {
     public String getComment() { return comment; }
     public void setComment(String comment) { this.comment = comment; }
 
-    public int getStarRating() { return starRating; }
-    public void setStarRating(int starRating) { this.starRating = starRating; }
+    public double getStarRating() { return starRating; }
+    public void setStarRating(double starRating) { this.starRating = starRating; }
 
     public DeviceInfo getDeviceInfo() { return deviceInfo; }
     public void setDeviceInfo(DeviceInfo deviceInfo) { this.deviceInfo = deviceInfo; }
