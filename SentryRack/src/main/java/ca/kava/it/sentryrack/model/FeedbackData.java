@@ -16,7 +16,7 @@ public class FeedbackData {
     }
 
     public FeedbackData(String fullName, String phoneNumber, String email, String comment,
-                        int starRating, DeviceInfoData deviceInfoData) {
+                        double starRating, DeviceInfoData deviceInfoData) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;
