@@ -2,7 +2,7 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-package ca.kava.it.sentryrack;
+package ca.kava.it.sentryrack.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -28,12 +28,12 @@ import com.google.firebase.database.DataSnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
+import ca.kava.it.sentryrack.R;
 import ca.kava.it.sentryrack.controller.AuthController;
 import ca.kava.it.sentryrack.model.SensorTemplateRepository;
 import android.widget.TextView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.List;
-import ca.kava.it.sentryrack.model.SensorUnitConverter;
 
 public class SettingsFragment extends Fragment {
 

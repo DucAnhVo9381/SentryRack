@@ -7,27 +7,30 @@ package ca.kava.it.sentryrack.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Floor {
+public class RoomData {
     private String id;
+    private String floorId;
     private String buildingId;
     private String locationId;
-    private int level;
     private String name;
-    private Map<String, Boolean> rooms = new HashMap<>();
+    private Map<String, Boolean> racks = new HashMap<>();
 
-    public Floor() {
+    public RoomData() {
     }
 
-    public Floor(String id, String buildingId, String locationId, int level, String name) {
+    public RoomData(String id, String floorId, String buildingId, String locationId, String name) {
         this.id = id;
+        this.floorId = floorId;
         this.buildingId = buildingId;
         this.locationId = locationId;
-        this.level = level;
         this.name = name;
     }
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
+
+    public String getFloorId() { return floorId; }
+    public void setFloorId(String floorId) { this.floorId = floorId; }
 
     public String getBuildingId() { return buildingId; }
     public void setBuildingId(String buildingId) { this.buildingId = buildingId; }
@@ -35,12 +38,9 @@ public class Floor {
     public String getLocationId() { return locationId; }
     public void setLocationId(String locationId) { this.locationId = locationId; }
 
-    public int getLevel() { return level; }
-    public void setLevel(int level) { this.level = level; }
-
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public Map<String, Boolean> getRooms() { return rooms; }
-    public void setRooms(Map<String, Boolean> rooms) { this.rooms = rooms; }
+    public Map<String, Boolean> getRacks() { return racks; }
+    public void setRacks(Map<String, Boolean> racks) { this.racks = racks; }
 }

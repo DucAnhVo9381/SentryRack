@@ -7,10 +7,10 @@ package ca.kava.it.sentryrack.controller;
 import android.util.Patterns;
 
 import ca.kava.it.sentryrack.R;
-import ca.kava.it.sentryrack.model.DeviceInfo;
-import ca.kava.it.sentryrack.model.Feedback;
+import ca.kava.it.sentryrack.model.DeviceInfoData;
+import ca.kava.it.sentryrack.model.FeedbackData;
 import ca.kava.it.sentryrack.model.FeedbackRepository;
-import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.model.UserData;
 
 public class FeedbackController {
 
@@ -38,7 +38,7 @@ public class FeedbackController {
      * and the save was started; the result then arrives through the callback.
      */
     public boolean submit(String fullName, String phone, String email, String comment,
-                          int stars, DeviceInfo deviceInfo) {
+                          int stars, DeviceInfoData deviceInfoData) {
         String name = clean(fullName);
         String phoneNumber = clean(phone);
         String mail = clean(email);
@@ -65,14 +65,14 @@ public class FeedbackController {
             return false;
         }
 
-        User user = authController.getCurrentUser();
-        if (user == null) {
+        UserData userData = authController.getCurrentUser();
+        if (userData == null) {
             callback.onNotLoggedIn();
             return false;
         }
 
-        Feedback feedback = new Feedback(name, phoneNumber, mail, text, stars, deviceInfo);
-        repository.submitFeedback(user.getUid(), feedback, new FeedbackRepository.Callback() {
+        FeedbackData feedbackData = new FeedbackData(name, phoneNumber, mail, text, stars, deviceInfoData);
+        repository.submitFeedback(userData.getUid(), feedbackData, new FeedbackRepository.Callback() {
             @Override
             public void onSuccess() {
                 callback.onSuccess();

@@ -4,7 +4,7 @@
 // Krushna Patel N01713093 ONC
 package ca.kava.it.sentryrack.model;
 
-public class Rack {
+public class RackData {
     private String id;
     private String roomId;
     private String floorId;
@@ -14,10 +14,10 @@ public class Rack {
     private boolean online;
     private long lastSeen;
 
-    public Rack() {
+    public RackData() {
     }
 
-    public Rack(String id, String roomId, String floorId, String buildingId, String locationId, String name, boolean online, long lastSeen) {
+    public RackData(String id, String roomId, String floorId, String buildingId, String locationId, String name, boolean online, long lastSeen) {
         this.id = id;
         this.roomId = roomId;
         this.floorId = floorId;

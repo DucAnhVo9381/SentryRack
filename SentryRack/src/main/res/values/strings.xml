@@ -133,9 +133,9 @@
     <string name="register_rack_clip_label">Rack ID</string>
 
 
-    <!-- User (profile) screen - bottom navigation tab -->
+    <!-- UserData (profile) screen - bottom navigation tab -->
     <string name="user_name_default">User</string>
-    <string name="user_email_default">user@kava.ca</string>
+    <string name="user_email_default">userData@kava.ca</string>
     <string name="user_edit_profile">Edit profile</string>
     <string name="user_edit_profile_summary">Name, photo, phone</string>
     <string name="user_my_alerts">My alerts</string>
@@ -149,7 +149,7 @@
     <string name="cd_user_avatar">Profile picture</string>
     <string name="cd_user_online">Online</string>
 
-    <!-- User screen - Change password dialog (working feature) -->
+    <!-- UserData screen - Change password dialog (working feature) -->
     <string name="user_pw_title">Change password</string>
     <string name="user_pw_current">Current password</string>
     <string name="user_pw_new">New password</string>
@@ -196,9 +196,9 @@
     <string name="contact_phone_number" translatable="false">+14165550123</string>
     <string name="contact_web_url" translatable="false">https://humber.ca</string>
 
-    <!-- Send feedback dialog -->
+    <!-- Send feedbackData dialog -->
     <string name="feedback_hint">Your comment…</string>
-    <string name="feedback_subject">SentryRack feedback</string>
+    <string name="feedback_subject">SentryRack feedbackData</string>
     <string name="feedback_name_hint">Full name</string>
     <string name="feedback_phone_hint">Phone number</string>
     <string name="feedback_email_hint">Email</string>
@@ -207,10 +207,10 @@
     <string name="feedback_phone_error">Please enter a valid phone number</string>
     <string name="feedback_email_error">Please enter a valid email address</string>
     <string name="feedback_rating_error">Please choose a star rating</string>
-    <string name="feedback_login_required">Please log in to send feedback</string>
+    <string name="feedback_login_required">Please log in to send feedbackData</string>
     <string name="feedback_success">Feedback submitted. Thank you!</string>
-    <string name="feedback_failed">Failed to submit feedback: %1$s</string>
-    <string name="feedback_title">Send feedback</string>
+    <string name="feedback_failed">Failed to submit feedbackData: %1$s</string>
+    <string name="feedback_title">Send feedbackData</string>
     <string name="feedback_device_info">App version %1$s · Android %2$s added automatically</string>
     <string name="feedback_send">Send</string>
     <string name="feedback_empty_error">Please write a few words</string>
@@ -305,9 +305,9 @@
     <string name="reset_all_confirm">Reset</string>
     <string name="reset_all_done">Settings reset to default</string>
 
-    <!-- Feedback screen (D4)  -->
+    <!-- FeedbackData screen (D4)  -->
     <string name="fb_title">How are we doing?</string>
-    <string name="fb_subtitle">Your feedback helps us improve SentryRack</string>
+    <string name="fb_subtitle">Your feedbackData helps us improve SentryRack</string>
     <string name="fb_phone_placeholder">4165550123</string>
     <string name="fb_email_placeholder">you@example.com</string>
     <string name="fb_rating_tap">Tap a star to rate</string>
@@ -318,11 +318,11 @@
     <string name="fb_rating_5">Excellent!</string>
     <string name="fb_submit">Submit</string>
     <string name="fb_note_device">Device model and app version are added automatically</string>
-    <string name="fb_note_limit">You can send one feedback every 24 hours</string>
-    <string name="fb_next_in">Next feedback in %1$d h %2$02d min</string>
-    <string name="fb_sending">Sending your feedback…</string>
+    <string name="fb_note_limit">You can send one feedbackData every 24 hours</string>
+    <string name="fb_next_in">Next feedbackData in %1$d h %2$02d min</string>
+    <string name="fb_sending">Sending your feedbackData…</string>
     <string name="fb_please_wait">Please wait</string>
     <string name="fb_done_title">Feedback submitted</string>
-    <string name="fb_done_msg">Thank you! Your feedback and %1$d-star rating were saved.</string>
+    <string name="fb_done_msg">Thank you! Your feedbackData and %1$d-star rating were saved.</string>
     <string name="fb_phone_error">Enter a 10-digit phone number</string>
 </resources>

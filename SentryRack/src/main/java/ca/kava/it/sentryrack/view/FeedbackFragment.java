@@ -2,7 +2,7 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-package ca.kava.it.sentryrack;
+package ca.kava.it.sentryrack.view;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -30,13 +30,14 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import ca.kava.it.sentryrack.R;
 import ca.kava.it.sentryrack.controller.AuthController;
 import ca.kava.it.sentryrack.controller.FeedbackController;
-import ca.kava.it.sentryrack.model.DeviceInfo;
-import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.model.DeviceInfoData;
+import ca.kava.it.sentryrack.model.UserData;
 
 /**
- * Customer Feedback screen (Deliverable 4 #30, #42-52).
+ * Customer FeedbackData screen (Deliverable 4 #30, #42-52).
  * View in the team's MVC design: validation and saving are done by FeedbackController
  * (FeedbackRepository writes feedback/{id} to Firebase with the device model).
  *
@@ -129,10 +130,10 @@ public class FeedbackFragment extends Fragment implements FeedbackController.Cal
 
     // Name and email of the signed-in user are filled in (they can still be changed)
     private void prefillFromAccount() {
-        User user = new AuthController().getCurrentUser();
-        if (user == null) return;
-        if (user.getDisplayName() != null) nameInput.setText(user.getDisplayName());
-        if (user.getEmail() != null) emailInput.setText(user.getEmail());
+        UserData userData = new AuthController().getCurrentUser();
+        if (userData == null) return;
+        if (userData.getDisplayName() != null) nameInput.setText(userData.getDisplayName());
+        if (userData.getEmail() != null) emailInput.setText(userData.getEmail());
     }
 
     //--- SUBMIT ---
@@ -149,7 +150,7 @@ public class FeedbackFragment extends Fragment implements FeedbackController.Cal
         sentStars = (int) ratingBar.getRating();
         FeedbackController controller = new FeedbackController(this);
         boolean started = controller.submit(text(nameInput), text(phoneInput), text(emailInput),
-                text(commentInput), sentStars, DeviceInfo.from(appVersion()));
+                text(commentInput), sentStars, DeviceInfoData.from(appVersion()));
 
         if (started) {
             showSending();
@@ -273,8 +274,8 @@ public class FeedbackFragment extends Fragment implements FeedbackController.Cal
 
     // One limit per signed-in user on this phone
     private String limitKey() {
-        User user = new AuthController().getCurrentUser();
-        return KEY_LAST_SENT + (user == null ? "guest" : user.getUid());
+        UserData userData = new AuthController().getCurrentUser();
+        return KEY_LAST_SENT + (userData == null ? "guest" : userData.getUid());
     }
 
     private long lastSent() {

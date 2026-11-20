@@ -2,7 +2,7 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-package ca.kava.it.sentryrack;
+package ca.kava.it.sentryrack.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import ca.kava.it.sentryrack.R;
 
 /** Alerts screen - opened from the bottom navigation
  * @author Krushna

@@ -3,7 +3,7 @@
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
 
-package ca.kava.it.sentryrack;
+package ca.kava.it.sentryrack.view;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,9 +24,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.Collections;
 import java.util.List;
 
+import ca.kava.it.sentryrack.R;
 import ca.kava.it.sentryrack.controller.AuthController;
 import ca.kava.it.sentryrack.controller.DashboardRackController;
-import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.model.UserData;
 import ca.kava.it.sentryrack.model.RackStatus;
 
 public class RacksFragment extends Fragment implements DashboardRackController.Callback {
@@ -37,7 +38,7 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
     private DashboardRackController controller;
     private TextView racksTotalCount;
 
-    // Rack data = dead Rack = OFFLINE
+    // RackData data = dead RackData = OFFLINE
     private final Handler staleHandler = new Handler(Looper.getMainLooper());
     private final Runnable staleRunnable = new Runnable() {
         @Override
@@ -79,8 +80,8 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
     @Override
     public void onStart() {
         super.onStart();
-        User currentUser = new AuthController().getCurrentUser();
-        if (currentUser == null) {
+        UserData currentUserData = new AuthController().getCurrentUser();
+        if (currentUserData == null) {
             adapter.submitList(Collections.emptyList());
             if (racksTotalCount != null) {
                 racksTotalCount.setText(getResources().getQuantityString(
@@ -88,7 +89,7 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
             }
             return;
         }
-        controller.start(currentUser.getUid());
+        controller.start(currentUserData.getUid());
         staleHandler.postDelayed(staleRunnable, STALE_CHECK_INTERVAL_MS);
     }
 
@@ -119,7 +120,7 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
     // Show delete dialog for long click listener
     private void showDeleteDialog(RackStatus rack) {
         new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Delete Rack")
+                .setTitle("Delete RackData")
                 .setMessage("Delete " + rack.name + "?")
                 .setNegativeButton("Cancel", null)
                 .setPositiveButton("Delete", (dialog, which) -> {

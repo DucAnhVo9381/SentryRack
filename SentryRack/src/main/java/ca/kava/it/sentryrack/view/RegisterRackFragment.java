@@ -2,7 +2,7 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-package ca.kava.it.sentryrack;
+package ca.kava.it.sentryrack.view;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -21,6 +21,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import ca.kava.it.sentryrack.R;
 import ca.kava.it.sentryrack.controller.RegisterRackController;
 
 public class RegisterRackFragment extends Fragment implements RegisterRackController.Callback {

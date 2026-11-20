@@ -2,7 +2,7 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-package ca.kava.it.sentryrack.model;
+package ca.kava.it.sentryrack.view;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Send feedback dialog (opened from the 3-dot menu)
+<!-- Send feedbackData dialog (opened from the 3-dot menu)
      - Full name, phone number and email (all required)
      - Comment box with 500-character counter
      - 5-star rating (required)

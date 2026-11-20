@@ -7,17 +7,17 @@ package ca.kava.it.sentryrack.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Building {
+public class BuildingData {
     private String id;
     private String locationId;
     private String name;
     private Map<String, String> members = new HashMap<>(); // "uid": "admin"|"technician"
     private Map<String, Boolean> floors = new HashMap<>();
 
-    public Building() {
+    public BuildingData() {
     }
 
-    public Building(String id, String locationId, String name) {
+    public BuildingData(String id, String locationId, String name) {
         this.id = id;
         this.locationId = locationId;
         this.name = name;

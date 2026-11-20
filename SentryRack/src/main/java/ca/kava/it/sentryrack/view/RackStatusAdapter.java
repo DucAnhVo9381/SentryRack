@@ -3,7 +3,7 @@
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
 
-package ca.kava.it.sentryrack;
+package ca.kava.it.sentryrack.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,7 +17,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-import ca.kava.it.sentryrack.model.SensorUnitConverter;
+
+import ca.kava.it.sentryrack.R;
 
 
 import ca.kava.it.sentryrack.model.RackStatus;

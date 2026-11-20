@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Customer Feedback screen (Deliverable 4 #30, #42-52)
+<!-- Customer FeedbackData screen (Deliverable 4 #30, #42-52)
      Form: full name, phone, email, comment, 1-5 stars. Device model is added in Java.
-     The overlay (progress) covers the form for 5 seconds while the feedback is sent.
+     The overlay (progress) covers the form for 5 seconds while the feedbackData is sent.
      @author Anvesh Rachakonda
      @date 2026-11-16 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -10,7 +10,7 @@
     android:id="@+id/fbRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FeedbackFragment">
+    tools:context=".view.FeedbackFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

@@ -2,13 +2,11 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-package ca.kava.it.sentryrack;
+package ca.kava.it.sentryrack.view;
 
 import android.os.Bundle;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
@@ -16,8 +14,9 @@ import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import ca.kava.it.sentryrack.R;
 import ca.kava.it.sentryrack.controller.AuthController;
-import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.model.UserData;
 
 public class SignUpActivity extends AppCompatActivity implements AuthController.Callback {
     private TextInputLayout nameLayout;
@@ -102,7 +101,7 @@ public class SignUpActivity extends AppCompatActivity implements AuthController.
     }
 
     @Override
-    public void onSuccess(User user) {
+    public void onSuccess(UserData userData) {
         Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show();
         finish();
     }

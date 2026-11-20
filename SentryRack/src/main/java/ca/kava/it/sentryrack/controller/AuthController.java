@@ -5,14 +5,14 @@
 package ca.kava.it.sentryrack.controller;
 
 import ca.kava.it.sentryrack.model.AuthRepository;
-import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.model.UserData;
 import ca.kava.it.sentryrack.model.UserRepository;
 
 public class AuthController {
 
     public interface Callback {
         void onLoading();
-        void onSuccess(User user);
+        void onSuccess(UserData userData);
         void onError(String errorMessage);
         void onActionMessage(String message);
     }
@@ -31,7 +31,7 @@ public class AuthController {
         this.callback = callback;
     }
 
-    public User getCurrentUser() {
+    public UserData getCurrentUser() {
         return repository.getCurrentUser();
     }
 
@@ -72,9 +72,9 @@ public class AuthController {
     private AuthRepository.AuthCallback authCallback() {
         return new AuthRepository.AuthCallback() {
             @Override
-            public void onSuccess(User user) {
-                userRepository.createOrUpdateOnLogin(user);
-                if (callback != null) callback.onSuccess(user);
+            public void onSuccess(UserData userData) {
+                userRepository.createOrUpdateOnLogin(userData);
+                if (callback != null) callback.onSuccess(userData);
             }
 
             @Override
