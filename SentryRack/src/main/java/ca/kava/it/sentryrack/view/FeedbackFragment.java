@@ -19,6 +19,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -48,14 +50,13 @@ import ca.kava.it.sentryrack.model.UserData;
  * - Form cleared, one feedback per 24 hours, greyed button with h/min countdown (#50, #51)
  *
  * @author Anvesh Rachakonda
- * @date 2026-11-16
+ * @date 2026-11-16 (half-star ratings added 2026-11-18)
  */
 public class FeedbackFragment extends Fragment implements FeedbackController.Callback {
 
     private static final long MIN_SENDING_MS = 5_000;              // D4 #44: 5-second delay
     private static final long LIMIT_MS = 24L * 60 * 60 * 1000;     // D4 #50: once per 24 hours
     private static final long TIMER_TICK_MS = 30_000;              // countdown refresh
-    private static final int PHONE_DIGITS = 10;
     private static final int[] RATING_LABELS = {R.string.fb_rating_1, R.string.fb_rating_2,
             R.string.fb_rating_3, R.string.fb_rating_4, R.string.fb_rating_5};
 
@@ -78,7 +79,7 @@ public class FeedbackFragment extends Fragment implements FeedbackController.Cal
     private boolean minDelayDone;
     private Boolean saveSucceeded;       // null = Firebase has not answered yet
     private String saveError;
-    private int sentStars;
+    private float sentStars;          // 0.5 to 5, half stars allowed
 
     public FeedbackFragment() {
         // Required empty public constructor
@@ -96,7 +97,7 @@ public class FeedbackFragment extends Fragment implements FeedbackController.Cal
         bindViews(view);
         prefillFromAccount();
 
-        ratingBar.setOnRatingBarChangeListener((bar, rating, fromUser) -> showRatingLabel((int) rating));
+        ratingBar.setOnRatingBarChangeListener((bar, rating, fromUser) -> showRatingLabel(rating));
         submitButton.setOnClickListener(v -> attemptSubmit());
 
         updateLimitUi();
@@ -141,13 +142,7 @@ public class FeedbackFragment extends Fragment implements FeedbackController.Cal
     private void attemptSubmit() {
         clearErrors();
 
-        // Extra rule on top of the controller: exactly 10 digits (D4 #43)
-        if (text(phoneInput).length() != PHONE_DIGITS) {
-            phoneLayout.setError(getString(R.string.fb_phone_error));
-            return;
-        }
-
-        sentStars = (int) ratingBar.getRating();
+        sentStars = ratingBar.getRating();   // e.g. 4.5
         FeedbackController controller = new FeedbackController(this);
         boolean started = controller.submit(text(nameInput), text(phoneInput), text(emailInput),
                 text(commentInput), sentStars, DeviceInfoData.from(appVersion()));
@@ -200,7 +195,7 @@ public class FeedbackFragment extends Fragment implements FeedbackController.Cal
             updateLimitUi();
             new MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.fb_done_title)
-                    .setMessage(getString(R.string.fb_done_msg, sentStars))
+                    .setMessage(getString(R.string.fb_done_msg, formatStars(sentStars)))
                     .setPositiveButton(android.R.string.ok, null)
                     .show();
         } else {
@@ -288,9 +283,21 @@ public class FeedbackFragment extends Fragment implements FeedbackController.Cal
 
     //--- SMALL HELPERS ---
 
-    private void showRatingLabel(int stars) {
+    // "Great · 4.5 / 5" - half stars round up to the next label (0.5 and 1 = Poor)
+    private void showRatingLabel(float stars) {
         ratingText.setTextColor(ContextCompat.getColor(requireContext(), R.color.fb_star_text));
-        ratingText.setText(stars >= 1 && stars <= 5 ? RATING_LABELS[stars - 1] : R.string.fb_rating_tap);
+        if (stars <= 0) {
+            ratingText.setText(R.string.fb_rating_tap);
+            return;
+        }
+        int index = Math.min(RATING_LABELS.length, (int) Math.ceil(stars)) - 1;
+        ratingText.setText(getString(R.string.fb_rating_value,
+                getString(RATING_LABELS[index]), formatStars(stars)));
+    }
+
+    // 5 -> "5", 4.5 -> "4.5" (French: "4,5")
+    private static String formatStars(float stars) {
+        return String.format(Locale.getDefault(), stars % 1 == 0 ? "%.0f" : "%.1f", stars);
     }
 
     private void clearErrors() {
@@ -298,7 +305,7 @@ public class FeedbackFragment extends Fragment implements FeedbackController.Cal
         phoneLayout.setError(null);
         emailLayout.setError(null);
         commentLayout.setError(null);
-        showRatingLabel((int) ratingBar.getRating());
+        showRatingLabel(ratingBar.getRating());
     }
 
     // D4 #50: clear the user input after a successful submit

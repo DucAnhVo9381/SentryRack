@@ -137,7 +137,7 @@
                 android:numStars="5"
                 android:progressTint="@color/fb_star"
                 android:rating="0"
-                android:stepSize="1" />
+                android:stepSize="0.5" />
 
             <!-- "Tap a star to rate" / "Excellent!" / error (set in Java) -->
             <TextView

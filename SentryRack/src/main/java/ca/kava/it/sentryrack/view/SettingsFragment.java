@@ -457,7 +457,6 @@ public class SettingsFragment extends Fragment {
         //    and Android will not restore the old ON position when the screen reloads.
         ((MaterialSwitch) root.findViewById(R.id.switchDarkMode)).setChecked(false);
         ((MaterialSwitch) root.findViewById(R.id.switchLockPortrait)).setChecked(false);
-        ((MaterialSwitch) root.findViewById(R.id.switchSound)).setChecked(true);   // default in the layout
 
         // 2) Clear every saved setting (units, decimals, theme, portrait)
         getPrefs(activity).edit().clear().apply();

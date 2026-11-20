@@ -23,7 +23,7 @@ public class FeedbackController {
         void onError(String message);
     }
 
-    private static final int MIN_PHONE_DIGITS = 7;
+    private static final int PHONE_DIGITS = 10;   // D4: valid 10-digit phone
 
     private final FeedbackRepository repository = new FeedbackRepository();
     private final AuthController authController = new AuthController();
@@ -38,30 +38,34 @@ public class FeedbackController {
      * and the save was started; the result then arrives through the callback.
      */
     public boolean submit(String fullName, String phone, String email, String comment,
-                          int stars, DeviceInfoData deviceInfoData) {
+                          double stars, DeviceInfoData deviceInfoData) {
         String name = clean(fullName);
         String phoneNumber = clean(phone);
         String mail = clean(email);
         String text = clean(comment);
 
+        boolean valid = true;
         if (name.isEmpty()) {
             callback.onFieldError(Field.FULL_NAME, R.string.feedback_name_error);
-            return false;
+            valid = false;
         }
         if (!isValidPhone(phoneNumber)) {
             callback.onFieldError(Field.PHONE, R.string.feedback_phone_error);
-            return false;
+            valid = false;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
             callback.onFieldError(Field.EMAIL, R.string.feedback_email_error);
-            return false;
+            valid = false;
         }
         if (text.isEmpty()) {
             callback.onFieldError(Field.COMMENT, R.string.feedback_empty_error);
-            return false;
+            valid = false;
         }
-        if (stars < 1 || stars > 5) {
+        if (stars < 0.5 || stars > 5) {
             callback.onFieldError(Field.RATING, R.string.feedback_rating_error);
+            valid = false;
+        }
+        if (!valid) {
             return false;
         }
 
@@ -91,12 +95,13 @@ public class FeedbackController {
     }
 
     // Digits, spaces and + - ( ) only, with at least 7 digits
+    // Exactly 10 digits, e.g. 4165550123 (spaces, + - ( ) are ignored) - Anvesh 2026-11-18
     private boolean isValidPhone(String phone) {
         if (!phone.matches("[0-9 +\\-()]+")) return false;
         int digits = 0;
         for (char c : phone.toCharArray()) {
             if (Character.isDigit(c)) digits++;
         }
-        return digits >= MIN_PHONE_DIGITS;
+        return digits == PHONE_DIGITS;
     }
 }
