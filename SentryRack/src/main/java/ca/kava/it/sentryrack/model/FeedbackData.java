@@ -9,7 +9,7 @@ public class FeedbackData {
     private String phoneNumber;
     private String email;
     private String comment;
-    private int starRating;
+    private double starRating;
     private DeviceInfoData deviceInfoData;
 
     public FeedbackData() {
@@ -37,8 +37,8 @@ public class FeedbackData {
     public String getComment() { return comment; }
     public void setComment(String comment) { this.comment = comment; }
 
-    public int getStarRating() { return starRating; }
-    public void setStarRating(int starRating) { this.starRating = starRating; }
+    public double getStarRating() { return starRating; }
+    public void setStarRating(double starRating) { this.starRating = starRating; }
 
     public DeviceInfoData getDeviceInfo() { return deviceInfoData; }
     public void setDeviceInfo(DeviceInfoData deviceInfoData) { this.deviceInfoData = deviceInfoData; }

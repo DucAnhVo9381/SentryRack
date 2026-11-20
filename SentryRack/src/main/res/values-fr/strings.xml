@@ -57,13 +57,10 @@
     <!-- Settings screen -->
     <string name="settings_subtitle">Choisissez comment SentryRack fonctionne pour vous</string>
     <string name="settings_group_display">Affichage</string>
-    <string name="settings_group_notifications">Notifications</string>
     <string name="setting_lock_portrait">Verrouiller en mode portrait</string>
     <string name="setting_lock_portrait_summary">Garder l\'application droite quand le téléphone pivote</string>
     <string name="setting_dark_mode">Thème sombre</string>
     <string name="setting_dark_mode_summary">Plus doux pour les yeux dans les salles de serveurs</string>
-    <string name="setting_sound">Son des alertes critiques</string>
-    <string name="setting_sound_summary">Jouer un son pour les alertes d\'incendie, de fuite et de porte</string>
     <string name="setting_portrait_locked_msg">Écran verrouillé en mode portrait</string>
     <string name="setting_portrait_unlocked_msg">Rotation de l\'écran déverrouillée</string>
 
@@ -185,7 +182,7 @@
     <string name="feedback_email_hint">Adresse courriel</string>
     <string name="feedback_rating_label">Votre note</string>
     <string name="feedback_name_error">Veuillez entrer votre nom complet</string>
-    <string name="feedback_phone_error">Veuillez entrer un numéro de téléphone valide</string>
+    <string name="feedback_phone_error">Entrez un numéro de téléphone valide à 10 chiffres</string>
     <string name="feedback_email_error">Veuillez entrer une adresse courriel valide</string>
     <string name="feedback_rating_error">Veuillez choisir une note en étoiles</string>
     <string name="feedback_login_required">Veuillez vous connecter pour envoyer un commentaire</string>
@@ -298,6 +295,6 @@
     <string name="fb_sending">Envoi de vos commentaires…</string>
     <string name="fb_please_wait">Veuillez patienter</string>
     <string name="fb_done_title">Commentaire envoyé</string>
-    <string name="fb_done_msg">Merci! Vos commentaires et votre note de %1$d étoiles ont été enregistrés.</string>
-    <string name="fb_phone_error">Entrez un numéro de téléphone à 10 chiffres</string>
+    <string name="fb_done_msg">Merci! Vos commentaires et votre note de %1$s étoiles ont été enregistrés.</string>
+    <string name="fb_rating_value">%1$s · %2$s / 5</string>
 </resources>
