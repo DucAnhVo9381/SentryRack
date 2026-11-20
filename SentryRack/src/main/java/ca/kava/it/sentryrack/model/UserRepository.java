@@ -28,18 +28,18 @@ public class UserRepository {
         this.usersRef = FirebaseDatabase.getInstance().getReference("users");
     }
 
-    public void createOrUpdateOnLogin(User user) {
-        if (user == null || user.getUid() == null) return;
+    public void createOrUpdateOnLogin(UserData userData) {
+        if (userData == null || userData.getUid() == null) return;
 
-        DatabaseReference userRef = usersRef.child(user.getUid());
+        DatabaseReference userRef = usersRef.child(userData.getUid());
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Only these fields are ever written, so the locations,
                 // buildings and feedback maps are never overwritten.
                 Map<String, Object> updates = new HashMap<>();
-                updates.put("name", user.getName());
-                updates.put("email", user.getEmail());
+                updates.put("name", userData.getName());
+                updates.put("email", userData.getEmail());
                 updates.put("lastLoginAt", ServerValue.TIMESTAMP);
                 if (!snapshot.hasChild("createdAt")) {
                     updates.put("createdAt", ServerValue.TIMESTAMP);
@@ -47,14 +47,14 @@ public class UserRepository {
 
                 userRef.updateChildren(updates, (error, ref) -> {
                     if (error != null) {
-                        Log.w(TAG, "Could not write user node: " + error.getMessage());
+                        Log.w(TAG, "Could not write userData node: " + error.getMessage());
                     }
                 });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Could not read user node: " + error.getMessage());
+                Log.w(TAG, "Could not read userData node: " + error.getMessage());
             }
         });
     }

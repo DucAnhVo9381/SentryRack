@@ -13,7 +13,7 @@ public class AuthRepository {
     private final FirebaseAuth firebaseAuth;
 
     public interface AuthCallback {
-        void onSuccess(User user);
+        void onSuccess(UserData userData);
         void onError(String errorMessage);
     }
 
@@ -26,15 +26,15 @@ public class AuthRepository {
         this.firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    public User getCurrentUser() {
-        return User.fromFirebaseUser(firebaseAuth.getCurrentUser());
+    public UserData getCurrentUser() {
+        return UserData.fromFirebaseUser(firebaseAuth.getCurrentUser());
     }
 
     public void loginWithEmail(String email, String password, AuthCallback callback) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && firebaseAuth.getCurrentUser() != null) {
-                        callback.onSuccess(User.fromFirebaseUser(firebaseAuth.getCurrentUser()));
+                        callback.onSuccess(UserData.fromFirebaseUser(firebaseAuth.getCurrentUser()));
                     } else {
                         String err = task.getException() != null ? task.getException().getMessage() : "Authentication failed";
                         callback.onError(err);
@@ -46,7 +46,7 @@ public class AuthRepository {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && firebaseAuth.getCurrentUser() != null) {
-                        callback.onSuccess(User.fromFirebaseUser(firebaseAuth.getCurrentUser()));
+                        callback.onSuccess(UserData.fromFirebaseUser(firebaseAuth.getCurrentUser()));
                     } else {
                         String err = task.getException() != null ? task.getException().getMessage() : "Sign up failed";
                         callback.onError(err);
@@ -59,7 +59,7 @@ public class AuthRepository {
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && firebaseAuth.getCurrentUser() != null) {
-                        callback.onSuccess(User.fromFirebaseUser(firebaseAuth.getCurrentUser()));
+                        callback.onSuccess(UserData.fromFirebaseUser(firebaseAuth.getCurrentUser()));
                     } else {
                         String err = task.getException() != null ? task.getException().getMessage() : "Google sign-in failed";
                         callback.onError(err);

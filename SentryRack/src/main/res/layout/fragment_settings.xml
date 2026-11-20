@@ -108,53 +108,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!--  NOTIFICATIONS   -->
-        <TextView
-            style="@style/Widget.SentryRack.Settings.SectionHeader"
-            android:text="@string/settings_group_notifications" />
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.SentryRack.Settings.Card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- Critical alert sound (design only) -->
-                <LinearLayout style="@style/Widget.SentryRack.Settings.Row">
-                    <ImageView style="@style/Widget.SentryRack.Settings.RowIcon" android:src="@drawable/settings_alert_sound_ic" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Settings.RowTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/setting_sound" />
-
-                        <TextView
-                            style="@style/Widget.SentryRack.Settings.RowSummary"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/setting_sound_summary" />
-                    </LinearLayout>
-
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchSound"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:contentDescription="@string/setting_sound" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
 
         <!-- SENSOR UNITS - @author Anvesh Rachakonda @date 2026-11-16
              Tap a row to choose the unit; values are converted on screen only,

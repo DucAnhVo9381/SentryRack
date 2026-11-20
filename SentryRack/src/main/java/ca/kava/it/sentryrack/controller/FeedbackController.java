@@ -7,10 +7,10 @@ package ca.kava.it.sentryrack.controller;
 import android.util.Patterns;
 
 import ca.kava.it.sentryrack.R;
-import ca.kava.it.sentryrack.model.DeviceInfo;
-import ca.kava.it.sentryrack.model.Feedback;
+import ca.kava.it.sentryrack.model.DeviceInfoData;
+import ca.kava.it.sentryrack.model.FeedbackData;
 import ca.kava.it.sentryrack.model.FeedbackRepository;
-import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.model.UserData;
 
 public class FeedbackController {
 
@@ -23,7 +23,7 @@ public class FeedbackController {
         void onError(String message);
     }
 
-    private static final int MIN_PHONE_DIGITS = 7;
+    private static final int PHONE_DIGITS = 10;   // D4: valid 10-digit phone
 
     private final FeedbackRepository repository = new FeedbackRepository();
     private final AuthController authController = new AuthController();
@@ -38,41 +38,45 @@ public class FeedbackController {
      * and the save was started; the result then arrives through the callback.
      */
     public boolean submit(String fullName, String phone, String email, String comment,
-                          int stars, DeviceInfo deviceInfo) {
+                          double stars, DeviceInfoData deviceInfoData) {
         String name = clean(fullName);
         String phoneNumber = clean(phone);
         String mail = clean(email);
         String text = clean(comment);
 
+        boolean valid = true;
         if (name.isEmpty()) {
             callback.onFieldError(Field.FULL_NAME, R.string.feedback_name_error);
-            return false;
+            valid = false;
         }
         if (!isValidPhone(phoneNumber)) {
             callback.onFieldError(Field.PHONE, R.string.feedback_phone_error);
-            return false;
+            valid = false;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
             callback.onFieldError(Field.EMAIL, R.string.feedback_email_error);
-            return false;
+            valid = false;
         }
         if (text.isEmpty()) {
             callback.onFieldError(Field.COMMENT, R.string.feedback_empty_error);
-            return false;
+            valid = false;
         }
-        if (stars < 1 || stars > 5) {
+        if (stars < 0.5 || stars > 5) {
             callback.onFieldError(Field.RATING, R.string.feedback_rating_error);
+            valid = false;
+        }
+        if (!valid) {
             return false;
         }
 
-        User user = authController.getCurrentUser();
-        if (user == null) {
+        UserData userData = authController.getCurrentUser();
+        if (userData == null) {
             callback.onNotLoggedIn();
             return false;
         }
 
-        Feedback feedback = new Feedback(name, phoneNumber, mail, text, stars, deviceInfo);
-        repository.submitFeedback(user.getUid(), feedback, new FeedbackRepository.Callback() {
+        FeedbackData feedbackData = new FeedbackData(name, phoneNumber, mail, text, stars, deviceInfoData);
+        repository.submitFeedback(userData.getUid(), feedbackData, new FeedbackRepository.Callback() {
             @Override
             public void onSuccess() {
                 callback.onSuccess();
@@ -91,12 +95,13 @@ public class FeedbackController {
     }
 
     // Digits, spaces and + - ( ) only, with at least 7 digits
+    // Exactly 10 digits, e.g. 4165550123 (spaces, + - ( ) are ignored) - Anvesh 2026-11-18
     private boolean isValidPhone(String phone) {
         if (!phone.matches("[0-9 +\\-()]+")) return false;
         int digits = 0;
         for (char c : phone.toCharArray()) {
             if (Character.isDigit(c)) digits++;
         }
-        return digits >= MIN_PHONE_DIGITS;
+        return digits == PHONE_DIGITS;
     }
 }

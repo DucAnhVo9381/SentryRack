@@ -40,7 +40,7 @@
     <!-- Settings row image size -->
     <dimen name="settings_icon_size">40dp</dimen>
 
-    <!-- User (profile) screen sizes -->
+    <!-- UserData (profile) screen sizes -->
     <dimen name="user_header_padding">24dp</dimen>
     <dimen name="user_avatar_size">88dp</dimen>
     <dimen name="user_online_dot">20dp</dimen>
@@ -57,7 +57,7 @@
     <dimen name="help_card_gap">10dp</dimen>
     <dimen name="help_answer_padding">16dp</dimen>
 
-    <!-- Send feedback dialog -->
+    <!-- Send feedbackData dialog -->
     <dimen name="feedback_dialog_padding">24dp</dimen>
     <dimen name="feedback_message_min_height">120dp</dimen>
 

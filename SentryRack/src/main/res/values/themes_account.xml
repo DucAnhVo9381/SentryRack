@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- User (profile) screen styles. Rows reuse the Settings styles (themes_settings.xml).
+<!-- UserData (profile) screen styles. Rows reuse the Settings styles (themes_settings.xml).
      @author Anvesh
      @date 2026-10-07 -->
 <resources>
