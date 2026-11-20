@@ -13,7 +13,7 @@
     android:fillViewport="true"
     android:background="@drawable/login_background"
     android:theme="@style/ThemeOverlay.SentryRack.Login"
-    tools:context=".LoginActivity">
+    tools:context=".view.LoginActivity">
 
     <!-- PARENT LAYOUT OF THE CONTENT INSIDE SCROLLVIEW -->
     <LinearLayout

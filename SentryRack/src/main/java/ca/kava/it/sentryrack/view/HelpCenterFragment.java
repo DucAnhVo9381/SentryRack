@@ -3,7 +3,7 @@
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
 
-package ca.kava.it.sentryrack;
+package ca.kava.it.sentryrack.view;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,6 +23,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.util.Locale;
+
+import ca.kava.it.sentryrack.R;
 
 /** Help center screen (opened from the 3-dot overflow menu).
  * - Search bar filters the questions while you type

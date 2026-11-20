@@ -56,7 +56,7 @@
     <color name="status_critical">#F44336</color>
     <color name="status_offline">#757575</color>
 
-    <!-- Feedback screen -->
+    <!-- FeedbackData screen -->
     <color name="fb_star">#FFF5B400</color>
     <color name="fb_overlay">#99000000</color>
     <color name="fb_error">#FFD32F2F</color>

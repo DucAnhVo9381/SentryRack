@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- User (profile) screen - 3rd bottom navigation tab
-     Header: login gradient + user picture + name + email.
+<!-- UserData (profile) screen - 3rd bottom navigation tab
+     Header: login gradient + userData picture + name + email.
      Rows: Edit profile, My alerts, Change password (WORKS), Activity history.
      Log out button (WORKS).
      @author Anvesh
@@ -23,7 +23,7 @@
             android:orientation="horizontal"
             android:padding="@dimen/user_header_padding">
 
-            <!-- User picture + green online dot -->
+            <!-- UserData picture + green online dot -->
             <FrameLayout
                 android:layout_width="@dimen/user_avatar_size"
                 android:layout_height="@dimen/user_avatar_size">

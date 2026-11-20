@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.HashMap;
 import java.util.Map;
 
-public class User {
+public class UserData {
     private String uid;
     private String name;
     private String email;
@@ -18,10 +18,10 @@ public class User {
     private Map<String, Boolean> buildings = new HashMap<>();
     private Map<String, Boolean> feedback = new HashMap<>();
 
-    public User() {
+    public UserData() {
     }
 
-    public User(String uid, String name, String email, long createdAt, long lastLoginAt) {
+    public UserData(String uid, String name, String email, long createdAt, long lastLoginAt) {
         this.uid = uid;
         this.name = name;
         this.email = email;
@@ -29,7 +29,7 @@ public class User {
         this.lastLoginAt = lastLoginAt;
     }
 
-    public static User fromFirebaseUser(FirebaseUser firebaseUser) {
+    public static UserData fromFirebaseUser(FirebaseUser firebaseUser) {
         if (firebaseUser == null) {
             return null;
         }
@@ -38,10 +38,10 @@ public class User {
             if (firebaseUser.getEmail() != null && firebaseUser.getEmail().contains("@")) {
                 name = firebaseUser.getEmail().split("@")[0];
             } else {
-                name = "User";
+                name = "UserData";
             }
         }
-        return new User(firebaseUser.getUid(), name, firebaseUser.getEmail(), 0, 0);
+        return new UserData(firebaseUser.getUid(), name, firebaseUser.getEmail(), 0, 0);
     }
 
     public String getUid() { return uid; }

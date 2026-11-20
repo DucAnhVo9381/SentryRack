@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 import ca.kava.it.sentryrack.R;
 import ca.kava.it.sentryrack.model.RackRegistration;
 import ca.kava.it.sentryrack.model.RackRepository;
-import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.model.UserData;
 
 public class RegisterRackController {
 
@@ -24,8 +24,8 @@ public class RegisterRackController {
         void onError(String message);
     }
 
-    private static final String DEFAULT_LOCATION_NAME = "Default Location";
-    private static final String DEFAULT_BUILDING_NAME = "Default Building";
+    private static final String DEFAULT_LOCATION_NAME = "Default LocationData";
+    private static final String DEFAULT_BUILDING_NAME = "Default BuildingData";
     private static final String ROLE_ADMIN = "admin";
     private static final Pattern DIGITS = Pattern.compile("\\d+");
 
@@ -55,13 +55,13 @@ public class RegisterRackController {
             return false;
         }
 
-        User user = authController.getCurrentUser();
-        if (user == null) {
+        UserData userData = authController.getCurrentUser();
+        if (userData == null) {
             callback.onNotLoggedIn();
             return false;
         }
 
-        RackRegistration request = new RackRegistration(user.getUid(), ROLE_ADMIN,
+        RackRegistration request = new RackRegistration(userData.getUid(), ROLE_ADMIN,
                 DEFAULT_LOCATION_NAME, DEFAULT_BUILDING_NAME,
                 floor, parseFloorLevel(floor), room, rack);
 

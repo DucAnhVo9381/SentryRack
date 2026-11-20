@@ -2,7 +2,7 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-package ca.kava.it.sentryrack;
+package ca.kava.it.sentryrack.view;
 
 import android.Manifest;
 import android.app.NotificationChannel;
@@ -50,10 +50,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
+import ca.kava.it.sentryrack.R;
 import ca.kava.it.sentryrack.controller.AuthController;
-import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.model.UserData;
 import ca.kava.it.sentryrack.controller.FeedbackController;
-import ca.kava.it.sentryrack.model.DeviceInfo;
+import ca.kava.it.sentryrack.model.DeviceInfoData;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // Bottom nav and drawer fields
@@ -113,16 +114,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         closeButton.setOnClickListener(view -> drawerLayout.closeDrawer(GravityCompat.START));
 
         AuthController authController = new AuthController();
-        User currentUser = authController.getCurrentUser();
-        if (currentUser != null) {
+        UserData currentUserData = authController.getCurrentUser();
+        if (currentUserData != null) {
             TextView txtUserName = header.findViewById(R.id.txtUserName);
             TextView txtUserEmail = header.findViewById(R.id.txtUserEmail);
 
-            if (txtUserEmail != null && currentUser.getEmail() != null) {
-                txtUserEmail.setText(currentUser.getEmail());
+            if (txtUserEmail != null && currentUserData.getEmail() != null) {
+                txtUserEmail.setText(currentUserData.getEmail());
             }
-            if (txtUserName != null && currentUser.getDisplayName() != null) {
-                txtUserName.setText(currentUser.getDisplayName());
+            if (txtUserName != null && currentUserData.getDisplayName() != null) {
+                txtUserName.setText(currentUserData.getDisplayName());
             }
         }
 
@@ -209,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (itemId == R.id.drawer_settings) {
             setCurrentFragment(new SettingsFragment());
         } else if (itemId == R.id.drawer_feedback) {
-            setCurrentFragment(new FeedbackFragment()); // full Feedback screen (D4)
+            setCurrentFragment(new FeedbackFragment()); // full FeedbackData screen (D4)
         } else if (itemId == R.id.drawer_logout) {
             confirmLogout();
         }
@@ -379,7 +380,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             textOf(emailInput),
                             comment,
                             (int) ratingBar.getRating(),
-                            DeviceInfo.from(getAppVersion()));
+                            DeviceInfoData.from(getAppVersion()));
 
                     if (started) {
                         dialog.dismiss();

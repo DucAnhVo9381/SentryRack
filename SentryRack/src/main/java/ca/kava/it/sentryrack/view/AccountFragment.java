@@ -2,7 +2,7 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-package ca.kava.it.sentryrack;
+package ca.kava.it.sentryrack.view;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,10 +27,11 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.R;
+import ca.kava.it.sentryrack.model.UserData;
 import ca.kava.it.sentryrack.controller.AuthController;
 
-/** User (profile) screen - 3rd bottom navigation tab.
+/** UserData (profile) screen - 3rd bottom navigation tab.
  * Working features: Change password (dialog with Current, New, Confirm) and Log out.
  * Edit profile, My alerts and Activity history are design only for now.
  * Passwords are stored as a SHA-256 hash on the phone; Firebase will replace this later.
@@ -53,7 +54,7 @@ public class AccountFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /** Loads the User screen layout
+    /** Loads the UserData screen layout
      * @author Anvesh
      * @date 2026-10-07
      */
@@ -81,17 +82,17 @@ public class AccountFragment extends Fragment {
      */
     private void showSavedEmail(View root) {
         AuthController authController = new AuthController();
-        User currentUser = authController.getCurrentUser();
+        UserData currentUserData = authController.getCurrentUser();
 
-        if (currentUser != null) {
+        if (currentUserData != null) {
             TextView emailText = root.findViewById(R.id.userEmail);
             TextView userNameText = root.findViewById(R.id.userName);
 
-            if (emailText != null && currentUser.getEmail() != null) {
-                emailText.setText(currentUser.getEmail());
+            if (emailText != null && currentUserData.getEmail() != null) {
+                emailText.setText(currentUserData.getEmail());
             }
-            if (userNameText != null && currentUser.getDisplayName() != null) {
-                userNameText.setText(currentUser.getDisplayName());
+            if (userNameText != null && currentUserData.getDisplayName() != null) {
+                userNameText.setText(currentUserData.getDisplayName());
             }
         }
     }

@@ -6,24 +6,24 @@ package ca.kava.it.sentryrack.model;
 
 import android.os.Build;
 
-public class DeviceInfo {
+public class DeviceInfoData {
     private String appVersion;
     private String androidVersion;
     private String manufacturer;
     private String model;
 
-    public DeviceInfo() {
+    public DeviceInfoData() {
     }
 
-    public DeviceInfo(String appVersion, String androidVersion, String manufacturer, String model) {
+    public DeviceInfoData(String appVersion, String androidVersion, String manufacturer, String model) {
         this.appVersion = appVersion;
         this.androidVersion = androidVersion;
         this.manufacturer = manufacturer;
         this.model = model;
     }
 
-    public static DeviceInfo from(String appVersion) {
-        return new DeviceInfo(appVersion, Build.VERSION.RELEASE, Build.MANUFACTURER, Build.MODEL);
+    public static DeviceInfoData from(String appVersion) {
+        return new DeviceInfoData(appVersion, Build.VERSION.RELEASE, Build.MANUFACTURER, Build.MODEL);
     }
 
     public String getAppVersion() { return appVersion; }

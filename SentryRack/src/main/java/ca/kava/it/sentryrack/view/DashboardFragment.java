@@ -2,7 +2,7 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-package ca.kava.it.sentryrack;
+package ca.kava.it.sentryrack.view;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.R;
+import ca.kava.it.sentryrack.model.UserData;
 import ca.kava.it.sentryrack.controller.AuthController;
 import ca.kava.it.sentryrack.controller.DashboardRackController;
 import ca.kava.it.sentryrack.model.RackStatus;
@@ -84,8 +85,8 @@ public class DashboardFragment extends Fragment implements DashboardRackControll
         View view = inflater.inflate(R.layout.dashboard_fragment, container, false);
 
         AuthController authController = new AuthController();
-        User currentUser = authController.getCurrentUser();
-        String displayName = (currentUser != null && currentUser.getDisplayName() != null) ? currentUser.getDisplayName() : getString(R.string.user_name_default);
+        UserData currentUserData = authController.getCurrentUser();
+        String displayName = (currentUserData != null && currentUserData.getDisplayName() != null) ? currentUserData.getDisplayName() : getString(R.string.user_name_default);
 
         TextView dashboardGreeting = view.findViewById(R.id.dashboardGreeting);
         dashboardGreeting.setText(getGreetingMessage(displayName));
@@ -106,13 +107,13 @@ public class DashboardFragment extends Fragment implements DashboardRackControll
     @Override
     public void onStart() {
         super.onStart();
-        User currentUser = new AuthController().getCurrentUser();
-        if (currentUser == null) {
+        UserData currentUserData = new AuthController().getCurrentUser();
+        if (currentUserData == null) {
             currentRacks.clear();
             renderRacks();
             return;
         }
-        rackController.start(currentUser.getUid());
+        rackController.start(currentUserData.getUid());
         staleHandler.postDelayed(staleRunnable, STALE_CHECK_INTERVAL_MS);
     }
 

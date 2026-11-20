@@ -4,25 +4,25 @@
 // Krushna Patel N01713093 ONC
 package ca.kava.it.sentryrack.model;
 
-public class Feedback {
+public class FeedbackData {
     private String fullName;
     private String phoneNumber;
     private String email;
     private String comment;
     private int starRating;
-    private DeviceInfo deviceInfo;
+    private DeviceInfoData deviceInfoData;
 
-    public Feedback() {
+    public FeedbackData() {
     }
 
-    public Feedback(String fullName, String phoneNumber, String email, String comment,
-                    int starRating, DeviceInfo deviceInfo) {
+    public FeedbackData(String fullName, String phoneNumber, String email, String comment,
+                        int starRating, DeviceInfoData deviceInfoData) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.comment = comment;
         this.starRating = starRating;
-        this.deviceInfo = deviceInfo;
+        this.deviceInfoData = deviceInfoData;
     }
 
     public String getFullName() { return fullName; }
@@ -40,6 +40,6 @@ public class Feedback {
     public int getStarRating() { return starRating; }
     public void setStarRating(int starRating) { this.starRating = starRating; }
 
-    public DeviceInfo getDeviceInfo() { return deviceInfo; }
-    public void setDeviceInfo(DeviceInfo deviceInfo) { this.deviceInfo = deviceInfo; }
+    public DeviceInfoData getDeviceInfo() { return deviceInfoData; }
+    public void setDeviceInfo(DeviceInfoData deviceInfoData) { this.deviceInfoData = deviceInfoData; }
 }

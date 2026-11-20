@@ -2,7 +2,7 @@
 // Duc Anh Vo N01729381 0NC
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
-package ca.kava.it.sentryrack;
+package ca.kava.it.sentryrack.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,8 +29,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import ca.kava.it.sentryrack.R;
 import ca.kava.it.sentryrack.controller.AuthController;
-import ca.kava.it.sentryrack.model.User;
+import ca.kava.it.sentryrack.model.UserData;
 
 public class LoginActivity extends AppCompatActivity implements AuthController.Callback {
     //--- CONSTANTS ---//
@@ -96,9 +97,9 @@ public class LoginActivity extends AppCompatActivity implements AuthController.C
     }
 
     @Override
-    public void onSuccess(User user) {
+    public void onSuccess(UserData userData) {
         setUiLoading(false);
-        showToast("Welcome " + user.getDisplayName());
+        showToast("Welcome " + userData.getDisplayName());
         navigateToMain();
     }
 
