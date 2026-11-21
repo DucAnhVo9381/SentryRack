@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SentryRack.Splash">
         <activity
-            android:name=".SplashActivity"
+            android:name=".view.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.SentryRack.Splash"
             android:windowSoftInputMode="adjustResize">
@@ -31,19 +31,19 @@
         </activity>
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.LoginActivity"
             android:exported="false"
             android:theme="@style/Theme.SentryRack"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="false"
             android:theme="@style/Theme.SentryRack"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".SignUpActivity"
+            android:name=".view.SignUpActivity"
             android:exported="false"
             android:theme="@style/Theme.SentryRack"
             android:windowSoftInputMode="adjustResize" />

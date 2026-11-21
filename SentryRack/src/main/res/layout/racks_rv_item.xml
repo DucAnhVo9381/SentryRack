@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <!-- Rack Image -->
+        <!-- RackData Image -->
         <ImageView
             android:id="@+id/racksImage"
             android:layout_width="60dp"
@@ -62,7 +62,7 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Location -->
+            <!-- LocationData -->
             <TextView
                 android:id="@+id/racksLocation"
                 android:layout_width="wrap_content"

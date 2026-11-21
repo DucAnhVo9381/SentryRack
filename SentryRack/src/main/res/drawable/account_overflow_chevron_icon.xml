@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Small arrow on the right of each User row
+<!-- Small arrow on the right of each UserData row
      @author Anvesh
      @date 2026-10-07 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
