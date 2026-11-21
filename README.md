@@ -10,11 +10,11 @@
 	<a href="#app-screens-">
 		<img src="https://img.shields.io/badge/app-screens-yellow?style=for-the-badge&logo=wikibooks"/></a>
 	<a href="#description-">
-		<img src="https://img.shields.io/badge/description-orange?style=for-the-badge&logo=readme"/></a>
+		<img src="https://img.shields.io/badge/description-orange?style=for-the-badge&logo=readme&logoColor=white"/></a>
 	<a href="#key-features-">
 		<img src="https://img.shields.io/badge/key-features-lightgray?style=for-the-badge&logo=gitbook"/></a>
 	<a href="#tools-and-resources">
-        <img src="https://img.shields.io/badge/tools-resources-007fff?style=for-the-badge&logo=bookstack"></a>
+        <img src="https://img.shields.io/badge/tools-resources-007fff?style=for-the-badge&logo=bookstack&logoColor=white"></a>
 </p>
 
 ## Group 4 👥
