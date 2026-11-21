@@ -5,16 +5,16 @@
 </p>
 
 <p align="center">
-	<a href="" alt="Group 4">
-		<img src="https://img.shields.io/" /></a>
-	<a href="" alt="App screens">
-		<img src="https://img.shields.io/" /></a>
-	<a href="" alt="Description">
-		<img src="" /></a>
-	<a href="" alt="Key features">
-		<img src="https://img.shields.io/badge/" /></a>
-	<a href="" alt="Tools and resources">
-        <img src="https://img.shields.io/" alt=""></a>
+	<a href="#group-4-">
+		<img src="https://img.shields.io/badge/group_4-blue?style=for-the-badge&logo=markdown"/></a>
+	<a href="#app-screens-">
+		<img src="https://img.shields.io/badge/app-screens-yellow?style=for-the-badge&logo=wikibooks"/></a>
+	<a href="#description-">
+		<img src="https://img.shields.io/badge/description-orange?style=for-the-badge&logo=readme"/></a>
+	<a href="#key-features-">
+		<img src="https://img.shields.io/badge/key-features-lightgray?style=for-the-badge&logo=gitbook"/></a>
+	<a href="#tools-and-resources">
+        <img src="https://img.shields.io/badge/tools-resources-007fff?style=for-the-badge&logo=bookstack"></a>
 </p>
 
 ## Group 4 👥
@@ -23,7 +23,7 @@
 - Krushna Patel - N01713093.
 - Anvesh Rachakonda - N01661293.
 
-📂 GitHub Repository: [![GitHub repo](https://img.shields.io/badge/sentry_rack-repo-blue?logo=github)](https://github.com/DucAnhVo9381/SentryRack)
+📂 GitHub Repository: [![GitHub repo](https://img.shields.io/badge/sentry_rack-repo-blue?style=social&logo=github)](https://github.com/DucAnhVo9381/SentryRack)
 
 ## App Screens 📱
 <table>
