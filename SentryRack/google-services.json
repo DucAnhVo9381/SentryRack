@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "188794669750-1j2056e7ua5990vcp34gr72slnl7m2e9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.kava.it.sentryrack",
+            "certificate_hash": "b16b2f47e3da9e615293db365b23bf0851e45d02"
+          }
+        },
+        {
           "client_id": "188794669750-lhtmmoe4b1mo9eq9on7ks5qn50urq4mk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
