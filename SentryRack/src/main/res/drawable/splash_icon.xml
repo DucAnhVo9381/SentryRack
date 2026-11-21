@@ -141,7 +141,7 @@
         android:pivotX="512"
         android:pivotY="512">
       <!-- Server rack 1 (top) -->
-      <!-- Rack body -->
+      <!-- RackData body -->
       <path
           android:pathData="M404,402L619,402A18,18 0,0 1,637 420L637,447A18,18 0,0 1,619 465L404,465A18,18 0,0 1,386 447L386,420A18,18 0,0 1,404 402z">
         <aapt:attr name="android:fillColor">
@@ -157,7 +157,7 @@
           </gradient>
         </aapt:attr>
       </path>
-      <!-- Rack slot/status bar -->
+      <!-- RackData slot/status bar -->
       <path
           android:pathData="M419.5,428L480.5,428A4.5,4.5 0,0 1,485 432.5L485,432.5A4.5,4.5 0,0 1,480.5 437L419.5,437A4.5,4.5 0,0 1,415 432.5L415,432.5A4.5,4.5 0,0 1,419.5 428z"
           android:fillColor="#A9B4D6"/>
@@ -176,7 +176,7 @@
         android:pivotX="512"
         android:pivotY="512">
       <!-- Server rack 2 (middle) -->
-      <!-- Rack body -->
+      <!-- RackData body -->
       <path
           android:pathData="M404,473L619,473A18,18 0,0 1,637 491L637,519A18,18 0,0 1,619 537L404,537A18,18 0,0 1,386 519L386,491A18,18 0,0 1,404 473z">
         <aapt:attr name="android:fillColor">
@@ -192,7 +192,7 @@
           </gradient>
         </aapt:attr>
       </path>
-      <!-- Rack slot/status bar -->
+      <!-- RackData slot/status bar -->
       <path
           android:pathData="M419.5,500L480.5,500A4.5,4.5 0,0 1,485 504.5L485,504.5A4.5,4.5 0,0 1,480.5 509L419.5,509A4.5,4.5 0,0 1,415 504.5L415,504.5A4.5,4.5 0,0 1,419.5 500z"
           android:fillColor="#C1832E"/>
@@ -211,7 +211,7 @@
         android:pivotX="512"
         android:pivotY="512">
       <!-- Server rack 3 (bottom) -->
-      <!-- Rack body -->
+      <!-- RackData body -->
       <path
           android:pathData="M404,546L619,546A18,18 0,0 1,637 564L637,591A18,18 0,0 1,619 609L404,609A18,18 0,0 1,386 591L386,564A18,18 0,0 1,404 546z">
         <aapt:attr name="android:fillColor">
@@ -227,7 +227,7 @@
           </gradient>
         </aapt:attr>
       </path>
-      <!-- Rack slot/status bar -->
+      <!-- RackData slot/status bar -->
       <path
           android:pathData="M419.5,572L480.5,572A4.5,4.5 0,0 1,485 576.5L485,576.5A4.5,4.5 0,0 1,480.5 581L419.5,581A4.5,4.5 0,0 1,415 576.5L415,576.5A4.5,4.5 0,0 1,419.5 572z"
           android:fillColor="#A9B4D6"/>

@@ -57,13 +57,10 @@
     <!-- Settings screen -->
     <string name="settings_subtitle">Choisissez comment SentryRack fonctionne pour vous</string>
     <string name="settings_group_display">Affichage</string>
-    <string name="settings_group_notifications">Notifications</string>
     <string name="setting_lock_portrait">Verrouiller en mode portrait</string>
     <string name="setting_lock_portrait_summary">Garder l\'application droite quand le téléphone pivote</string>
     <string name="setting_dark_mode">Thème sombre</string>
     <string name="setting_dark_mode_summary">Plus doux pour les yeux dans les salles de serveurs</string>
-    <string name="setting_sound">Son des alertes critiques</string>
-    <string name="setting_sound_summary">Jouer un son pour les alertes d\'incendie, de fuite et de porte</string>
     <string name="setting_portrait_locked_msg">Écran verrouillé en mode portrait</string>
     <string name="setting_portrait_unlocked_msg">Rotation de l\'écran déverrouillée</string>
 
@@ -117,9 +114,9 @@
     <string name="register_rack_clip_label">ID de la baie</string>
 
 
-    <!-- User (profile) screen - bottom navigation tab -->
+    <!-- UserData (profile) screen - bottom navigation tab -->
     <string name="user_name_default">Utilisateur</string>
-    <string name="user_email_default">user@kava.ca</string>
+    <string name="user_email_default">userData@kava.ca</string>
     <string name="user_edit_profile">Modifier le profil</string>
     <string name="user_edit_profile_summary">Nom, photo, téléphone</string>
     <string name="user_my_alerts">Mes alertes</string>
@@ -133,7 +130,7 @@
     <string name="cd_user_avatar">Photo de profil</string>
     <string name="cd_user_online">En ligne</string>
 
-    <!-- User screen - Change password dialog (working feature) -->
+    <!-- UserData screen - Change password dialog (working feature) -->
     <string name="user_pw_title">Changer le mot de passe</string>
     <string name="user_pw_current">Mot de passe actuel</string>
     <string name="user_pw_new">Nouveau mot de passe</string>
@@ -177,7 +174,7 @@
     <string name="contact_web_sub">Guides et état du système</string>
     <string name="contact_no_app">Aucune application trouvée pour ouvrir ceci</string>
 
-    <!-- Send feedback dialog -->
+    <!-- Send feedbackData dialog -->
     <string name="feedback_hint">Votre commentaire…</string>
     <string name="feedback_subject">Commentaire SentryRack</string>
     <string name="feedback_name_hint">Nom complet</string>
@@ -185,13 +182,13 @@
     <string name="feedback_email_hint">Adresse courriel</string>
     <string name="feedback_rating_label">Votre note</string>
     <string name="feedback_name_error">Veuillez entrer votre nom complet</string>
-    <string name="feedback_phone_error">Veuillez entrer un numéro de téléphone valide</string>
+    <string name="feedback_phone_error">Entrez un numéro de téléphone valide à 10 chiffres</string>
     <string name="feedback_email_error">Veuillez entrer une adresse courriel valide</string>
     <string name="feedback_rating_error">Veuillez choisir une note en étoiles</string>
     <string name="feedback_login_required">Veuillez vous connecter pour envoyer un commentaire</string>
     <string name="feedback_success">Commentaire envoyé. Merci !</string>
     <string name="feedback_failed">Échec de l\'envoi du commentaire : %1$s</string>
-    <string name="feedback_title">Send feedback</string>
+    <string name="feedback_title">Send feedbackData</string>
     <string name="feedback_device_info">App version %1$s · Android %2$s added automatically</string>
     <string name="feedback_send">Send</string>
     <string name="feedback_empty_error">Please write a few words</string>
@@ -279,4 +276,25 @@
     <string name="reset_all_msg">Le thème, le verrouillage portrait, les unités et les décimales reviendront par défaut. Vous resterez connecté.</string>
     <string name="reset_all_confirm">Réinitialiser</string>
     <string name="reset_all_done">Paramètres réinitialisés</string>
+
+    <!-- Écran de commentaires (D4)  -->
+    <string name="fb_title">Comment allons-nous?</string>
+    <string name="fb_subtitle">Vos commentaires nous aident à améliorer SentryRack</string>
+    <string name="fb_phone_placeholder">4165550123</string>
+    <string name="fb_email_placeholder">vous@exemple.com</string>
+    <string name="fb_rating_tap">Touchez une étoile pour noter</string>
+    <string name="fb_rating_1">Mauvais</string>
+    <string name="fb_rating_2">Passable</string>
+    <string name="fb_rating_3">Bien</string>
+    <string name="fb_rating_4">Très bien</string>
+    <string name="fb_rating_5">Excellent!</string>
+    <string name="fb_submit">Envoyer</string>
+    <string name="fb_note_device">Le modèle de l\'appareil et la version de l\'application sont ajoutés automatiquement</string>
+    <string name="fb_note_limit">Vous pouvez envoyer un commentaire toutes les 24 heures</string>
+    <string name="fb_next_in">Prochain commentaire dans %1$d h %2$02d min</string>
+    <string name="fb_sending">Envoi de vos commentaires…</string>
+    <string name="fb_please_wait">Veuillez patienter</string>
+    <string name="fb_done_title">Commentaire envoyé</string>
+    <string name="fb_done_msg">Merci! Vos commentaires et votre note de %1$s étoiles ont été enregistrés.</string>
+    <string name="fb_rating_value">%1$s · %2$s / 5</string>
 </resources>

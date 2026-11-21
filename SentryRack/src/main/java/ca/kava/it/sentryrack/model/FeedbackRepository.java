@@ -24,38 +24,38 @@ public class FeedbackRepository {
     }
 
     /**
-     * Saves feedback/{id} and the users/{uid}/feedback/{id} link in one atomic write.
+     * Saves feedbackData/{id} and the users/{uid}/feedbackData/{id} link in one atomic write.
      */
-    public void submitFeedback(String uid, Feedback feedback, Callback callback) {
+    public void submitFeedback(String uid, FeedbackData feedbackData, Callback callback) {
         if (uid == null || uid.isEmpty()) {
-            callback.onError("User must be logged in to send feedback");
+            callback.onError("UserData must be logged in to send feedbackData");
             return;
         }
-        if (feedback == null || feedback.getDeviceInfo() == null) {
-            callback.onError("Feedback is incomplete");
+        if (feedbackData == null || feedbackData.getDeviceInfo() == null) {
+            callback.onError("FeedbackData is incomplete");
             return;
         }
 
-        String id = rootRef.child("feedback").push().getKey();
+        String id = rootRef.child("feedbackData").push().getKey();
         if (id == null) {
-            callback.onError("Could not generate feedback ID");
+            callback.onError("Could not generate feedbackData ID");
             return;
         }
 
-        DeviceInfo device = feedback.getDeviceInfo();
-        String base = "/feedback/" + id + "/";
+        DeviceInfoData device = feedbackData.getDeviceInfo();
+        String base = "/feedbackData/" + id + "/";
 
         Map<String, Object> updates = new HashMap<>();
-        updates.put(base + "fullName", feedback.getFullName());
-        updates.put(base + "phoneNumber", feedback.getPhoneNumber());
-        updates.put(base + "email", feedback.getEmail());
-        updates.put(base + "comment", feedback.getComment());
-        updates.put(base + "starRating", feedback.getStarRating());
+        updates.put(base + "fullName", feedbackData.getFullName());
+        updates.put(base + "phoneNumber", feedbackData.getPhoneNumber());
+        updates.put(base + "email", feedbackData.getEmail());
+        updates.put(base + "comment", feedbackData.getComment());
+        updates.put(base + "starRating", feedbackData.getStarRating());
         updates.put(base + "deviceInfo/appVersion", device.getAppVersion());
         updates.put(base + "deviceInfo/androidVersion", device.getAndroidVersion());
         updates.put(base + "deviceInfo/manufacturer", device.getManufacturer());
         updates.put(base + "deviceInfo/model", device.getModel());
-        updates.put("/users/" + uid + "/feedback/" + id, true);
+        updates.put("/users/" + uid + "/feedbackData/" + id, true);
 
         rootRef.updateChildren(updates, (error, ref) -> {
             if (error != null) {
