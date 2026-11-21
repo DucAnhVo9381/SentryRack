@@ -4,6 +4,19 @@
     <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="200">
 </p>
 
+<p align="center">
+	<a href="" alt="Group 4">
+		<img src="https://img.shields.io/" /></a>
+	<a href="" alt="App screens">
+		<img src="https://img.shields.io/" /></a>
+	<a href="" alt="Description">
+		<img src="" /></a>
+	<a href="" alt="Key features">
+		<img src="https://img.shields.io/badge/" /></a>
+	<a href="" alt="Tools and resources">
+        <img src="https://img.shields.io/" alt=""></a>
+</p>
+
 ## Group 4 👥
 - Duc Anh Vo - N01729381.
 - Andres Zambrano - N01495324.
@@ -16,11 +29,13 @@
 <table>
     <tr>
         <td><img src="docs/deliverable2/splash_screen.gif" alt="splash screen"></td>
-        <td><img src="docs/deliverable2/login_screen.png" alt="login screen"></td>
+        <td><img src="docs/deliverable3/signin.png" alt="login screen"></td>
+        <td><img src="docs/deliverable3/signup.png" alt="signup screen"></td>
     </tr>
     <tr>
-        <td><img src="docs/deliverable2/main_screen.png" alt="main screen"></td>
-        <td><img src="docs/deliverable2/nav_drawer.png" alt="navigation drawer"></td>
+        <td><img src="docs/deliverable3/dashboard.png" alt="main screen"></td>
+        <td><img src="docs/deliverable3/racks.png" alt="racks screen"></td>
+        <td><img src="docs/deliverable3/drawer.png" alt="navigation drawer"></td>
     </tr>
 </table>
 
