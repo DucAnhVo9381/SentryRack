@@ -98,6 +98,7 @@ public class AccountFragment extends Fragment implements ProfileController.Callb
                 ((MainActivity) requireActivity()).confirmLogout());
 
         controller.load();
+        ((MainActivity) requireActivity()).refreshDrawerHeader();   // drawer shows the change too
     }
 
     private void bindViews(View root) {

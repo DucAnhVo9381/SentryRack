@@ -55,6 +55,10 @@ import ca.kava.it.sentryrack.controller.AuthController;
 import ca.kava.it.sentryrack.model.UserData;
 import ca.kava.it.sentryrack.controller.FeedbackController;
 import ca.kava.it.sentryrack.model.DeviceInfoData;
+import android.graphics.Bitmap;
+import android.widget.ImageView;
+import com.bumptech.glide.Glide;
+import ca.kava.it.sentryrack.controller.ProfileController;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // Bottom nav and drawer fields
@@ -126,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 txtUserName.setText(currentUserData.getDisplayName());
             }
         }
-
+        refreshDrawerHeader();   // real name, role and photo
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(toggle);
@@ -172,6 +176,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
+    }
+    // Drawer header: name, role, email and photo from the profile (Account screen).Photo: custom photo > Google photo > app logo. Called again when the profile changes.
+
+    public void refreshDrawerHeader() {
+        View header = navigationView.getHeaderView(0);
+        TextView nameText = header.findViewById(R.id.txtUserName);
+        TextView roleText = header.findViewById(R.id.txtUserRole);
+        TextView emailText = header.findViewById(R.id.txtUserEmail);
+        ImageView photo = header.findViewById(R.id.profileImage);
+
+        new ProfileController(new ProfileController.SimpleCallback() {
+            @Override
+            public void onProfileLoaded(String name, String email, String roleKey,
+                                        Bitmap customPhoto, Uri googlePhoto,
+                                        boolean isGoogle, boolean hasPassword) {
+                if (isFinishing() || isDestroyed()) return;
+                if (!name.isEmpty()) nameText.setText(name);
+                if (email != null) emailText.setText(email);
+
+                int role = ProfileController.roleIndex(roleKey);
+                roleText.setText(role >= 0 ? ProfileController.ROLE_LABELS[role]
+                        : R.string.drawer_header_user_role);
+
+                if (customPhoto != null) {
+                    photo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    photo.setImageBitmap(customPhoto);
+                } else if (googlePhoto != null) {
+                    photo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    Glide.with(MainActivity.this).load(googlePhoto).into(photo);
+                } else {
+                    photo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    photo.setImageResource(R.drawable.homescreen_icon_background);
+                }
+            }
+        }).load();
     }
 
     @Override
