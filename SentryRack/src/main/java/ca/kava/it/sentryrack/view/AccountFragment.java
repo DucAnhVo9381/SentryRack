@@ -4,7 +4,6 @@
 // Krushna Patel N01713093 ONC
 package ca.kava.it.sentryrack.view;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
@@ -41,6 +40,8 @@ import ca.kava.it.sentryrack.controller.ProfileController;
  * Account screen v2 (View in MVC): name, role, photo, password, log out, delete account.
  * All checks and Firebase work are done by ProfileController -> ProfileRepository.
  * Photo: custom photo (users/{uid}/photo) > Google photo (Firebase Auth) > default picture.
+ * Name, role and photo changes are shown INSTANTLY (here and in the drawer) and saved to
+ * Firebase in the background; if Firebase refuses, the screen goes back to the saved profile.
  * @author Anvesh Rachakonda
  * @date 2026-11-22
  */
@@ -57,8 +58,10 @@ public class AccountFragment extends Fragment implements ProfileController.Callb
 
     // Latest profile (filled by onProfileLoaded)
     private String currentName = "";
+    private String currentEmail = "";
     private int currentRole = -1;
-    private boolean hasCustomPhoto;
+    @Nullable private Bitmap customPhoto;
+    @Nullable private Uri googlePhoto;
     private boolean isGoogleAccount;
     private boolean hasPassword;
 
@@ -98,7 +101,6 @@ public class AccountFragment extends Fragment implements ProfileController.Callb
                 ((MainActivity) requireActivity()).confirmLogout());
 
         controller.load();
-        ((MainActivity) requireActivity()).refreshDrawerHeader();   // drawer shows the change too
     }
 
     private void bindViews(View root) {
@@ -118,19 +120,25 @@ public class AccountFragment extends Fragment implements ProfileController.Callb
 
     @Override
     public void onProfileLoaded(String name, String email, @Nullable String roleKey,
-                                @Nullable Bitmap customPhoto, @Nullable Uri googlePhoto,
+                                @Nullable Bitmap photo, @Nullable Uri google,
                                 boolean isGoogle, boolean canChangePassword) {
         if (!isAdded()) return;
         currentName = name;
+        currentEmail = email == null ? "" : email;
         currentRole = ProfileController.roleIndex(roleKey);
-        hasCustomPhoto = customPhoto != null;
+        customPhoto = photo;
+        googlePhoto = google;
         isGoogleAccount = isGoogle;
         hasPassword = canChangePassword;
+        render();
+    }
 
-        nameText.setText(name);
-        nameValue.setText(name);
-        emailText.setText(email);
-        googleBadge.setVisibility(isGoogle ? View.VISIBLE : View.GONE);
+    /** Shows the current values on this screen AND in the drawer header (no waiting). */
+    private void render() {
+        nameText.setText(currentName);
+        nameValue.setText(currentName);
+        emailText.setText(currentEmail);
+        googleBadge.setVisibility(isGoogleAccount ? View.VISIBLE : View.GONE);
 
         if (currentRole >= 0) {
             String role = getString(ProfileController.ROLE_LABELS[currentRole]);
@@ -155,10 +163,14 @@ public class AccountFragment extends Fragment implements ProfileController.Callb
         }
 
         // Google accounts have no password in SentryRack
-        passwordRow.setEnabled(canChangePassword);
-        passwordChevron.setVisibility(canChangePassword ? View.VISIBLE : View.GONE);
-        passwordSummary.setText(canChangePassword
+        passwordRow.setEnabled(hasPassword);
+        passwordChevron.setVisibility(hasPassword ? View.VISIBLE : View.GONE);
+        passwordSummary.setText(hasPassword
                 ? R.string.account_password_summary : R.string.account_password_google);
+
+        String roleKey = currentRole >= 0 ? ProfileController.ROLE_KEYS[currentRole] : null;
+        ((MainActivity) requireActivity()).showDrawerProfile(currentName, currentEmail, roleKey,
+                customPhoto, googlePhoto);
     }
 
     //--- NAME ---
@@ -170,7 +182,12 @@ public class AccountFragment extends Fragment implements ProfileController.Callb
 
         openDialog(view, R.string.account_name_title, R.string.user_pw_save, () -> {
             ((TextInputLayout) view.findViewById(R.id.accountNameLayout)).setError(null);
-            controller.changeName(textOf(input));
+            String name = textOf(input).trim();
+            if (controller.changeName(name)) {   // valid: show now, Firebase saves in the background
+                currentName = name;
+                closeActiveDialog();
+                render();
+            }
         });
     }
 
@@ -187,7 +204,12 @@ public class AccountFragment extends Fragment implements ProfileController.Callb
                 .setTitle(R.string.account_role_title)
                 .setSingleChoiceItems(labels, currentRole, (dialog, which) -> selected[0] = which)
                 .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton(R.string.user_pw_save, (dialog, which) -> controller.changeRole(selected[0]))
+                .setPositiveButton(R.string.user_pw_save, (dialog, which) -> {
+                    if (selected[0] < 0) return;
+                    currentRole = selected[0];
+                    render();                         // show now
+                    controller.changeRole(selected[0]);
+                })
                 .show();
     }
 
@@ -200,9 +222,9 @@ public class AccountFragment extends Fragment implements ProfileController.Callb
 
         // "Use my Google photo" only for Google accounts that chose another photo
         view.findViewById(R.id.photoOptionGoogle)
-                .setVisibility(isGoogleAccount && hasCustomPhoto ? View.VISIBLE : View.GONE);
+                .setVisibility(isGoogleAccount && customPhoto != null ? View.VISIBLE : View.GONE);
         view.findViewById(R.id.photoOptionRemove)
-                .setVisibility(hasCustomPhoto ? View.VISIBLE : View.GONE);
+                .setVisibility(customPhoto != null ? View.VISIBLE : View.GONE);
 
         view.findViewById(R.id.photoOptionGallery).setOnClickListener(v -> {
             sheet.dismiss();
@@ -213,6 +235,8 @@ public class AccountFragment extends Fragment implements ProfileController.Callb
         // Removing the custom photo brings back the Google photo (or the default one)
         View.OnClickListener remove = v -> {
             sheet.dismiss();
+            customPhoto = null;
+            render();                 // show now
             controller.removePhoto();
         };
         view.findViewById(R.id.photoOptionGoogle).setOnClickListener(remove);
@@ -232,7 +256,8 @@ public class AccountFragment extends Fragment implements ProfileController.Callb
                     decoder.setTargetSampleSize(longest / MAX_PICK_SIZE);
                 }
             });
-            photoView.setImageBitmap(bitmap);   // show it straight away
+            customPhoto = bitmap;
+            render();                           // show it straight away
             controller.changePhoto(bitmap);
         } catch (IOException e) {
             showMessage(getString(R.string.account_error, e.getMessage()));
@@ -272,14 +297,10 @@ public class AccountFragment extends Fragment implements ProfileController.Callb
 
     @Override
     public void onAccountDeleted() {
+        if (!isAdded()) return;
         closeActiveDialog();
         Toast.makeText(requireContext(), R.string.account_deleted, Toast.LENGTH_LONG).show();
-        // Back to Login, nothing left in the back stack
-        Intent login = new Intent(requireContext(), LoginActivity.class);
-        login.putExtra(LoginActivity.FROM_LOGOUT, true);
-        login.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(login);
-        requireActivity().finish();
+        ((MainActivity) requireActivity()).goToLogin();   // same path as Log out
     }
 
     @Override
@@ -312,15 +333,15 @@ public class AccountFragment extends Fragment implements ProfileController.Callb
     @Override
     public void onSaved(@StringRes int messageResId) {
         if (!isAdded()) return;
-        closeActiveDialog();
+        closeActiveDialog();                 // e.g. Change password waits for Firebase
         showMessage(getString(messageResId));
-        controller.load();   // show the new name / role / photo everywhere on the screen
     }
 
     @Override
     public void onError(String message) {
         if (!isAdded()) return;
         showMessage(getString(R.string.account_error, message));
+        controller.load();                   // Firebase refused: show the saved profile again
     }
 
     //--- SMALL HELPERS (DRY) ---
