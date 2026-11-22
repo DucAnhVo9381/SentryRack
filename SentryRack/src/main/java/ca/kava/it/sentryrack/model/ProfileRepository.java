@@ -154,9 +154,8 @@ public class ProfileRepository {
     }
 
     /**
-     * Deletes the sign-in account and then users/{uid}.
-     * Email accounts confirm with their password first (Firebase needs a recent sign-in).
-     * Racks, locations and feedback are kept for the team.
+     * Deletes the account. Email accounts: password check -> profile data -> sign-in.
+     * Google accounts: sign-in first, then profile data in the background.Racks, locations and feedback are kept for the team.
      */
     public void deleteAccount(@Nullable String password, @NonNull ResultCallback callback) {
         FirebaseUser user = getUser();
@@ -168,26 +167,26 @@ public class ProfileRepository {
             user.reauthenticate(EmailAuthProvider.getCredential(user.getEmail(),
                             password == null ? "" : password))
                     .addOnCompleteListener(login -> {
-                        if (login.isSuccessful()) {
-                            deleteUserThenData(user, callback);
-                        } else {
+                        if (!login.isSuccessful()) {
                             callback.onResult(false, message(login.getException()));
+                            return;
                         }
+                        usersRef.child(user.getUid()).removeValue()
+                                .addOnCompleteListener(data -> deleteSignIn(user, callback));
                     });
         } else {
-            deleteUserThenData(user, callback);
+            deleteSignIn(user, callback);
         }
     }
 
-    // Sign-in is deleted first: if Firebase refuses (needs a fresh login), the profile is kept
-    private void deleteUserThenData(FirebaseUser user, ResultCallback callback) {
+    // Deletes the Firebase sign-in; the profile data is removed without waiting (already gone for email accounts)
+    private void deleteSignIn(FirebaseUser user, ResultCallback callback) {
         String uid = user.getUid();
         user.delete().addOnCompleteListener(delete -> {
             if (delete.isSuccessful()) {
-                usersRef.child(uid).removeValue().addOnCompleteListener(data -> {
-                    auth.signOut();
-                    callback.onResult(true, null);
-                });
+                usersRef.child(uid).removeValue();   // no waiting: the user is already signed out
+                auth.signOut();
+                callback.onResult(true, null);
             } else if (delete.getException() instanceof FirebaseAuthRecentLoginRequiredException) {
                 callback.onResult(false, ERROR_RELOGIN);
             } else {
