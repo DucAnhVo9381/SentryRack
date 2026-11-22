@@ -4,23 +4,38 @@
     <img src="docs/deliverable1/homescreen_icon_night.png" alt="home screen icon dark" width="200">
 </p>
 
+<p align="center">
+	<a href="#group-4-">
+		<img src="https://img.shields.io/badge/group_4-blue?style=for-the-badge&logo=markdown"/></a>
+	<a href="#app-screens-">
+		<img src="https://img.shields.io/badge/app-screens-yellow?style=for-the-badge&logo=wikibooks"/></a>
+	<a href="#description-">
+		<img src="https://img.shields.io/badge/description-orange?style=for-the-badge&logo=readme&logoColor=white"/></a>
+	<a href="#key-features-">
+		<img src="https://img.shields.io/badge/key-features-lightgray?style=for-the-badge&logo=gitbook"/></a>
+	<a href="#tools-and-resources">
+        <img src="https://img.shields.io/badge/tools-resources-007fff?style=for-the-badge&logo=bookstack&logoColor=white"></a>
+</p>
+
 ## Group 4 👥
 - Duc Anh Vo - N01729381.
 - Andres Zambrano - N01495324.
 - Krushna Patel - N01713093.
 - Anvesh Rachakonda - N01661293.
 
-📂 GitHub Repository: [![GitHub repo](https://img.shields.io/badge/sentry_rack-repo-blue?logo=github)](https://github.com/DucAnhVo9381/SentryRack)
+📂 GitHub Repository: [![GitHub repo](https://img.shields.io/badge/sentry_rack-repo-blue?style=social&logo=github)](https://github.com/DucAnhVo9381/SentryRack)
 
 ## App Screens 📱
 <table>
     <tr>
         <td><img src="docs/deliverable2/splash_screen.gif" alt="splash screen"></td>
-        <td><img src="docs/deliverable2/login_screen.png" alt="login screen"></td>
+        <td><img src="docs/deliverable3/signin.png" alt="login screen"></td>
+        <td><img src="docs/deliverable3/signup.png" alt="signup screen"></td>
     </tr>
     <tr>
-        <td><img src="docs/deliverable2/main_screen.png" alt="main screen"></td>
-        <td><img src="docs/deliverable2/nav_drawer.png" alt="navigation drawer"></td>
+        <td><img src="docs/deliverable3/dashboard.png" alt="main screen"></td>
+        <td><img src="docs/deliverable3/racks.png" alt="racks screen"></td>
+        <td><img src="docs/deliverable3/drawer.png" alt="navigation drawer"></td>
     </tr>
 </table>
 
