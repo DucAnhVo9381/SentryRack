@@ -7,6 +7,8 @@ package ca.kava.it.sentryrack.model;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class AuthRepository {
 
@@ -36,8 +38,13 @@ public class AuthRepository {
                     if (task.isSuccessful() && firebaseAuth.getCurrentUser() != null) {
                         callback.onSuccess(UserData.fromFirebaseUser(firebaseAuth.getCurrentUser()));
                     } else {
-                        String err = task.getException() != null ? task.getException().getMessage() : "Authentication failed";
-                        callback.onError(err);
+                        Exception e = task.getException();
+
+                        if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                            callback.onError("USER NOT FOUND");
+                        } else {
+                            callback.onError("Unable to sign in. Please try again");
+                        }
                     }
                 });
     }
@@ -48,8 +55,13 @@ public class AuthRepository {
                     if (task.isSuccessful() && firebaseAuth.getCurrentUser() != null) {
                         callback.onSuccess(UserData.fromFirebaseUser(firebaseAuth.getCurrentUser()));
                     } else {
-                        String err = task.getException() != null ? task.getException().getMessage() : "Sign up failed";
-                        callback.onError(err);
+                        Exception e = task.getException();
+
+                        if (e instanceof FirebaseAuthUserCollisionException) {
+                            callback.onError("An account with this email already exists");
+                        } else {
+                            callback.onError("Unable to create account");
+                        }
                     }
                 });
     }
@@ -71,7 +83,7 @@ public class AuthRepository {
         firebaseAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        callback.onSuccess("Password reset link sent to " + email);
+                        callback.onSuccess("If an account exists for this email, a password reset link has been sent");
                     } else {
                         String err = task.getException() != null ? task.getException().getMessage() : "Failed to send reset email";
                         callback.onError(err);
