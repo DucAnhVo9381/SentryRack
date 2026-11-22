@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Delete account dialog: warning + password (email accounts only) - @author Anvesh Rachakonda @date 2026-11-22 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/user_dialog_padding"
+    android:paddingTop="@dimen/user_field_spacing"
+    android:paddingEnd="@dimen/user_dialog_padding">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/account_delete_msg"
+        android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/accountDeletePasswordLayout"
+        style="@style/Widget.SentryRack.User.PasswordField"
+        android:hint="@string/account_delete_password_hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/accountDeletePasswordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>

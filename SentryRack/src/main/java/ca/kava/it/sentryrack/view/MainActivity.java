@@ -55,6 +55,10 @@ import ca.kava.it.sentryrack.controller.AuthController;
 import ca.kava.it.sentryrack.model.UserData;
 import ca.kava.it.sentryrack.controller.FeedbackController;
 import ca.kava.it.sentryrack.model.DeviceInfoData;
+import android.graphics.Bitmap;
+import android.widget.ImageView;
+import com.bumptech.glide.Glide;
+import ca.kava.it.sentryrack.controller.ProfileController;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // Bottom nav and drawer fields
@@ -126,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 txtUserName.setText(currentUserData.getDisplayName());
             }
         }
-
+        refreshDrawerHeader();   // real name, role and photo
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(toggle);
@@ -172,6 +176,54 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
+    }
+    // Drawer header: name, role, email and photo from the profile (Account screen).Photo: custom photo > Google photo > app logo. Called again when the profile changes.
+
+    /** Drawer header: loads the profile once (app start) and shows it.
+     * @author Anvesh Rachakonda
+     * @date 2026-11-22
+     */
+    public void refreshDrawerHeader() {
+        new ProfileController(new ProfileController.SimpleCallback() {
+            @Override
+            public void onProfileLoaded(String name, String email, String roleKey,
+                                        Bitmap customPhoto, Uri googlePhoto,
+                                        boolean isGoogle, boolean hasPassword) {
+                showDrawerProfile(name, email, roleKey, customPhoto, googlePhoto);
+            }
+        }).load();
+    }
+
+    /** Shows name, role, email and photo in the drawer header straight away
+     * (the Account screen calls this the moment the user changes something).
+     * Photo: custom > Google > app logo.
+     */
+    public void showDrawerProfile(String name, String email, String roleKey,
+                                  Bitmap customPhoto, Uri googlePhoto) {
+        if (isFinishing() || isDestroyed()) return;
+        View header = navigationView.getHeaderView(0);
+        TextView nameText = header.findViewById(R.id.txtUserName);
+        TextView roleText = header.findViewById(R.id.txtUserRole);
+        TextView emailText = header.findViewById(R.id.txtUserEmail);
+        ImageView photo = header.findViewById(R.id.profileImage);
+
+        if (name != null && !name.isEmpty()) nameText.setText(name);
+        if (email != null && !email.isEmpty()) emailText.setText(email);
+
+        int role = ProfileController.roleIndex(roleKey);
+        roleText.setText(role >= 0 ? ProfileController.ROLE_LABELS[role]
+                : R.string.drawer_header_user_role);
+
+        if (customPhoto != null) {
+            photo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            photo.setImageBitmap(customPhoto);
+        } else if (googlePhoto != null) {
+            photo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            Glide.with(this).load(googlePhoto).into(photo);
+        } else {
+            photo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            photo.setImageResource(R.drawable.homescreen_icon_background);
+        }
     }
 
     @Override
@@ -242,6 +294,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
+    }
+    public void goToLogin() {
+        logout();
     }
 
     private void showContactSupportSheet() {
