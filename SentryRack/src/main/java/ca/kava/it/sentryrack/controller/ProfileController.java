@@ -228,4 +228,13 @@ public class ProfileController {
             return null;   // damaged text -> show the default picture
         }
     }
+
+    //Empty callback: screens that only need the profile (e.g. the drawer header),override onProfileLoaded and ignore the rest.
+    public abstract static class SimpleCallback implements Callback {
+        @Override public void onFieldError(Field field, int errorResId) { }
+        @Override public void onSaved(int messageResId) { }
+        @Override public void onError(String message) { }
+        @Override public void onAccountDeleted() { }
+        @Override public void onReloginRequired() { }
+    }
 }
