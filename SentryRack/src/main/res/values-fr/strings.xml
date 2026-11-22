@@ -116,19 +116,9 @@
 
     <!-- UserData (profile) screen - bottom navigation tab -->
     <string name="user_name_default">Utilisateur</string>
-    <string name="user_email_default">userData@kava.ca</string>
-    <string name="user_edit_profile">Modifier le profil</string>
-    <string name="user_edit_profile_summary">Nom, photo, téléphone</string>
-    <string name="user_my_alerts">Mes alertes</string>
-    <string name="user_my_alerts_summary">Alertes qui me sont assignées</string>
     <string name="user_change_password">Changer le mot de passe</string>
-    <string name="user_change_password_summary">Gardez votre compte sécurisé</string>
-    <string name="user_history">Historique d\'activité</string>
-    <string name="user_history_summary">Dernière connexion : aujourd\'hui</string>
     <string name="user_logout">Se déconnecter</string>
-    <string name="user_soon_msg">Cette option sera bientôt disponible.</string>
     <string name="cd_user_avatar">Photo de profil</string>
-    <string name="cd_user_online">En ligne</string>
 
     <!-- UserData screen - Change password dialog (working feature) -->
     <string name="user_pw_title">Changer le mot de passe</string>
@@ -297,4 +287,47 @@
     <string name="fb_done_title">Commentaire envoyé</string>
     <string name="fb_done_msg">Merci! Vos commentaires et votre note de %1$s étoiles ont été enregistrés.</string>
     <string name="fb_rating_value">%1$s · %2$s / 5</string>
+    <!-- ===== Écran Compte v2 - @author Anvesh Rachakonda @date 2026-11-21 ===== -->
+    <string name="account_section_profile">Profil</string>
+    <string name="account_section_security">Sécurité</string>
+    <string name="account_google_badge">Connecté avec Google</string>
+    <string name="account_name">Nom</string>
+    <string name="account_name_summary">Affiché sur Compte et dans le menu</string>
+    <string name="account_role">Rôle</string>
+    <string name="account_role_summary">Votre poste dans le centre de données</string>
+    <string name="account_role_none">Non défini</string>
+    <string name="account_photo">Photo de profil</string>
+    <string name="account_photo_summary">Galerie, photo Google ou retirer</string>
+    <string name="account_password_summary">Modifier votre mot de passe</string>
+    <string name="account_password_google">Géré par Google</string>
+    <string name="account_delete">Supprimer le compte</string>
+    <string name="account_delete_summary">Supprime définitivement votre profil et votre connexion</string>
+
+    <string name="account_name_title">Modifier le nom</string>
+    <string name="account_name_hint">Nom complet</string>
+    <string name="account_name_error">Entrez de 2 à 50 lettres</string>
+    <string name="account_name_saved">Nom mis à jour</string>
+
+    <string name="account_role_title">Votre rôle</string>
+    <string name="role_technician">Technicien de centre de données</string>
+    <string name="role_network">Ingénieur réseau</string>
+    <string name="role_facility">Gestionnaire des installations</string>
+    <string name="role_it_admin">Administrateur TI</string>
+    <string name="account_role_saved">Rôle mis à jour</string>
+
+    <string name="account_photo_gallery">Choisir dans la galerie</string>
+    <string name="account_photo_google">Utiliser ma photo Google</string>
+    <string name="account_photo_remove">Retirer la photo</string>
+    <string name="account_photo_saved">Photo mise à jour</string>
+    <string name="account_photo_removed">Photo retirée</string>
+
+    <string name="account_pw_rules">Utilisez 9 caractères ou plus avec majuscules, minuscules, un chiffre et un symbole</string>
+
+    <string name="account_delete_title">Supprimer le compte?</string>
+    <string name="account_delete_msg">Cela supprime définitivement votre profil, votre photo et votre connexion. Vos baies et commentaires restent pour votre équipe. Cette action est irréversible.</string>
+    <string name="account_delete_password_hint">Entrez votre mot de passe pour confirmer</string>
+    <string name="account_delete_confirm">Supprimer</string>
+    <string name="account_deleted">Votre compte a été supprimé</string>
+    <string name="account_relogin">Par sécurité, déconnectez-vous, reconnectez-vous, puis supprimez votre compte.</string>
+    <string name="account_error">Une erreur s\'est produite : %1$s</string>
 </resources>
