@@ -32,12 +32,7 @@
         <item name="android:importantForAccessibility">no</item>
     </style>
 
-    <!-- Red outlined Log out button -->
-    <style name="Widget.SentryRack.User.LogoutButton" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="android:textColor">?attr/colorError</item>
-        <item name="strokeColor">?attr/colorError</item>
-        <item name="android:textStyle">bold</item>
-    </style>
+
 
     <!-- Password fields in the Change password dialog (with show/hide eye) -->
     <style name="Widget.SentryRack.User.PasswordField" parent="Widget.Material3.TextInputLayout.OutlinedBox">

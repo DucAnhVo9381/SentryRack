@@ -132,19 +132,9 @@
 
     <!-- UserData (profile) screen - bottom navigation tab -->
     <string name="user_name_default">User</string>
-    <string name="user_email_default">userData@kava.ca</string>
-    <string name="user_edit_profile">Edit profile</string>
-    <string name="user_edit_profile_summary">Name, photo, phone</string>
-    <string name="user_my_alerts">My alerts</string>
-    <string name="user_my_alerts_summary">Alerts assigned to me</string>
     <string name="user_change_password">Change password</string>
-    <string name="user_change_password_summary">Keep your account secure</string>
-    <string name="user_history">Activity history</string>
-    <string name="user_history_summary">Last login: today</string>
     <string name="user_logout">Log out</string>
-    <string name="user_soon_msg">This option will be available soon.</string>
     <string name="cd_user_avatar">Profile picture</string>
-    <string name="cd_user_online">Online</string>
 
     <!-- UserData screen - Change password dialog (working feature) -->
     <string name="user_pw_title">Change password</string>

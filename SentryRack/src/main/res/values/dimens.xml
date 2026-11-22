@@ -43,7 +43,6 @@
     <!-- UserData (profile) screen sizes -->
     <dimen name="user_header_padding">24dp</dimen>
     <dimen name="user_avatar_size">88dp</dimen>
-    <dimen name="user_online_dot">20dp</dimen>
     <dimen name="user_online_stroke">3dp</dimen>
     <dimen name="user_name_text">22sp</dimen>
     <dimen name="user_email_text">14sp</dimen>
