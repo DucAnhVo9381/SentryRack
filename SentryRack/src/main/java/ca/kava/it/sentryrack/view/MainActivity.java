@@ -179,38 +179,51 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     // Drawer header: name, role, email and photo from the profile (Account screen).Photo: custom photo > Google photo > app logo. Called again when the profile changes.
 
+    /** Drawer header: loads the profile once (app start) and shows it.
+     * @author Anvesh Rachakonda
+     * @date 2026-11-22
+     */
     public void refreshDrawerHeader() {
+        new ProfileController(new ProfileController.SimpleCallback() {
+            @Override
+            public void onProfileLoaded(String name, String email, String roleKey,
+                                        Bitmap customPhoto, Uri googlePhoto,
+                                        boolean isGoogle, boolean hasPassword) {
+                showDrawerProfile(name, email, roleKey, customPhoto, googlePhoto);
+            }
+        }).load();
+    }
+
+    /** Shows name, role, email and photo in the drawer header straight away
+     * (the Account screen calls this the moment the user changes something).
+     * Photo: custom > Google > app logo.
+     */
+    public void showDrawerProfile(String name, String email, String roleKey,
+                                  Bitmap customPhoto, Uri googlePhoto) {
+        if (isFinishing() || isDestroyed()) return;
         View header = navigationView.getHeaderView(0);
         TextView nameText = header.findViewById(R.id.txtUserName);
         TextView roleText = header.findViewById(R.id.txtUserRole);
         TextView emailText = header.findViewById(R.id.txtUserEmail);
         ImageView photo = header.findViewById(R.id.profileImage);
 
-        new ProfileController(new ProfileController.SimpleCallback() {
-            @Override
-            public void onProfileLoaded(String name, String email, String roleKey,
-                                        Bitmap customPhoto, Uri googlePhoto,
-                                        boolean isGoogle, boolean hasPassword) {
-                if (isFinishing() || isDestroyed()) return;
-                if (!name.isEmpty()) nameText.setText(name);
-                if (email != null) emailText.setText(email);
+        if (name != null && !name.isEmpty()) nameText.setText(name);
+        if (email != null && !email.isEmpty()) emailText.setText(email);
 
-                int role = ProfileController.roleIndex(roleKey);
-                roleText.setText(role >= 0 ? ProfileController.ROLE_LABELS[role]
-                        : R.string.drawer_header_user_role);
+        int role = ProfileController.roleIndex(roleKey);
+        roleText.setText(role >= 0 ? ProfileController.ROLE_LABELS[role]
+                : R.string.drawer_header_user_role);
 
-                if (customPhoto != null) {
-                    photo.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    photo.setImageBitmap(customPhoto);
-                } else if (googlePhoto != null) {
-                    photo.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    Glide.with(MainActivity.this).load(googlePhoto).into(photo);
-                } else {
-                    photo.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    photo.setImageResource(R.drawable.homescreen_icon_background);
-                }
-            }
-        }).load();
+        if (customPhoto != null) {
+            photo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            photo.setImageBitmap(customPhoto);
+        } else if (googlePhoto != null) {
+            photo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            Glide.with(this).load(googlePhoto).into(photo);
+        } else {
+            photo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            photo.setImageResource(R.drawable.homescreen_icon_background);
+        }
     }
 
     @Override
