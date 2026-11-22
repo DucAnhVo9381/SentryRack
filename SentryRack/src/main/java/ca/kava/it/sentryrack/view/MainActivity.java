@@ -282,6 +282,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
         finish();
     }
+    public void goToLogin() {
+        logout();
+    }
 
     private void showContactSupportSheet() {
         BottomSheetDialog sheet = new BottomSheetDialog(this);
