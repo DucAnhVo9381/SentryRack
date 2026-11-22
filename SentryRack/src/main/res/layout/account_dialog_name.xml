@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Change name dialog - @author Anvesh Rachakonda @date 2026-11-22 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/user_dialog_padding"
+    android:paddingTop="@dimen/user_field_spacing"
+    android:paddingEnd="@dimen/user_dialog_padding">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/accountNameLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/account_name_hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/accountNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName|textCapWords"
+            android:maxLength="50" />
+    </com.google.android.material.textfield.TextInputLayout>
+</FrameLayout>

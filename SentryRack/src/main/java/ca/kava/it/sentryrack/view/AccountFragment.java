@@ -4,60 +4,76 @@
 // Krushna Patel N01713093 ONC
 package ca.kava.it.sentryrack.view;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.io.IOException;
 
 import ca.kava.it.sentryrack.R;
-import ca.kava.it.sentryrack.model.UserData;
-import ca.kava.it.sentryrack.controller.AuthController;
+import ca.kava.it.sentryrack.controller.ProfileController;
 
-/** UserData (profile) screen - 3rd bottom navigation tab.
- * Working features: Change password (dialog with Current, New, Confirm) and Log out.
- * Edit profile, My alerts and Activity history are design only for now.
- * Passwords are stored as a SHA-256 hash on the phone; Firebase will replace this later.
- * @author Anvesh
- * @date 2026-10-07
+/**
+ * Account screen v2 (View in MVC): name, role, photo, password, log out, delete account.
+ * All checks and Firebase work are done by ProfileController -> ProfileRepository.
+ * Photo: custom photo (users/{uid}/photo) > Google photo (Firebase Auth) > default picture.
+ * @author Anvesh Rachakonda
+ * @date 2026-11-22
  */
-public class AccountFragment extends Fragment {
+public class AccountFragment extends Fragment implements ProfileController.Callback {
 
-    // Saved user data (only the password hash for now)
-    private static final String PREFS_NAME = "sentryrack_user";
-    private static final String KEY_PASSWORD_HASH = "password_hash";
+    private static final int MAX_PICK_SIZE = 1024;   // px, big photos are shrunk while reading
 
-    // Email saved by LoginActivity when "Remember me" is ticked
-    private static final String LOGIN_PREFS_NAME = "sentryrack_login";
-    private static final String KEY_REMEMBERED_EMAIL = "remembered_email";
+    private ProfileController controller;
 
-    private static final int MIN_PASSWORD_LENGTH = 6;
+    private ShapeableImageView photoView;
+    private TextView nameText, emailText, googleBadge, roleChip;
+    private TextView nameValue, roleValue, passwordSummary;
+    private View passwordRow, passwordChevron;
+
+    // Latest profile (filled by onProfileLoaded)
+    private String currentName = "";
+    private int currentRole = -1;
+    private boolean hasCustomPhoto;
+    private boolean isGoogleAccount;
+    private boolean hasPassword;
+
+    // The dialog that is waiting for Firebase (closed in onSaved / errors shown in onFieldError)
+    @Nullable private AlertDialog activeDialog;
+    @Nullable private View activeDialogView;
+
+    // Android photo picker: no storage permission needed
+    private final ActivityResultLauncher<PickVisualMediaRequest> photoPicker =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), this::onPhotoPicked);
 
     public AccountFragment() {
         // Required empty public constructor
     }
 
-    /** Loads the UserData screen layout
-     * @author Anvesh
-     * @date 2026-10-07
-     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -65,177 +81,283 @@ public class AccountFragment extends Fragment {
         return inflater.inflate(R.layout.account_fragment, container, false);
     }
 
-    /** Fills in the header and connects the rows and buttons
-     * @author Anvesh
-     * @date 2026-10-07
-     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        showSavedEmail(view);
-        setupRows(view);
-    }
+        bindViews(view);
+        controller = new ProfileController(this);
 
-    /** Shows the email the user logged in with (if "Remember me" was ticked) Edited by Andres
-     * @author Anvesh
-     * @date 2026-10-07
-     */
-    private void showSavedEmail(View root) {
-        AuthController authController = new AuthController();
-        UserData currentUserData = authController.getCurrentUser();
-
-        if (currentUserData != null) {
-            TextView emailText = root.findViewById(R.id.userEmail);
-            TextView userNameText = root.findViewById(R.id.userName);
-
-            if (emailText != null && currentUserData.getEmail() != null) {
-                emailText.setText(currentUserData.getEmail());
-            }
-            if (userNameText != null && currentUserData.getDisplayName() != null) {
-                userNameText.setText(currentUserData.getDisplayName());
-            }
-        }
-    }
-
-    /** Connects each row: Change password works, the others show "available soon"
-     * @author Anvesh
-     * @date 2026-10-07
-     */
-    private void setupRows(View root) {
-        root.findViewById(R.id.rowChangePassword).setOnClickListener(v -> showChangePasswordDialog());
-
-        View.OnClickListener comingSoon = v -> showMessage(R.string.user_soon_msg);
-        root.findViewById(R.id.rowEditProfile).setOnClickListener(comingSoon);
-        root.findViewById(R.id.rowMyAlerts).setOnClickListener(comingSoon);
-        root.findViewById(R.id.rowHistory).setOnClickListener(comingSoon);
-
-        // Log out reuses the same confirm dialog as the toolbar menu (MainActivity)
-        root.findViewById(R.id.btnLogout).setOnClickListener(v ->
+        view.findViewById(R.id.rowAccountName).setOnClickListener(v -> showNameDialog());
+        view.findViewById(R.id.rowAccountRole).setOnClickListener(v -> showRoleDialog());
+        view.findViewById(R.id.rowAccountPhoto).setOnClickListener(v -> showPhotoSheet());
+        view.findViewById(R.id.accountPhotoFrame).setOnClickListener(v -> showPhotoSheet());
+        passwordRow.setOnClickListener(v -> showPasswordDialog());
+        view.findViewById(R.id.rowAccountDelete).setOnClickListener(v -> showDeleteDialog());
+        // Log out reuses the same confirm dialog as the drawer (MainActivity)
+        view.findViewById(R.id.btnLogout).setOnClickListener(v ->
                 ((MainActivity) requireActivity()).confirmLogout());
+
+        controller.load();
     }
 
-    /** Opens the Change password dialog (Current, New, Confirm + Save / Cancel).
-     * Save is checked first, so the dialog stays open if something is wrong.
-     * @author Anvesh
-     * @date 2026-10-07
-     */
-    private void showChangePasswordDialog() {
-        View dialogView = LayoutInflater.from(requireContext())
-                .inflate(R.layout.account_dialog_change_password, null);
+    private void bindViews(View root) {
+        photoView = root.findViewById(R.id.accountPhoto);
+        nameText = root.findViewById(R.id.accountName);
+        emailText = root.findViewById(R.id.accountEmail);
+        googleBadge = root.findViewById(R.id.accountGoogleBadge);
+        roleChip = root.findViewById(R.id.accountRoleChip);
+        nameValue = root.findViewById(R.id.valueAccountName);
+        roleValue = root.findViewById(R.id.valueAccountRole);
+        passwordRow = root.findViewById(R.id.rowAccountPassword);
+        passwordSummary = root.findViewById(R.id.summaryAccountPassword);
+        passwordChevron = root.findViewById(R.id.chevronAccountPassword);
+    }
 
-        AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.user_pw_title)
-                .setView(dialogView)
-                .setPositiveButton(R.string.user_pw_save, null)   // click handled below
-                .setNegativeButton(R.string.user_pw_cancel, (d, which) -> d.dismiss())
-                .create();
+    //--- SHOW THE PROFILE ---
 
-        dialog.show();
+    @Override
+    public void onProfileLoaded(String name, String email, @Nullable String roleKey,
+                                @Nullable Bitmap customPhoto, @Nullable Uri googlePhoto,
+                                boolean isGoogle, boolean canChangePassword) {
+        if (!isAdded()) return;
+        currentName = name;
+        currentRole = ProfileController.roleIndex(roleKey);
+        hasCustomPhoto = customPhoto != null;
+        isGoogleAccount = isGoogle;
+        hasPassword = canChangePassword;
 
-        // Replace the default Save click so the dialog only closes when the input is valid
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            if (validateAndSavePassword(dialogView)) {
-                dialog.dismiss();
-                showMessage(R.string.user_pw_saved_msg);
-            }
+        nameText.setText(name);
+        nameValue.setText(name);
+        emailText.setText(email);
+        googleBadge.setVisibility(isGoogle ? View.VISIBLE : View.GONE);
+
+        if (currentRole >= 0) {
+            String role = getString(ProfileController.ROLE_LABELS[currentRole]);
+            roleChip.setText(role);
+            roleChip.setVisibility(View.VISIBLE);
+            roleValue.setText(role);
+        } else {
+            roleChip.setVisibility(View.GONE);
+            roleValue.setText(R.string.account_role_none);
+        }
+
+        // Photo: custom > Google (loaded from its web link with Glide) > default
+        if (customPhoto != null) {
+            photoView.setImageBitmap(customPhoto);
+        } else if (googlePhoto != null) {
+            Glide.with(this).load(googlePhoto)
+                    .placeholder(R.drawable.account_img_user_avatar)
+                    .error(R.drawable.account_img_user_avatar)
+                    .into(photoView);
+        } else {
+            photoView.setImageResource(R.drawable.account_img_user_avatar);
+        }
+
+        // Google accounts have no password in SentryRack
+        passwordRow.setEnabled(canChangePassword);
+        passwordChevron.setVisibility(canChangePassword ? View.VISIBLE : View.GONE);
+        passwordSummary.setText(canChangePassword
+                ? R.string.account_password_summary : R.string.account_password_google);
+    }
+
+    //--- NAME ---
+
+    private void showNameDialog() {
+        View view = LayoutInflater.from(requireContext()).inflate(R.layout.account_dialog_name, null);
+        TextInputEditText input = view.findViewById(R.id.accountNameInput);
+        input.setText(currentName);
+
+        openDialog(view, R.string.account_name_title, R.string.user_pw_save, () -> {
+            ((TextInputLayout) view.findViewById(R.id.accountNameLayout)).setError(null);
+            controller.changeName(textOf(input));
         });
     }
 
-    /** Checks the 3 fields and saves the new password if everything is correct
-     * @author Anvesh
-     * @date 2026-10-07
-     * @return true if the password was saved
-     */
-    private boolean validateAndSavePassword(View dialogView) {
-        TextInputLayout currentLayout = dialogView.findViewById(R.id.currentPasswordLayout);
-        TextInputLayout newLayout = dialogView.findViewById(R.id.newPasswordLayout);
-        TextInputLayout confirmLayout = dialogView.findViewById(R.id.confirmPasswordLayout);
+    //--- ROLE ---
 
-        String current = textOf(dialogView.findViewById(R.id.currentPasswordInput));
-        String newPassword = textOf(dialogView.findViewById(R.id.newPasswordInput));
-        String confirm = textOf(dialogView.findViewById(R.id.confirmPasswordInput));
+    private void showRoleDialog() {
+        String[] labels = new String[ProfileController.ROLE_LABELS.length];
+        for (int i = 0; i < labels.length; i++) {
+            labels[i] = getString(ProfileController.ROLE_LABELS[i]);
+        }
+        final int[] selected = {currentRole};
 
-        // Clear old errors first
-        currentLayout.setError(null);
-        newLayout.setError(null);
-        confirmLayout.setError(null);
-
-        // 1. No empty fields
-        boolean ok = true;
-        if (current.isEmpty()) {
-            currentLayout.setError(getString(R.string.user_pw_error_empty));
-            ok = false;
-        }
-        if (newPassword.isEmpty()) {
-            newLayout.setError(getString(R.string.user_pw_error_empty));
-            ok = false;
-        }
-        if (confirm.isEmpty()) {
-            confirmLayout.setError(getString(R.string.user_pw_error_empty));
-            ok = false;
-        }
-        if (!ok) {
-            return false;
-        }
-
-        // 2. If a password was saved before, the current one must match it
-        SharedPreferences prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String savedHash = prefs.getString(KEY_PASSWORD_HASH, "");
-        if (!savedHash.isEmpty() && !savedHash.equals(hashPassword(current))) {
-            currentLayout.setError(getString(R.string.user_pw_error_current));
-            return false;
-        }
-
-        // 3. New password rules
-        if (newPassword.length() < MIN_PASSWORD_LENGTH) {
-            newLayout.setError(getString(R.string.user_pw_error_short, MIN_PASSWORD_LENGTH));
-            return false;
-        }
-        if (newPassword.equals(current)) {
-            newLayout.setError(getString(R.string.user_pw_error_same));
-            return false;
-        }
-        if (!newPassword.equals(confirm)) {
-            confirmLayout.setError(getString(R.string.user_pw_error_match));
-            return false;
-        }
-
-        // 4. All good - save only the hash, never the real password
-        prefs.edit().putString(KEY_PASSWORD_HASH, hashPassword(newPassword)).apply();
-        return true;
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.account_role_title)
+                .setSingleChoiceItems(labels, currentRole, (dialog, which) -> selected[0] = which)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(R.string.user_pw_save, (dialog, which) -> controller.changeRole(selected[0]))
+                .show();
     }
 
-    /** Turns a password into a SHA-256 hash (hex text), so the real password is not stored
-     * @author Anvesh
-     * @date 2026-10-07
-     */
-    private static String hashPassword(String password) {
+    //--- PHOTO ---
+
+    private void showPhotoSheet() {
+        BottomSheetDialog sheet = new BottomSheetDialog(requireContext());
+        View view = LayoutInflater.from(requireContext()).inflate(R.layout.account_sheet_photo, null);
+        sheet.setContentView(view);
+
+        // "Use my Google photo" only for Google accounts that chose another photo
+        view.findViewById(R.id.photoOptionGoogle)
+                .setVisibility(isGoogleAccount && hasCustomPhoto ? View.VISIBLE : View.GONE);
+        view.findViewById(R.id.photoOptionRemove)
+                .setVisibility(hasCustomPhoto ? View.VISIBLE : View.GONE);
+
+        view.findViewById(R.id.photoOptionGallery).setOnClickListener(v -> {
+            sheet.dismiss();
+            photoPicker.launch(new PickVisualMediaRequest.Builder()
+                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                    .build());
+        });
+        // Removing the custom photo brings back the Google photo (or the default one)
+        View.OnClickListener remove = v -> {
+            sheet.dismiss();
+            controller.removePhoto();
+        };
+        view.findViewById(R.id.photoOptionGoogle).setOnClickListener(remove);
+        view.findViewById(R.id.photoOptionRemove).setOnClickListener(remove);
+        sheet.show();
+    }
+
+    private void onPhotoPicked(@Nullable Uri uri) {
+        if (uri == null || !isAdded()) return;   // user closed the picker
         try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] bytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-            StringBuilder hex = new StringBuilder();
-            for (byte b : bytes) {
-                hex.append(String.format("%02x", b));
-            }
-            return hex.toString();
-        } catch (NoSuchAlgorithmException e) {
-            // SHA-256 is always available on Android; this should never happen
-            throw new IllegalStateException(e);
+            ImageDecoder.Source source =
+                    ImageDecoder.createSource(requireContext().getContentResolver(), uri);
+            Bitmap bitmap = ImageDecoder.decodeBitmap(source, (decoder, info, src) -> {
+                decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);   // needed to resize it
+                int longest = Math.max(info.getSize().getWidth(), info.getSize().getHeight());
+                if (longest > MAX_PICK_SIZE) {
+                    decoder.setTargetSampleSize(longest / MAX_PICK_SIZE);
+                }
+            });
+            photoView.setImageBitmap(bitmap);   // show it straight away
+            controller.changePhoto(bitmap);
+        } catch (IOException e) {
+            showMessage(getString(R.string.account_error, e.getMessage()));
         }
     }
 
-    /** Shows a short message at the bottom of the screen
-     * @author Anvesh
-     * @date 2026-10-07
-     */
-    private void showMessage(@StringRes int messageRes) {
-        Snackbar.make(requireView(), messageRes, Snackbar.LENGTH_SHORT).show();
+    //--- PASSWORD ---
+
+    private void showPasswordDialog() {
+        if (!hasPassword) return;
+        View view = LayoutInflater.from(requireContext())
+                .inflate(R.layout.account_dialog_change_password, null);
+
+        openDialog(view, R.string.user_pw_title, R.string.user_pw_save, () -> {
+            clearErrors(view, R.id.currentPasswordLayout, R.id.newPasswordLayout,
+                    R.id.confirmPasswordLayout);
+            controller.changePassword(
+                    textOf(view.findViewById(R.id.currentPasswordInput)),
+                    textOf(view.findViewById(R.id.newPasswordInput)),
+                    textOf(view.findViewById(R.id.confirmPasswordInput)));
+        });
     }
 
-    /** Small helper: returns the text in a field, or "" if it is empty
-     * @author Anvesh
-     * @date 2026-10-07
-     */
+    //--- DELETE ACCOUNT ---
+
+    private void showDeleteDialog() {
+        View view = LayoutInflater.from(requireContext()).inflate(R.layout.account_dialog_delete, null);
+        boolean needsPassword = controller.needsPasswordToDelete();
+        view.findViewById(R.id.accountDeletePasswordLayout)
+                .setVisibility(needsPassword ? View.VISIBLE : View.GONE);
+
+        openDialog(view, R.string.account_delete_title, R.string.account_delete_confirm, () -> {
+            clearErrors(view, R.id.accountDeletePasswordLayout);
+            controller.deleteAccount(textOf(view.findViewById(R.id.accountDeletePasswordInput)));
+        });
+    }
+
+    @Override
+    public void onAccountDeleted() {
+        closeActiveDialog();
+        Toast.makeText(requireContext(), R.string.account_deleted, Toast.LENGTH_LONG).show();
+        // Back to Login, nothing left in the back stack
+        Intent login = new Intent(requireContext(), LoginActivity.class);
+        login.putExtra(LoginActivity.FROM_LOGOUT, true);
+        login.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(login);
+        requireActivity().finish();
+    }
+
+    @Override
+    public void onReloginRequired() {
+        closeActiveDialog();
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.account_delete_title)
+                .setMessage(R.string.account_relogin)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+    }
+
+    //--- RESULTS FROM THE CONTROLLER ---
+
+    @Override
+    public void onFieldError(ProfileController.Field field, @StringRes int errorResId) {
+        if (activeDialogView == null) return;
+        int layoutId;
+        switch (field) {
+            case NAME:             layoutId = R.id.accountNameLayout; break;
+            case CURRENT_PASSWORD: layoutId = R.id.currentPasswordLayout; break;
+            case NEW_PASSWORD:     layoutId = R.id.newPasswordLayout; break;
+            case CONFIRM_PASSWORD: layoutId = R.id.confirmPasswordLayout; break;
+            default:               layoutId = R.id.accountDeletePasswordLayout; break;
+        }
+        TextInputLayout layout = activeDialogView.findViewById(layoutId);
+        if (layout != null) layout.setError(getString(errorResId));
+    }
+
+    @Override
+    public void onSaved(@StringRes int messageResId) {
+        if (!isAdded()) return;
+        closeActiveDialog();
+        showMessage(getString(messageResId));
+        controller.load();   // show the new name / role / photo everywhere on the screen
+    }
+
+    @Override
+    public void onError(String message) {
+        if (!isAdded()) return;
+        showMessage(getString(R.string.account_error, message));
+    }
+
+    //--- SMALL HELPERS (DRY) ---
+
+    /** Dialog whose main button runs the action but stays open until Firebase answers. */
+    private void openDialog(View view, @StringRes int title, @StringRes int button, Runnable action) {
+        AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(title)
+                .setView(view)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(button, null)   // click set below, so the dialog does not close
+                .create();
+        dialog.setOnDismissListener(d -> {
+            if (activeDialog == dialog) {
+                activeDialog = null;
+                activeDialogView = null;
+            }
+        });
+        dialog.show();
+        activeDialog = dialog;
+        activeDialogView = view;
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> action.run());
+    }
+
+    private void closeActiveDialog() {
+        if (activeDialog != null) activeDialog.dismiss();
+    }
+
+    private static void clearErrors(View root, int... layoutIds) {
+        for (int id : layoutIds) {
+            ((TextInputLayout) root.findViewById(id)).setError(null);
+        }
+    }
+
+    private void showMessage(String message) {
+        if (getView() != null) Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
+    }
+
     private static String textOf(TextInputEditText input) {
         return input.getText() == null ? "" : input.getText().toString();
     }

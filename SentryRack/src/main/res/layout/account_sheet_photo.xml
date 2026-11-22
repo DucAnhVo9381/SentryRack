@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Profile photo options (bottom sheet) - @author Anvesh Rachakonda @date 2026-11-22 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/user_dialog_padding">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/user_dialog_padding"
+        android:paddingTop="@dimen/user_field_spacing"
+        android:paddingBottom="@dimen/user_field_spacing"
+        android:text="@string/account_photo"
+        android:textAppearance="?attr/textAppearanceTitleLarge" />
+
+    <TextView
+        android:id="@+id/photoOptionGallery"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/user_dialog_padding"
+        android:paddingEnd="@dimen/user_dialog_padding"
+        android:text="@string/account_photo_gallery"
+        android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+    <TextView
+        android:id="@+id/photoOptionGoogle"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/user_dialog_padding"
+        android:paddingEnd="@dimen/user_dialog_padding"
+        android:text="@string/account_photo_google"
+        android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+    <TextView
+        android:id="@+id/photoOptionRemove"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/user_dialog_padding"
+        android:paddingEnd="@dimen/user_dialog_padding"
+        android:text="@string/account_photo_remove"
+        android:textAppearance="?attr/textAppearanceBodyLarge"
+        android:textColor="?attr/colorError" />
+</LinearLayout>
