@@ -42,7 +42,7 @@ public class LoginActivityUiTest {
         try (ActivityScenario<LoginActivity> ignored = ActivityScenario.launch(intent)) {
             onView(withId(R.id.forgotPasswordButton)).perform(click());
 
-            onView(withText(R.string.error_email_empty)).check(matches(isDisplayed()));
+            onView(withText("Email is required.")).check(matches(isDisplayed()));
         }
     }
 
@@ -73,7 +73,7 @@ public class LoginActivityUiTest {
         try (ActivityScenario<LoginActivity> ignored = launchLogin()) {
             onView(withId(R.id.loginButton)).perform(scrollTo(), click());
 
-            onView(withText(R.string.error_email_empty)).check(matches(isDisplayed()));
+            onView(withText("Email is required.")).check(matches(isDisplayed()));
         }
     }
 
@@ -82,7 +82,7 @@ public class LoginActivityUiTest {
         try (ActivityScenario<LoginActivity> ignored = launchLogin()) {
             onView(withId(R.id.loginButton)).perform(scrollTo(), click());
 
-            onView(withText(R.string.error_password_empty)).check(matches(isDisplayed()));
+            onView(withText("Password is required.")).check(matches(isDisplayed()));
         }
     }
 
@@ -92,7 +92,7 @@ public class LoginActivityUiTest {
             onView(withId(R.id.passwordInput)).perform(typeText("Admin101!"), closeSoftKeyboard());
             onView(withId(R.id.loginButton)).perform(scrollTo(), click());
 
-            onView(withText(R.string.error_email_empty)).check(matches(isDisplayed()));
+            onView(withText("Email is required.")).check(matches(isDisplayed()));
         }
     }
 
@@ -102,7 +102,7 @@ public class LoginActivityUiTest {
             onView(withId(R.id.emailInput)).perform(typeText("aaa@bbb.com"), closeSoftKeyboard());
             onView(withId(R.id.loginButton)).perform(scrollTo(), click());
 
-            onView(withText(R.string.error_password_empty)).check(matches(isDisplayed()));
+            onView(withText("Password is required.")).check(matches(isDisplayed()));
         }
     }
 
