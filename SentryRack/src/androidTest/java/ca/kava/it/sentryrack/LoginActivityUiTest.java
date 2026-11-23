@@ -67,5 +67,12 @@ public class LoginActivityUiTest {
         }
     }
 
+    @Test
+    public void submittingEmptyForm_displaysPasswordRequiredError() {
+        try (ActivityScenario<LoginActivity> ignored = launchLogin()) {
+            onView(withId(R.id.loginButton)).perform(scrollTo(), click());
 
+            onView(withText(R.string.error_password_empty)).check(matches(isDisplayed()));
+        }
+    }
 }
