@@ -18,6 +18,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.typeText;
 
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityUiTest {
@@ -75,4 +77,16 @@ public class LoginActivityUiTest {
             onView(withText(R.string.error_password_empty)).check(matches(isDisplayed()));
         }
     }
+
+    @Test
+    public void submittingWithoutEmail_displaysEmailRequiredError() {
+        try (ActivityScenario<LoginActivity> ignored = launchLogin()) {
+            onView(withId(R.id.passwordInput)).perform(typeText("Admin101!"), closeSoftKeyboard());
+            onView(withId(R.id.loginButton)).perform(scrollTo(), click());
+
+            onView(withText(R.string.error_email_empty)).check(matches(isDisplayed()));
+        }
+    }
+
+
 }
