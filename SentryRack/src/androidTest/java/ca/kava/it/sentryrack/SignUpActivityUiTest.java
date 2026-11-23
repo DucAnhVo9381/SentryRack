@@ -73,7 +73,7 @@ public class SignUpActivityUiTest {
             enterText(R.id.registerEmailInput, "test@example.com");
             submitRegistrationForm();
 
-            onView(withText("Password is required")).check(matches(isDisplayed()));
+            onView(withText("Password is required.")).check(matches(isDisplayed()));
         }
     }
 
@@ -146,6 +146,17 @@ public class SignUpActivityUiTest {
         @Override
         public void describeTo(Description description) {
             description.appendText("is a Toast window");
+        }
+    }
+
+    @Test
+    public void submittingFormWithoutPhone_displaysPhoneRequiredError() {
+        try (ActivityScenario<SignUpActivity> ignored =
+                     ActivityScenario.launch(SignUpActivity.class)) {
+            enterText(R.id.registerNameInput, "Test User");
+            submitRegistrationForm();
+
+            onView(withText("Phone number is required")).check(matches(isDisplayed()));
         }
     }
 }
