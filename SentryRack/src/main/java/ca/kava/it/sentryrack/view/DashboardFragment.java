@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import ca.kava.it.sentryrack.R;
+import ca.kava.it.sentryrack.controller.RackListAdapter;
 import ca.kava.it.sentryrack.model.UserData;
 import ca.kava.it.sentryrack.controller.AuthController;
 import ca.kava.it.sentryrack.controller.DashboardRackController;
@@ -38,7 +39,7 @@ public class DashboardFragment extends Fragment implements DashboardRackControll
     private String mParam1;
     private String mParam2;
     private DashboardRackController rackController;
-    private RackStatusAdapter attentionAdapter;
+    private RackListAdapter attentionAdapter;
     private List<RackStatus> currentRacks = new ArrayList<>();
     private TextView totalRackCount;
     private TextView healthyCount;
@@ -96,7 +97,7 @@ public class DashboardFragment extends Fragment implements DashboardRackControll
         warningCount = view.findViewById(R.id.dashboardWarningCount);
         criticalCount = view.findViewById(R.id.dashboardCriticalCount);
         RecyclerView attentionRecycler = view.findViewById(R.id.dashboardRecyclerView);
-        attentionAdapter = new RackStatusAdapter();
+        attentionAdapter = new RackListAdapter();
         attentionRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         attentionRecycler.setAdapter(attentionAdapter);
         rackController = new DashboardRackController(this);

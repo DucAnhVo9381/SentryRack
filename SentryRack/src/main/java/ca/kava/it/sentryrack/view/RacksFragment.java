@@ -27,6 +27,8 @@ import java.util.List;
 import ca.kava.it.sentryrack.R;
 import ca.kava.it.sentryrack.controller.AuthController;
 import ca.kava.it.sentryrack.controller.DashboardRackController;
+import ca.kava.it.sentryrack.controller.RackListAdapter;
+import ca.kava.it.sentryrack.model.RackRepository;
 import ca.kava.it.sentryrack.model.UserData;
 import ca.kava.it.sentryrack.model.RackStatus;
 
@@ -34,7 +36,8 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
 
     private static final long STALE_CHECK_INTERVAL_MS = 20_000; // 20 seconds
 
-    private RackStatusAdapter adapter;
+    private final RackRepository rackRepository = new RackRepository();
+    private RackListAdapter adapter;
     private DashboardRackController controller;
     private TextView racksTotalCount;
 
@@ -58,7 +61,7 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
         racksTotalCount = view.findViewById(R.id.racksTotalCount);
         RecyclerView recyclerView = view.findViewById(R.id.racksRecyclerView);
 
-        adapter = new RackStatusAdapter();
+        adapter = new RackListAdapter();
 
         // Long click listener
         adapter.setOnItemLongClickListener(rack -> showDeleteDialog(rack));
@@ -120,11 +123,21 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
     // Show delete dialog for long click listener
     private void showDeleteDialog(RackStatus rack) {
         new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Delete RackData")
+                .setTitle("Delete Rack")
                 .setMessage("Delete " + rack.name + "?")
                 .setNegativeButton("Cancel", null)
                 .setPositiveButton("Delete", (dialog, which) -> {
-                    Toast.makeText(requireContext(), "Delete " + rack.name, Toast.LENGTH_SHORT).show();
+                    rackRepository.deleteRack(rack.rackId, new RackRepository.DeleteRackCallback() {
+                        @Override
+                        public void onSuccess() {
+                            Toast.makeText(requireContext(), rack.name + " deleted", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onError(String message) {
+                            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
+                        }
+                    });
                 })
                 .show();
     }
