@@ -15,13 +15,13 @@ public class FeedbackDataUnitTest {
     public void constructorStoresFeedbackFieldsAndDeviceInfo() {
         DeviceInfoData device = new DeviceInfoData("1.0", "15", "Maker", "Model");
         FeedbackData feedback = new FeedbackData(
-                "Alex", "1234567890", "alex@example.com", "Comment", 5, device);
+                "Alex", "1234567890", "alex@example.com", "Comment", 5.0, device);
 
         assertEquals("Alex", feedback.getFullName());
         assertEquals("1234567890", feedback.getPhoneNumber());
         assertEquals("alex@example.com", feedback.getEmail());
         assertEquals("Comment", feedback.getComment());
-        assertEquals(5, feedback.getStarRating());
+        assertEquals(5.0, feedback.getStarRating());
         assertSame(device, feedback.getDeviceInfo());
     }
 
@@ -34,14 +34,14 @@ public class FeedbackDataUnitTest {
         feedback.setPhoneNumber("5551234567");
         feedback.setEmail("sam@example.com");
         feedback.setComment("Updated");
-        feedback.setStarRating(4);
+        feedback.setStarRating(4.0);
         feedback.setDeviceInfo(device);
 
         assertEquals("Sam", feedback.getFullName());
         assertEquals("5551234567", feedback.getPhoneNumber());
         assertEquals("sam@example.com", feedback.getEmail());
         assertEquals("Updated", feedback.getComment());
-        assertEquals(4, feedback.getStarRating());
+        assertEquals(4.0, feedback.getStarRating());
         assertSame(device, feedback.getDeviceInfo());
     }
 
@@ -54,6 +54,6 @@ public class FeedbackDataUnitTest {
         assertNull(feedback.getEmail());
         assertNull(feedback.getComment());
         assertNull(feedback.getDeviceInfo());
-        assertEquals(0, feedback.getStarRating());
+        assertEquals(0.0, feedback.getStarRating());
     }
 }
