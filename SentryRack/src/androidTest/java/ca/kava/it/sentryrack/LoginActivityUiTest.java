@@ -20,6 +20,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
+import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
 
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityUiTest {
@@ -98,5 +100,12 @@ public class LoginActivityUiTest {
         }
     }
 
-
+    @Test
+    public void rememberMeCheckbox_canBeToggled() {
+        try (ActivityScenario<LoginActivity> ignored = launchLogin()) {
+            onView(withId(R.id.rememberMeCheck)).perform(scrollTo()).check(matches(isNotChecked()));
+            onView(withId(R.id.rememberMeCheck)).perform(click()).check(matches(isChecked()));
+            onView(withId(R.id.rememberMeCheck)).perform(click()).check(matches(isNotChecked()));
+        }
+    }
 }
