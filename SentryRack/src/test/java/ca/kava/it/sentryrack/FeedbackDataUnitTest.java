@@ -21,7 +21,7 @@ public class FeedbackDataUnitTest {
         assertEquals("1234567890", feedback.getPhoneNumber());
         assertEquals("alex@example.com", feedback.getEmail());
         assertEquals("Comment", feedback.getComment());
-        assertEquals(5.0, feedback.getStarRating());
+        assertEquals(5.0, feedback.getStarRating(), 0.0);
         assertSame(device, feedback.getDeviceInfo());
     }
 
@@ -41,7 +41,7 @@ public class FeedbackDataUnitTest {
         assertEquals("5551234567", feedback.getPhoneNumber());
         assertEquals("sam@example.com", feedback.getEmail());
         assertEquals("Updated", feedback.getComment());
-        assertEquals(4.0, feedback.getStarRating());
+        assertEquals(4.0, feedback.getStarRating(), 0.0);
         assertSame(device, feedback.getDeviceInfo());
     }
 
@@ -54,6 +54,6 @@ public class FeedbackDataUnitTest {
         assertNull(feedback.getEmail());
         assertNull(feedback.getComment());
         assertNull(feedback.getDeviceInfo());
-        assertEquals(0.0, feedback.getStarRating());
+        assertEquals(0.0, feedback.getStarRating(), 0.0);
     }
 }
