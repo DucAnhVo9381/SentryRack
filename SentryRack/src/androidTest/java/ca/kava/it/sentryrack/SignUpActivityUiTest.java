@@ -166,4 +166,16 @@ public class SignUpActivityUiTest {
             onView(withText("Phone number is required")).check(matches(isDisplayed()));
         }
     }
+
+    @Test
+    public void submittingInvalidEmail_displaysInvalidEmailError() {
+        try (ActivityScenario<SignUpActivity> ignored =
+                     ActivityScenario.launch(SignUpActivity.class)) {
+            enterText(R.id.registerNameInput, "Test User");
+            enterText(R.id.registerEmailInput, "not-an-email");
+            submitRegistrationForm();
+
+            onView(withText("Please enter a valid email address")).check(matches(isDisplayed()));
+        }
+    }
 }
