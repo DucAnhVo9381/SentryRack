@@ -108,4 +108,13 @@ public class LoginActivityUiTest {
             onView(withId(R.id.rememberMeCheck)).perform(click()).check(matches(isNotChecked()));
         }
     }
+
+    @Test
+    public void signUpButton_opensSignUpScreen() {
+        try (ActivityScenario<LoginActivity> ignored = launchLogin()) {
+            onView(withId(R.id.signUpButton)).perform(scrollTo(), click());
+
+            onView(withId(R.id.registerCard)).check(matches(isDisplayed()));
+        }
+    }
 }
