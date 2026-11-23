@@ -58,5 +58,14 @@ public class LoginActivityUiTest {
         }
     }
 
+    @Test
+    public void submittingEmptyForm_displaysEmailRequiredError() {
+        try (ActivityScenario<LoginActivity> ignored = launchLogin()) {
+            onView(withId(R.id.loginButton)).perform(scrollTo(), click());
+
+            onView(withText(R.string.error_email_empty)).check(matches(isDisplayed()));
+        }
+    }
+
 
 }
