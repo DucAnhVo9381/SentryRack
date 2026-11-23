@@ -25,6 +25,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
 import android.widget.EditText;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import android.widget.CheckBox;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityUiTest {
@@ -132,6 +135,20 @@ public class LoginActivityUiTest {
                 assertNotNull(password);
                 assertEquals("", email.getText().toString());
                 assertEquals("", password.getText().toString());
+            });
+        }
+    }
+
+    @Test
+    public void loginScreen_buttonsEnabledAndRememberMeUnchecked() {
+        try (ActivityScenario<LoginActivity> scenario = launchLogin()) {
+            scenario.onActivity(activity -> {
+                CheckBox rememberMe = activity.findViewById(R.id.rememberMeCheck);
+
+                assertTrue(activity.findViewById(R.id.loginButton).isEnabled());
+                assertTrue(activity.findViewById(R.id.googleButton).isEnabled());
+                assertTrue(activity.findViewById(R.id.signUpButton).isEnabled());
+                assertFalse(rememberMe.isChecked());
             });
         }
     }
