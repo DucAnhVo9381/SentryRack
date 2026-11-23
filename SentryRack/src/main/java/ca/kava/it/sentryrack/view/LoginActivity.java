@@ -231,6 +231,8 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
     // Disable buttons while waiting for Firebase to prevent duplicate login requests
     private void setUiLoading(boolean isLoading) {
         loginButton.setEnabled(!isLoading);
+        loginButton.setText(isLoading ? "Signing In..." : "Sign In");
+
         googleButton.setEnabled(!isLoading);
         signUpButton.setEnabled(!isLoading);
     }

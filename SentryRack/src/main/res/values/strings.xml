@@ -223,8 +223,8 @@
     <string name="good_afternoon">Good Afternoon</string>
     <string name="good_evening">Good Evening</string>
 
-    <!-- ===== Sign up  ===== -->
-    <string name="register_title">Create account</string>
+    <!-- Sign up -->
+    <string name="register_title">Create An Account</string>
     <string name="register_subtitle">Join Sentry Rack to monitor your racks</string>
     <string name="register_back">Back to sign in</string>
     <string name="register_name_hint">Full name</string>

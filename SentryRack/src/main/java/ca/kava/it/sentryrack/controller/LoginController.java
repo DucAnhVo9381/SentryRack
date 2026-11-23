@@ -42,7 +42,7 @@ public class LoginController implements AuthController.Callback {
         String passwordInput = password != null ? password : "";
         boolean hasError = false;
 
-        if (!InputValidator.isNotBlank(emailInput)) {
+        if (InputValidator.isBlank(emailInput)) {
             sendValidationError(Field.EMAIL, "Email is required.");
             hasError = true;
         } else if (!InputValidator.isValidEmail(emailInput)) {
@@ -50,7 +50,7 @@ public class LoginController implements AuthController.Callback {
             hasError = true;
         }
 
-        if (!InputValidator.isNotBlank(passwordInput)) {
+        if (InputValidator.isBlank(passwordInput)) {
             sendValidationError(Field.PASSWORD, "Password is required.");
             hasError = true;
         }
@@ -69,7 +69,7 @@ public class LoginController implements AuthController.Callback {
     public void sendPasswordResetEmail(String email) {
         String cleanEmail = email != null ? email.trim() : "";
 
-        if (!InputValidator.isNotBlank(cleanEmail)) {
+        if (InputValidator.isBlank(cleanEmail)) {
             sendValidationError(Field.EMAIL, "Email is required.");
             return;
         }

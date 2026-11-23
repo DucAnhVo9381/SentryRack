@@ -67,7 +67,7 @@ public class InputValidator {
         return password != null && password.equals(confirmPassword);
     }
 
-    public static boolean isNotBlank(String value) {
-        return value != null && !value.trim().isEmpty();
+    public static boolean isBlank(String value) {
+        return value == null || value.trim().isEmpty();
     }
 }
