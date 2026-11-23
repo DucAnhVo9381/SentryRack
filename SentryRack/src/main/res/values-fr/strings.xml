@@ -203,7 +203,7 @@
     <string name="good_afternoon">Bon après-midi</string>
     <string name="good_evening">Bonsoir</string>
 
-    <!-- ===== Signup screen ===== -->
+    <!-- Signup screen -->
     <string name="register_title">Créer un compte</string>
     <string name="register_subtitle">Rejoignez Sentry Rack pour surveiller vos baies</string>
     <string name="register_back">Retour à la connexion</string>

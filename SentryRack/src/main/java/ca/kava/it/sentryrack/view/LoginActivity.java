@@ -12,7 +12,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.credentials.Credential;
@@ -30,16 +29,16 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import ca.kava.it.sentryrack.R;
-import ca.kava.it.sentryrack.controller.AuthController;
+import ca.kava.it.sentryrack.controller.LoginController;
 import ca.kava.it.sentryrack.model.UserData;
 
-public class LoginActivity extends AppCompatActivity implements AuthController.Callback {
-    //--- CONSTANTS ---//
+public class LoginActivity extends AppCompatActivity implements LoginController.Callback {
+    // CONSTANTS
     public static final String FROM_LOGOUT = "FROM_LOGOUT";
     private static final long LOGO_ANIMATION = 1000;
     private static final long CARD_ANIMATION_DELAY = 150;
 
-    //--- VIEWS ---
+    // FIELDS/VIEWS
     private TextInputLayout emailLayout;
     private TextInputLayout passwordLayout;
     private TextInputEditText emailInput;
@@ -50,8 +49,8 @@ public class LoginActivity extends AppCompatActivity implements AuthController.C
     private MaterialButton googleButton;
     private MaterialButton signUpButton;
 
-    //--- CONTROLLER ---
-    private AuthController authController;
+    // Controller: receives validation and authentication events
+    private LoginController loginController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +72,11 @@ public class LoginActivity extends AppCompatActivity implements AuthController.C
         signUpButton = findViewById(R.id.signUpButton);
 
         // Initialize Controller
-        authController = new AuthController(this);
+        loginController = new LoginController(this);
 
         // Check if user is already authenticated
         boolean isFromLogout = getIntent().getBooleanExtra(FROM_LOGOUT, false);
-        if (!isFromLogout && authController.getCurrentUser() != null) {
+        if (loginController.shouldSkipLogin(isFromLogout)) {
             navigateToMain();
             return;
         }
@@ -90,32 +89,7 @@ public class LoginActivity extends AppCompatActivity implements AuthController.C
         }
     }
 
-    // Calls to controllers
-    @Override
-    public void onLoading() {
-        setUiLoading(true);
-    }
-
-    @Override
-    public void onSuccess(UserData userData) {
-        setUiLoading(false);
-        showToast("Welcome " + userData.getDisplayName());
-        navigateToMain();
-    }
-
-    @Override
-    public void onError(String errorMessage) {
-        setUiLoading(false);
-        showToast(errorMessage);
-    }
-
-    @Override
-    public void onActionMessage(String message) {
-        showToast(message);
-    }
-
-
-    //--- LOGIN HELPER METHODS ---
+    // UI SETUP AND USER ACTIONS
     private void setupClickListeners() {
         loginButton.setOnClickListener(v -> attemptLogin());
 
@@ -138,26 +112,23 @@ public class LoginActivity extends AppCompatActivity implements AuthController.C
     }
 
     private void attemptLogin() {
-        boolean emailFilled = isFieldFilled(emailInput, emailLayout, R.string.error_email_empty);
-        boolean passwordFilled = isFieldFilled(passwordInput, passwordLayout, R.string.error_password_empty);
+        // Clears old error messages
+        emailLayout.setError(null);
+        passwordLayout.setError(null);
 
-        if (emailFilled && passwordFilled && emailInput.getText() != null && passwordInput.getText() != null) {
-            String email = emailInput.getText().toString().trim();
-            String password = passwordInput.getText().toString();
-            authController.loginWithEmail(email, password);
-        }
+        String email = emailInput.getText() != null ? emailInput.getText().toString() : "";
+        String password = passwordInput.getText() != null ? passwordInput.getText().toString() : "";
+        loginController.loginWithEmail(email, password);
     }
 
     private void attemptPasswordReset() {
-        String email = emailInput.getText() != null ? emailInput.getText().toString().trim() : "";
-        if (email.isEmpty()) {
-            emailLayout.setError(getString(R.string.error_email_empty));
-            return;
-        }
         emailLayout.setError(null);
-        authController.sendPasswordResetEmail(email);
+
+        String email = emailInput.getText() != null ? emailInput.getText().toString() : "";
+        loginController.sendPasswordResetEmail(email);
     }
 
+    // Launch Google Credential Manager and exchange the returned ID token for Firebase authentication
     private void performGoogleSignIn() {
         GetGoogleIdOption googleIdOption = new GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
@@ -182,9 +153,8 @@ public class LoginActivity extends AppCompatActivity implements AuthController.C
                         if (credential instanceof CustomCredential &&
                                 credential.getType().equals(GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL)) {
                             try {
-                                GoogleIdTokenCredential googleIdTokenCredential =
-                                        GoogleIdTokenCredential.createFrom(credential.getData());
-                                authController.loginWithGoogle(googleIdTokenCredential.getIdToken());
+                                GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.getData());
+                                loginController.loginWithGoogle(googleIdTokenCredential.getIdToken());
                             } catch (Exception e) {
                                 showToast("Google Sign-In failed to parse token.");
                             }
@@ -211,24 +181,60 @@ public class LoginActivity extends AppCompatActivity implements AuthController.C
         );
     }
 
-    private void setUiLoading(boolean isLoading) {
-        loginButton.setEnabled(!isLoading);
-        googleButton.setEnabled(!isLoading);
-        signUpButton.setEnabled(!isLoading);
+    // CALLBACKS FROM LoginController (LoginController.Callback)
+    // Handles local validation errors
+    @Override
+    public void onValidationError(LoginController.Field field, String errorMessage) {
+        if (field == LoginController.Field.EMAIL) {
+            emailLayout.setError(errorMessage);
+        } else if (field == LoginController.Field.PASSWORD) {
+            passwordLayout.setError(errorMessage);
+        }
     }
 
+    @Override
+    public void onLoading() {
+        setUiLoading(true);
+    }
+
+    @Override
+    public void onSuccess(UserData userData) {
+        setUiLoading(false);
+        showToast("Welcome " + userData.getDisplayName());
+        navigateToMain();
+    }
+
+    // Handles authentication errors returned by Firebase
+    @Override
+    public void onError(String errorMessage) {
+        setUiLoading(false);
+
+        if("USER NOT FOUND".equals(errorMessage)) {
+            emailLayout.setError("Incorrect email or password");
+            passwordLayout.setError("Incorrect email or password");
+        } else {
+            showToast(errorMessage);
+        }
+    }
+
+    @Override
+    public void onActionMessage(String message) {
+        showToast(message);
+    }
+
+    // UI HELPER/UTILITY METHODS
     private void navigateToMain() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
-    private boolean isFieldFilled(TextInputEditText input, TextInputLayout layout, @StringRes int error) {
-        if (input.getText() == null || input.getText().toString().trim().isEmpty()) {
-            layout.setError(getString(error));
-            return false;
-        }
-        layout.setError(null);
-        return true;
+    // Disable buttons while waiting for Firebase to prevent duplicate login requests
+    private void setUiLoading(boolean isLoading) {
+        loginButton.setEnabled(!isLoading);
+        loginButton.setText(isLoading ? "Signing In..." : "Sign In");
+
+        googleButton.setEnabled(!isLoading);
+        signUpButton.setEnabled(!isLoading);
     }
 
     private void playEntranceAnimation(long startDelayMs) {
@@ -255,6 +261,6 @@ public class LoginActivity extends AppCompatActivity implements AuthController.C
     }
 
     private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

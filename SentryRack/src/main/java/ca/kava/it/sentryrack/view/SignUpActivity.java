@@ -15,25 +15,27 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import ca.kava.it.sentryrack.R;
-import ca.kava.it.sentryrack.controller.AuthController;
+import ca.kava.it.sentryrack.controller.SignUpController;
 import ca.kava.it.sentryrack.model.UserData;
 
-public class SignUpActivity extends AppCompatActivity implements AuthController.Callback {
+public class SignUpActivity extends AppCompatActivity implements SignUpController.Callback {
     private TextInputLayout nameLayout;
     private TextInputLayout emailLayout;
     private TextInputLayout passwordLayout;
     private TextInputLayout confirmLayout;
+    private TextInputLayout phoneLayout;
 
     private TextInputEditText nameInput;
     private TextInputEditText emailInput;
     private TextInputEditText passwordInput;
     private TextInputEditText confirmInput;
+    private TextInputEditText phoneInput;
 
     private MaterialCheckBox agreeCheck;
     private MaterialButton registerButton;
     private MaterialButton signInButton;
 
-    private AuthController authController;
+    private SignUpController signUpController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,75 +46,116 @@ public class SignUpActivity extends AppCompatActivity implements AuthController.
         emailLayout = findViewById(R.id.registerEmailLayout);
         passwordLayout = findViewById(R.id.registerPasswordLayout);
         confirmLayout = findViewById(R.id.registerConfirmLayout);
+        phoneLayout = findViewById(R.id.registerPhoneLayout);
 
         nameInput = findViewById(R.id.registerNameInput);
         emailInput = findViewById(R.id.registerEmailInput);
         passwordInput = findViewById(R.id.registerPasswordInput);
         confirmInput = findViewById(R.id.registerConfirmInput);
+        phoneInput = findViewById(R.id.registerPhoneInput);
 
         agreeCheck = findViewById(R.id.registerAgreeCheck);
 
         registerButton = findViewById(R.id.registerButton);
         signInButton = findViewById(R.id.signupSignInButton);
 
-        authController = new AuthController(this);
+        // Initialize controller and register for callback events
+        signUpController = new SignUpController(this);
 
         registerButton.setOnClickListener(v -> attemptSignUp());
         signInButton.setOnClickListener(v -> finish());
     }
 
+    // Collect user input and delegate validation/account creation to the controller
     private void attemptSignUp() {
-        String name = nameInput.getText().toString().trim();
-        String email = emailInput.getText().toString().trim();
-        String password = passwordInput.getText().toString();
-        String confirm = confirmInput.getText().toString();
+        clearErrors();
 
-        if (name.isEmpty()) {
-            nameLayout.setError("Name is required");
-            return;
+        signUpController.signUp(
+                getTrimmedText(nameInput),
+                getTrimmedText(phoneInput),
+                getTrimmedText(emailInput),
+                getText(passwordInput),
+                getText(confirmInput),
+                agreeCheck.isChecked()
+        );
+    }
+
+    // Display field-specific validation errors returned by SignUpController
+    @Override
+    public void onValidationError(SignUpController.Field field, String errorMessage) {
+        switch (field) {
+            case NAME:
+                nameLayout.setError(errorMessage);
+                break;
+            case PHONE:
+                phoneLayout.setError(errorMessage);
+                break;
+            case EMAIL:
+                emailLayout.setError(errorMessage);
+                break;
+            case PASSWORD:
+                passwordLayout.setError(errorMessage);
+                break;
+            case CONFIRM_PASSWORD:
+                confirmLayout.setError(errorMessage);
+                break;
+            case PRIVACY:
+                showToast(errorMessage);
+                break;
         }
-
-        if (email.isEmpty()) {
-            emailLayout.setError("Email is required");
-            return;
-        }
-
-        if (password.isEmpty()) {
-            passwordLayout.setError("Password is required");
-            return;
-        }
-
-        if (!password.equals(confirm)) {
-            confirmLayout.setError("Passwords do not match");
-            return;
-        }
-
-        if (!agreeCheck.isChecked()) {
-            Toast.makeText(this,"Please accept the privacy policy", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        authController.signUpWithEmail(email, password);
     }
 
     @Override
     public void onLoading() {
-
+        setUiLoading(true);
     }
 
     @Override
     public void onSuccess(UserData userData) {
-        Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show();
+        setUiLoading(false);
+        showToast("Account created successfully");
         finish();
     }
 
+    // Handles Firebase authentication/repository errors
     @Override
     public void onError(String errorMessage) {
-        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        setUiLoading(false);
+        showToast(errorMessage);
     }
 
     @Override
     public void onActionMessage(String message) {
+        setUiLoading(false);
+        showToast(message);
+    }
 
+    // UI HELPER/UTILITY METHODS
+    private String getTrimmedText(TextInputEditText input) {
+        return input.getText() != null ? input.getText().toString().trim() : "";
+    }
+
+    private String getText(TextInputEditText input) {
+        return input.getText() != null ? input.getText().toString() : "";
+    }
+
+    private void clearErrors() {
+        nameLayout.setError(null);
+        phoneLayout.setError(null);
+        emailLayout.setError(null);
+        passwordLayout.setError(null);
+        confirmLayout.setError(null);
+    }
+
+    // Prevent duplicate sign up requests while waiting for Firebase
+    private void setUiLoading(boolean isLoading) {
+        registerButton.setEnabled(!isLoading);
+        signInButton.setEnabled(!isLoading);
+
+        registerButton.setText(isLoading ? "Creating Account..." : getString(R.string.register_button));
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
