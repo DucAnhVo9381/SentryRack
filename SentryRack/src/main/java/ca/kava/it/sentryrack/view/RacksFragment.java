@@ -39,7 +39,6 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
     private final RackRepository rackRepository = new RackRepository();
     private RackListAdapter adapter;
     private DashboardRackController controller;
-    private TextView racksTotalCount;
 
     // RackData data = dead RackData = OFFLINE
     private final Handler staleHandler = new Handler(Looper.getMainLooper());
@@ -58,7 +57,6 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.racks_fragment, container, false);
 
-        racksTotalCount = view.findViewById(R.id.racksTotalCount);
         RecyclerView recyclerView = view.findViewById(R.id.racksRecyclerView);
 
         adapter = new RackListAdapter();
@@ -86,10 +84,6 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
         UserData currentUserData = new AuthController().getCurrentUser();
         if (currentUserData == null) {
             adapter.submitList(Collections.emptyList());
-            if (racksTotalCount != null) {
-                racksTotalCount.setText(getResources().getQuantityString(
-                        R.plurals.racks_total_count, 0, 0));
-            }
             return;
         }
         controller.start(currentUserData.getUid());
@@ -107,10 +101,6 @@ public class RacksFragment extends Fragment implements DashboardRackController.C
     public void onRacksChanged(List<RackStatus> racks) {
         if (adapter == null) return;
         adapter.submitList(racks);
-        if (racksTotalCount != null && isAdded()) {
-            racksTotalCount.setText(getResources().getQuantityString(
-                    R.plurals.racks_total_count, racks.size(), racks.size()));
-        }
     }
 
     @Override

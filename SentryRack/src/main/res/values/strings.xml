@@ -90,7 +90,6 @@
     <string name="racks_chip_warning">Warning</string>
     <string name="racks_chip_critical">Critical</string>
     <string name="racks_register_button">Register Rack</string>
-    <string name="racks_header_title">Monitored Racks</string>
     <plurals name="racks_total_count">
         <item quantity="one">%d Rack</item>
         <item quantity="other">%d Racks</item>

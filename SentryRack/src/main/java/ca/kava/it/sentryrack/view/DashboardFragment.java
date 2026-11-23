@@ -32,12 +32,6 @@ import ca.kava.it.sentryrack.model.RackStatus;
 
 public class DashboardFragment extends Fragment implements DashboardRackController.Callback {
 
-    //--- FRAGMENT DEFAULT FIELDS & METHODS ---
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
     private DashboardRackController rackController;
     private RackListAdapter attentionAdapter;
     private List<RackStatus> currentRacks = new ArrayList<>();
@@ -60,25 +54,7 @@ public class DashboardFragment extends Fragment implements DashboardRackControll
         // Required empty public constructor
     }
 
-    public static DashboardFragment newInstance(String param1, String param2) {
-        DashboardFragment fragment = new DashboardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    //--- MAIN LIFECYCLE METHOD ---
+    // MAIN LIFECYCLE METHOD
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
