@@ -113,7 +113,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpControlle
     @Override
     public void onSuccess(UserData userData) {
         setUiLoading(false);
-        showToast("Account created successfully");
+        showToast(getString(R.string.register_success));
         finish();
     }
 
@@ -152,7 +152,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpControlle
         registerButton.setEnabled(!isLoading);
         signInButton.setEnabled(!isLoading);
 
-        registerButton.setText(isLoading ? "Creating Account..." : getString(R.string.register_button));
+        registerButton.setText(isLoading ? R.string.register_creating_account : R.string.register_button);
     }
 
     private void showToast(String message) {

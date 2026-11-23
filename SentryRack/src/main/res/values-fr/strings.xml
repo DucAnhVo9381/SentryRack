@@ -339,4 +339,7 @@
     <string name="login_incorrect_credentials">Courriel ou mot de passe incorrect</string>
     <string name="login_signing_in">Connexion…</string>
     <string name="login_sign_in">Se connecter</string>
+
+    <string name="register_creating_account">Création du compte…</string>
+    <string name="register_success">Compte créé avec succès</string>
 </resources>

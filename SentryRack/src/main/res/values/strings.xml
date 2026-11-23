@@ -363,4 +363,7 @@
     <string name="login_incorrect_credentials">Incorrect email or password</string>
     <string name="login_signing_in">Signing In…</string>
     <string name="login_sign_in">Sign In</string>
+
+    <string name="register_creating_account">Creating Account…</string>
+    <string name="register_success">Account created successfully</string>
 </resources>
