@@ -8,14 +8,7 @@ import ca.kava.it.sentryrack.model.InputValidator;
 import ca.kava.it.sentryrack.model.UserData;
 
 public class SignUpController implements AuthController.Callback {
-    public enum Field {
-        NAME,
-        PHONE,
-        EMAIL,
-        PASSWORD,
-        CONFIRM_PASSWORD,
-        PRIVACY
-    }
+    public enum Field {NAME, PHONE, EMAIL, PASSWORD, CONFIRM_PASSWORD, PRIVACY}
 
     public interface Callback {
         void onValidationError(Field field, String errorMessage);

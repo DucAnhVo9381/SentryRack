@@ -101,6 +101,9 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
             return false;
         });
 
+        Utility.clearErrorOnInput(emailInput, emailLayout);
+        Utility.clearErrorOnInput(passwordInput, passwordLayout);
+
         MaterialButton forgotButton = findViewById(R.id.forgotPasswordButton);
         forgotButton.setOnClickListener(v -> attemptPasswordReset());
 
@@ -116,15 +119,15 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
         emailLayout.setError(null);
         passwordLayout.setError(null);
 
-        String email = emailInput.getText() != null ? emailInput.getText().toString() : "";
-        String password = passwordInput.getText() != null ? passwordInput.getText().toString() : "";
+        String email = Utility.getText(emailInput).trim();
+        String password = Utility.getText(passwordInput);
         loginController.loginWithEmail(email, password);
     }
 
     private void attemptPasswordReset() {
         emailLayout.setError(null);
 
-        String email = emailInput.getText() != null ? emailInput.getText().toString() : "";
+        String email = Utility.getText(emailInput).trim();
         loginController.sendPasswordResetEmail(email);
     }
 
@@ -156,7 +159,7 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
                                 GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.getData());
                                 loginController.loginWithGoogle(googleIdTokenCredential.getIdToken());
                             } catch (Exception e) {
-                                showToast(getString(R.string.google_sign_in_failed_to_parse_token));
+                                Utility.showLongToast(LoginActivity.this, getString(R.string.google_sign_in_failed_to_parse_token));
                             }
                         }
                     }
@@ -165,16 +168,16 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
                     public void onError(@NonNull GetCredentialException e) {
                         String msg = e.getMessage();
                         if (msg != null && msg.toLowerCase().contains("no credentials")) {
-                            showToast(getString(R.string.login_google_no_account));
+                            Utility.showLongToast(LoginActivity.this, getString(R.string.login_google_no_account));
                             try {
                                 Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
                                 intent.putExtra(android.provider.Settings.EXTRA_ACCOUNT_TYPES, new String[]{"com.google"});
                                 startActivity(intent);
                             } catch (Exception ex) {
-                                showToast(getString(R.string.login_google_settings_error));
+                                Utility.showLongToast(LoginActivity.this, getString(R.string.login_google_settings_error));
                             }
                         } else if (msg != null && !msg.toLowerCase().contains("cancel")) {
-                            showToast(getString(R.string.login_google_error, e.getLocalizedMessage()));
+                            Utility.showLongToast(LoginActivity.this, getString(R.string.login_google_error, e.getLocalizedMessage()));
                         }
                     }
                 }
@@ -200,7 +203,7 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
     @Override
     public void onSuccess(UserData userData) {
         setUiLoading(false);
-        showToast(getString(R.string.login_welcome, userData.getDisplayName()));
+        Utility.showLongToast(this, getString(R.string.login_welcome, userData.getDisplayName()));
         navigateToMain();
     }
 
@@ -213,13 +216,13 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
             emailLayout.setError(getString(R.string.login_incorrect_credentials));
             passwordLayout.setError(getString(R.string.login_incorrect_credentials));
         } else {
-            showToast(errorMessage);
+            Utility.showLongToast(this, errorMessage);
         }
     }
 
     @Override
     public void onActionMessage(String message) {
-        showToast(message);
+        Utility.showLongToast(this, message);
     }
 
     // UI HELPER/UTILITY METHODS
@@ -257,9 +260,5 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
                 .setDuration(LOGO_ANIMATION)
                 .setInterpolator(new DecelerateInterpolator())
                 .start();
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
