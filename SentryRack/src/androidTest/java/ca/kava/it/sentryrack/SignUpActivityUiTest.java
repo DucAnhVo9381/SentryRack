@@ -24,6 +24,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertTrue;
+import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
 public class SignUpActivityUiTest {
@@ -90,14 +92,19 @@ public class SignUpActivityUiTest {
 
     @Test
     public void registrationRequiresPrivacyPolicyAcceptance() {
-        try (ActivityScenario<SignUpActivity> ignored =
+        try (ActivityScenario<SignUpActivity> scenario =
                      ActivityScenario.launch(SignUpActivity.class)) {
-            enterValidRegistrationDetails("matching-password", "matching-password");
+            enterText(R.id.registerNameInput, "Test User");
+            enterText(R.id.registerPhoneInput, "4165550123");
+            enterText(R.id.registerEmailInput, "test@example.com");
+            enterText(R.id.registerPasswordInput, "Password1!");
+            enterText(R.id.registerConfirmInput, "Password1!");
             submitRegistrationForm();
 
-            onView(withText("Please accept the privacy policy"))
-                    .inRoot(new ToastRootMatcher())
-                    .check(matches(isDisplayed()));
+            // Without accepting the policy, the user stays on the sign up screen
+            onView(withId(R.id.registerCard)).check(matches(isDisplayed()));
+            onView(withId(R.id.registerAgreeCheck)).check(matches(isNotChecked()));
+            scenario.onActivity(activity -> assertFalse(activity.isFinishing()));
         }
     }
 
