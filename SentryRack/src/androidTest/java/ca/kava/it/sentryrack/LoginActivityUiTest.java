@@ -88,5 +88,15 @@ public class LoginActivityUiTest {
         }
     }
 
+    @Test
+    public void submittingWithoutPassword_displaysPasswordRequiredError() {
+        try (ActivityScenario<LoginActivity> ignored = launchLogin()) {
+            onView(withId(R.id.emailInput)).perform(typeText("aaa@bbb.com"), closeSoftKeyboard());
+            onView(withId(R.id.loginButton)).perform(scrollTo(), click());
+
+            onView(withText(R.string.error_password_empty)).check(matches(isDisplayed()));
+        }
+    }
+
 
 }
