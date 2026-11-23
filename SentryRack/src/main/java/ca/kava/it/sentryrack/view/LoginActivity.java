@@ -156,7 +156,7 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
                                 GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.getData());
                                 loginController.loginWithGoogle(googleIdTokenCredential.getIdToken());
                             } catch (Exception e) {
-                                showToast("Google Sign-In failed to parse token.");
+                                showToast(getString(R.string.google_sign_in_failed_to_parse_token));
                             }
                         }
                     }
@@ -165,16 +165,16 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
                     public void onError(@NonNull GetCredentialException e) {
                         String msg = e.getMessage();
                         if (msg != null && msg.toLowerCase().contains("no credentials")) {
-                            showToast("Please sign in to a Google account on this device first.");
+                            showToast(getString(R.string.login_google_no_account));
                             try {
                                 Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
                                 intent.putExtra(android.provider.Settings.EXTRA_ACCOUNT_TYPES, new String[]{"com.google"});
                                 startActivity(intent);
                             } catch (Exception ex) {
-                                showToast("Could not open Account settings.");
+                                showToast(getString(R.string.login_google_settings_error));
                             }
                         } else if (msg != null && !msg.toLowerCase().contains("cancel")) {
-                            showToast("Google Sign-In error: " + e.getLocalizedMessage());
+                            showToast(getString(R.string.login_google_error, e.getLocalizedMessage()));
                         }
                     }
                 }
@@ -200,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
     @Override
     public void onSuccess(UserData userData) {
         setUiLoading(false);
-        showToast("Welcome " + userData.getDisplayName());
+        showToast(getString(R.string.login_welcome, userData.getDisplayName()));
         navigateToMain();
     }
 
@@ -210,8 +210,8 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
         setUiLoading(false);
 
         if("USER NOT FOUND".equals(errorMessage)) {
-            emailLayout.setError("Incorrect email or password");
-            passwordLayout.setError("Incorrect email or password");
+            emailLayout.setError(getString(R.string.login_incorrect_credentials));
+            passwordLayout.setError(getString(R.string.login_incorrect_credentials));
         } else {
             showToast(errorMessage);
         }
@@ -231,8 +231,7 @@ public class LoginActivity extends AppCompatActivity implements LoginController.
     // Disable buttons while waiting for Firebase to prevent duplicate login requests
     private void setUiLoading(boolean isLoading) {
         loginButton.setEnabled(!isLoading);
-        loginButton.setText(isLoading ? "Signing In..." : "Sign In");
-
+        loginButton.setText(isLoading ? R.string.login_signing_in : R.string.login_sign_in);
         googleButton.setEnabled(!isLoading);
         signUpButton.setEnabled(!isLoading);
     }
