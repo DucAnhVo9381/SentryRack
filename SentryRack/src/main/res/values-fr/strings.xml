@@ -330,4 +330,16 @@
     <string name="account_deleted">Votre compte a été supprimé</string>
     <string name="account_relogin">Par sécurité, déconnectez-vous, reconnectez-vous, puis supprimez votre compte.</string>
     <string name="account_error">Une erreur s\'est produite : %1$s</string>
+
+
+    <string name="login_google_no_account">Veuillez d\'abord vous connecter à un compte Google sur cet appareil.</string>
+    <string name="login_google_settings_error">Impossible d\'ouvrir les paramètres du compte.</string>
+    <string name="login_google_error">Erreur de connexion Google : %1$s</string>
+    <string name="login_welcome">Bienvenue %1$s</string>
+    <string name="login_incorrect_credentials">Courriel ou mot de passe incorrect</string>
+    <string name="login_signing_in">Connexion…</string>
+    <string name="login_sign_in">Se connecter</string>
+
+    <string name="register_creating_account">Création du compte…</string>
+    <string name="register_success">Compte créé avec succès</string>
 </resources>

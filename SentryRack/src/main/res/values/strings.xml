@@ -355,4 +355,15 @@
     <string name="account_deleted">Your account was deleted</string>
     <string name="account_relogin">For security, please log out, sign in again, then delete your account.</string>
     <string name="account_error">Something went wrong: %1$s</string>
+
+    <string name="login_google_no_account">Please sign in to a Google account on this device first.</string>
+    <string name="login_google_settings_error">Could not open Account settings.</string>
+    <string name="login_google_error">Google Sign-In error: %1$s</string>
+    <string name="login_welcome">Welcome %1$s</string>
+    <string name="login_incorrect_credentials">Incorrect email or password</string>
+    <string name="login_signing_in">Signing In…</string>
+    <string name="login_sign_in">Sign In</string>
+
+    <string name="register_creating_account">Creating Account…</string>
+    <string name="register_success">Account created successfully</string>
 </resources>
