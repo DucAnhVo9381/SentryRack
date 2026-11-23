@@ -23,7 +23,7 @@
 - Krushna Patel - N01713093.
 - Anvesh Rachakonda - N01661293.
 
-📂 GitHub Repository: [![GitHub repo](https://img.shields.io/badge/sentry_rack-repo-blue?style=social&logo=github)](https://github.com/DucAnhVo9381/SentryRack)
+📂 GitHub Repository: [![GitHub repo](https://img.shields.io/badge/Sentry_Rack-repo-blue?style=social&logo=github)](https://github.com/DucAnhVo9381/SentryRack)
 
 ## App Screens 📱
 <table>
