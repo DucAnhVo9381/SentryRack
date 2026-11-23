@@ -5,6 +5,8 @@
 package ca.kava.it.sentryrack.view;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,6 +64,12 @@ public class SignUpActivity extends AppCompatActivity implements SignUpControlle
         // Initialize controller and register for callback events
         signUpController = new SignUpController(this);
 
+        Utility.clearErrorOnInput(nameInput, nameLayout);
+        Utility.clearErrorOnInput(phoneInput, phoneLayout);
+        Utility.clearErrorOnInput(emailInput, emailLayout);
+        Utility.clearErrorOnInput(passwordInput, passwordLayout);
+        Utility.clearErrorOnInput(confirmInput, confirmLayout);
+
         registerButton.setOnClickListener(v -> attemptSignUp());
         signInButton.setOnClickListener(v -> finish());
     }
@@ -71,11 +79,11 @@ public class SignUpActivity extends AppCompatActivity implements SignUpControlle
         clearErrors();
 
         signUpController.signUp(
-                getTrimmedText(nameInput),
-                getTrimmedText(phoneInput),
-                getTrimmedText(emailInput),
-                getText(passwordInput),
-                getText(confirmInput),
+                Utility.getText(nameInput).trim(),
+                Utility.getText(phoneInput).trim(),
+                Utility.getText(emailInput).trim(),
+                Utility.getText(passwordInput),
+                Utility.getText(confirmInput),
                 agreeCheck.isChecked()
         );
     }
@@ -100,7 +108,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpControlle
                 confirmLayout.setError(errorMessage);
                 break;
             case PRIVACY:
-                showToast(errorMessage);
+                Utility.showLongToast(this, errorMessage);
                 break;
         }
     }
@@ -113,7 +121,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpControlle
     @Override
     public void onSuccess(UserData userData) {
         setUiLoading(false);
-        showToast(getString(R.string.register_success));
+        Utility.showLongToast(this, getString(R.string.register_success));
         finish();
     }
 
@@ -121,24 +129,16 @@ public class SignUpActivity extends AppCompatActivity implements SignUpControlle
     @Override
     public void onError(String errorMessage) {
         setUiLoading(false);
-        showToast(errorMessage);
+        Utility.showLongToast(this, errorMessage);
     }
 
     @Override
     public void onActionMessage(String message) {
         setUiLoading(false);
-        showToast(message);
+        Utility.showLongToast(this, message);
     }
 
     // UI HELPER/UTILITY METHODS
-    private String getTrimmedText(TextInputEditText input) {
-        return input.getText() != null ? input.getText().toString().trim() : "";
-    }
-
-    private String getText(TextInputEditText input) {
-        return input.getText() != null ? input.getText().toString() : "";
-    }
-
     private void clearErrors() {
         nameLayout.setError(null);
         phoneLayout.setError(null);
@@ -153,9 +153,5 @@ public class SignUpActivity extends AppCompatActivity implements SignUpControlle
         signInButton.setEnabled(!isLoading);
 
         registerButton.setText(isLoading ? R.string.register_creating_account : R.string.register_button);
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
