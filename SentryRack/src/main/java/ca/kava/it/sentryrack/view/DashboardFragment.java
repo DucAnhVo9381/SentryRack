@@ -24,21 +24,17 @@ import java.util.Calendar;
 import java.util.List;
 
 import ca.kava.it.sentryrack.R;
+import ca.kava.it.sentryrack.controller.DashboardListAdapter;
+import ca.kava.it.sentryrack.controller.RackListAdapter;
+import ca.kava.it.sentryrack.model.DashboardModel;
 import ca.kava.it.sentryrack.model.UserData;
 import ca.kava.it.sentryrack.controller.AuthController;
 import ca.kava.it.sentryrack.controller.DashboardRackController;
 import ca.kava.it.sentryrack.model.RackStatus;
 
 public class DashboardFragment extends Fragment implements DashboardRackController.Callback {
-
-    //--- FRAGMENT DEFAULT FIELDS & METHODS ---
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
     private DashboardRackController rackController;
-    private RackStatusAdapter attentionAdapter;
+    private DashboardListAdapter dashboardListAdapter;
     private List<RackStatus> currentRacks = new ArrayList<>();
     private TextView totalRackCount;
     private TextView healthyCount;
@@ -59,25 +55,7 @@ public class DashboardFragment extends Fragment implements DashboardRackControll
         // Required empty public constructor
     }
 
-    public static DashboardFragment newInstance(String param1, String param2) {
-        DashboardFragment fragment = new DashboardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    //--- MAIN LIFECYCLE METHOD ---
+    // MAIN LIFECYCLE METHOD
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -91,14 +69,23 @@ public class DashboardFragment extends Fragment implements DashboardRackControll
         TextView dashboardGreeting = view.findViewById(R.id.dashboardGreeting);
         dashboardGreeting.setText(getGreetingMessage(displayName));
 
+        TextView viewAllAttention = view.findViewById(R.id.dashboardViewAllAttention);
+        viewAllAttention.setOnClickListener(v -> {
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new AlertsFragment())
+                    .commit();
+        });
+
         totalRackCount = view.findViewById(R.id.dashboardTotalRackCount);
         healthyCount = view.findViewById(R.id.dashboardHealthyCount);
         warningCount = view.findViewById(R.id.dashboardWarningCount);
         criticalCount = view.findViewById(R.id.dashboardCriticalCount);
+
         RecyclerView attentionRecycler = view.findViewById(R.id.dashboardRecyclerView);
-        attentionAdapter = new RackStatusAdapter();
+        dashboardListAdapter = new DashboardListAdapter();
         attentionRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
-        attentionRecycler.setAdapter(attentionAdapter);
+        attentionRecycler.setAdapter(dashboardListAdapter);
         rackController = new DashboardRackController(this);
 
         return view;
@@ -131,7 +118,7 @@ public class DashboardFragment extends Fragment implements DashboardRackControll
         healthyCount = null;
         warningCount = null;
         criticalCount = null;
-        attentionAdapter = null;
+        dashboardListAdapter = null;
     }
 
     @Override
@@ -151,16 +138,16 @@ public class DashboardFragment extends Fragment implements DashboardRackControll
         int healthy = 0;
         int warning = 0;
         int critical = 0;
-        List<RackStatus> attention = new ArrayList<>();
+        List<DashboardModel> dashboardModels = new ArrayList<>();
 
         for (RackStatus rack : currentRacks) {
             RackStatus.Condition condition = rack.getCondition(RackStatus.STALE_AFTER_MS);
             if (condition == RackStatus.Condition.CRITICAL) {
                 critical++;
-                attention.add(rack);
+                dashboardModels.add(new DashboardModel(rack.name, "Coolant leak detected", rack.timestamp, true));
             } else if (condition == RackStatus.Condition.WARNING) {
                 warning++;
-                attention.add(rack);
+                dashboardModels.add(new DashboardModel(rack.name, "Rack offline", rack.timestamp, false));
             } else {
                 healthy++;
             }
@@ -172,7 +159,7 @@ public class DashboardFragment extends Fragment implements DashboardRackControll
             healthyCount.setText(String.valueOf(healthy));
             warningCount.setText(String.valueOf(warning));
             criticalCount.setText(String.valueOf(critical));
-            attentionAdapter.submitList(attention);
+            dashboardListAdapter.submitList(dashboardModels);
         }
     }
 

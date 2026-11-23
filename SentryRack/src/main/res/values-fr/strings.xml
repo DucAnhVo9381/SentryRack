@@ -76,7 +76,6 @@
     <string name="racks_chip_warning">Avertissement</string>
     <string name="racks_chip_critical">Critiques</string>
     <string name="racks_register_button">Enregistrer une baie</string>
-    <string name="racks_header_title">Baies surveillées</string>
     <plurals name="racks_total_count">
         <item quantity="one">%d baie</item>
         <item quantity="many">%d baies</item>

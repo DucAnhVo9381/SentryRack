@@ -3,7 +3,7 @@
 // Anvesh Rachakonda N01661293 ONC
 // Krushna Patel N01713093 ONC
 
-package ca.kava.it.sentryrack.view;
+package ca.kava.it.sentryrack.controller;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -22,10 +22,13 @@ import ca.kava.it.sentryrack.R;
 
 
 import ca.kava.it.sentryrack.model.RackStatus;
-public class RackStatusAdapter extends ListAdapter<RackStatus, RackStatusAdapter.VH> {
+import ca.kava.it.sentryrack.view.SensorUnitConverter;
+import ca.kava.it.sentryrack.view.SettingsFragment;
+
+public class RackListAdapter extends ListAdapter<RackStatus, RackListAdapter.VH> {
     private static final long STALE_MS = RackStatus.STALE_AFTER_MS;
 
-    public RackStatusAdapter() {
+    public RackListAdapter() {
         super(new DiffUtil.ItemCallback<RackStatus>() {
             @Override
             public boolean areItemsTheSame(@NonNull RackStatus a, @NonNull RackStatus b) {

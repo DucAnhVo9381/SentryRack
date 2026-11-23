@@ -30,6 +30,12 @@ public class RackRepository {
         void onError(String message);
     }
 
+    // Used to report delete success/failure back to the caller
+    public interface DeleteRackCallback {
+        void onSuccess();
+        void onError(String message);
+    }
+
     private static class Existing {
         String locationId;
         String buildingId;
@@ -231,5 +237,41 @@ public class RackRepository {
     }
     private String newKey(String node) {
         return rootRef.child(node).push().getKey();
+    }
+
+
+    // Deletes a rack and removes all Firebase references to it
+    public void deleteRack(String rackId, DeleteRackCallback callback) {
+        // Find the room that owns this rack
+        rootRef.child("racks")
+                .child(rackId)
+                .get()
+                .addOnSuccessListener(snapshot -> {
+                    // Read room id
+                    String roomId = snapshot.child("roomId").getValue(String.class);
+
+                    // Paths that will be deleted
+                    Map<String, Object> updates = new HashMap<>();
+
+                    // Remove rack information
+                    updates.put("/racks/" + rackId, null);
+                    // Remove sensor readings
+                    updates.put("/latest/" + rackId, null);
+
+                    // Remove rack from its room
+                    if (roomId != null) {
+                        updates.put("/rooms/" + roomId + "/racks/" + rackId, null);
+                    }
+
+                    // Execute all deletions in one Firebase update
+                    rootRef.updateChildren(updates, (error, ref) -> {
+                        if (error != null) {
+                            callback.onError(error.getMessage());   // Notify caller that deletion failed
+                        } else {
+                            callback.onSuccess();       // Notify caller that deletion succeeded
+                        }
+                    });
+                })
+                .addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
 }
