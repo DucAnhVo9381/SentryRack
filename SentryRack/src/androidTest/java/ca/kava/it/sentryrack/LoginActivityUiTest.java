@@ -22,6 +22,9 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
+import android.widget.EditText;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityUiTest {
@@ -115,6 +118,21 @@ public class LoginActivityUiTest {
             onView(withId(R.id.signUpButton)).perform(scrollTo(), click());
 
             onView(withId(R.id.registerCard)).check(matches(isDisplayed()));
+        }
+    }
+
+    @Test
+    public void loginFields_startEmpty() {
+        try (ActivityScenario<LoginActivity> scenario = launchLogin()) {
+            scenario.onActivity(activity -> {
+                EditText email = activity.findViewById(R.id.emailInput);
+                EditText password = activity.findViewById(R.id.passwordInput);
+
+                assertNotNull(email);
+                assertNotNull(password);
+                assertEquals("", email.getText().toString());
+                assertEquals("", password.getText().toString());
+            });
         }
     }
 }
