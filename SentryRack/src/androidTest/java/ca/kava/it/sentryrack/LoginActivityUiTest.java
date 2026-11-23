@@ -17,6 +17,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityUiTest {
@@ -34,4 +35,28 @@ public class LoginActivityUiTest {
             onView(withText(R.string.error_email_empty)).check(matches(isDisplayed()));
         }
     }
+
+    // Opens the login screen without auto-login (same setup as the test above)
+    private ActivityScenario<LoginActivity> launchLogin() {
+        Intent intent = new Intent(
+                ApplicationProvider.getApplicationContext(),
+                LoginActivity.class
+        ).putExtra(LoginActivity.FROM_LOGOUT, true);
+        return ActivityScenario.launch(intent);
+    }
+
+    @Test
+    public void loginScreen_displaysAllFieldsAndButtons() {
+        try (ActivityScenario<LoginActivity> ignored = launchLogin()) {
+            onView(withId(R.id.emailInput)).check(matches(isDisplayed()));
+            onView(withId(R.id.passwordInput)).check(matches(isDisplayed()));
+            onView(withId(R.id.rememberMeCheck)).perform(scrollTo()).check(matches(isDisplayed()));
+            onView(withId(R.id.forgotPasswordButton)).perform(scrollTo()).check(matches(isDisplayed()));
+            onView(withId(R.id.loginButton)).perform(scrollTo()).check(matches(isDisplayed()));
+            onView(withId(R.id.googleButton)).perform(scrollTo()).check(matches(isDisplayed()));
+            onView(withId(R.id.signUpButton)).perform(scrollTo()).check(matches(isDisplayed()));
+        }
+    }
+
+
 }
