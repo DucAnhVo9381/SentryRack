@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:text="Environmental Warning" />
+                android:text="Racks created" />
 
             <TextView
                 android:id="@+id/activityDescription"
