@@ -79,4 +79,29 @@ public class InputValidatorUnitTest {
         assertFalse(InputValidator.passwordsMatch("Admin101!", "admin101!"));
         assertFalse(InputValidator.passwordsMatch(null, "Admin101!"));
     }
+
+    // 9. Full names with spaces, apostrophes and hyphens are accepted
+    @Test
+    public void isValidFullName_realNames_returnTrue() {
+        assertTrue(InputValidator.isValidFullName("Anvesh Rachakonda"));
+        assertTrue(InputValidator.isValidFullName("Mary-Jane O'Neil"));
+    }
+
+    // 10. Names with digits or symbols are refused
+    @Test
+    public void isValidFullName_invalidNames_returnFalse() {
+        assertFalse(InputValidator.isValidFullName("John3"));
+        assertFalse(InputValidator.isValidFullName("@nvesh"));
+        assertFalse(InputValidator.isValidFullName(""));
+    }
+
+    // 11. Canadian phone numbers in common formats are accepted, wrong ones refused
+    @Test
+    public void isValidPhoneNumber_validAndInvalid() {
+        assertTrue(InputValidator.isValidPhoneNumber("4165551234"));
+        assertTrue(InputValidator.isValidPhoneNumber("(416) 555-1234"));
+        assertTrue(InputValidator.isValidPhoneNumber("+1 416 555 1234"));
+        assertFalse(InputValidator.isValidPhoneNumber("1165551234"));   // area code cannot start with 1
+        assertFalse(InputValidator.isValidPhoneNumber("41655512"));     // too short
+    }
 }
