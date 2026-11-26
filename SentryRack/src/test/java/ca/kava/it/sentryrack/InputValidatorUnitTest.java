@@ -104,4 +104,22 @@ public class InputValidatorUnitTest {
         assertFalse(InputValidator.isValidPhoneNumber("1165551234"));   // area code cannot start with 1
         assertFalse(InputValidator.isValidPhoneNumber("41655512"));     // too short
     }
+
+    // 12. Blank check: empty, spaces only and null are blank; text is not
+    @Test
+    public void isBlank_detectsEmptyInput() {
+        assertTrue(InputValidator.isBlank(""));
+        assertTrue(InputValidator.isBlank("   "));
+        assertTrue(InputValidator.isBlank(null));
+        assertEquals(false, InputValidator.isBlank("aaa@bbb.com"));
+    }
+
+    // 13. All regex patterns are created when the class loads
+    @Test
+    public void patterns_areCreated() {
+        assertNotNull(InputValidator.EMAIL_PATTERN);
+        assertNotNull(InputValidator.PASSWORD_PATTERN);
+        assertNotNull(InputValidator.PHONE_PATTERN);
+        assertNotNull(InputValidator.FULL_NAME);
+    }
 }
