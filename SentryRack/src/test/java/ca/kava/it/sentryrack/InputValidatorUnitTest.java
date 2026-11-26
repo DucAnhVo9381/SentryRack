@@ -48,4 +48,35 @@ public class InputValidatorUnitTest {
         assertNotEquals(InputValidator.isValidEmail("aaa@bbb.com"),
                 InputValidator.isValidEmail("aaa@"));
     }
+
+
+    // 5. The test account password follows all the rules
+    @Test
+    public void isValidPassword_strongPassword_returnsTrue() {
+        assertTrue(InputValidator.isValidPassword("Admin101!"));
+    }
+
+    // 6. Passwords missing one rule are refused
+    @Test
+    public void isValidPassword_weakPasswords_returnFalse() {
+        assertFalse(InputValidator.isValidPassword("admin101!"));   // no upper case
+        assertFalse(InputValidator.isValidPassword("ADMIN101!"));   // no lower case
+        assertFalse(InputValidator.isValidPassword("Adminabc!"));   // no digit
+        assertFalse(InputValidator.isValidPassword("Admin1010"));   // no special character
+        assertFalse(InputValidator.isValidPassword("Adm101!"));     // shorter than 9
+    }
+
+    // 7. Spaces are not allowed inside a password
+    @Test
+    public void isValidPassword_withSpace_returnsFalse() {
+        assertFalse(InputValidator.isValidPassword("Admin 101!"));
+    }
+
+    // 8. Confirm password must be exactly the same
+    @Test
+    public void passwordsMatch_sameAndDifferent() {
+        assertTrue(InputValidator.passwordsMatch("Admin101!", "Admin101!"));
+        assertFalse(InputValidator.passwordsMatch("Admin101!", "admin101!"));
+        assertFalse(InputValidator.passwordsMatch(null, "Admin101!"));
+    }
 }
